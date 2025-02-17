@@ -4,8 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/pokedex.css">
+    <link rel="stylesheet" href="../css/nav.css">
 </head>
 <body>
+    <nav class="pokedex__nav">
+        <section class="pokedex__nav__title">
+            <img src="../example.com" alt="Fetch 'Em All Logo">
+            <h1>Fetch 'Em All</h1>
+        </section>
+
+        <section class="pokedex__nav__items">
+            <a href="#"><h2>Home</h2></a>
+            <a href="#"><h2>Pokedex</h2></a>
+            <a href="#"><h2>My Pokemon</h2></a>
+            <a href="#"><h2>Who's That Pokemon</h2></a>
+        </section>
+    </nav>
+
     <h1 class="pokedex">Pokedex</h1>
     <section class="pokedex__card">
         <section class="pokedex__card__left">
@@ -16,6 +33,9 @@
 
         <img src="" class="pokedex__card__img--front">
     </section>
+    <footer>
+        <p>Using <a href="https://pokeapi.co/">pokeapi</a></p>
+    </footer>
     <script src="../pokedex.js"></script>
 </body>
 </html>

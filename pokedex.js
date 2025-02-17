@@ -30,6 +30,6 @@ function displayPokemonOnCard() {
         }
     });
 }
-document.addEventListener("DOMContentLoaded", () => {
-    displayPokemonOnCard();
-});
+// document.addEventListener("DOMContentLoaded", () => {
+//     displayPokemonOnCard();
+// });
