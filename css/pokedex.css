@@ -23,6 +23,9 @@ h3 {
 
 nav {
     min-height: 10vh;
+    position:sticky;
+    top: 0;
+    background-color: white;
     display: flex;
     flex-direction: row;
     flex-wrap: none;
@@ -59,7 +62,7 @@ nav {
     display: inline-block;
 }
 
-.pokedex__nav__items li:active{
+.pokedex__nav__items li:hover:active, .pokedex__nav__items .active{
     color: orangered;
 }
 
@@ -93,10 +96,6 @@ footer {
     text-align: center;
     /* padding: 10px; */
     min-height: 5vh;
-}
-
-footer p, footer a{
-    /* font-size: 1.5rem; */
 }
 
 footer a {
