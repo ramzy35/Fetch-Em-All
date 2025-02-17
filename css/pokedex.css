@@ -72,11 +72,12 @@ nav {
 /* MAIN */
 /*      */
 
-main {
+.pokedex {
     min-height: 85vh;
-}
-main .pokedex__title {
-    padding: 15px 0 0 15px;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 /*        */
