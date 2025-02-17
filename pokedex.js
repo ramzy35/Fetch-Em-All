@@ -77,7 +77,7 @@ function getPokemonList() {
         var promises, i, poke;
         return __generator(this, function (_a) {
             promises = [];
-            for (i = 1; i <= 15; i++) {
+            for (i = 1; i <= 151; i++) {
                 poke = new Pokemon(i);
                 promises.push(poke.fetchPokemonDataById());
             }
