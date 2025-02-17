@@ -11,31 +11,39 @@
 <body>
     <nav class="pokedex__nav">
         <section class="pokedex__nav__title">
-            <img src="../example.com" alt="Fetch 'Em All Logo">
+            <img src="../images/placeholder50x50.jpg" alt="Fetch 'Em All Logo">
             <h1>Fetch 'Em All</h1>
         </section>
 
-        <section class="pokedex__nav__items">
-            <a href="#"><h2>Home</h2></a>
-            <a href="#"><h2>Pokedex</h2></a>
-            <a href="#"><h2>My Pokemon</h2></a>
-            <a href="#"><h2>Who's That Pokemon</h2></a>
-        </section>
+        <ul class="pokedex__nav__items">
+            <a href="#"><li>Home</li></a>
+            <a href="#"><li>Pokedex</li></a>
+            <a href="#"><li>My Pokemon</li></a>
+            <a href="#"><li>Who's That Pokemon</li></a>
+        </ul>
     </nav>
 
-    <h1 class="pokedex">Pokedex</h1>
-    <section class="pokedex__card">
-        <section class="pokedex__card__left">
-            <h2 class="pokedex__card__left__name"></h2>
-            <p class="pokedex__card__left__id"></p>
-            <p class="pokedex__card__left__types"></p>
+    <main>
+        <h1 class="pokedex__title">Pokedex</h1>
+        <section class="pokedex">
+            <section class="pokedex__card">
+                <section class="pokedex__card__left">
+                    <h2 class="pokedex__card__left__name"></h2>
+                    <p class="pokedex__card__left__id"></p>
+                    <p class="pokedex__card__left__types"></p>
+                </section>
+        
+                <img src="" class="pokedex__card__img--front">
+            </section>
         </section>
 
-        <img src="" class="pokedex__card__img--front">
-    </section>
+    </main>
+
+
     <footer>
         <p>Using <a href="https://pokeapi.co/">pokeapi</a></p>
     </footer>
+
     <script src="../pokedex.js"></script>
 </body>
 </html>

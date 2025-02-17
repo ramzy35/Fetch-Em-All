@@ -1,4 +1,6 @@
+/*         */
 /* GENERAL */
+/*         */
 * {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 10px;
@@ -14,13 +16,16 @@ h2 {
 h3 {
     font-size: 2rem;
 }
+
+/*     */
 /* NAV */
+/*     */
 
 nav {
+    min-height: 10vh;
     display: flex;
     flex-direction: row;
     flex-wrap: none;
-    /* gap: 10%; */
     border: 2px black solid;
     border-radius: 5px;
     justify-content: space-between;
@@ -39,7 +44,7 @@ nav {
 }
 
 .pokedex__nav__items {
-    /* width: 70%; */
+    flex-grow: 100;
     display: flex;
     flex-direction: row;
     flex-wrap: none;
@@ -49,16 +54,40 @@ nav {
     align-items: center;
 }
 
-.pokedex__nav__items h2 {
+.pokedex__nav__items li {
+    font-size: 2.5rem;
     display: inline-block;
 }
 
-.pokedex__nav__items h2:active{
+.pokedex__nav__items li:active{
     color: orangered;
 }
 
-/* FOOTER */
+.pokedex__nav__title img {
+    height: 50px;
+    width: 50px;
+}
 
+/*      */
+/* MAIN */
+/*      */
+
+main {
+    min-height: 85vh;
+}
+main .pokedex__title {
+    padding: 15px 0 0 15px;
+}
+
+/*        */
+/* FOOTER */
+/*        */
+
+footer {
+    text-align: center;
+    padding: 10px;
+    min-height: 5vh;
+}
 footer p, footer a{
     font-size: 1.5rem;
 }
