@@ -29,7 +29,7 @@ class Pokemon {
 async function getPokemonList(): Promise<Pokemon[]> {
     let promises: Promise<Pokemon>[] = [];
 
-    for (let i = 1; i <= 15; i++) {
+    for (let i = 1; i <= 151; i++) {
         let poke = new Pokemon(i);
         promises.push(poke.fetchPokemonDataById());
     }
@@ -86,3 +86,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         buildPokedex(pokemonList);
     });
 });
+// document.addEventListener("DOMContentLoaded", () => {
+//     displayPokemonOnCard();
+// });

@@ -126,3 +126,6 @@ document.addEventListener("DOMContentLoaded", function () { return __awaiter(_th
         return [2 /*return*/];
     });
 }); });
+// document.addEventListener("DOMContentLoaded", () => {
+//     displayPokemonOnCard();
+// });
