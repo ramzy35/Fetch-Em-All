@@ -86,3 +86,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         buildPokedex(pokemonList);
     });
 });
+// document.addEventListener("DOMContentLoaded", () => {
+//     displayPokemonOnCard();
+// });
