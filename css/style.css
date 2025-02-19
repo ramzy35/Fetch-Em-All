@@ -1,3 +1,17 @@
+@font-face {
+    font-family: pokemonHollow;
+    src: url(../fonts/Pokemon\ Hollow.ttf);
+}
+
+@font-face {
+    font-family: pokemonSolid;
+    src: url(../fonts/Pokemon\ Solid.ttf);
+}
+
+h1 {
+    font-family: pokemonSolid;
+}
+
 
 /* MAKE SURE TO FIX CONSISTENCY IN PADDING/TEXT HEIGHT/ETC */
 .pokedex {
