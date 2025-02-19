@@ -3,9 +3,36 @@ class Pokemon {
     id: number;
     types: string[] = [];
     frontImg: string = "";
+    bgColor: string = "#fff";
 
     constructor(id: number) {
         this.id = id;
+    }
+
+    //TODO: idk if this is needed, just for storing data in the class
+    // the actual bg color is changed on line 79
+    private static getTypeColor(type: string): string {
+        const typeColors: { [key: string]: string } = {
+            bug: "#9dc130",
+            dark: "#5f606d",
+            dragon: "#0773c7",
+            electric: "#edd53f",
+            fairy: "#ef97e6",
+            fighting: "#d94256",
+            fire: "#fc6c6d",
+            flying: "#9bb4e8",
+            ghost: "#7975d3",
+            grass: "#5dbd62",
+            ground: "#d78555",
+            ice: "#97d7d7",
+            normal: "#9a9da1",
+            poison: "#b462cc",
+            psychic: "#f85888",
+            rock: "#c2b062",
+            steel: "#b8b8d0",
+            water: "#60a5fa"
+        };
+        return typeColors[type] || "#fff";
     }
 
     async fetchPokemonDataById(): Promise<Pokemon> {
@@ -17,6 +44,7 @@ class Pokemon {
             this.name = data.name;
             this.types = data.types ? data.types.map((t: any) => t.type.name) : [];
             this.frontImg = data.sprites.front_default;
+            this.bgColor = Pokemon.getTypeColor(this.types[0]);
 
             return this;
         } catch (error) {
@@ -48,7 +76,7 @@ function buildPokedex(list: Pokemon[]) {
 
     list.forEach(pokemon => {
         const card = document.createElement("section");
-        card.classList.add("pokedex__card");
+        card.classList.add("pokedex__card", `type-${pokemon.types[0]}`);
 
         const left = document.createElement("section");
         left.classList.add("pokedex__card__left");
