@@ -1,0 +1,14 @@
+/*        */
+/* FOOTER */
+/*        */
+
+footer {
+    text-align: center;
+    /* padding: 10px; */
+    min-height: 5vh;
+}
+
+footer a {
+    color: blue;
+    text-decoration: underline;
+}

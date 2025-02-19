@@ -8,30 +8,7 @@
     src: url(../fonts/Pokemon\ Solid.ttf);
 }
 
-h1 {
-    font-family: pokemonSolid;
-    font-size: 20px;
-}
-
-
-/* MAKE SURE TO FIX CONSISTENCY IN PADDING/TEXT HEIGHT/ETC */
-.pokedex {
-    justify-content: center;
-}
-
-.pokedex__card {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border: 1px solid black;
-    border-radius: 10px;
-    width: 250px;
-    gap: 20px;
-    flex-wrap: wrap;
-    padding: 10px;
-}
-
-.pokedex__card__img--front {
-    width: 100px;
-    height: 100px;
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-size: 10px;*/
 }
