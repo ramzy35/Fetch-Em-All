@@ -54,6 +54,7 @@ class Pokemon {
         }
     }
 
+    //TODO: release/catch needed??? toggle between catch and release
     catchEm() {
         this.didYouCatchEm = !this.didYouCatchEm;
         const card = document.querySelector(`.pokedex__card[data-id='${this.id}']`) as HTMLElement;
