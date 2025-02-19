@@ -1,8 +1,4 @@
 /* MAKE SURE TO FIX CONSISTENCY IN PADDING/TEXT HEIGHT/ETC */
-.pokedex {
-    justify-content: center;
-}
-
 .pokedex__card {
     display: flex;
     flex-direction: row;
@@ -21,6 +17,7 @@
 }
 
 .pokedex {
+    justify-content: center;
     min-height: 85vh;
     width: 100vw;
     display: flex;
