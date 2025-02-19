@@ -3,7 +3,8 @@ class Pokemon {
     id: number;
     types: string[] = [];
     frontImg: string = "";
-    bgColor: string = "#fff";
+    typeColor: string = "#fff";
+    didYouCatchEm: boolean = false;
 
     constructor(id: number) {
         this.id = id;
@@ -44,12 +45,20 @@ class Pokemon {
             this.name = data.name;
             this.types = data.types ? data.types.map((t: any) => t.type.name) : [];
             this.frontImg = data.sprites.front_default;
-            this.bgColor = Pokemon.getTypeColor(this.types[0]);
+            this.typeColor = Pokemon.getTypeColor(this.types[0]);
 
             return this;
         } catch (error) {
             console.error("Error fetching Pokémon", error);
             return this;
+        }
+    }
+
+    catchEm() {
+        this.didYouCatchEm = !this.didYouCatchEm;
+        const card = document.querySelector(`.pokedex__card[data-id='${this.id}']`) as HTMLElement;
+        if (card) {
+        card.style.borderColor = this.didYouCatchEm ? "green" : "red";
         }
     }
 }
@@ -77,6 +86,7 @@ function buildPokedex(list: Pokemon[]) {
     list.forEach(pokemon => {
         const card = document.createElement("section");
         card.classList.add("pokedex__card", `type-${pokemon.types[0]}`);
+        card.setAttribute("data-id", pokemon.id.toString());
 
         const left = document.createElement("section");
         left.classList.add("pokedex__card__left");
@@ -114,6 +124,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         buildPokedex(pokemonList);
     });
 });
-// document.addEventListener("DOMContentLoaded", () => {
-//     displayPokemonOnCard();
+
+// document.addEventListener("DOMContentLoaded", async () => {
+//     const pokemonList = await getPokemonList();
+//     buildPokedex(pokemonList);
+//     const firstPokemon = pokemonList[0];
+//     firstPokemon.catchEm();  
 // });

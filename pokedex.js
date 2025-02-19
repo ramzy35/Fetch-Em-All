@@ -13,7 +13,8 @@ class Pokemon {
         this.name = "";
         this.types = [];
         this.frontImg = "";
-        this.bgColor = "#fff";
+        this.typeColor = "#fff";
+        this.didYouCatchEm = false;
         this.id = id;
     }
     //TODO: idk if this is needed, just for storing data in the class
@@ -51,7 +52,7 @@ class Pokemon {
                 this.name = data.name;
                 this.types = data.types ? data.types.map((t) => t.type.name) : [];
                 this.frontImg = data.sprites.front_default;
-                this.bgColor = Pokemon.getTypeColor(this.types[0]);
+                this.typeColor = Pokemon.getTypeColor(this.types[0]);
                 return this;
             }
             catch (error) {
@@ -59,6 +60,13 @@ class Pokemon {
                 return this;
             }
         });
+    }
+    catchEm() {
+        this.didYouCatchEm = !this.didYouCatchEm;
+        const card = document.querySelector(`.pokedex__card[data-id='${this.id}']`);
+        if (card) {
+            card.style.borderColor = this.didYouCatchEm ? "green" : "red";
+        }
     }
 }
 function getPokemonList() {
@@ -81,6 +89,7 @@ function buildPokedex(list) {
     list.forEach(pokemon => {
         const card = document.createElement("section");
         card.classList.add("pokedex__card", `type-${pokemon.types[0]}`);
+        card.setAttribute("data-id", pokemon.id.toString());
         const left = document.createElement("section");
         left.classList.add("pokedex__card__left");
         const nameElement = document.createElement("h2");
@@ -109,6 +118,9 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
         buildPokedex(pokemonList);
     });
 }));
-// document.addEventListener("DOMContentLoaded", () => {
-//     displayPokemonOnCard();
+// document.addEventListener("DOMContentLoaded", async () => {
+//     const pokemonList = await getPokemonList();
+//     buildPokedex(pokemonList);
+//     const firstPokemon = pokemonList[0];
+//     firstPokemon.catchEm();  
 // });
