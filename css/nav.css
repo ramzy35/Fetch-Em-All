@@ -44,7 +44,7 @@ nav {
 }
 
 .nav__items li {
-    font-family: pokemonHollow;
+    font-family: pokemonSolid;
     letter-spacing: 3px;
     font-size: 2.5rem;
     display: inline-block;
@@ -62,7 +62,7 @@ nav {
 
 
 /* MEDIA QUERIES FOR SMALLER SCREENS */
-@media only screen and (max-width:1000px) {
+@media only screen and (max-width:1080px) {
     .nav__left__title h1 {
         font-size: 2.5rem;
     }
@@ -72,7 +72,7 @@ nav {
     }
 }
 
-@media only screen and (max-width:768px) {
+@media only screen and (max-width:860px) {
     .nav__items {
         gap: 3.5%;
     }
@@ -89,7 +89,7 @@ nav {
     }
 }
 
-@media only screen and (max-width:600px) {
+@media only screen and (max-width:610px) {
     .nav__items {
         flex-wrap: wrap;
         margin: 0 5px 0 5px;
