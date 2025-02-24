@@ -17,14 +17,29 @@
 .wtp__image {
     height: 70vh;
     width: 70vh;
-    filter: brightness(0%);
+    filter: brightness(0);
 }
 
+.wtp__image--reveal {
+    animation: i;
+    animation-duration: 5s;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+@keyframes i {
+    0% {
+        filter: brightness(0%);
+    }
+    100% {
+        filter: brightness(100%);
+    }
+}
 .wtp__searchbar__textfield {
     justify-self: center;
     display: inline-block;
     border: 1px black solid;
     border-radius: 2px;
-    background-color: lightgray;
+    background-color: rgb(229, 229, 229);
     padding: 5px;
 }
