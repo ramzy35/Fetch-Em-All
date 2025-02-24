@@ -34,7 +34,7 @@ nav {
 }
 
 .nav__items li:active, .nav__items li:hover, .nav__items .active{
-    color: orangered;
+    color: var(--orangered);
 }
 
 .nav__left__logo img {

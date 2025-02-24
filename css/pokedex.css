@@ -1,5 +1,3 @@
-/* MAKE SURE TO FIX CONSISTENCY IN PADDING/TEXT HEIGHT/ETC */
-/* WE ASSUME WE DONT HAVE THE POKEMON, SO BORDER COLOR IS RED */
 .pokedex__card {
     display: flex;
     flex-direction: row;
