@@ -90,18 +90,19 @@ function buildPokedex(list: Pokemon[]) {
         const left = document.createElement("section");
         left.classList.add("pokedex__card__left");
 
-        const nameElement = document.createElement("h2");
-        nameElement.classList.add("pokedex__card__left__name");
-        nameElement.textContent = pokemon.name;
-
         const idElement = document.createElement("p");
         idElement.classList.add("pokedex__card__left__id");
         idElement.textContent = `#${pokemon.id}`;
 
+        const nameElement = document.createElement("h2");
+        nameElement.classList.add("pokedex__card__left__name");
+        nameElement.textContent = pokemon.name;
+
+        
+
         const typesElement = document.createElement("p");
         typesElement.classList.add("pokedex__card__left__types");
         typesElement.textContent = pokemon.types.join(", ");
-
 
         left.appendChild(nameElement);
         left.appendChild(idElement);

@@ -19,6 +19,7 @@ nav {
 .nav__left__title h1 {
     font-family: pokemonSolid;
     font-size: 2.5rem;
+    color: var(--black);
 }
 
 .nav__items {

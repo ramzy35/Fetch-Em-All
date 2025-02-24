@@ -5,11 +5,8 @@
 footer {
     text-align: center;
     padding: 5px;
-    margin-top: 5px;
-    /* min-height: 5vh; */
-    border: 2px black solid;
-    border-radius: 5px;
-    background-color: lightgray;
+    border-top: 2px var(--black) solid;
+    background-color: var(--light-gray);
     
 }
 
@@ -20,13 +17,5 @@ footer a {
 
 footer p, footer a {
     font-weight: bold;
-    letter-spacing: 2px;
-    font-family: pokemonSolid;
     font-size: 1.5rem;
-}
-
-@media only screen and (max-width:600px) {
-    footer p, footer a {
-        font-size: 1rem;
-    }
 }
