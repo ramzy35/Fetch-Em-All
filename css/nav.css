@@ -1,111 +1,42 @@
 nav {
-    min-height: 10vh;
-    position:sticky;
-    top: 0;
-    background-color: white;
+    position: sticky;
     display: flex;
     flex-direction: row;
-    flex-wrap: none;
-    border: 2px black solid;
-    border-radius: 5px;
     justify-content: space-between;
-    /* padding: 10px; */
-    /* margin: 2px; */
-    background-color: lightgray;
+    align-items: center;
+    border-bottom: 2px var(--black) solid;
+    background-color: var(--light-gray);
+    padding: 0px 20px;
 }
 
 .nav__left {
     display: flex;
     flex-direction: row;
-    flex-wrap: none;
-    justify-self: start;
-    justify-content: start;
     align-items: center;
-    gap: 10px;
-    
+    gap: 15px;
 }
 
 .nav__left__title h1 {
-    align-items: center;
     font-family: pokemonSolid;
-    font-size: 3rem;
+    font-size: 2.5rem;
 }
 
 .nav__items {
-    margin: 0 10px 0 10px;
     display: flex;
-    flex-grow: 100;
     flex-direction: row;
-    flex-wrap: none;
-    gap: 5%;
-    justify-self: right;
-    justify-content: center;
-    align-items: center;
+    gap: 20px;
 }
 
 .nav__items li {
-    font-family: pokemonSolid;
-    letter-spacing: 3px;
+    font-family: fantasy;
     font-size: 2.5rem;
-    display: inline-block;
 }
 
 .nav__items li:active, .nav__items li:hover, .nav__items .active{
     color: orangered;
-    text-decoration: underline;
 }
 
 .nav__left__logo img {
     height: 50px;
     width: 50px;
-}
-
-
-/* MEDIA QUERIES FOR SMALLER SCREENS */
-@media only screen and (max-width:1080px) {
-    .nav__left__title h1 {
-        font-size: 2.5rem;
-    }
-    .nav__items li {
-        font-size: 2rem;
-        letter-spacing: 2px;
-    }
-}
-
-@media only screen and (max-width:860px) {
-    .nav__items {
-        gap: 3.5%;
-    }
-    .nav__left__title h1 {
-        font-size: 2rem;
-    }
-    .nav__items li {
-        font-size: 1.5rem;
-        letter-spacing: 1px;
-    }
-    .nav__left__logo img {
-        height: 35px;
-        width: 35px;
-    }
-}
-
-@media only screen and (max-width:610px) {
-    .nav__items {
-        flex-wrap: wrap;
-        margin: 0 5px 0 5px;
-        letter-spacing: 0;
-    }
-
-    .nav__left__title h1 {
-        line-height: 25px;
-    }
-
-    .nav__left {
-        gap: 5px;
-        justify-content: center;
-    }
-    .nav__left__logo img {
-        height: 25px;
-        width: 25px;
-    }
 }
