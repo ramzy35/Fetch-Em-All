@@ -82,8 +82,6 @@ function buildPokedex(list: Pokemon[]) {
         return;
     }
 
-    pokedexSection.innerHTML = '<h1 class="pokedex__title">Pokedex</h1>';
-
     list.forEach(pokemon => {
         const card = document.createElement("section");
         card.classList.add("pokedex__card", `type-${pokemon.types[0]}`);

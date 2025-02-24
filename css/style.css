@@ -8,29 +8,31 @@
     src: url(../fonts/Pokemon\ Solid.ttf);
 }
 
+:root {
+    --black: #000000;
+    --white: #ffffff;
+    --light-gray: #d7d7db;
+    --red: #ff0000;
+    --green: #008000;
+}
+
 * {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:Georgia, 'Times New Roman', Times, serif;
     font-size: 10px;
 }
 
+h1 {
+    font-size: 2.5rem;
+}
+
 h2 {
-    font-size: 18px;
+    font-size: 2rem;
+}
+
+h1, h2 {
     font-family:fantasy;
-    color: black;
 }
 
-.pokedex__card {
-    padding: 15px;
-    text-align: center;
-    max-width: 250px;
-}
-
-.pokedex__card {
-    display: flex;
-    flex-direction: row;
-}
-
-.pokedex__card p {
-    font-size: 14px;
-    font-family:Georgia, 'Times New Roman', Times, serif
+p {
+    font-size: 1.6rem;
 }

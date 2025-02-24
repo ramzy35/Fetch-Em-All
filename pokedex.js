@@ -61,6 +61,7 @@ class Pokemon {
             }
         });
     }
+    //TODO: release/catch needed??? toggle between catch and release
     catchEm() {
         this.didYouCatchEm = !this.didYouCatchEm;
         const card = document.querySelector(`.pokedex__card[data-id='${this.id}']`);
@@ -85,7 +86,6 @@ function buildPokedex(list) {
         console.log("Pokedex section not found?!");
         return;
     }
-    pokedexSection.innerHTML = '<h1 class="pokedex__title">Pokedex</h1>';
     list.forEach(pokemon => {
         const card = document.createElement("section");
         card.classList.add("pokedex__card", `type-${pokemon.types[0]}`);
