@@ -1,0 +1,30 @@
+.wtp {
+    justify-self: center;
+    border: 1px black solid;
+    min-height: 85vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.wtp__title {
+    font-family: pokemonSolid;
+    font-size: 3rem;
+}
+
+.wtp__image {
+    height: 70vh;
+    width: 70vh;
+    filter: brightness(0%);
+}
+
+.wtp__searchbar__textfield {
+    justify-self: center;
+    display: inline-block;
+    border: 1px black solid;
+    border-radius: 2px;
+    background-color: lightgray;
+    padding: 5px;
+}
