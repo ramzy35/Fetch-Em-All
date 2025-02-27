@@ -87,21 +87,23 @@ function getPokemonList1() {
         });
     });
 }
-function showRandomImage() {
+function showRandomImage(list) {
     return __awaiter(this, void 0, void 0, function () {
-        var randomId, pokeTest, imgUrl, imgElement;
+        var randomId, imgUrl, imgSection, imgElement;
         return __generator(this, function (_a) {
             randomId = Math.floor(Math.random() * 151);
-            pokeTest = new Pokemon1(randomId);
-            imgUrl = pokeTest.frontImg;
+            imgUrl = list[randomId].frontImg;
             try {
-                imgElement = document.getElementById("wtp__image");
+                imgSection = document.getElementById("wtp__image");
+                imgElement = document.createElement("img");
                 if (imgElement) {
-                    imgElement.textContent = imgUrl;
+                    imgElement.src = imgUrl;
+                    imgElement.classList.add("wtp__image");
                 }
                 else {
                     console.log("imgElement does not exist");
                 }
+                imgSection === null || imgSection === void 0 ? void 0 : imgSection.appendChild(imgElement);
             }
             catch (_b) {
                 console.log("Failed to insert imgUrl into #wtp__img");
@@ -112,7 +114,9 @@ function showRandomImage() {
 }
 document.addEventListener("DOMContentLoaded", function () { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        showRandomImage();
+        getPokemonList1().then(function (pokemonList) {
+            showRandomImage(pokemonList);
+        });
         return [2 /*return*/];
     });
 }); });

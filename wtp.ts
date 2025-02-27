@@ -40,17 +40,20 @@ async function getPokemonList1(): Promise<Pokemon1[]> {
     return Promise.all(promises);
 }
 
-async function showRandomImage(): Promise<string>{
+async function showRandomImage(list:Pokemon1[]){
     let randomId = Math.floor(Math.random()*151)
-    let pokeTest = new Pokemon1(randomId)
-    let imgUrl = pokeTest.frontImg;
+    // let pokeTest = new Pokemon1(randomId)
+    let imgUrl = list[randomId].frontImg;
     try {
-        const imgElement = document.getElementById("wtp__image")
+        const imgSection = document.getElementById("wtp__image")
+        const imgElement = document.createElement("img")
         if(imgElement){
-            imgElement.textContent = imgUrl;
+            imgElement.src = imgUrl;
+            imgElement.classList.add("wtp__image")
         } else {
             console.log("imgElement does not exist")
         }
+        imgSection?.appendChild(imgElement)
 
     } catch {
         console.log("Failed to insert imgUrl into #wtp__img")
@@ -60,5 +63,7 @@ async function showRandomImage(): Promise<string>{
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    showRandomImage();
+    getPokemonList1().then(pokemonList => {
+        showRandomImage(pokemonList)
+    });
 });
