@@ -5,9 +5,9 @@
     border: 3px solid var(--red);
     border-radius: 10px;
     width: 250px;
-    gap: 20px;
+    /* gap: 20px; */
     flex-wrap: wrap;
-    padding: 8px;
+    padding: 8px 10px 8px 10px;
 }
 
 .pokedex__card:hover {
@@ -33,13 +33,21 @@ body {
     color: var(--light-gray);
 }
 
+.pokedex__card__left__name {
+    font-weight: 500;
+    font-size: 1.7rem;
+}
+
 .pokedex__card__left__types {
-    padding-top: 10px;
+    padding-top: 40px;
+    font-style: italic;
+    /* color: rgb(215, 209, 203); */
 }
 
 .pokedex__card__img--front {
     width: 100px;
     height: 100px;
+    overflow: hidden;
 }
 
 .pokedex {
