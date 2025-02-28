@@ -66,7 +66,7 @@ class Pokemon {
         this.didYouCatchEm = !this.didYouCatchEm;
         const card = document.querySelector(`.pokedex__card[data-id='${this.id}']`);
         if (card) {
-            card.style.borderColor = this.didYouCatchEm ? "green" : "red";
+            card.style.borderColor = this.didYouCatchEm ? "#05d605" : "#ac2323";
         }
     }
 }
@@ -101,8 +101,8 @@ function buildPokedex(list) {
         const typesElement = document.createElement("p");
         typesElement.classList.add("pokedex__card__left__types");
         typesElement.textContent = pokemon.types.join(", ");
-        left.appendChild(idElement);
         left.appendChild(nameElement);
+        left.appendChild(idElement);
         left.appendChild(typesElement);
         const frontImgElement = document.createElement("img");
         frontImgElement.classList.add("pokedex__card__img--front");
@@ -113,14 +113,16 @@ function buildPokedex(list) {
         pokedexSection.appendChild(card);
     });
 }
-document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
-    getPokemonList().then(pokemonList => {
-        buildPokedex(pokemonList);
-    });
-}));
 // document.addEventListener("DOMContentLoaded", async () => {
-//     const pokemonList = await getPokemonList();
-//     buildPokedex(pokemonList);
-//     const firstPokemon = pokemonList[0];
-//     firstPokemon.catchEm();  
+//     getPokemonList().then(pokemonList => {
+//         buildPokedex(pokemonList);
+//     });
 // });
+document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
+    const pokemonList = yield getPokemonList();
+    buildPokedex(pokemonList);
+    const firstPokemon = pokemonList[0];
+    const secondPoke = pokemonList[4];
+    firstPokemon.catchEm();
+    secondPoke.catchEm();
+}));

@@ -59,7 +59,7 @@ class Pokemon {
         this.didYouCatchEm = !this.didYouCatchEm;
         const card = document.querySelector(`.pokedex__card[data-id='${this.id}']`) as HTMLElement;
         if (card) {
-        card.style.borderColor = this.didYouCatchEm ? "green" : "red";
+        card.style.borderColor = this.didYouCatchEm ? "#05d605" : "#ac2323";
         }
     }
 }
@@ -119,15 +119,17 @@ function buildPokedex(list: Pokemon[]) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-    getPokemonList().then(pokemonList => {
-        buildPokedex(pokemonList);
-    });
-});
-
 // document.addEventListener("DOMContentLoaded", async () => {
-//     const pokemonList = await getPokemonList();
-//     buildPokedex(pokemonList);
-//     const firstPokemon = pokemonList[0];
-//     firstPokemon.catchEm();  
+//     getPokemonList().then(pokemonList => {
+//         buildPokedex(pokemonList);
+//     });
 // });
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const pokemonList = await getPokemonList();
+    buildPokedex(pokemonList);
+    const firstPokemon = pokemonList[0];
+    const secondPoke = pokemonList[4];
+    firstPokemon.catchEm();
+    secondPoke.catchEm();  
+});
