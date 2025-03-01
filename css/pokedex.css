@@ -31,11 +31,13 @@ body {
 
 .pokedex__card__left__id {
     color: var(--light-gray);
+    text-shadow: 1px 0 10px;
 }
 
 .pokedex__card__left__name {
     font-weight: 500;
     font-size: 1.7rem;
+    text-transform: capitalize;
 }
 
 .pokedex__card__left__types {
