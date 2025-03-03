@@ -16,12 +16,13 @@
 :root {
     --black: #000000;
     --white: #ffffff;
+    --gray: #333;
     --light-gray: #d7d7db;
     --red: #ac2323;
     --orangered: #ff4400;
     --green: #05d605;
     --yellow: #FFCB05;
-    --blue: #3466AF;
+    --blue: #4070f4;
 }
 
 * {
