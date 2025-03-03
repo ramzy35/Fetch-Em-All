@@ -10,7 +10,7 @@ body {
     background: var(--white);
 }
 
-.signup {
+.signup, .signin {
     position: relative;
     max-width: 430px;
     width: 100%;
@@ -21,14 +21,14 @@ body {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.signup h2 {
+.signup h2, .signin h2 {
     position: relative;
     font-size: 22px;
     font-weight: 600;
     color: var(--gray);
 }
 
-.signup h2::before {
+.signup h2::before, .signin h2::before {
     content: '';
     position: absolute;
     left: 0;
@@ -39,16 +39,20 @@ body {
     background: var(--black);
 }
 
-.signup form {
+.signin h2::before {
+    width: 20px;
+}
+
+.signup form, .signin form {
     margin-top: 30px;
 }
 
-.signup form .signup__input {
+.signup form .signup__input, .signin form .signin__input {
     height: 52px;
     margin: 18px 0;
 }
 
-form .signup__input input {
+form .signup__input input, form .signin__input input {
     height: 100%;
     width: 100%;
     outline: none;
@@ -62,8 +66,8 @@ form .signup__input input {
     transition: all 0.3s ease;
 }
 
-.signup__input input:focus,
-.signup__input input:valid {
+.signup__input input:focus, .signin__input input:focus,
+.signup__input input:valid, .signin__input input:valid {
     border-color: var(--blue);
 }
 
@@ -79,7 +83,7 @@ form h3 {
     margin-left: 10px;
 }
 
-.signup__input.button input {
+.signup__input.button input, .signin__input.button input {
     color: var(--white);
     letter-spacing: 1px;
     border: none;
@@ -87,21 +91,21 @@ form h3 {
     cursor: pointer;
 }
 
-.signup__input.button input:hover {
+.signup__input.button input:hover, .signin__input.button input:hover {
     background: var(--black);
 }
 
-form .signup__text h3 {
+form .signup__text h3, form .signin__text h3 {
     color: var(--gray);
     width: 100%;
     text-align: center;
 }
 
-form .signup__text h3 a {
+form .signup__text h3 a, form .signin__text h3 a {
     color: var(--blue);
     text-decoration: none;
 }
 
-form .signup__text h3 a:hover {
+form .signup__text h3 a:hover, form .signin__text h3 a:hover {
     text-decoration: underline;
 }
