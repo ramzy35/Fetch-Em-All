@@ -2,8 +2,14 @@
     box-sizing: border-box;
 }
 
-body {
-    min-height: 100vh;
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+main {
+    min-height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -108,4 +114,20 @@ form .signup__text h3 a, form .signin__text h3 a {
 
 form .signup__text h3 a:hover, form .signin__text h3 a:hover {
     text-decoration: underline;
+}
+
+.goback {
+    background-color: var(--gray);
+    border-radius: 6px;
+    color: var(--white);
+    cursor: pointer;
+    letter-spacing: 1px;
+    padding: 10px 15px;
+    font-size: 1.7rem;
+    font-weight: 400;
+    transition: all 0.3 ease;
+}
+
+.goback:hover {
+    background-color: var(--black);
 }
