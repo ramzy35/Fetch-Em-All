@@ -15,6 +15,7 @@ body {
 
 .mypokemon {
     justify-content: center;
+    align-items: start;
     min-height: 85vh;
     display: flex;
     flex-direction: row;
