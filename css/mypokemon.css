@@ -1,0 +1,84 @@
+main {
+    padding: 20px 30px;
+    background-color: var(--blue);
+    background: transparent;
+}
+
+main, nav, footer {
+    position: relative;
+    z-index: 1;
+}
+
+body {
+    background-color: var(--blue);
+}
+
+.mypokemon {
+    justify-content: center;
+    min-height: 85vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.mypokemon__card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--blue);
+    border: 1px solid var(--black);
+    align-items: center;
+    gap: 5px;
+    max-height: 190px;
+    border-radius: 5px;
+    padding: 10px 5px 10px 5px;
+    width: 120px;
+    /* border-bottom-width: 2.5px; */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    /* max-width: 101px; */
+}
+
+.mypokemon__card__name {
+    text-transform: capitalize;
+}
+
+.cp {
+    color: var(--gray);
+}
+
+.mypokemon__card__health {
+    background-color: var(--light-gray);
+    width: 80%;
+    height: 10px;
+    border-radius: 5px;
+}
+
+.health {
+    background-color: rgb(116, 194, 92);
+    color: white;
+    height: 10px;
+    padding: 1%;
+    text-align: right;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+.blaustoise {
+    width: 70%;
+    background-color: #eb802e;
+}
+
+.charmeleon {
+    width: 100%;
+}
+
+.jigglypuff {
+    width: 10%;
+    background-color: #ff0000;
+}
+
+.exeggcute {
+    width: 25%;
+    background-color: #ff4d00;
+}
