@@ -34,3 +34,89 @@ h2 {
     font-size: 14px;
     font-family:Georgia, 'Times New Roman', Times, serif
 }
+
+.pokestat p {
+    font-size: 14px;
+    font-family:Georgia, 'Times New Roman', Times, serif
+}
+
+.pokestat__top {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
+}
+
+.pokestat__top__left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.pokestat__top__left__img {
+    width: 150px;
+    height: 150px;
+}
+
+.pokestat__top__right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pokestat__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: left;
+    margin-left: 255px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.pokestat__top__catch {
+    padding: 15px 55px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.pokestat__top__compare {
+    padding: 15px 40px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.pokestat__evolution {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.pokestat__bottom {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 80px;
+}
+
+.pokestat__bottom__left, 
+.pokestat__bottom__right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.pokestat__bottom__left__stats,
+.pokestat__bottom__left__type,
+.pokestat__bottom__right__stats,
+.pokestat__bottom__right__type{
+    border: 1px solid black;
+    padding: 10px;
+    margin-bottom: 50px;
+}
