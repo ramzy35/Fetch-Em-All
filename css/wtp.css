@@ -17,17 +17,25 @@
 .wtp__image, #wtp__image {
     height: 70vh;
     width: 70vh;
-    filter: brightness(0);
+    /* filter: brightness(0); */
 }
 
-.wtp__image--reveal {
-    animation: i;
+.wtp__image{
+    animation: revealPokemon;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-delay: 1s;
+}
+
+.wtp__searchbar__submit {
+    /* animation: revealPokemon;
     animation-duration: 5s;
     animation-iteration-count: 1;
-    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1); */
 }
 
-@keyframes i {
+@keyframes revealPokemon {
     0% {
         filter: brightness(0%);
     }
