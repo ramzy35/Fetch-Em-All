@@ -14,7 +14,7 @@
     font-size: 3rem;
 }
 
-.wtp__image {
+.wtp__image, #wtp__image {
     height: 70vh;
     width: 70vh;
     filter: brightness(0);
