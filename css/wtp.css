@@ -17,32 +17,28 @@
 .wtp__image, #wtp__image {
     height: 70vh;
     width: 70vh;
-    /* filter: brightness(0); */
+    filter: brightness(0%);
+    transition: brightness() 5s ease-in-out;
 }
 
-.wtp__image{
-    animation: revealPokemon;
+.wtp__image:hover{
+    filter: brightness(100%);
+
+    /* animation: revealPokemon;
     animation-duration: 5s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
-    animation-delay: 1s;
+    animation-delay: 1s; */
 }
 
-.wtp__searchbar__submit {
-    /* animation: revealPokemon;
-    animation-duration: 5s;
-    animation-iteration-count: 1;
-    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1); */
-}
-
-@keyframes revealPokemon {
+/* @keyframes revealPokemon {
     0% {
         filter: brightness(0%);
     }
     100% {
         filter: brightness(100%);
     }
-}
+} */
 .wtp__searchbar__textfield {
     justify-self: center;
     display: inline-block;
@@ -50,4 +46,12 @@
     border-radius: 2px;
     background-color: rgb(229, 229, 229);
     padding: 5px;
+}
+
+.selectDisable {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }

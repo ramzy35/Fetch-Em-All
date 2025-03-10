@@ -99,6 +99,8 @@ function showRandomImage(list) {
                 if (imgElement) {
                     imgElement.src = imgUrl;
                     imgElement.classList.add("wtp__image");
+                    imgElement.classList.add("selectDisable");
+                    imgElement.draggable = false;
                 }
                 else {
                     console.log("imgElement does not exist");
