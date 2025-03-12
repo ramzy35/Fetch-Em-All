@@ -38,12 +38,14 @@
             <h1 class="wtp__title">Who's That Pokemon</h1>
             <!-- <img src="" alt="" class="wtp__image" id="wtp__image"> -->
             <section id="wtp__image"></section>
-            <form action="#" class="wtp__searchbar">
-                <input class="wtp__searchbar__textfield" placeholder="Input Pokemon here">
-                <button class="wtp__searchbar__submit">submit</button>
+            <form autocomplete="off" action="/action_page.php">
+                <div class="autocomplete" style="width:300px;">
+                  <input id="myInput" type="text" name="myCountry" placeholder="Pokemon">
+                </div>
+                <input type="submit">
             </form>
     </main>
-
+    <footer>
         <p>Made by Dries, Stef, Jarne & Ramzy</p>
         <p>Using <a href="https://pokeapi.co/" target="blank">pokeapi</a></p>
     </footer>
