@@ -1,3 +1,7 @@
+.wtp, nav {
+    z-index: 1;
+}
+
 .wtp {
     justify-self: center;
     border: 1px black solid;
@@ -10,11 +14,13 @@
 }
 
 .wtp__title {
+    z-index: inherit;
     font-family: pokemonSolid;
     font-size: 3rem;
 }
 
 .wtp__image, #wtp__image {
+    z-index: inherit;
     height: 70vh;
     width: 70vh;
     filter: brightness(0%);
