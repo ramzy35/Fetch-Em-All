@@ -90,8 +90,8 @@ async function autocomplete(input: any, pokeNameArr: string[]) {
         currentFocus = -1;
         // itemContainer that holds values of items
         const itemContainer = document.createElement("DIV");
-        itemContainer.setAttribute("id", this.id + "autocomplete-list");
-        itemContainer.classList.add("autocomplete-items");
+        itemContainer.setAttribute("id",    "wtp__form__autocomplete__list");
+        itemContainer.classList.add("wtp__form__autocomplete__item");
         
         // Make sure parentnode exists before appending
         if (this.parentNode) {
@@ -122,15 +122,17 @@ async function autocomplete(input: any, pokeNameArr: string[]) {
     });
     
     input.addEventListener("keydown", function (this: any, e:any) {
-        let selectedName:any = document.getElementById(this.id + "autocomplete-list");
+        let selectedName:any = document.getElementById("wtp__form__autocomplete__list");
         if (selectedName) selectedName = selectedName.getElementsByTagName("div");
         if (e.keyCode === 40) {
             // => downArrow
+            console.log("down")
             e.preventDefault()
             currentFocus++;
             addActive(selectedName);
         } else if (e.keyCode === 38) {
             // => upArrow
+            console.log("up")
             e.preventDefault()
             currentFocus--;
             addActive(selectedName);
@@ -151,18 +153,18 @@ async function autocomplete(input: any, pokeNameArr: string[]) {
         if (currentFocus >= itemList.length) currentFocus = 0;
         if (currentFocus < 0) currentFocus = (itemList.length - 1);
         // Add active class for styling
-        itemList[currentFocus].classList.add("autocomplete-active");
+        itemList[currentFocus].classList.add("wtp__form__autocomplete__item--active");
     }
 
     function removeActive(itemList: HTMLElement[]) {
         for (const el of itemList) {
-            el.classList.remove("autocomplete-active")
+            el.classList.remove("wtp__form__autocomplete__item--active")
         }
     }
 
     function closeAllLists(elmnt?: HTMLElement) {
         
-        const itemList = document.getElementsByClassName("autocomplete-items");
+        const itemList = document.getElementsByClassName("wtp__form__autocomplete__item");
         for (const el of itemList) {
             if (elmnt != el && elmnt != input) {
                 el.parentNode?.removeChild(el);

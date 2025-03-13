@@ -133,17 +133,17 @@ function autocomplete(input, pokeNameArr) {
             if (currentFocus < 0)
                 currentFocus = (itemList.length - 1);
             // Add active class for styling
-            itemList[currentFocus].classList.add("autocomplete-active");
+            itemList[currentFocus].classList.add("wtp__form__autocomplete__item--active");
         }
         function removeActive(itemList) {
             for (var _i = 0, itemList_1 = itemList; _i < itemList_1.length; _i++) {
                 var el = itemList_1[_i];
-                el.classList.remove("autocomplete-active");
+                el.classList.remove("wtp__form__autocomplete__item--active");
             }
         }
         function closeAllLists(elmnt) {
             var _a, _b;
-            var itemList = document.getElementsByClassName("autocomplete-items");
+            var itemList = document.getElementsByClassName("wtp__form__autocomplete__item");
             for (var _i = 0, itemList_2 = itemList; _i < itemList_2.length; _i++) {
                 var el = itemList_2[_i];
                 if (elmnt != el && elmnt != input) {
@@ -168,8 +168,8 @@ function autocomplete(input, pokeNameArr) {
                 currentFocus = -1;
                 // itemContainer that holds values of items
                 var itemContainer = document.createElement("DIV");
-                itemContainer.setAttribute("id", this.id + "autocomplete-list");
-                itemContainer.classList.add("autocomplete-items");
+                itemContainer.setAttribute("id", "wtp__form__autocomplete__list");
+                itemContainer.classList.add("wtp__form__autocomplete__item");
                 // Make sure parentnode exists before appending
                 if (this.parentNode) {
                     this.parentNode.appendChild(itemContainer);
@@ -195,17 +195,19 @@ function autocomplete(input, pokeNameArr) {
                 });
             });
             input.addEventListener("keydown", function (e) {
-                var selectedName = document.getElementById(this.id + "autocomplete-list");
+                var selectedName = document.getElementById("wtp__form__autocomplete__list");
                 if (selectedName)
                     selectedName = selectedName.getElementsByTagName("div");
                 if (e.keyCode === 40) {
                     // => downArrow
+                    console.log("down");
                     e.preventDefault();
                     currentFocus++;
                     addActive(selectedName);
                 }
                 else if (e.keyCode === 38) {
                     // => upArrow
+                    console.log("up");
                     e.preventDefault();
                     currentFocus--;
                     addActive(selectedName);
