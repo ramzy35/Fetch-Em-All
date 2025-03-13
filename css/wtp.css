@@ -73,7 +73,7 @@ body {
 
 /* AUTOCOMPLETE */
 
-.autocomplete {
+.wtp__form__input__container {
     /*the container must be positioned relative:*/
     position: relative;
     display: inline-block;

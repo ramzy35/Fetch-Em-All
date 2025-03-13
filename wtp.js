@@ -121,113 +121,108 @@ function showRandomImage(list) {
         });
     });
 }
-function autocomplete(inp, arr) {
+function autocomplete(input, pokeNameArr) {
     return __awaiter(this, void 0, void 0, function () {
-        function addActive(x) {
-            /*a function to classify an item as "active":*/
-            if (!x)
+        function addActive(itemList) {
+            if (!itemList)
                 return false;
-            /*start by removing the "active" class on all items:*/
-            removeActive(x);
-            if (currentFocus >= x.length)
+            removeActive(itemList);
+            if (currentFocus >= itemList.length)
                 currentFocus = 0;
             if (currentFocus < 0)
-                currentFocus = (x.length - 1);
-            /*add class "autocomplete-active":*/
-            x[currentFocus].classList.add("autocomplete-active");
+                currentFocus = (itemList.length - 1);
+            // Add active class for styling
+            itemList[currentFocus].classList.add("autocomplete-active");
         }
-        function removeActive(x) {
+        function removeActive(itemList) {
             /*a function to remove the "active" class from all autocomplete items:*/
-            for (var i = 0; i < x.length; i++) {
-                x[i].classList.remove("autocomplete-active");
-            }
+            itemList.forEach(function (el) {
+                el.classList.remove("autocomplete-active");
+            });
         }
         function closeAllLists(elmnt) {
-            var _a;
+            var _a, _b;
             /*close all autocomplete lists in the document,
             except the one passed as an argument:*/
-            var x = document.getElementsByClassName("autocomplete-items");
-            for (var i = 0; i < x.length; i++) {
-                if (elmnt != x[i] && elmnt != inp) {
-                    (_a = x[i].parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(x[i]);
+            var itemList = document.getElementsByClassName("autocomplete-items");
+            for (var _i = 0, itemList_1 = itemList; _i < itemList_1.length; _i++) {
+                var el = itemList_1[_i];
+                if (elmnt != el && elmnt != input) {
+                    (_a = el.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(el);
+                }
+            }
+            // Can't use foreach because itemlist is HTMLCollectionOf<Element>
+            for (var i = 0; i < itemList.length; i++) {
+                if (elmnt != itemList[i] && elmnt != input) {
+                    (_b = itemList[i].parentNode) === null || _b === void 0 ? void 0 : _b.removeChild(itemList[i]);
                 }
             }
         }
         var currentFocus;
         return __generator(this, function (_a) {
-            /*execute a function when someone writes in the text field:*/
-            inp.addEventListener("input", function (e) {
-                var a, b, i, val = this.value;
-                /*close any already open lists of autocompleted values*/
+            input.addEventListener("input", function () {
+                var val = this.value;
                 closeAllLists();
                 if (!val) {
                     return false;
                 }
                 currentFocus = -1;
-                /*create a DIV element that will contain the items (values):*/
-                a = document.createElement("DIV");
-                a.setAttribute("id", this.id + "autocomplete-list");
-                a.setAttribute("class", "autocomplete-items");
-                /*append the DIV element as a child of the autocomplete container:*/
-                this.parentNode.appendChild(a);
-                /*for each item in the array...*/
-                for (i = 0; i < arr.length; i++) {
-                    /*check if the item starts with the same letters as the text field value:*/
-                    if (arr[i].substring(0, val.length).toUpperCase() == val.toUpperCase()) {
-                        /*create a DIV element for each matching element:*/
-                        b = document.createElement("DIV");
-                        /*make the matching letters bold:*/
-                        b.innerHTML = "<strong>" + arr[i].substring(0, val.length) + "</strong>";
-                        b.innerHTML += arr[i].substring(val.length);
-                        /*insert a input field that will hold the current array item's value:*/
-                        b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                        /*execute a function when someone clicks on the item value (DIV element):*/
-                        b.addEventListener("click", function (e) {
-                            /*insert the value for the autocomplete text field:*/
-                            inp.value = this.getElementsByTagName("input")[0].value;
-                            /*close the list of autocompleted values,
-                            (or any other open lists of autocompleted values:*/
+                // itemContainer that holds values of items
+                var itemContainer = document.createElement("DIV");
+                itemContainer.setAttribute("id", this.id + "autocomplete-list");
+                itemContainer.classList.add("autocomplete-items");
+                // Make sure parentnode exists before appending
+                if (this.parentNode) {
+                    this.parentNode.appendChild(itemContainer);
+                }
+                else {
+                    console.error("Parent node for autocomplete not found");
+                }
+                pokeNameArr.forEach(function (poke) {
+                    if (poke.substring(0, val.length).toLowerCase() == val.toLowerCase()) {
+                        // div for every element that matches val
+                        var matchingElmnts = document.createElement("DIV");
+                        matchingElmnts.innerHTML = "<strong>" + poke.substring(0, val.length) + "</strong>";
+                        matchingElmnts.innerHTML += poke.substring(val.length);
+                        // input field to hold the current array item's 
+                        matchingElmnts.innerHTML += "<input type='hidden' value='" + poke + "'>";
+                        matchingElmnts.addEventListener("click", function () {
+                            // input clicked pokemon name
+                            input.value = this.getElementsByTagName("input")[0].value;
                             closeAllLists();
                         });
-                        a.appendChild(b);
+                        itemContainer.appendChild(matchingElmnts);
                     }
-                }
+                });
             });
-            /*execute a function presses a key on the keyboard:*/
-            inp.addEventListener("keydown", function (e) {
-                var x = document.getElementById(this.id + "autocomplete-list");
-                if (x)
-                    x = x.getElementsByTagName("div");
+            input.addEventListener("keydown", function (e) {
+                var selectedName = document.getElementById(this.id + "autocomplete-list");
+                if (selectedName)
+                    selectedName = selectedName.getElementsByTagName("div");
                 if (e.keyCode == 40) {
-                    /*If the arrow DOWN key is pressed,
-                    increase the currentFocus variable:*/
+                    // => downArrow
                     currentFocus++;
-                    /*and and make the current item more visible:*/
-                    addActive(x);
+                    addActive(selectedName);
                 }
-                else if (e.keyCode == 38) { //up
-                    /*If the arrow UP key is pressed,
-                    decrease the currentFocus variable:*/
+                else if (e.keyCode == 38) {
+                    // => upArrow
                     currentFocus--;
-                    /*and and make the current item more visible:*/
-                    addActive(x);
+                    addActive(selectedName);
                 }
                 else if (e.keyCode == 13) {
-                    /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                    // => Enter
+                    // Prevent from submitting form, other functionality added
                     e.preventDefault();
                     if (currentFocus > -1) {
-                        /*and simulate a click on the "active" item:*/
-                        if (x)
-                            x[currentFocus].click();
+                        // Enter selects hovered/selected name from list
+                        if (selectedName)
+                            selectedName[currentFocus].click();
                     }
                 }
             });
-            /*execute a function when someone clicks in the document:*/
+            // close list if user clicks off
             document.addEventListener("click", function (e) {
-                closeAllLists(e.target);
-            });
-            document.addEventListener("click", function (e) {
-                closeAllLists(e.target);
+                closeAllLists();
             });
             return [2 /*return*/];
         });
@@ -237,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function () { return __awaiter(_th
     return __generator(this, function (_a) {
         getPokemonList1().then(function (pokemonList) {
             showRandomImage(pokemonList);
-            autocomplete(document.getElementById("myInput"), getPokemonNames(pokemonList));
+            autocomplete(document.getElementById("wtp__form__input__field"), getPokemonNames(pokemonList));
         });
         return [2 /*return*/];
     });
