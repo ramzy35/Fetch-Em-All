@@ -115,21 +115,23 @@ async function autocomplete(input: any, pokeNameArr: string[]) {
         });
     });
     
-    input.addEventListener("keydown", function (this: any) {
-        var selectedName: any = document.getElementById(this.id + "autocomplete-list");
+    input.addEventListener("keydown", function (this: any, e:any) {
+        let selectedName:any = document.getElementById(this.id + "autocomplete-list");
         if (selectedName) selectedName = selectedName.getElementsByTagName("div");
-        if (this.keyCode == 40) {
+        if (e.keyCode === 40) {
             // => downArrow
+            e.preventDefault()
             currentFocus++;
             addActive(selectedName);
-        } else if (this.keyCode == 38) {
+        } else if (e.keyCode === 38) {
             // => upArrow
+            e.preventDefault()
             currentFocus--;
             addActive(selectedName);
-        } else if (this.keyCode == 13) {
+        } else if (e.keyCode === 13) {
             // => Enter
             // Prevent from submitting form, other functionality added
-            this.preventDefault();
+            e.preventDefault();
             if (currentFocus > -1) {
                 // Enter selects hovered/selected name from list
                 if (selectedName) selectedName[currentFocus].click();
@@ -147,9 +149,9 @@ async function autocomplete(input: any, pokeNameArr: string[]) {
     }
 
     function removeActive(itemList: HTMLElement[]) {
-        itemList.forEach(el => {
+        for (const el of itemList) {
             el.classList.remove("autocomplete-active")
-        });
+        }
     }
 
     function closeAllLists(elmnt?: HTMLElement) {

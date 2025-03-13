@@ -135,15 +135,16 @@ function autocomplete(input, pokeNameArr) {
             itemList[currentFocus].classList.add("autocomplete-active");
         }
         function removeActive(itemList) {
-            itemList.forEach(function (el) {
+            for (var _i = 0, itemList_1 = itemList; _i < itemList_1.length; _i++) {
+                var el = itemList_1[_i];
                 el.classList.remove("autocomplete-active");
-            });
+            }
         }
         function closeAllLists(elmnt) {
             var _a, _b;
             var itemList = document.getElementsByClassName("autocomplete-items");
-            for (var _i = 0, itemList_1 = itemList; _i < itemList_1.length; _i++) {
-                var el = itemList_1[_i];
+            for (var _i = 0, itemList_2 = itemList; _i < itemList_2.length; _i++) {
+                var el = itemList_2[_i];
                 if (elmnt != el && elmnt != input) {
                     (_a = el.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(el);
                 }
@@ -192,24 +193,26 @@ function autocomplete(input, pokeNameArr) {
                     }
                 });
             });
-            input.addEventListener("keydown", function () {
+            input.addEventListener("keydown", function (e) {
                 var selectedName = document.getElementById(this.id + "autocomplete-list");
                 if (selectedName)
                     selectedName = selectedName.getElementsByTagName("div");
-                if (this.keyCode == 40) {
+                if (e.keyCode === 40) {
                     // => downArrow
+                    e.preventDefault();
                     currentFocus++;
                     addActive(selectedName);
                 }
-                else if (this.keyCode == 38) {
+                else if (e.keyCode === 38) {
                     // => upArrow
+                    e.preventDefault();
                     currentFocus--;
                     addActive(selectedName);
                 }
-                else if (this.keyCode == 13) {
+                else if (e.keyCode === 13) {
                     // => Enter
                     // Prevent from submitting form, other functionality added
-                    this.preventDefault();
+                    e.preventDefault();
                     if (currentFocus > -1) {
                         // Enter selects hovered/selected name from list
                         if (selectedName)
