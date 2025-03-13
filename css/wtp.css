@@ -62,6 +62,7 @@ body {
     padding: 5px;
 }
 
+/* Disable selecting of image to make sure you can't cheat */
 .selectDisable {
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -69,6 +70,8 @@ body {
     -o-user-select: none;
     user-select: none;
 }
+
+/* AUTOCOMPLETE */
 
 .autocomplete {
     /*the container must be positioned relative:*/

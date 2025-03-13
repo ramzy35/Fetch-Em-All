@@ -72,51 +72,49 @@ async function showRandomImage(list: Pokemon1[]) {
     return imgUrl
 }
 
-async function autocomplete(inp: any, arr: string[]) {
-    /*the autocomplete function takes two arguments,
-    the text field element and an array of possible autocompleted values:*/
-    var currentFocus: number;
+async function autocomplete(input: any, pokeNameArr: string[]) {
+    // input: html element, pokeNameArr: string array with all pokemon names
+    let currentFocus: number;
     /*execute a function when someone writes in the text field:*/
-    inp.addEventListener("input", function (this: any, e: any) {
-        var a: any, b: any, i: any, val: any = this.value;
-        /*close any already open lists of autocompleted values*/
+    input.addEventListener("input", function (this: any) {
+        const val: any = this.value;
         closeAllLists();
         if (!val) { return false; }
         currentFocus = -1;
         /*create a DIV element that will contain the items (values):*/
-        a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "autocomplete-list");
-        a.setAttribute("class", "autocomplete-items");
+        const itemContainer = document.createElement("DIV");
+        itemContainer.setAttribute("id", this.id + "autocomplete-list");
+        itemContainer.setAttribute("class", "autocomplete-items");
         /*append the DIV element as a child of the autocomplete container:*/
-        this.parentNode.appendChild(a);
+        this.parentNode.appendChild(itemContainer);
         /*for each item in the array...*/
-        for (i = 0; i < arr.length; i++) {
+        for (let i:number = 0; i < pokeNameArr.length; i++) {
             /*check if the item starts with the same letters as the text field value:*/
-            if (arr[i].substring(0, val.length).toUpperCase() == val.toUpperCase()) {
+            if (pokeNameArr[i].substring(0, val.length).toUpperCase() == val.toUpperCase()) {
                 /*create a DIV element for each matching element:*/
-                b = document.createElement("DIV");
+                const matchingElmnts = document.createElement("DIV");
                 /*make the matching letters bold:*/
-                b.innerHTML = "<strong>" + arr[i].substring(0, val.length) + "</strong>";
-                b.innerHTML += arr[i].substring(val.length);
+                matchingElmnts.innerHTML = "<strong>" + pokeNameArr[i].substring(0, val.length) + "</strong>";
+                matchingElmnts.innerHTML += pokeNameArr[i].substring(val.length);
                 /*insert a input field that will hold the current array item's value:*/
-                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                matchingElmnts.innerHTML += "<input type='hidden' value='" + pokeNameArr[i] + "'>";
                 /*execute a function when someone clicks on the item value (DIV element):*/
-                b.addEventListener("click", function (this: any, e:any) {
+                matchingElmnts.addEventListener("click", function (this: any, e:any) {
                     /*insert the value for the autocomplete text field:*/
-                    inp.value = this.getElementsByTagName("input")[0].value;
+                    input.value = this.getElementsByTagName("input")[0].value;
                     /*close the list of autocompleted values,
                     (or any other open lists of autocompleted values:*/
                     closeAllLists();
                 });
-                a.appendChild(b);
+                itemContainer.appendChild(matchingElmnts);
             }
         }
     });
     /*execute a function presses a key on the keyboard:*/
-    inp.addEventListener("keydown", function (this: any, e: any) {
+    input.addEventListener("keydown", function (this: any, e: any) {
         var x: any = document.getElementById(this.id + "autocomplete-list");
         if (x) x = x.getElementsByTagName("div");
-        if (e.keyCode == 40) {
+        if (this.keyCode == 40) {
             /*If the arrow DOWN key is pressed,
             increase the currentFocus variable:*/
             currentFocus++;
@@ -158,7 +156,7 @@ async function autocomplete(inp: any, arr: string[]) {
         except the one passed as an argument:*/
         var x = document.getElementsByClassName("autocomplete-items");
         for (var i = 0; i < x.length; i++) {
-            if (elmnt != x[i] && elmnt != inp) {
+            if (elmnt != x[i] && elmnt != input) {
                 x[i].parentNode?.removeChild(x[i]);
             }
         }
@@ -167,20 +165,13 @@ async function autocomplete(inp: any, arr: string[]) {
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
     })
-    document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
-    });
 }
-
-
-
 
 document.addEventListener("DOMContentLoaded", async () => {
     getPokemonList1().then(pokemonList => {
         showRandomImage(pokemonList)
-        autocomplete(document.getElementById("myInput"), getPokemonNames(pokemonList));
+        autocomplete(document.getElementById("wtp__form__input__field"), getPokemonNames(pokemonList));
     })
-
 });
 
 
