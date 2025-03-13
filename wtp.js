@@ -107,6 +107,7 @@ function showRandomImage(list) {
                     imgElement.src = imgUrl;
                     imgElement.classList.add("wtp__image");
                     imgElement.classList.add("selectDisable");
+                    imgElement.id = "wtp__image--real";
                     imgElement.draggable = false;
                 }
                 else {
@@ -237,3 +238,8 @@ document.addEventListener("DOMContentLoaded", function () { return __awaiter(_th
         return [2 /*return*/];
     });
 }); });
+// const submitBtn = document.getElementById("wtp__form__submit--test")
+// submitBtn?.addEventListener("click", () => {
+//     const pokeImg = document.getElementById("wtp__image--real")
+//     pokeImg?.classList.add("revealPokemon")
+// })

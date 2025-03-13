@@ -59,6 +59,7 @@ async function showRandomImage(list: Pokemon1[]) {
             imgElement.src = imgUrl;
             imgElement.classList.add("wtp__image")
             imgElement.classList.add("selectDisable")
+            imgElement.id = "wtp__image--real"
             imgElement.draggable = false;
         } else {
             console.log("imgElement does not exist")
@@ -71,6 +72,11 @@ async function showRandomImage(list: Pokemon1[]) {
 
     return imgUrl
 }
+
+
+
+
+
 
 async function autocomplete(input: any, pokeNameArr: string[]) {
     // Function derived from https://www.w3schools.comhowtohowto_js_autocomplete.asp, adapted to typescript
@@ -179,7 +185,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     getPokemonList1().then(pokemonList => {
         showRandomImage(pokemonList)
         autocomplete(document.getElementById("wtp__form__input__field"), getPokemonNames(pokemonList));
-    })
+    })   
 });
+
+
+// const submitBtn = document.getElementById("wtp__form__submit--test")
+// submitBtn?.addEventListener("click", () => {
+//     const pokeImg = document.getElementById("wtp__image--real")
+//     pokeImg?.classList.add("revealPokemon")
+// })
+
 
 
