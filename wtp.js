@@ -135,15 +135,12 @@ function autocomplete(input, pokeNameArr) {
             itemList[currentFocus].classList.add("autocomplete-active");
         }
         function removeActive(itemList) {
-            /*a function to remove the "active" class from all autocomplete items:*/
             itemList.forEach(function (el) {
                 el.classList.remove("autocomplete-active");
             });
         }
         function closeAllLists(elmnt) {
             var _a, _b;
-            /*close all autocomplete lists in the document,
-            except the one passed as an argument:*/
             var itemList = document.getElementsByClassName("autocomplete-items");
             for (var _i = 0, itemList_1 = itemList; _i < itemList_1.length; _i++) {
                 var el = itemList_1[_i];
@@ -181,38 +178,38 @@ function autocomplete(input, pokeNameArr) {
                 pokeNameArr.forEach(function (poke) {
                     if (poke.substring(0, val.length).toLowerCase() == val.toLowerCase()) {
                         // div for every element that matches val
-                        var matchingElmnts = document.createElement("DIV");
-                        matchingElmnts.innerHTML = "<strong>" + poke.substring(0, val.length) + "</strong>";
-                        matchingElmnts.innerHTML += poke.substring(val.length);
+                        var matchingItems = document.createElement("DIV");
+                        matchingItems.innerHTML = "<strong>".concat(poke.substring(0, val.length), "</strong>");
+                        matchingItems.innerHTML += poke.substring(val.length);
                         // input field to hold the current array item's 
-                        matchingElmnts.innerHTML += "<input type='hidden' value='" + poke + "'>";
-                        matchingElmnts.addEventListener("click", function () {
+                        matchingItems.innerHTML += "<input type='hidden' value='".concat(poke, "'>");
+                        matchingItems.addEventListener("click", function () {
                             // input clicked pokemon name
                             input.value = this.getElementsByTagName("input")[0].value;
                             closeAllLists();
                         });
-                        itemContainer.appendChild(matchingElmnts);
+                        itemContainer.appendChild(matchingItems);
                     }
                 });
             });
-            input.addEventListener("keydown", function (e) {
+            input.addEventListener("keydown", function () {
                 var selectedName = document.getElementById(this.id + "autocomplete-list");
                 if (selectedName)
                     selectedName = selectedName.getElementsByTagName("div");
-                if (e.keyCode == 40) {
+                if (this.keyCode == 40) {
                     // => downArrow
                     currentFocus++;
                     addActive(selectedName);
                 }
-                else if (e.keyCode == 38) {
+                else if (this.keyCode == 38) {
                     // => upArrow
                     currentFocus--;
                     addActive(selectedName);
                 }
-                else if (e.keyCode == 13) {
+                else if (this.keyCode == 13) {
                     // => Enter
                     // Prevent from submitting form, other functionality added
-                    e.preventDefault();
+                    this.preventDefault();
                     if (currentFocus > -1) {
                         // Enter selects hovered/selected name from list
                         if (selectedName)

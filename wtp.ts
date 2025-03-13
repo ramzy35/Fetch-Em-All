@@ -97,39 +97,39 @@ async function autocomplete(input: any, pokeNameArr: string[]) {
         pokeNameArr.forEach(poke => {
             if (poke.substring(0, val.length).toLowerCase() == val.toLowerCase()) {
                 // div for every element that matches val
-                const matchingElmnts = document.createElement("DIV");
-                matchingElmnts.innerHTML = "<strong>" + poke.substring(0, val.length) + "</strong>";
-                matchingElmnts.innerHTML += poke.substring(val.length);
+                const matchingItems = document.createElement("DIV");
+                matchingItems.innerHTML = `<strong>${poke.substring(0, val.length)}</strong>`;
+                matchingItems.innerHTML += poke.substring(val.length);
                 
                 // input field to hold the current array item's 
-                matchingElmnts.innerHTML += "<input type='hidden' value='" + poke + "'>";
+                matchingItems.innerHTML += `<input type='hidden' value='${poke}'>`;
                 
-                matchingElmnts.addEventListener("click", function (this: any) {
+                matchingItems.addEventListener("click", function (this: any) {
                     // input clicked pokemon name
                     input.value = this.getElementsByTagName("input")[0].value;
                 
                     closeAllLists();
                 });
-                itemContainer.appendChild(matchingElmnts);
+                itemContainer.appendChild(matchingItems);
             }
         });
     });
     
-    input.addEventListener("keydown", function (this: any, e: any) {
+    input.addEventListener("keydown", function (this: any) {
         var selectedName: any = document.getElementById(this.id + "autocomplete-list");
         if (selectedName) selectedName = selectedName.getElementsByTagName("div");
-        if (e.keyCode == 40) {
+        if (this.keyCode == 40) {
             // => downArrow
             currentFocus++;
             addActive(selectedName);
-        } else if (e.keyCode == 38) {
+        } else if (this.keyCode == 38) {
             // => upArrow
             currentFocus--;
             addActive(selectedName);
-        } else if (e.keyCode == 13) {
+        } else if (this.keyCode == 13) {
             // => Enter
             // Prevent from submitting form, other functionality added
-            e.preventDefault();
+            this.preventDefault();
             if (currentFocus > -1) {
                 // Enter selects hovered/selected name from list
                 if (selectedName) selectedName[currentFocus].click();
@@ -147,7 +147,6 @@ async function autocomplete(input: any, pokeNameArr: string[]) {
     }
 
     function removeActive(itemList: HTMLElement[]) {
-        /*a function to remove the "active" class from all autocomplete items:*/
         itemList.forEach(el => {
             el.classList.remove("autocomplete-active")
         });
