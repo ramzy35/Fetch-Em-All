@@ -76,6 +76,12 @@ main {
     /* background-color: var(--white); */
 }
 
+.compare__left--fifth, .compare__right--fifth {
+    align-items: start;
+    justify-content: start;
+    padding: 10px;
+}
+
 .compare__left--fourth, .compare__right--fourth {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -219,4 +225,23 @@ i {
 
 .speed__right {
     width: calc(100% * 99 / 255);
+}
+
+.types {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.type {
+    border: 1px solid black;
+    font-size: 1.6rem;
+    padding: 3px 3px;
+    border-radius: 3px;
+}
+
+.times {
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
