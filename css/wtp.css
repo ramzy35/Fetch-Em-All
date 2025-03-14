@@ -40,20 +40,9 @@ strong {
   z-index: inherit;
   height: 70vh;
   width: 70vh;
-  /* filter: brightness(0%); */
+  filter: brightness(0%);
   /* transition: brightness() 5s ease-in-out; */
 }
-
-.wtp__image:hover {
-  /* filter: brightness(100%); */
-
-  /* animation: revealPokemon;
-    animation-duration: 5s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-    animation-delay: 1s; */
-}
-
 
 .wtp__searchbar__textfield {
   justify-self: center;
@@ -133,11 +122,6 @@ strong {
 }
 
 @keyframes revealPokemon {
-  0% {
-    filter: brightness(0%);
-  }
-
-  100% {
-    filter: brightness(100%);
-  }
+  from {filter: brightness(0%);}
+  to {filter: brightness(100%);}
 }

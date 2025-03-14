@@ -59,7 +59,7 @@ async function showRandomImage(list: Pokemon1[]) {
             imgElement.src = imgUrl;
             imgElement.classList.add("wtp__image")
             imgElement.classList.add("selectDisable")
-            imgElement.id = "wtp__image--real"
+            imgElement.id = "wtp__image--reveal"
             imgElement.draggable = false;
         } else {
             console.log("imgElement does not exist")
@@ -191,11 +191,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 
-// const submitBtn = document.getElementById("wtp__form__submit--test")
-// submitBtn?.addEventListener("click", () => {
-//     const pokeImg = document.getElementById("wtp__image--real")
-//     pokeImg?.classList.add("revealPokemon")
-// })
+const submitBtn = document.getElementById("wtp__form__reveal")
+submitBtn?.addEventListener("click", () => {
+    const pokeImg = document.getElementById("wtp__image--reveal")
+    pokeImg?.classList.add("revealPokemon")
+})
 
 
 
