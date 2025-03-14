@@ -8,115 +8,41 @@
     src: url(../fonts/Pokemon\ Solid.ttf);
 }
 
+@font-face {
+    font-family: Aldrich;
+    src: url(../fonts/Aldrich-Regular.ttf);
+}
+
+:root {
+    --black: #000000;
+    --white: #ffffff;
+    --gray: #333;
+    --light-gray: #d7d7db;
+    --red: #ac2323;
+    --orangered: #ff4400;
+    --green: #05d605;
+    --yellow: #FFCB05;
+    --blue: #4070f4;
+}
+
 * {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: sans-serif;
     font-size: 10px;
 }
 
+h1 {
+    font-size: 4rem;
+    text-align: center;
+    color: var(--yellow);
+    font-family: pokemonSolid;
+    letter-spacing: 3px;
+}
+
 h2 {
-    font-size: 18px;
-    font-family:fantasy;
-    color: black;
+    font-size: 2rem;
+    font-family: Aldrich;
 }
 
-.pokedex__card {
-    padding: 15px;
-    text-align: center;
-    max-width: 250px;
-}
-
-.pokedex__card {
-    display: flex;
-    flex-direction: row;
-}
-
-.pokedex__card p {
-    font-size: 14px;
-    font-family:Georgia, 'Times New Roman', Times, serif
-}
-
-.pokestat p {
-    font-size: 14px;
-    font-family:Georgia, 'Times New Roman', Times, serif
-}
-
-.pokestat__top {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 20px;
-}
-
-.pokestat__top__left {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.pokestat__top__left__img {
-    width: 150px;
-    height: 150px;
-}
-
-.pokestat__top__right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.pokestat__buttons {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    justify-content: left;
-    margin-left: 255px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.pokestat__top__catch {
-    padding: 15px 55px;
-    background-color: black;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.pokestat__top__compare {
-    padding: 15px 40px;
-    background-color: black;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.pokestat__evolution {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.pokestat__bottom {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 80px;
-}
-
-.pokestat__bottom__left, 
-.pokestat__bottom__right {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.pokestat__bottom__left__stats,
-.pokestat__bottom__left__type,
-.pokestat__bottom__right__stats,
-.pokestat__bottom__right__type{
-    border: 1px solid black;
-    padding: 10px;
-    margin-bottom: 50px;
+p {
+    font-size: 1.6rem;
 }
