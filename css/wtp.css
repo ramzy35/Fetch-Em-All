@@ -10,6 +10,10 @@ nav {
   z-index: 2;
 }
 
+strong {
+  font-weight: bold;
+}
+
 .wtp {
   justify-self: center;
   border: 1px black solid;
@@ -116,7 +120,7 @@ nav {
   background-color: #e9e9e9;
 }
 
-.wtp__form__automcomplete__item--active {
+.wtp__form__autocomplete__item--active {
   /*when navigating through the items using the arrow keys:*/
   background-color: DodgerBlue !important;
   color: #ffffff;
