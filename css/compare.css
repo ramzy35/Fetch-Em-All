@@ -45,6 +45,11 @@ main {
     /* background-color: var(--white); */
 }
 
+.compare__icons--fifth, .compare__left--fifth, .compare__right--fifth {
+    /* avoid weird border at bottom of compare page */
+    border-bottom: none !important;
+}
+
 .compare__icons--second, .compare__icons--third, .compare__icons--fourth, .compare__icons--fifth {
     justify-content: start;
     padding-top: 1rem;
@@ -146,6 +151,8 @@ i {
 
 .compare__hp p, .compare__atk p, .compare__def p,
 .compare__spdef p, .compare__spatk p, .compare__speed p {
+    /* give constant width to avoid alignment issues if value is 3 digits */
+    width: 5rem;
     padding: 0 1.6rem;
 }
 
