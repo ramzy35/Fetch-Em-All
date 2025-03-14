@@ -76,6 +76,12 @@ main {
     /* background-color: var(--white); */
 }
 
+.compare__left--fourth, .compare__right--fourth {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    gap: 20px;
+}
+
 .compare__left--second, .compare__right--second, .compare__left--fourth, .compare__right--fourth, .compare__left--fifth, .compare__right--fifth {
     min-height: 200px;
 }
