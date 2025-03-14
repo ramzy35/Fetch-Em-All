@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who's That Pokemon</title>
+    <!-- Potential security risk fix -->
+    <base rel="noopener noreferrer">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/wtp.css">
+    <link rel="stylesheet" href="../css/clouds.css">
+</head>
+<body>
+    <nav class="nav">
+        <section class="nav__left">
+            <a href="#top" class="nav__left__logo"><img src="../assets/pokeball.png " alt="Fetch 'Em All Logo"></a>
+            <a href="#top" class="nav__left__title"><h1>Fetch 'Em All</h1></a>
+        </section>
+
+        <ul class="nav__items">
+            <a href="#"><li>Home</li></a>
+            <a href="./pokedex.html"><li>Pokedex</li></a>
+            <a href="#"><li>My Pokemon</li></a>
+            <a href="#top"><li class="active">Who's That Pokemon</li></a>
+        </ul>
+    </nav>
+    <section class="clouds">
+        <section class="cloud x1"></section>
+        <section class="cloud x2"></section>
+        <section class="cloud x3"></section>
+        <section class="cloud x4"></section>
+        <section class="cloud x5"></section>
+    </section>
+    <main class="wtp">
+            <h1 class="wtp__title">Who's That Pokemon</h1>
+            <!-- <img src="" alt="" class="wtp__image" id="wtp__image"> -->
+            <section id="wtp__image"></section>
+            <form autocomplete="off" action="" class="wtp__form">
+                <div class="wtp__form__input__container" style="width:300px;">
+                  <input id="wtp__form__input__field" type="text" name="myPokemon" placeholder="Pokemon">
+                </div>
+                <button type="button" id="wtp__form__reveal" class="wtp__form__submit">Submit</button>   
+            </form>
+    </main>
+
+    <footer>
+        <p>Made by Dries, Stef, Jarne & Ramzy</p>
+        <p>Using <a href="https://pokeapi.co/" target="blank">pokeapi</a></p>
+    </footer>
+
+    <script src="../wtp.js"></script>
+</body>
+</html>
