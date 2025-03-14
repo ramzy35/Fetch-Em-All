@@ -102,13 +102,17 @@ strong {
   border-bottom: none;
   border-top: none;
   z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
   bottom: 100%;
   left: 0;
   right: 0;
 }
 
+.wtp__form__autocomplete__item div strong {
+  font-size: 1.4rem;
+}
+
 .wtp__form__autocomplete__item div {
+  font-size: 1.4rem;
   padding: 10px;
   cursor: pointer;
   background-color: #fff;
@@ -116,12 +120,10 @@ strong {
 }
 
 .wtp__form__autocomplete__item div:hover {
-  /*when hovering an item:*/
   background-color: #e9e9e9;
 }
 
 .wtp__form__autocomplete__item--active {
-  /*when navigating through the items using the arrow keys:*/
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
