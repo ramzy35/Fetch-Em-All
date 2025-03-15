@@ -4,9 +4,12 @@ body {
 
 .wtp {
   z-index: 1;
-  min-height: 100%;
+  min-height: 85vh;
 }
 
+nav, footer {
+  min-height: 5vh;
+}
 
 strong {
   font-weight: bold;
