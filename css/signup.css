@@ -84,7 +84,7 @@ form .signup__policy {
 
 form h3 {
     color: var(--gray);
-    font-size: 14px;
+    font-size: 1.4rem;
     font-weight: 500;
     margin-left: 10px;
 }
@@ -108,6 +108,7 @@ form .signup__text h3, form .signin__text h3 {
 }
 
 form .signup__text h3 a, form .signin__text h3 a {
+    font-size: 1.4rem;
     color: var(--blue);
     text-decoration: none;
 }
