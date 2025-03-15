@@ -4,11 +4,9 @@ body {
 
 .wtp {
   z-index: 1;
+  min-height: 100%;
 }
 
-nav {
-  z-index: 2;
-}
 
 strong {
   font-weight: bold;
@@ -36,13 +34,14 @@ strong {
 }
 
 .wtp__image,
-#wtp__image {
+#wtp__image--reveal {
   z-index: inherit;
   height: 70vh;
   width: 70vh;
   filter: brightness(0%);
   /* transition: brightness() 5s ease-in-out; */
 }
+
 
 .wtp__searchbar__textfield {
   justify-self: center;
@@ -122,6 +121,6 @@ strong {
 }
 
 @keyframes revealPokemon {
-  from {filter: brightness(0%);}
-  to {filter: brightness(100%);}
+  from {filter: brightness(0%) !important;}
+  to {filter: brightness(100%) !important;}
 }
