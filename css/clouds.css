@@ -10,7 +10,7 @@
 	/* background: #c9dbe9;
 	background: -webkit-linear-gradient(top, #c9dbe9 0%, #fff 100%); */
 	background: -linear-gradient(top, #c9dbe9 0%, #fff 100%);
-	background: -moz-linear-gradient(top, #c9dbe9 0%, #fff 100%);
+	/* background: -moz-linear-gradient(top, #c9dbe9 0%, #fff 100%); */
 	position: fixed;
 	z-index: 0;
 	pointer-events: none;
