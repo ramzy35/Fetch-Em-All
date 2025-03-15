@@ -121,7 +121,7 @@ async function autocomplete(input: any, pokeNameArr: string[]) {
         });
     });
     
-    input.addEventListener("keydown", function (this: any, e:any) {
+    input.addEventListener("keydown", function (e:any) {
         let selectedName:any = document.getElementById("wtp__form__autocomplete__list");
         if (selectedName) selectedName = selectedName.getElementsByTagName("div");
         if (e.keyCode === 40) {
