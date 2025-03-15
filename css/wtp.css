@@ -15,12 +15,13 @@ strong {
 .wtp {
   justify-self: center;
   border: 1px black solid;
-  min-height: 85vh;
+  min-height: 87vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
+  justify-content: center;
 
   /* background: transparent;     */
 }
@@ -39,19 +40,31 @@ strong {
   height: 70vh;
   width: 70vh;
   filter: brightness(0%);
-  /* transition: brightness() 5s ease-in-out; */
 }
 
-
-.wtp__searchbar__textfield {
-  justify-self: center;
-  display: inline-block;
-  border: 1px black solid;
-  border-radius: 2px;
-  background-color: rgb(229, 229, 229);
-  padding: 5px;
+@media only screen and (max-width: 620px) {
+  .wtp__image,
+  #wtp__image--reveal {
+    width: 500px;
+    height: 500px;
+  }
 }
 
+@media only screen and (max-width: 520px) {
+  .wtp__image,
+  #wtp__image--reveal {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .wtp__image,
+  #wtp__image--reveal {
+    width: 300px;
+    height: 300px;
+  }
+}
 /* Disable selecting of image to make sure you can't cheat */
 .selectDisable {
   -webkit-user-select: none;
@@ -61,8 +74,22 @@ strong {
   user-select: none;
 }
 
+.revealPokemon {
+  animation: revealPokemon 5s ease-in-out 1s 1;
+}
+
+@keyframes revealPokemon {
+  from {filter: brightness(0%) !important;}
+  to {filter: brightness(100%) !important;}
+}
+
 /* AUTOCOMPLETE */
 
+.wtp__form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
 .wtp__form__input__container {
   position: relative;
   display: inline-block;
@@ -116,11 +143,8 @@ strong {
   color: #ffffff;
 }
 
-.revealPokemon {
-  animation: revealPokemon 5s ease-in-out 1s 1;
-}
-
-@keyframes revealPokemon {
-  from {filter: brightness(0%) !important;}
-  to {filter: brightness(100%) !important;}
+@media only screen and (max-width: 400px) {
+  .wtp__form {
+    width: 300px;
+  }
 }
