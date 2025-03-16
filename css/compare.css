@@ -252,3 +252,53 @@ i {
     padding-bottom: 5px;
     padding-top: 5px;
 }
+
+@media (max-width: 640px) {
+
+    .compare__hp__bar, .compare__atk__bar, .compare__def__bar,
+    .compare__spdef__bar, .compare__spatk__bar, .compare__speed__bar {
+        width: 150px;
+    }
+}
+
+@media (max-width: 540px) {
+
+    .compare__hp__bar, .compare__atk__bar, .compare__def__bar,
+    .compare__spdef__bar, .compare__spatk__bar, .compare__speed__bar {
+        width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .compare__hp__bar, .compare__atk__bar, .compare__def__bar,
+    .compare__spdef__bar, .compare__spatk__bar, .compare__speed__bar {
+        width: 100px;
+    }
+}
+
+@media (max-width: 440px) {
+
+    .compare__hp__bar, .compare__atk__bar, .compare__def__bar,
+    .compare__spdef__bar, .compare__spatk__bar, .compare__speed__bar {
+        width: 80px;
+    }
+
+    .compare__info {
+        width: 150px;
+        margin: 1.6rem 0;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .compare__hp__bar, .compare__atk__bar, .compare__def__bar,
+    .compare__spdef__bar, .compare__spatk__bar, .compare__speed__bar {
+        width: 60px;
+    }
+
+    .compare__info {
+        width: 150px;
+        margin: 1.6rem 0;
+    }
+}
