@@ -79,7 +79,7 @@ async function showRandomImage(list: Pokemon1[]) {
 
 
 async function autocomplete(input: any, pokeNameArr: string[]) {
-    // Function derived from https://www.w3schools.comhowtohowto_js_autocomplete.asp, adapted to typescript
+    // Function derived from https://www.w3schools.com/howto/howto_js_autocomplete.asp, adapted to typescript
     // input: html element, pokeNameArr: string array with all pokemon names
     let currentFocus : number;
     

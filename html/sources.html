@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex</title>
-    <!-- Potential security risk fix -->
+    <title>Sources</title>
+
     <base rel="noopener noreferrer">
     <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/pokedex.css">
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/footer.css">
-
+    <link rel="stylesheet" href="../css/clouds.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/types.css">
-    <link rel="stylesheet" href="../css/clouds.css">
+    <link rel="stylesheet" href="../css/stat.css">
+    <link rel="stylesheet" href="../css/sources.css">
 </head>
-
 <body>
-    <!-- TODO: nav not sticky anymore -->
     <nav class="nav">
         <section class="nav__left">
             <a href="#top" class="nav__left__logo"><img src="../assets/pokeball.png " alt="Fetch 'Em All Logo"></a>
@@ -28,11 +25,11 @@
         </section>
 
         <ul class="nav__items">
-            <a href="#top">
-                <li class="active">Pokedex</li>
+            <a href="./pokedex.html">
+                <li>Pokedex</li>
             </a>
             <a href="./mypokemon.html">
-                <li>My Pokemon</li>
+                <li class="active">My Pokemon</li>
             </a>
             <a href="./wtp.html">
                 <li>Who's That Pokemon</li>
@@ -43,30 +40,21 @@
             </a>
         </ul>
     </nav>
-    <section id="clouds">
-        <section class="cloud x1"></section>
-        <section class="cloud x2"></section>
-        <section class="cloud x3"></section>
-        <section class="cloud x4"></section>
-        <section class="cloud x5"></section>
-    </section>
-    <main>
-        <h1 class="pokedex__title">Pokedex</h1>
-        <section class="pokedex">
-            <!-- General html-structure for a pokedex card, in comment for future reference -->
-            <!-- <section class="pokedex__card">
-                <section class="pokedex__card__left">
-                    <h2 class="pokedex__card__left__name"></h2>
-                    <p class="pokedex__card__left__id"></p>
-                    <p class="pokedex__card__left__types"></p>
-                </section>
-        
-                <img src="" class="pokedex__card__img--front">
-            </section> -->
-        </section>
 
+    <main class="sources">
+        <h1 class="sources__title">Sources used:</h1>
+        <ul class="sources__list">
+            <a href="https://pokeapi.co/" target="_blank" class="sources__list__link">
+                <li class="sources__list__item">Pokemon Api</li>
+            </a>
+            <a href="https://codepen.io/natka87/pen/LrgyPj" target="_blank" class="sources__list__link">
+                <li class="sources__list__item">Moving cloud background</li>
+            </a>
+            <a href="https://www.w3schools.com/howto/howto_js_autocomplete.asp" target="_blank" class="sources__list__link">
+                <li class="sources__list__item">Autocompleting searchbar</li>
+            </a>
+        </ul>
     </main>
-
 
     <footer>
         <p> Made by
@@ -78,8 +66,5 @@
         </p>
         <p><a href="./sources.html">Sources</a></p>
     </footer>
-
-    <script src="../pokedex.js"></script>
 </body>
-
 </html>

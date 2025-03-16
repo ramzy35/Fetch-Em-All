@@ -1,0 +1,24 @@
+.sources {
+    min-height: 87vh;
+}
+
+.sources__list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.sources__list__item {
+    font-family: fantasy;
+    font-size: 2rem;
+    padding: 10px;
+}
+
+.sources__list__item:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
