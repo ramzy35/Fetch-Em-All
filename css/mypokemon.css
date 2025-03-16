@@ -83,3 +83,10 @@ body {
     width: 25%;
     background-color: #ff4d00;
 }
+
+.mypokemon__card--current {
+    border: 5px goldenrod;
+    border-style: ridge;
+    border-radius: 5px;
+    scale: 110%;
+}
