@@ -177,6 +177,7 @@ i {
 
 .compare__stats__title {
     text-align: center;
+    justify-content: space-evenly;
     min-width: 100px;
 }
 

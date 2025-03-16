@@ -1,89 +1,147 @@
+main {
+    padding: 20px 0;
+    background-color: var(--blue);
+    background: transparent;
+}
+
+main, nav, footer {
+    position: relative;
+    z-index: 1;
+}
+
 body {
     background-color: var(--blue);
-  }
+}
 
-.pokestat p {
-    font-size: 14px;
-    font-family:Georgia, 'Times New Roman', Times, serif
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.pokestat {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px;
+    width: 850px;
+    border-radius: 15px;
+    background-color: var(--blue);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .pokestat__top {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 20px;
+    justify-content: space-between;
 }
 
-.pokestat__top__left {
+.pokestat__top--left {
+    padding-top: 40px;
+}
+
+.pokestat__img {
+    width: 300px;
+    height: 300px;
+}
+
+.small-stats {
+    padding-top: 20px;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    gap: 10px;
 }
 
-.pokestat__top__left__img {
-    width: 150px;
-    height: 150px;
-}
-
-.pokestat__top__right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.small-stats i {
+    font-size: 1.6rem;
 }
 
 .pokestat__buttons {
     display: flex;
     flex-direction: row;
     gap: 20px;
-    justify-content: left;
-    margin-left: 255px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 100%;
 }
 
-.pokestat__top__catch {
-    padding: 15px 55px;
-    background-color: black;
-    color: white;
-    border: none;
+.pokestat__buttons a {
+    background-color: #222;
+    /*make it a variable*/
+    border-radius: 4px;
+    border-style: none;
+    box-sizing: border-box;
+    color: var(--white);
     cursor: pointer;
-}
-
-.pokestat__top__compare {
-    padding: 15px 40px;
-    background-color: black;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.pokestat__evolution {
+    display: inline-block;
+    font-size: 1.6rem;
+    padding: 10px 20px 10px;
+    position: relative;
     text-align: center;
-    margin-bottom: 50px;
+    text-transform: none;
+    width: 120px;
 }
 
-.pokestat__bottom {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 80px;
+.pokestat__buttons a:hover, .pokestat__buttons a:focus {
+    opacity: 0.75;
 }
 
-.pokestat__bottom__left, 
-.pokestat__bottom__right {
+.pokestat__chain {
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 1px solid var(--black);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px 10px 20px 10px;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    gap: 20px;
 }
 
-.pokestat__bottom__left__stats,
-.pokestat__bottom__left__type,
-.pokestat__bottom__right__stats,
-.pokestat__bottom__right__type{
-    border: 1px solid black;
-    padding: 10px;
-    margin-bottom: 50px;
+h3 {
+    font-size: 2rem;
+}
+
+.chain-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.chain--first {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid var(--black);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px 5px 0px 5px;
+    width: 130px;
+}
+
+@media (max-width: 450px) {
+    .pokestat__img {
+        width: 250px;
+        height: 250px;
+    }
+
+    .small-stats {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+    }
+}
+
+@media (max-width: 500px) {
+    .chain-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .chain--first {
+        width: 300px;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .chain--first img {
+        width: 150px;
+        height: 150px;
+    }
 }

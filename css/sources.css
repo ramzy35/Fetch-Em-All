@@ -1,3 +1,8 @@
+main {
+    padding: 20px 0;
+    background-color: var(--blue);
+}
+
 .sources {
     min-height: 87vh;
 }
@@ -21,4 +26,3 @@
     color: blue;
     text-decoration: underline;
 }
-
