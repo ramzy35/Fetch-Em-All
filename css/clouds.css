@@ -112,14 +112,14 @@
 }
 
 @-webkit-keyframes moveclouds {
-	0% {margin-left: 1000px;}
-	100% {margin-left: -1000px;}
+	0% {margin-left: 1500px;}
+	100% {margin-left: -500px;}
 }
 @-moz-keyframes moveclouds {
-	0% {margin-left: 1000px;}
-	100% {margin-left: -1000px;}
+	0% {margin-left: 1500px;}
+	100% {margin-left: -500px;}
 }
 @-o-keyframes moveclouds {
-	0% {margin-left: 1000px;}
-	100% {margin-left: -1000px;}
+	0% {margin-left: 1500px;}
+	100% {margin-left: -500px;}
 }
