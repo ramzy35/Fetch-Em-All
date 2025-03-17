@@ -2,11 +2,6 @@ body {
   background-color: var(--blue);
 }
 
-.wtp {
-  z-index: 1;
-  min-height: 85vh;
-}
-
 nav, footer {
   min-height: 5vh;
 }
@@ -16,6 +11,7 @@ strong {
 }
 
 .wtp {
+  z-index: 100;
   justify-self: center;
   border: 1px black solid;
   min-height: 87vh;

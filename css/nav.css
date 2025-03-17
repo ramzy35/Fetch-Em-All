@@ -8,7 +8,7 @@ nav {
     border-bottom: 2px var(--black) solid;
     background-color: var(--light-gray);
     padding: 0px 20px;
-    z-index: 2;
+    z-index: 101;
 }
 
 .nav__left {
