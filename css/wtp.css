@@ -46,6 +46,7 @@ strong {
 }
 
 @media only screen and (max-width: 620px) {
+
   .wtp__image,
   #wtp__image--reveal {
     width: 500px;
@@ -54,6 +55,7 @@ strong {
 }
 
 @media only screen and (max-width: 520px) {
+
   .wtp__image,
   #wtp__image--reveal {
     width: 400px;
@@ -62,12 +64,14 @@ strong {
 }
 
 @media only screen and (max-width: 420px) {
+
   .wtp__image,
   #wtp__image--reveal {
     width: 300px;
     height: 300px;
   }
 }
+
 /* Disable selecting of image to make sure you can't cheat */
 .selectDisable {
   -webkit-user-select: none;
@@ -82,8 +86,13 @@ strong {
 }
 
 @keyframes revealPokemon {
-  from {filter: brightness(0%) !important;}
-  to {filter: brightness(100%) !important;}
+  from {
+    filter: brightness(0%) !important;
+  }
+
+  to {
+    filter: brightness(100%) !important;
+  }
 }
 
 /* AUTOCOMPLETE */
@@ -93,6 +102,7 @@ strong {
   flex-direction: row;
   flex-wrap: nowrap;
 }
+
 .wtp__form__input__container {
   position: relative;
   display: inline-block;
@@ -107,11 +117,13 @@ strong {
 
 #wtp__form__input__field {
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .wtp__form__submit {
   background-color: DodgerBlue;
   color: #fff;
+  margin-bottom: 20px;
 }
 
 .wtp__form__autocomplete__item {

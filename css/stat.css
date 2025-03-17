@@ -27,6 +27,7 @@ main {
     border-radius: 15px;
     background-color: var(--blue);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+
 }
 
 .pokestat__top {
@@ -95,6 +96,12 @@ main {
 
 h3 {
     font-size: 2rem;
+    font-weight: bold;
+}
+
+.margin {
+    margin-top: 10px;
+
 }
 
 .chain-wrapper {
