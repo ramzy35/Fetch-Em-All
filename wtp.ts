@@ -194,7 +194,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 const submitBtn = document.getElementById("wtp__form__reveal")
 submitBtn?.addEventListener("click", () => {
     const pokeImg = document.getElementById("wtp__image--reveal")
-    pokeImg?.classList.add("revealPokemon")
+    pokeImg?.classList.remove("wtp__image")
+    pokeImg?.classList.add("wtp__image--revealPokemon")
 })
 
 

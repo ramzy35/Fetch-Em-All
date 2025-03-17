@@ -37,12 +37,29 @@ strong {
   font-size: 3rem;
 }
 
-.wtp__image,
-#wtp__image--reveal {
+.wtp__image{
   z-index: inherit;
   height: 70vh;
   width: 70vh;
   filter: brightness(0%);
+}
+
+.wtp__image--revealPokemon {
+  animation: revealPokemon 5s ease-in-out 0s 1;
+  z-index: inherit;
+  height: 70vh;
+  width: 70vh;
+
+}
+
+@keyframes revealPokemon {
+  from {
+    filter: brightness(0%) !important;
+  }
+
+  to {
+    filter: brightness(100%) !important;
+  }
 }
 
 @media only screen and (max-width: 620px) {
@@ -81,19 +98,7 @@ strong {
   user-select: none;
 }
 
-.revealPokemon {
-  animation: revealPokemon 5s ease-in-out 1s 1;
-}
 
-@keyframes revealPokemon {
-  from {
-    filter: brightness(0%) !important;
-  }
-
-  to {
-    filter: brightness(100%) !important;
-  }
-}
 
 /* AUTOCOMPLETE */
 

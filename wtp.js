@@ -243,5 +243,6 @@ document.addEventListener("DOMContentLoaded", function () { return __awaiter(_th
 var submitBtn = document.getElementById("wtp__form__reveal");
 submitBtn === null || submitBtn === void 0 ? void 0 : submitBtn.addEventListener("click", function () {
     var pokeImg = document.getElementById("wtp__image--reveal");
-    pokeImg === null || pokeImg === void 0 ? void 0 : pokeImg.classList.add("revealPokemon");
+    pokeImg === null || pokeImg === void 0 ? void 0 : pokeImg.classList.remove("wtp__image");
+    pokeImg === null || pokeImg === void 0 ? void 0 : pokeImg.classList.add("wtp__image--revealPokemon");
 });
