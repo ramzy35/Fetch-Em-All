@@ -1,3 +1,11 @@
+"use strict";
+// class Pokemon1 {
+//     name: string = "";
+//     id: number;
+//     types: string[] = [];
+//     frontImg: string = "";
+//     typeColor: string = "#fff";
+//     didYouCatchEm: boolean = false;
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,53 +42,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
-var Pokemon1 = /** @class */ (function () {
-    function Pokemon1(id) {
-        this.name = "";
-        this.types = [];
-        this.frontImg = "";
-        this.typeColor = "#fff";
-        this.didYouCatchEm = false;
-        this.id = id;
-    }
-    Pokemon1.prototype.fetchPokemonDataById = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var response, data, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, fetch("https://pokeapi.co/api/v2/pokemon/".concat(this.id))];
-                    case 1:
-                        response = _a.sent();
-                        if (!response.ok)
-                            throw new Error("Pokemon not found: ".concat(response.statusText));
-                        return [4 /*yield*/, response.json()];
-                    case 2:
-                        data = _a.sent();
-                        this.name = data.name;
-                        this.types = data.types ? data.types.map(function (t) { return t.type.name; }) : [];
-                        this.frontImg = data.sprites.front_default;
-                        return [2 /*return*/, this];
-                    case 3:
-                        error_1 = _a.sent();
-                        console.error("Error fetching Pokémon", error_1);
-                        return [2 /*return*/, this];
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    return Pokemon1;
-}());
+Object.defineProperty(exports, "__esModule", { value: true });
+//     constructor(id: number) {
+//         this.id = id;
+//     }
+//     async fetchPokemonDataById(): Promise<Pokemon1> {
+//         try {
+//             const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${this.id}`);
+//             if (!response.ok) throw new Error(`Pokemon not found: ${response.statusText}`);
+//             const data = await response.json();
+//             this.name = data.name;
+//             this.types = data.types ? data.types.map((t: any) => t.type.name) : [];
+//             this.frontImg = data.sprites.front_default;
+//             return this;
+//         } catch (error) {
+//             console.error("Error fetching Pokémon", error);
+//             return this;
+//         }
+//     }
+// }
+var pokemon_js_1 = require("./pokemon.js");
 function getPokemonList1() {
     return __awaiter(this, void 0, void 0, function () {
         var promises, i, poke;
         return __generator(this, function (_a) {
             promises = [];
             for (i = 1; i <= 151; i++) {
-                poke = new Pokemon1(i);
+                poke = new pokemon_js_1.Pokemon(i);
                 promises.push(poke.fetchPokemonDataById());
             }
             return [2 /*return*/, Promise.all(promises)];
@@ -231,7 +219,7 @@ function autocomplete(input, pokeNameArr) {
         });
     });
 }
-document.addEventListener("DOMContentLoaded", function () { return __awaiter(_this, void 0, void 0, function () {
+document.addEventListener("DOMContentLoaded", function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         getPokemonList1().then(function (pokemonList) {
             showRandomImage(pokemonList);
