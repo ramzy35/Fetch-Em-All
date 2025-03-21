@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pokemon = void 0;
+
 var Pokemon = /** @class */ (function () {
     function Pokemon(id) {
         this.name = "";
@@ -108,6 +109,8 @@ var Pokemon = /** @class */ (function () {
             card.style.borderColor = this.didYouCatchEm ? "#05d605" : "#ac2323";
         }
     };
+ 
     return Pokemon;
 }());
-exports.Pokemon = Pokemon;
+export {Pokemon};
+// exports.Pokemon = Pokemon;

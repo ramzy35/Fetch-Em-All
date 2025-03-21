@@ -61,7 +61,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //         }
 //     }
 // }
-var pokemon_js_1 = require("./pokemon.js");
+import {Pokemon} from './pokemon.js'
+var pokemon_js_1 = Pokemon;
+// var pokemon_js_1 = require("./pokemon.js");  
+
 function getPokemonList1() {
     return __awaiter(this, void 0, void 0, function () {
         var promises, i, poke;
