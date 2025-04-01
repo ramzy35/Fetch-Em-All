@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+    <base rel="noopener noreferrer">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/pokedex.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/footer.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <nav class="nav">
+        <section class="nav__left">
+            <a href="#top" class="nav__left__logo"><img src="/assets/pokeball.png " alt="Fetch 'Em All Logo"></a>
+            <a href="#top" class="nav__left__title">
+                <h1>Fetch 'Em All</h1>
+            </a>
+        </section>
+
+        <ul class="nav__items">
+            <a href="#top">
+                <li class="active">Pokedex</li>
+            </a>
+            <a href="./mypokemon.html">
+                <li>My Pokemon</li>
+            </a>
+            <a href="./wtp.html">
+                <li>Who's That Pokemon</li>
+            </a>
+        </ul>
+    </nav>
+    <main>
+        <h1 class="pokedex__title">Pokedex</h1>
+        <section class="pokedex">
+            <% for (let i=0; i < 50; i++) { %>
+                <section class="pokedex__card">
+                    <section class="pokedex__card__left">
+                        <h2 class="pokedex__card__left__name">pikachu</h2>
+                        <p class="pokedex__card__left__id">#25</p>
+                        <p class="pokedex__card__left__types">electric</p>
+                    </section>
+
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+                        class="pokedex__card__img--front">
+                </section>
+                <% } %>
+        </section>
+
+    </main>
+
+
+    <footer>
+        <p> Made by
+            <a href="https://github.com/DVdBdev" target="_blank">Dries</a>,
+            <a href="https://github.com/StefDB6" target="_blank">Stef</a>,
+            <a href="https://github.com/JE2004-png" target="_blank">Jarne</a> &
+            <a href="https://github.com/ramzy35" target="_blank">Ramzy</a>
+            using <a href="https://pokeapi.co/" target="blank">pokeapi</a>
+        </p>
+        <p><a href="./sources.html">Sources</a></p>
+    </footer>
+
+    <script src="../pokedex.js"></script>
+</body>
+
+</html>

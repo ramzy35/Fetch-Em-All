@@ -1,0 +1,17 @@
+footer {
+    text-align: center;
+    padding: 10px;
+    border-top: 2px var(--black) solid;
+    background-color: var(--light-gray);
+    margin-bottom: 0;
+}
+
+footer a {
+    color: blue;
+    text-decoration: underline;
+}
+
+footer p, footer a {
+    font-weight: bold;
+    font-size: 1.5rem;
+}

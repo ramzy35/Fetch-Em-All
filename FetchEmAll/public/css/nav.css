@@ -1,0 +1,82 @@
+nav {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px var(--black) solid;
+    background-color: var(--light-gray);
+    padding: 0px 20px;
+    z-index: 101;
+}
+
+.nav__left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav__left__title h1 {
+    font-family: pokemonSolid;
+    font-size: 2.5rem;
+    color: var(--black);
+}
+
+.nav__items {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.nav__items li {
+    font-family: fantasy;
+    font-size: 2.5rem;
+}
+
+.nav__items li:active, .nav__items li:hover, .nav__items .active {
+    color: var(--orangered);
+}
+
+.nav__left__logo img {
+    height: 50px;
+    width: 50px;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 300px) {
+    nav {
+        flex-direction: column;
+        padding: 0px 0px 20px 0px;
+    }
+
+    .nav__items {
+        flex-direction: row;
+        gap: 20px;
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 634px) {
+    nav {
+        flex-direction: column;
+        padding: 0px 0px 20px 0px;
+    }
+
+    .nav__items {
+        flex-direction: row;
+        gap: 20px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    nav {
+        flex-direction: row;
+        padding: 0px 20px
+    }
+}
