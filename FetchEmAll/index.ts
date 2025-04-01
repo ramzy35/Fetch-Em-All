@@ -1,4 +1,5 @@
 import express from "express";
+import pokedexRoute from "./routes/pokedex";
 
 const app = express();
 
@@ -9,9 +10,7 @@ app.use(express.static("public"));
 
 app.set("port", 3000);
 
-app.get("/pokedex", (req, res) => {
-    res.render("index");
-});
+app.use("/pokedex", pokedexRoute);
 
 app.listen(app.get("port"), () => {
     console.log("Server started on http://localhost:" + app.get("port"));

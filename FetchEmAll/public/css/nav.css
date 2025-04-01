@@ -32,7 +32,7 @@ nav {
 
 .nav__items li {
     font-family: PressStart;
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
 .nav__items li:active, .nav__items li:hover, .nav__items .active {
