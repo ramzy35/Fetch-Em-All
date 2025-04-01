@@ -6,7 +6,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px var(--black) solid;
-    background-color: var(--light-gray);
+    background-color: var(--yellow);
     padding: 0px 20px;
     z-index: 101;
 }
@@ -31,7 +31,7 @@ nav {
 }
 
 .nav__items li {
-    font-family: fantasy;
+    font-family: PressStart;
     font-size: 2.5rem;
 }
 

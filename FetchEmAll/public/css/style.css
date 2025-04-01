@@ -13,6 +13,11 @@
   src: url(/fonts/Aldrich-Regular.ttf);
 }
 
+@font-face {
+  font-family: PressStart;
+  src: url(/fonts/PressStart2P-vaV7.ttf);
+}
+
 :root {
   --black: #000000;
   --white: #ffffff;
