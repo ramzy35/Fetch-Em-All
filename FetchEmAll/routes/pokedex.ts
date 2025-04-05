@@ -11,7 +11,7 @@ interface Pokemon {
 }
 
 async function getPokemonList() {
-    const pokemonList = [];
+    const pokemonList:Pokemon[] = [];
     const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
     
     const fetchPokemon = (id: number) => {
@@ -38,8 +38,9 @@ async function getPokemonList() {
     return results.filter(pokemon => pokemon !== null);
 }
 
-pokedexRoute.get("/", pokedexUtility, (req, res) => {
-    res.render("pokedex", { pokemonList: getPokemonList() });
+pokedexRoute.get("/", pokedexUtility, async (req, res) => {
+    res.locals.pokemonList = await getPokemonList();
+    res.render("pokedex");
 });
 
 export default pokedexRoute;

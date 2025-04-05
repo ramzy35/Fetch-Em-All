@@ -38,23 +38,23 @@
     <main>
         <h1 class="pokedex__title">Pokedex</h1>
         <section class="pokedex">
-            <% for (let i=0; i < pokemonList.length; i++) { %>
+            <% pokemonList.forEach(poke => { %>
                 <section class="pokedex__card">
                     <section class="pokedex__card__left">
                         <h2 class="pokedex__card__left__name">
-                            <%= pokemonList[i].name %>
+                            <%= poke.name %>
                         </h2>
                         <p class="pokedex__card__left__id">
-                            <%= pokemonList[i].id %>
+                            <%= poke.id %>
                         </p>
                         <p class="pokedex__card__left__types">
-                            <%= getTypes(pokemonList[i].types) %>
+                            <%= getTypes(poke.types) %>
                         </p>
                     </section>
 
-                    <img src="<%= pokemonList[i].front_image %>" class="pokedex__card__img--front">
+                    <img src="<%= poke.front_image %>" class="pokedex__card__img--front">
                 </section>
-                <% } %>
+            <% }); %>
         </section>
 
     </main>
