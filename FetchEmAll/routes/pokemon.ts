@@ -10,7 +10,7 @@ export interface PokemonStats {
     types: string[],
     height: number,
     weight: number,
-    evolution_chain: PokemonInfo[],
+    evolution_chain: PokemonInfo[] | null,
 }
 
 type EvolutionDetail = {
@@ -119,7 +119,11 @@ pokemonRoute.get("/", async (req, res) => {
         const evolutionResponse = await fetch(speciesJson.evolution_chain.url);
         const evolutionJson = await evolutionResponse.json();
         const evolutionNames = getFullEvolutionPath(evolutionJson, pokemonJson.name);
-        const evolutionChain = await getPokemonList(evolutionNames);
+        let evolutionChain = null;
+        if (evolutionNames.length != 1) {
+            evolutionChain = await getPokemonList(evolutionNames);
+        }
+        
 
         const poke:PokemonStats = {
             name: pokemonJson.name,

@@ -50,7 +50,7 @@
                         <i class="fa-solid fa-ruler-vertical length-icon"></i>
                         <p class="pokestat__length"><%= convert(pokemon.height) %>m</p>
                         <i class="fa-solid fa-weight-hanging weigth-icon"></i>
-                        <p class="pokestat__weigth"><%= convert(pokemon.weight) %>m</p>
+                        <p class="pokestat__weigth"><%= convert(pokemon.weight) %>kg</p>
                     </section>
                 </section>
                 <section class="pokestat__top--right">
@@ -62,6 +62,7 @@
                 <a href="battle.html" class="pokestat__catch">Catch</a>
                 <a href="compare.html" class="pokestat__compare">Compare</a>
             </section>
+            <% if (pokemon.evolution_chain != null) {%>
             <section class="pokestat__chain">
                 <h3 class="chain__title">Evolution chain</h1>
                     <section class="chain-wrapper">
@@ -71,20 +72,9 @@
                                 <img src="<%= poke.front_default %>">
                             </section>
                         <% }); %>
-                        <!-- <section class="chain--first">
-                            <h2>Squirtle</h2>
-                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png">
-                        </section>
-                        <section class="chain--first">
-                            <h2>Wartortle</h2>
-                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png">
-                        </section>
-                        <section class="chain--first">
-                            <h2>Blaustoise</h2>
-                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png">
-                        </section> -->
                     </section>
             </section>
+            <% } %>
             <section class="pokestat__stats">
                 <section class="stats--left">
                     <section class="stats__block">
