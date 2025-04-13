@@ -65,7 +65,13 @@
             <section class="pokestat__chain">
                 <h3 class="chain__title">Evolution chain</h1>
                     <section class="chain-wrapper">
-                        <section class="chain--first">
+                        <% pokemon.evolution_chain.forEach(poke => { %>
+                            <section class="chain--first">
+                                <h2><%= poke.name %></h2>
+                                <img src="<%= poke.front_default %>">
+                            </section>
+                        <% }); %>
+                        <!-- <section class="chain--first">
                             <h2>Squirtle</h2>
                             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png">
                         </section>
@@ -76,7 +82,7 @@
                         <section class="chain--first">
                             <h2>Blaustoise</h2>
                             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png">
-                        </section>
+                        </section> -->
                     </section>
             </section>
             <section class="pokestat__stats">
