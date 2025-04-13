@@ -32,18 +32,54 @@ type EvolutionChain = {
     chain: EvolutionChainLink;
 };
 
-function getEvolutionNames(evolutionData: EvolutionChain): string[] {
-    const names: string[] = [];
+// function getEvolutionNames(evolutionData: EvolutionChain): string[] {
+//     const names: Set<string> = new Set();
 
-    function traverse(chain: EvolutionChainLink) {
-        names.push(chain.species.name);
-        if (chain.evolves_to.length > 0) {
-            traverse(chain.evolves_to[0]);
-        }
+//     // function traverse(chain: EvolutionChainLink) {
+//     //     names.push(chain.species.name);
+//     //     if (chain.evolves_to.length > 0) {
+//     //         traverse(chain.evolves_to[0]);
+//     //     }
+//     // }
+//     function traverse(chain: EvolutionChainLink) {
+//         names.add(chain.species.name);
+//         for (const evolution of chain.evolves_to) {
+//           traverse(evolution);
+//         }
+//       }
+//     traverse(evolutionData.chain);
+//     return Array.from(names);
+// }
+
+function getFullEvolutionPath(evolutionData: EvolutionChain, target: string): string[] {
+    let result: string[] = [];
+  
+    function traverse(chain: EvolutionChainLink, path: string[]) {
+      const newPath = [...path, chain.species.name];
+  
+      if (chain.species.name === target) {
+        collectFurtherEvolutions(chain, newPath);
+        result = newPath;
+        return true;
+      }
+  
+      for (const evo of chain.evolves_to) {
+        if (traverse(evo, newPath)) return true;
+      }
+  
+      return false;
     }
-    traverse(evolutionData.chain);
-    return names;
-}
+  
+    function collectFurtherEvolutions(chain: EvolutionChainLink, path: string[]) {
+      for (const evo of chain.evolves_to) {
+        path.push(evo.species.name);
+        collectFurtherEvolutions(evo, path);
+      }
+    }
+  
+    traverse(evolutionData.chain, []);
+    return result;
+  }
 
 type PokemonInfo = {
     id: number;
@@ -82,7 +118,7 @@ pokemonRoute.get("/", async (req, res) => {
 
         const evolutionResponse = await fetch(speciesJson.evolution_chain.url);
         const evolutionJson = await evolutionResponse.json();
-        const evolutionNames = getEvolutionNames(evolutionJson);
+        const evolutionNames = getFullEvolutionPath(evolutionJson, pokemonJson.name);
         const evolutionChain = await getPokemonList(evolutionNames);
 
         const poke:PokemonStats = {
