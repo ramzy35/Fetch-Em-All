@@ -25,6 +25,10 @@ export async function getPokemonList(req: Request, res: Response, next: NextFunc
     }
     
     const results = await Promise.all(promises);
+
     res.locals.pokemonList = results;
+    results.forEach(poke => {
+        res.locals.pokemonNameList.push(poke?.name) 
+    });
     next();
 }

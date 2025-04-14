@@ -1,9 +1,9 @@
 import express from "express";
 import pokedexRoute from "./routes/pokedex";
-import pokemonRoute from "./routes/pokemon";
 import wtpRoute from "./routes/wtp";
 import { getPokemonList } from "./middleware/getPokemonList";
 import { pokedexUtility } from "./middleware/pokedexUtility";
+
 
 const app = express();
 
@@ -18,7 +18,6 @@ app.use(getPokemonList)
 app.use(pokedexUtility)
 
 app.use("/pokedex", pokedexRoute);
-app.use("/pokemon", pokemonRoute);
 app.use("/wtp", wtpRoute)
 
 app.listen(app.get("port"), () => {
