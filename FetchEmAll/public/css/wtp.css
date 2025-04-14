@@ -1,0 +1,161 @@
+body {
+    background-color: var(--blue);
+  }
+  
+  nav, footer {
+    min-height: 5vh;
+  }
+  
+  strong {
+    font-weight: bold;
+  }
+  
+  .wtp {
+    z-index: 100;
+    justify-self: center;
+    /* border: 1px black solid; */
+    min-height: 87vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+  
+    /* background: transparent;     */
+  }
+  
+  
+  
+  .wtp__title {
+    z-index: inherit;
+    font-family: pokemonSolid;
+    font-size: 3rem;
+  }
+  
+  .wtp__image{
+    z-index: inherit;
+    height: 70vh;
+    width: 70vh;
+    filter: brightness(0%);
+  }
+  
+  .wtp__image--revealPokemon {
+    animation: revealPokemon 5s ease-in-out 0s 1;
+    z-index: inherit;
+    height: 70vh;
+    width: 70vh;
+  
+  }
+  
+  @keyframes revealPokemon {
+    0% {
+      filter: brightness(0%) !important;
+    }
+    100% {
+      filter: brightness(100%) !important;
+    }
+  }
+  
+  @media only screen and (max-width: 620px) {
+  
+    .wtp__image, .wtp__image--revealPokemon{
+      width: 500px;
+      height: 500px;
+    }
+  }
+  
+  @media only screen and (max-width: 520px) {
+  
+    .wtp__image, .wtp__image--revealPokemon {
+      width: 400px;
+      height: 400px;
+    }
+  }
+  
+  @media only screen and (max-width: 420px) {
+  
+    .wtp__image, .wtp__image--revealPokemon {
+      width: 300px;
+      height: 300px;
+    }
+  }
+  
+  /* Disable selecting of image to make sure you can't cheat */
+  .selectDisable {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+  }
+  
+  
+  /* AUTOCOMPLETE */
+  
+  .wtp__form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  
+  .wtp__form__input__container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .wtp__form__submit, #wtp__form__input__field {
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  #wtp__form__input__field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .wtp__form__submit {
+    background-color: DodgerBlue;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  
+  .wtp__form__autocomplete__item {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+  }
+  
+  .wtp__form__autocomplete__item div strong {
+    font-size: 1.4rem;
+  }
+  
+  .wtp__form__autocomplete__item div {
+    font-size: 1.4rem;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+  }
+  
+  .wtp__form__autocomplete__item div:hover {
+    background-color: #e9e9e9;
+  }
+  
+  .wtp__form__autocomplete__item--active {
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+  }
+  
+  @media only screen and (max-width: 400px) {
+    .wtp__form {
+      width: 300px;
+    }
+  }
