@@ -12,7 +12,11 @@
                         class="compare__img">
                     <p class="compare__id">#<%= id1 %></p>
                     <h2 class="compare__name"><%= pokemonList[id1].name%></h2>
-                    <p class="compare__types">Grass, Poison</p>
+                    <p class="compare__types"> 
+                        <% pokemonList[id1].types.forEach(type => { %>
+                            <%= type %>
+                        <% }); %> 
+                    </p>
                     <p class="compare__length">0.7m</p>
                     <p class="compare__weigth">6.9kg</p>
                 </section>
@@ -21,7 +25,11 @@
                         class="compare__img">
                     <p class="compare__id">#<%= id2 %></p>
                     <h2 class="compare__name"><%= pokemonList[id2].name%></h2>
-                    <p class="compare__types">Fire, Flying</p>
+                    <p class="compare__types"> 
+                        <% pokemonList[id2].types.forEach(type => { %>
+                            <%= type %>
+                        <% }); %> 
+                    </p>
                     <p class="compare__length">1.7m</p>
                     <p class="compare__weigth">90.5kg</p>
                 </section>
