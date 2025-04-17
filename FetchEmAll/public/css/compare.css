@@ -1,0 +1,305 @@
+main {
+    padding: 20px 0;
+    background-color: var(--blue);
+    background: transparent;
+}
+
+main, nav, footer {
+    position: relative;
+    z-index: 1;
+}
+
+body {
+    background-color: var(--blue);
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 850px;
+    border-radius: 15px;
+    background-color: var(--blue);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.compare--top, .compare--second, .compare--third, .compare--fourth, .compare--fifth {
+    display: flex;
+    flex-direction: row;
+}
+
+.compare__icons--top, .compare__icons--second, .compare__icons--third, .compare__icons--fourth,
+.compare__icons--fifth {
+    width: 40px;
+    border-right: solid 1px black;
+    border-bottom: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    /* background-color: var(--white); */
+}
+
+.compare__icons--fifth, .compare__left--fifth, .compare__right--fifth {
+    /* avoid weird border at bottom of compare page */
+    border-bottom: none !important;
+}
+
+.compare__icons--second, .compare__icons--third, .compare__icons--fourth, .compare__icons--fifth {
+    justify-content: start;
+    padding-top: 1rem;
+}
+
+.compare__right--third {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-right: solid 1px black;
+    border-bottom: solid 1px black;
+}
+
+
+.compare__left--top, .compare__right--top, .compare__left--second, .compare__right--second,
+.compare__left--fourth, .compare__right--fourth, .compare__left--fifth, .compare__right--fifth {
+    width: 50%;
+    border-right: solid 1px black;
+    border-bottom: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: var(--white); */
+}
+
+.compare__left--fifth, .compare__right--fifth {
+    align-items: start;
+    justify-content: start;
+    padding: 10px;
+}
+
+.compare__left--fourth, .compare__right--fourth {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    gap: 20px;
+}
+
+.compare__left--second, .compare__right--second, .compare__left--fourth, .compare__right--fourth, .compare__left--fifth, .compare__right--fifth {
+    min-height: 200px;
+}
+
+.compare__right--top, .compare__right--second, .compare__right--third, .compare__right--fourth, .compare__right--fifth {
+    border-right: none;
+}
+
+.compare__img {
+    width: 180px;
+    height: 180px;
+}
+
+.compare__length, .compare__weigth {
+    padding-top: 1.6rem;
+}
+
+.weigth-icon, .length-icon {
+    padding-top: 1rem;
+}
+
+.compare__weigth, .weigth-icon {
+    padding-bottom: 1.6rem;
+}
+
+i {
+    font-size: 2.5rem;
+    color: black;
+}
+
+.bold {
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.compare__info {
+    border-radius: 5px;
+    border: 1px solid var(--black);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px 5px 10px 5px;
+    width: 180px;
+}
+
+.base-stats {
+    letter-spacing: 0.3px;
+}
+
+.compare__hp, .compare__atk, .compare__def, .compare__spdef, .compare__spatk,
+.compare__speed {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+}
+
+.compare__hp p, .compare__atk p, .compare__def p,
+.compare__spdef p, .compare__spatk p, .compare__speed p {
+    /* give constant width to avoid alignment issues if value is 3 digits */
+    width: 5rem;
+    padding: 0 1.6rem;
+}
+
+.compare__hp__bar, .compare__atk__bar, .compare__def__bar,
+.compare__spdef__bar, .compare__spatk__bar, .compare__speed__bar {
+    background-color: var(--light-gray);
+    width: 200px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.compare__hp__bar__fill, .compare__atk__bar__fill, .compare__def__bar__fill,
+.compare__spdef__bar__fill, .compare__spatk__bar__fill, .compare__speed__bar__fill {
+    background-color: rgb(116, 194, 92);
+    color: white;
+    height: 20px;
+    padding: 1%;
+    text-align: right;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+.compare__stats__title {
+    text-align: center;
+    justify-content: space-evenly;
+    min-width: 100px;
+}
+
+.hp__left {
+    background-color: #ff0000;
+    width: calc(100% * 45 / 255);
+}
+
+.hp__right {
+    width: calc(100% * 78 / 255);
+}
+
+.atk__left {
+    background-color: #ff0000;
+    width: calc(100% * 49 / 255);
+}
+
+.atk__right {
+    width: calc(100% * 84 / 255);
+}
+
+.def__left {
+    background-color: #ff0000;
+    width: calc(100% * 49 / 255);
+}
+
+.def__right {
+    width: calc(100% * 79 / 255);
+}
+
+.spatk__left {
+    background-color: #ff0000;
+    width: calc(100% * 65 / 255);
+}
+
+.spatk__right {
+    width: calc(100% * 109 / 255);
+}
+
+.spdef__left {
+    background-color: #ff0000;
+    width: calc(100% * 65 / 255);
+}
+
+.spdef__right {
+    width: calc(100% * 85 / 255);
+}
+
+.speed__left {
+    background-color: #ff0000;
+    width: calc(100% * 45 / 255);
+}
+
+.speed__right {
+    width: calc(100% * 99 / 255);
+}
+
+.types {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.type {
+    border: 1px solid black;
+    font-size: 1.6rem;
+    padding: 3px 3px;
+    border-radius: 3px;
+}
+
+.times {
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+@media (max-width: 640px) {
+
+    .compare__hp__bar, .compare__atk__bar, .compare__def__bar,
+    .compare__spdef__bar, .compare__spatk__bar, .compare__speed__bar {
+        width: 150px;
+    }
+}
+
+@media (max-width: 540px) {
+
+    .compare__hp__bar, .compare__atk__bar, .compare__def__bar,
+    .compare__spdef__bar, .compare__spatk__bar, .compare__speed__bar {
+        width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .compare__hp__bar, .compare__atk__bar, .compare__def__bar,
+    .compare__spdef__bar, .compare__spatk__bar, .compare__speed__bar {
+        width: 100px;
+    }
+}
+
+@media (max-width: 440px) {
+
+    .compare__hp__bar, .compare__atk__bar, .compare__def__bar,
+    .compare__spdef__bar, .compare__spatk__bar, .compare__speed__bar {
+        width: 80px;
+    }
+
+    .compare__info {
+        width: 150px;
+        margin: 1.6rem 0;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .compare__hp__bar, .compare__atk__bar, .compare__def__bar,
+    .compare__spdef__bar, .compare__spatk__bar, .compare__speed__bar {
+        width: 60px;
+    }
+
+    .compare__info {
+        width: 150px;
+        margin: 1.6rem 0;
+    }
+}

@@ -8,12 +8,13 @@
                     <i class="fa-solid fa-weight-hanging weigth-icon"></i>
                 </section>
                 <section class="compare__left--top">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= id1 %>.png"
                         class="compare__img">
                     <p class="compare__id">#<%= id1 %></p>
-                    <h2 class="compare__name"><%= pokemonList[id1].name%></h2>
+                    <h2 class="compare__name"><%= pokemonList[id1-1].name%></h2>
                     <p class="compare__types"> 
-                        <% pokemonList[id1].types.forEach(type => { %>
+                        <% pokemonList[id1-1].types.forEach(type => { %>
+                            <!-- No idea why i have to do id-1 for name and types, doesnt make much sense -->
                             <%= type %>
                         <% }); %> 
                     </p>
@@ -21,12 +22,12 @@
                     <p class="compare__weigth">6.9kg</p>
                 </section>
                 <section class="compare__right--top">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= id2 %>.png"
                         class="compare__img">
                     <p class="compare__id">#<%= id2 %></p>
-                    <h2 class="compare__name"><%= pokemonList[id2].name%></h2>
+                    <h2 class="compare__name"><%= pokemonList[id2-1].name%></h2>
                     <p class="compare__types"> 
-                        <% pokemonList[id2].types.forEach(type => { %>
+                        <% pokemonList[id2-1].types.forEach(type => { %>
                             <%= type %>
                         <% }); %> 
                     </p>
