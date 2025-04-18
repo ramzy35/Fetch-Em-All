@@ -24,6 +24,7 @@ export interface PokemonStats {
     ev_yield: string,
     base_experience: number,
     base_happiness: string,
+    abilities: AbilityDescription[],
 }
 
 type EvolutionDetail = {
@@ -134,6 +135,48 @@ function getEffortStats(stats: Stat[]): string {
         .join(', ');
 }
 
+type AbilityInfo = {
+    ability: {
+        name: string;
+        url: string;
+    };
+    is_hidden: boolean;
+    slot: number;
+};
+  
+type AbilityDescription = {
+    name: string;
+    description: string;
+};
+  
+async function getAbilityDescriptions(abilities: AbilityInfo[]): Promise<AbilityDescription[]> {
+    const results: AbilityDescription[] = [];
+
+    for (const abilityEntry of abilities) {
+        const res = await fetch(abilityEntry.ability.url);
+        const data = await res.json();
+
+        const englishEntry = data.effect_entries.find(
+            (entry: any) => entry.language.name === "en"
+        );
+
+        if (englishEntry) {
+            results.push({
+                name: abilityEntry.ability.name,
+                description: englishEntry.short_effect,
+            });
+        } else {
+            results.push({
+                name: abilityEntry.ability.name,
+                description: "No English description found.",
+            });
+        }
+    }
+
+    return results;
+}
+  
+
 export async function getPokemonStats(id:number) {
     const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const pokemonJson = await pokemonResponse.json();
@@ -148,6 +191,7 @@ export async function getPokemonStats(id:number) {
     if (evolutionNames.length != 1) {
         evolutionChain = await getPokemonList(evolutionNames);
     }
+    const abilities = await getAbilityDescriptions(pokemonJson.abilities);
 
     const poke:PokemonStats = {
         name: pokemonJson.name,
@@ -170,6 +214,7 @@ export async function getPokemonStats(id:number) {
         base_experience: pokemonJson.base_experience,
         ev_yield: getEffortStats(pokemonJson.stats),
         base_happiness: speciesJson.base_happiness,
+        abilities: abilities,
     };
     
     return poke;
