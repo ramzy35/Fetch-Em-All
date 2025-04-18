@@ -82,16 +82,16 @@
                         <section class="stats">
                             <p class="stats__title">HP</p>
                             <section class="bar">
-                                <section class="hp-fill fill type-water">
-                                    79
+                                <section class="hp-fill fill type-<%= pokemon.types[0] %>">
+                                    <%= pokemon.hp %>
                                 </section>
                             </section>
                         </section>
                         <section class="stats">
                             <p class="stats__title">Atk</p>
                             <section class="bar">
-                                <section class="atk-fill fill type-water">
-                                    83
+                                <section class="atk-fill fill type-<%= pokemon.types[0] %>">
+                                    <%= pokemon.attack %>
                                 </section>
                             </section>
 
@@ -99,8 +99,8 @@
                         <section class="stats">
                             <p class="stats__title">Def</p>
                             <section class="bar">
-                                <section class="def-fill fill type-water">
-                                    100
+                                <section class="def-fill fill type-<%= pokemon.types[0] %>">
+                                    <%= pokemon.defense %>
                                 </section>
                             </section>
 
@@ -108,8 +108,8 @@
                         <section class="stats">
                             <p class="stats__title">Sp.Atk</p>
                             <section class="bar">
-                                <section class="spatk-fill fill type-water">
-                                    85
+                                <section class="spatk-fill fill type-<%= pokemon.types[0] %>">
+                                    <%= pokemon.special_attack %>
                                 </section>
                             </section>
 
@@ -117,16 +117,16 @@
                         <section class="stats">
                             <p class="stats__title">Sp.Def</p>
                             <section class="bar">
-                                <section class="spdef-fill fill type-water">
-                                    105
+                                <section class="spdef-fill fill type-<%= pokemon.types[0] %>">
+                                    <%= pokemon.special_defense %>
                                 </section>
                             </section>
                         </section>
                         <section class="stats">
                             <p class="stats__title">Spd</p>
                             <section class="bar">
-                                <section class="spd-fill fill type-water">
-                                    78
+                                <section class="spd-fill fill type-<%= pokemon.types[0] %>">
+                                    <%= pokemon.speed %>
                                 </section>
                             </section>
                         </section>
@@ -141,13 +141,13 @@
                 </section>
                 <section class="stats--right">
                     <section class="stats__block">
-                        <p><span class="bold">Generation: </span>I</p>
-                        <p><span class="bold">Habitat: </span>Water-Edge</p>
-                        <p><span class="bold">Capture Rate: </span>45</p>
-                        <p><span class="bold">Growth Rate: </span>Medium-slow</p>
-                        <p><span class="bold">EV Yield: </span>3 Sp. Defense</p>
-                        <p><span class="bold">Base Exp: </span>265</p>
-                        <p><span class="bold">Base Happiness: </span>50</p>
+                        <p><span class="bold">Generation: </span><%= generation(pokemon.generation) %></p>
+                        <p><span class="bold">Habitat: </span><% pokemon.habitat %></p>
+                        <p><span class="bold">Capture Rate: </span><% pokemon.capture_rate %></p>
+                        <p><span class="bold">Growth Rate: </span><% pokemon.growth_rate %></p>
+                        <p><span class="bold">EV Yield: </span><% pokemon.ev_yield %></p>
+                        <p><span class="bold">Base Exp: </span><% pokemon.base_experience %></p>
+                        <p><span class="bold">Base Happiness: </span><% pokemon.base_happiness %></p>
                     </section>
                     <section class="stats__block">
 

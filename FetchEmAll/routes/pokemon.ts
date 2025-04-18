@@ -11,6 +11,19 @@ export interface PokemonStats {
     height: number,
     weight: number,
     evolution_chain: PokemonInfo[] | null,
+    hp: number,
+    attack: number,
+    defense: number,
+    special_attack: number,
+    special_defense: number,
+    speed: number,
+    generation: string,
+    habitat: string,
+    capture_rate: number,
+    growth_rate: string,
+    ev_yield: string,
+    base_experience: number,
+    base_happiness: string,
 }
 
 type EvolutionDetail = {
@@ -133,6 +146,19 @@ pokemonRoute.get("/", async (req, res) => {
             height: pokemonJson.height,
             weight: pokemonJson.weight,
             evolution_chain: evolutionChain,
+            hp: pokemonJson.stats[0].base_stat,
+            attack: pokemonJson.stats[1].base_stat,
+            defense: pokemonJson.stats[2].base_stat,
+            special_attack: pokemonJson.stats[3].base_stat,
+            special_defense: pokemonJson.stats[4].base_stat,
+            speed: pokemonJson.stats[5].base_stat,
+            habitat: speciesJson.habitat.name,
+            generation: speciesJson.generation.name,
+            capture_rate: speciesJson.capture_rate,
+            growth_rate: speciesJson.growth_rate.name,
+            base_experience: pokemonJson.base_experience,
+            ev_yield: "bla",
+            base_happiness: speciesJson.base_happiness,
         };
 
         res.render("pokemon", {pokemon: poke});
