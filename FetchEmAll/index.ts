@@ -1,9 +1,11 @@
 import express from "express";
 import pokedexRoute from "./routes/pokedex";
 import wtpRoute from "./routes/wtp";
+import pokemonRoute from "./routes/pokemon";
 import compareRoute from "./routes/compare";
 import { getPokemonList } from "./middleware/getPokemonList";
 import { pokedexUtility } from "./middleware/pokedexUtility";
+
 
 
 const app = express();
@@ -21,6 +23,7 @@ app.use(pokedexUtility)
 app.use("/pokedex", pokedexRoute);
 app.use("/wtp", wtpRoute);
 app.use("/compare", compareRoute)
+app.use("/pokemon", pokemonRoute)
 
 app.listen(app.get("port"), () => {
     console.log("Server started on http://localhost:" + app.get("port"));

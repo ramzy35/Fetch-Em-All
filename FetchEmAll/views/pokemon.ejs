@@ -1,45 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("partials/header.ejs") %>
+<%- include("partials/nav.ejs") %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statpage</title>
-
-    <base rel="noopener noreferrer">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/pokedex.css">
-    <link rel="stylesheet" href="../css/nav.css">
-    <link rel="stylesheet" href="../css/footer.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/types.css">
-    <link rel="stylesheet" href="../css/stat.css">
-
-    <script src="https://kit.fontawesome.com/3046fdd1a4.js" crossorigin="anonymous"></script>
-</head>
-
-<body>
-    <nav class="nav">
-        <section class="nav__left">
-            <a href="#top" class="nav__left__logo"><img src="../assets/pokeball.png " alt="Fetch 'Em All Logo"></a>
-            <a href="#top" class="nav__left__title">
-                <h1>Fetch 'Em All</h1>
-            </a>
-        </section>
-
-        <ul class="nav__items">
-            <a href="/pokedex">
-                <li>Pokedex</li>
-            </a>
-            <a href="./mypokemon.html">
-                <li>My Pokemon</li>
-            </a>
-            <a href="/wtp">
-                <li>Who's That Pokemon</li>
-            </a>
-        </ul>
-    </nav>
-    <main>
         <section class="pokestat">
             <section class="pokestat__top">
                 <section class="pokestat__top--left">
@@ -201,18 +162,5 @@
                 </section>
             </section>
         </section>
-    </main>
 
-    <footer>
-        <p> Made by
-            <a href="https://github.com/DVdBdev" target="_blank">Dries</a>,
-            <a href="https://github.com/StefDB6" target="_blank">Stef</a>,
-            <a href="https://github.com/JE2004-png" target="_blank">Jarne</a> &
-            <a href="https://github.com/ramzy35" target="_blank">Ramzy</a>
-            using <a href="https://pokeapi.co/" target="blank">pokeapi</a>
-        </p>
-        <p><a href="./sources.html">Sources</a></p>
-    </footer>
-</body>
-
-</html>
+<%- include("partials/footer.ejs") %>

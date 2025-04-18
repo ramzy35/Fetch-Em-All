@@ -119,51 +119,53 @@ async function getPokemonList(names: string[]): Promise<PokemonInfo[]> {
     return pokemonData;
 }
 
+export async function getPokemonStats(id:number) {
+    const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const pokemonJson = await pokemonResponse.json();
+
+    const speciesResponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
+    const speciesJson = await speciesResponse.json();
+
+    const evolutionResponse = await fetch(speciesJson.evolution_chain.url);
+    const evolutionJson = await evolutionResponse.json();
+    const evolutionNames = getFullEvolutionPath(evolutionJson, pokemonJson.name);
+    let evolutionChain = null;
+    if (evolutionNames.length != 1) {
+        evolutionChain = await getPokemonList(evolutionNames);
+    }
+
+    const poke:PokemonStats = {
+        name: pokemonJson.name,
+        id: pokemonJson.id,
+        front_image: pokemonJson.sprites.front_default,
+        types: pokemonJson.types ? pokemonJson.types.map((t: any) => t.type.name) : [],
+        height: pokemonJson.height,
+        weight: pokemonJson.weight,
+        evolution_chain: evolutionChain,
+        hp: pokemonJson.stats[0].base_stat,
+        attack: pokemonJson.stats[1].base_stat,
+        defense: pokemonJson.stats[2].base_stat,
+        special_attack: pokemonJson.stats[3].base_stat,
+        special_defense: pokemonJson.stats[4].base_stat,
+        speed: pokemonJson.stats[5].base_stat,
+        habitat: speciesJson.habitat.name,
+        generation: speciesJson.generation.name,
+        capture_rate: speciesJson.capture_rate,
+        growth_rate: speciesJson.growth_rate.name,
+        base_experience: pokemonJson.base_experience,
+        ev_yield: "bla",
+        base_happiness: speciesJson.base_happiness,
+    };
+
+    return poke;
+}
+
 pokemonRoute.get("/", async (req, res) => {
     if (typeof req.query.id === "string")
     {
-        const id = req.query.id;
-        const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${req.query.id}`);
-        const pokemonJson = await pokemonResponse.json();
-
-        const speciesResponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${req.query.id}`)
-        const speciesJson = await speciesResponse.json();
-
-        const evolutionResponse = await fetch(speciesJson.evolution_chain.url);
-        const evolutionJson = await evolutionResponse.json();
-        const evolutionNames = getFullEvolutionPath(evolutionJson, pokemonJson.name);
-        let evolutionChain = null;
-        if (evolutionNames.length != 1) {
-            evolutionChain = await getPokemonList(evolutionNames);
-        }
-        
-
-        const poke:PokemonStats = {
-            name: pokemonJson.name,
-            id: pokemonJson.id,
-            front_image: pokemonJson.sprites.front_default,
-            types: pokemonJson.types ? pokemonJson.types.map((t: any) => t.type.name) : [],
-            height: pokemonJson.height,
-            weight: pokemonJson.weight,
-            evolution_chain: evolutionChain,
-            hp: pokemonJson.stats[0].base_stat,
-            attack: pokemonJson.stats[1].base_stat,
-            defense: pokemonJson.stats[2].base_stat,
-            special_attack: pokemonJson.stats[3].base_stat,
-            special_defense: pokemonJson.stats[4].base_stat,
-            speed: pokemonJson.stats[5].base_stat,
-            habitat: speciesJson.habitat.name,
-            generation: speciesJson.generation.name,
-            capture_rate: speciesJson.capture_rate,
-            growth_rate: speciesJson.growth_rate.name,
-            base_experience: pokemonJson.base_experience,
-            ev_yield: "bla",
-            base_happiness: speciesJson.base_happiness,
-        };
-
+        const poke = getPokemonStats(parseInt(req.query.id))
         res.render("pokemon", {pokemon: poke});
     }
-    
 });
 
 export default pokemonRoute;
