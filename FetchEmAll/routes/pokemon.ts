@@ -161,11 +161,10 @@ export async function getPokemonStats(id:number) {
 }
 
 pokemonRoute.get("/", async (req, res) => {
-    if (typeof req.query.id === "string")
-    {
-        const poke = getPokemonStats(parseInt(req.query.id))
+        const id = typeof req.query.id === "string" ? parseInt(req.query.id) : 1;
+        // give statpage of id 1 instead of infinite loading when no id is given
+        const poke = getPokemonStats(id)
         res.render("pokemon", {pokemon: poke});
-    }
 });
 
 export default pokemonRoute;
