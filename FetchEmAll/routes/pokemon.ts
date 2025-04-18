@@ -119,6 +119,21 @@ async function getPokemonList(names: string[]): Promise<PokemonInfo[]> {
     return pokemonData;
 }
 
+type Stat = {
+    base_stat: number;
+    effort: number;
+    stat: {
+        name: string;
+        url: string;
+    };
+};
+  
+function getEffortStats(stats: Stat[]): string {
+    return stats.filter(s => s.effort > 0)
+        .map(s => `${s.effort} ${s.stat.name}`)
+        .join(', ');
+}
+
 export async function getPokemonStats(id:number) {
     const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const pokemonJson = await pokemonResponse.json();
@@ -153,10 +168,10 @@ export async function getPokemonStats(id:number) {
         capture_rate: speciesJson.capture_rate,
         growth_rate: speciesJson.growth_rate.name,
         base_experience: pokemonJson.base_experience,
-        ev_yield: "bla",
+        ev_yield: getEffortStats(pokemonJson.stats),
         base_happiness: speciesJson.base_happiness,
     };
-
+    
     return poke;
 }
 
