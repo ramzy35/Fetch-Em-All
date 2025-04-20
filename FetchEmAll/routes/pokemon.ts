@@ -220,6 +220,44 @@ export async function getPokemonStats(id:number) {
     return poke;
 }
 
+function typeMapper(input: string | number): string | number | null {
+    const typeMap: Record<string, number> = {
+        normal: 1,
+        fighting: 2,
+        flying: 3,
+        poison: 4,
+        ground: 5,
+        rock: 6,
+        bug: 7,
+        ghost: 8,
+        steel: 9,
+        fire: 10,
+        water: 11,
+        grass: 12,
+        electric: 13,
+        psychic: 14,
+        ice: 15,
+        dragon: 16,
+        dark: 17,
+        fairy: 18,
+    };
+
+    if (typeof input === "string") {
+        const lower = input.toLowerCase();
+        return typeMap[lower] ?? null;
+    } else if (typeof input === "number") {
+        const reverseMap = Object.entries(typeMap).reduce<Record<number,string>>(
+            (acc, [key, value]) => {
+                acc[value] = key;
+                return acc;
+            },
+            {}
+        );
+        return reverseMap[input] ?? null;
+    }
+    return null;
+}
+
 pokemonRoute.get("/", async (req, res) => {
         const id = typeof req.query.id === "string" ? parseInt(req.query.id) : 1;
         // give statpage of id 1 instead of infinite loading when no id is given
