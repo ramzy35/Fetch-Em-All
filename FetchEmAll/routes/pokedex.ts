@@ -10,6 +10,7 @@ export interface Pokemon {
 }
 
 pokedexRoute.get("/", async (req, res) => {
+    res.locals.currentPage = "pokedex" 
     res.render("pokedex");
 });
 

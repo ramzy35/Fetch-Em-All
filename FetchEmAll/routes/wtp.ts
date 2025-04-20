@@ -8,6 +8,8 @@ function rndmPokeId() {
 }
 
 wtpRoute.get("/", async (req, res) => {
+    res.locals.currentPage = "wtp"
+
     res.render("wtp", {
         rndmPokeId
     });

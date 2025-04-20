@@ -262,6 +262,8 @@ pokemonRoute.get("/", async (req, res) => {
         const id = typeof req.query.id === "string" ? parseInt(req.query.id) : 1;
         // give statpage of id 1 instead of infinite loading when no id is given
         const poke = await getPokemonStats(id)
+        res.locals.currentPage = "pokemon"
+        
         res.render("pokemon", {pokemon: poke});
 });
 

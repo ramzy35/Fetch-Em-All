@@ -1,0 +1,33 @@
+<%- include("partials/header.ejs") %>
+<%- include("partials/nav.ejs") %>
+
+<h1>Mijn Pokémon</h1>
+
+<section class="pokedex">
+    <% myPokemon.forEach(poke => { %>
+    <a href="/pokemon?id=<%= poke.id %>" class="pokedex__card__link">
+        <section class="pokedex__card <%if (currentPokemon.name == poke.name) { %>
+            <%= "myPokemon__current" %> 
+        <% } %>">
+        <!-- adds current class to pokemon currently selected, 
+         this is the only class that needs different styling than pokedex, so other classes stay pokedex__... 
+         if other classes are needed later, add more instead of replacing -->
+            <section class="pokedex__card__left">
+                <h2 class="pokedex__card__left__name">
+                    <%= poke.name %>
+                </h2>
+                <p class="pokedex__card__left__id">
+                    <%= poke.id %>
+                </p>
+                <p class="pokedex__card__left__types">
+                    <%= getTypes(poke.types) %>
+                </p>
+            </section>
+
+            <img src="<%= poke.front_image %>" class="pokedex__card__img--front" alt="<%= poke.name %>">
+        </section>
+    </a>
+    <% }); %>
+</section>
+
+<%- include("partials/footer.ejs") %>

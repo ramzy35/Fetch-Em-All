@@ -7,15 +7,35 @@
     </section>
 
     <ul class="nav__items">
-        <a href="#top">
-            <li class="active">Pokedex</li>
-        </a>
-        <a href="./mypokemon.html">
-            <li>My Pokemon</li>
-        </a>
-        <a href="./wtp.html">
-            <li>Who's That Pokemon</li>
-        </a>
+        <% if (currentPage === "pokedex") { %>
+            <a href="#top">
+                <li class="active">Pokedex</li>
+            </a>
+        <% } else { %>
+            <a href="http://localhost:3000/pokedex">
+                <li>Pokedex</li>
+            </a>
+        <% } %>
+
+        <% if (currentPage === "myPokemon") { %>
+            <a href="#top">
+                <li class="active">My Pokemon</li>
+            </a>
+        <% } else { %>
+            <a href="http://localhost:3000/">
+                <li>My Pokemon</li>
+            </a>
+        <% } %>
+
+        <% if (currentPage === "wtp") { %>
+            <a href="#top">
+                <li class="active">Who's That Pokemon</li>
+            </a>
+        <% } else { %>
+            <a href="http://localhost:3000/wtp">
+                <li>Who's That Pokemon</li>
+            </a>
+        <% } %>
     </ul>
 </nav>
 <main>
