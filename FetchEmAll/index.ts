@@ -7,8 +7,6 @@ import myPokemonRoute from "./routes/myPokemon";
 import { getPokemonList } from "./middleware/getPokemonList";
 import { pokedexUtility } from "./middleware/pokedexUtility";
 
-
-
 const app = express();
 
 app.set("view engine", "ejs");
