@@ -258,6 +258,36 @@ function typeMapper(input: string | number): string | number | null {
     return null;
 }
 
+function extractDamageFromTypes(data: any): string[][] {
+    const allTypes = [
+        "normal", "fighting", "flying", "poison", "ground", "rock",
+        "bug", "ghost", "steel", "fire", "water", "grass", "electric",
+        "psychic", "ice", "dragon", "dark", "fairy"
+    ];
+
+    const {
+        no_damage_from = [],
+        half_damage_from = [],
+        double_damage_from = [],
+    } = data.damage_relations;
+
+    const noDamage = no_damage_from.map((t: { name: string; url: string }) => t.name);
+    const halfDamage = half_damage_from.map((t: { name: string; url: string }) => t.name);
+    const doubleDamage = double_damage_from.map((t: { name: string; url: string }) => t.name);
+
+    const mentioned = new Set([...noDamage, ...halfDamage, ...doubleDamage]);
+    const normalDamage = allTypes.filter(type => !mentioned.has(type));
+
+    return [
+        noDamage,     // 0x
+        [],           // 1/4x (not applicable for single type)
+        halfDamage,   // 1/2x
+        normalDamage, // 1x (not mentioned)
+        doubleDamage, // 2x
+        []            // 4x (not applicable for single type)
+    ];
+}
+
 pokemonRoute.get("/", async (req, res) => {
         const id = typeof req.query.id === "string" ? parseInt(req.query.id) : 1;
         // give statpage of id 1 instead of infinite loading when no id is given
