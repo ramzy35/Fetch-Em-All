@@ -187,6 +187,13 @@ export async function getPokemonStats(id:number) {
     const evolutionResponse = await fetch(speciesJson.evolution_chain.url);
     const evolutionJson = await evolutionResponse.json();
     const evolutionNames = getFullEvolutionPath(evolutionJson, pokemonJson.name);
+
+    const grass = await fetch("https://pokeapi.co/api/v2/type/grass");
+    const grassJson = await grass.json();
+
+    const poison = await fetch("https://pokeapi.co/api/v2/type/poison");
+    const poisonJson = await poison.json();
+
     let evolutionChain = null;
     if (evolutionNames.length != 1) {
         evolutionChain = await getPokemonList(evolutionNames);
@@ -216,47 +223,54 @@ export async function getPokemonStats(id:number) {
         base_happiness: speciesJson.base_happiness,
         abilities: abilities,
     };
+
+    const grassDamage: string[][] = extractDamageFromTypes(grassJson);
+    const poisonDamage: string[][] = extractDamageFromTypes(poisonJson);
+    console.log(grassDamage);
+    console.log(poisonDamage);
+    console.log(combineDamageFromTypes(grassDamage, poisonDamage));
     
     return poke;
 }
 
-function typeMapper(input: string | number): string | number | null {
-    const typeMap: Record<string, number> = {
-        normal: 1,
-        fighting: 2,
-        flying: 3,
-        poison: 4,
-        ground: 5,
-        rock: 6,
-        bug: 7,
-        ghost: 8,
-        steel: 9,
-        fire: 10,
-        water: 11,
-        grass: 12,
-        electric: 13,
-        psychic: 14,
-        ice: 15,
-        dragon: 16,
-        dark: 17,
-        fairy: 18,
-    };
+// IDK IF WE NEED THIS, IMMA KEEP IT JUST BY THE OFFCHANCE WE DO
+// function typeMapper(input: string | number): string | number | null {
+//     const typeMap: Record<string, number> = {
+//         normal: 1,
+//         fighting: 2,
+//         flying: 3,
+//         poison: 4,
+//         ground: 5,
+//         rock: 6,
+//         bug: 7,
+//         ghost: 8,
+//         steel: 9,
+//         fire: 10,
+//         water: 11,
+//         grass: 12,
+//         electric: 13,
+//         psychic: 14,
+//         ice: 15,
+//         dragon: 16,
+//         dark: 17,
+//         fairy: 18,
+//     };
 
-    if (typeof input === "string") {
-        const lower = input.toLowerCase();
-        return typeMap[lower] ?? null;
-    } else if (typeof input === "number") {
-        const reverseMap = Object.entries(typeMap).reduce<Record<number,string>>(
-            (acc, [key, value]) => {
-                acc[value] = key;
-                return acc;
-            },
-            {}
-        );
-        return reverseMap[input] ?? null;
-    }
-    return null;
-}
+//     if (typeof input === "string") {
+//         const lower = input.toLowerCase();
+//         return typeMap[lower] ?? null;
+//     } else if (typeof input === "number") {
+//         const reverseMap = Object.entries(typeMap).reduce<Record<number,string>>(
+//             (acc, [key, value]) => {
+//                 acc[value] = key;
+//                 return acc;
+//             },
+//             {}
+//         );
+//         return reverseMap[input] ?? null;
+//     }
+//     return null;
+// }
 
 function extractDamageFromTypes(data: any): string[][] {
     const allTypes = [
@@ -286,6 +300,64 @@ function extractDamageFromTypes(data: any): string[][] {
         doubleDamage, // 2x
         []            // 4x (not applicable for single type)
     ];
+}
+
+function combineDamageFromTypes(type1: string[][], type2: string[][]): string[][] {
+    const allTypes = [
+        "normal", "fighting", "flying", "poison", "ground", "rock",
+        "bug", "ghost", "steel", "fire", "water", "grass", "electric",
+        "psychic", "ice", "dragon", "dark", "fairy"
+    ];
+
+    const indexToMultiplierMapper = (index: number): number => {
+        const mapping: Record<number, number> = {
+            0: 0,
+            1: 0.25,
+            2: 0.5,
+            3: 1,
+            4: 2,
+            5: 4
+        };
+        return mapping[index] ?? 1;
+    };
+
+    const multiplierToIndexMapper = (multiplier: number): number => {
+        const mapping: Record<number, number> = {
+            0: 0,
+            0.25: 1,
+            0.5: 2,
+            1: 3,
+            2: 4,
+            4: 5
+        };
+        return mapping[multiplier] ?? 3;
+    };
+
+    const combinedMap: Record<string, number> = {};
+
+    for (const type of allTypes) {
+        let index1 = type1.findIndex(arr => arr.includes(type));
+        let index2 = type2.findIndex(arr => arr.includes(type));
+        if (index1 === -1)
+            index1 = 3;
+        if (index2 === -1)
+            index2 = 3;
+
+        const m1 = indexToMultiplierMapper(index1);
+        const m2 = indexToMultiplierMapper(index2);
+
+        const combinedMultiplier = m1 * m2;
+
+        combinedMap[type] = combinedMultiplier;
+    }
+
+    const result: string[][] = [[], [], [], [], [], []];
+    for (const [type, multiplier] of Object.entries(combinedMap)) {
+        const index = multiplierToIndexMapper(multiplier);
+        result[index].push(type);
+    }
+
+    return result;
 }
 
 pokemonRoute.get("/", async (req, res) => {
