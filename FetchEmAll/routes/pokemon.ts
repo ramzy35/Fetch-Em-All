@@ -25,6 +25,7 @@ export interface PokemonStats {
     base_experience: number,
     base_happiness: string,
     abilities: AbilityDescription[],
+    combined_damage: string[][],
 }
 
 type EvolutionDetail = {
@@ -188,11 +189,21 @@ export async function getPokemonStats(id:number) {
     const evolutionJson = await evolutionResponse.json();
     const evolutionNames = getFullEvolutionPath(evolutionJson, pokemonJson.name);
 
-    const grass = await fetch("https://pokeapi.co/api/v2/type/grass");
-    const grassJson = await grass.json();
-
-    const poison = await fetch("https://pokeapi.co/api/v2/type/poison");
-    const poisonJson = await poison.json();
+    const types = pokemonJson.types ? pokemonJson.types.map((t: any) => t.type.name) : [];
+    let combinedDamage: string[][] | null = null;
+    if (types.length == 2){
+        const type1 = await fetch(`https://pokeapi.co/api/v2/type/${types[0]}`);
+        const type1Json = await type1.json();
+        const type1Damage = extractDamageFromTypes(type1Json);
+        const type2 = await fetch(`https://pokeapi.co/api/v2/type/${types[1]}`);
+        const type2Json = await type2.json();
+        const type2Damage = extractDamageFromTypes(type2Json);
+        combinedDamage = combineDamageFromTypes(type1Damage, type2Damage);
+    } else {
+        const type1 = await fetch(`https://pokeapi.co/api/v2/type/${types[0]}`);
+        const type1Json = await type1.json();
+        combinedDamage = extractDamageFromTypes(type1Json);
+    }
 
     let evolutionChain = null;
     if (evolutionNames.length != 1) {
@@ -204,7 +215,7 @@ export async function getPokemonStats(id:number) {
         name: pokemonJson.name,
         id: pokemonJson.id,
         front_image: pokemonJson.sprites.front_default,
-        types: pokemonJson.types ? pokemonJson.types.map((t: any) => t.type.name) : [],
+        types: types,
         height: pokemonJson.height,
         weight: pokemonJson.weight,
         evolution_chain: evolutionChain,
@@ -222,13 +233,8 @@ export async function getPokemonStats(id:number) {
         ev_yield: getEffortStats(pokemonJson.stats),
         base_happiness: speciesJson.base_happiness,
         abilities: abilities,
+        combined_damage: combinedDamage,
     };
-
-    const grassDamage: string[][] = extractDamageFromTypes(grassJson);
-    const poisonDamage: string[][] = extractDamageFromTypes(poisonJson);
-    console.log(grassDamage);
-    console.log(poisonDamage);
-    console.log(combineDamageFromTypes(grassDamage, poisonDamage));
     
     return poke;
 }
