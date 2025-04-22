@@ -25,7 +25,7 @@ export interface PokemonStats {
     base_experience: number,
     base_happiness: string,
     abilities: AbilityDescription[],
-    combined_damage: string[][],
+    type_damage: string[][],
 }
 
 type EvolutionDetail = {
@@ -233,7 +233,7 @@ export async function getPokemonStats(id:number) {
         ev_yield: getEffortStats(pokemonJson.stats),
         base_happiness: speciesJson.base_happiness,
         abilities: abilities,
-        combined_damage: combinedDamage,
+        type_damage: combinedDamage,
     };
     
     return poke;

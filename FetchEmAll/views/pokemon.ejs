@@ -1,166 +1,201 @@
 <%- include("partials/header.ejs") %>
-<%- include("partials/nav.ejs") %>
+    <%- include("partials/nav.ejs") %>
 
         <section class="pokestat">
             <section class="pokestat__top">
                 <section class="pokestat__top--left">
-                    <h2 class="pokestat__title"><%= pokemon.name %></h2>
-                    <p class="pokestat__id">#<%= pokemon.id %></p>
-                    <p class="pokestat__types"><%= getTypes(pokemon.types) %></p>
+                    <h2 class="pokestat__title">
+                        <%= pokemon.name %>
+                    </h2>
+                    <p class="pokestat__id">#<%= pokemon.id %>
+                    </p>
+                    <p class="pokestat__types">
+                        <%= getTypes(pokemon.types) %>
+                    </p>
                     <section class="small-stats">
                         <i class="fa-solid fa-ruler-vertical length-icon"></i>
-                        <p class="pokestat__length"><%= convert(pokemon.height) %>m</p>
+                        <p class="pokestat__length">
+                            <%= convert(pokemon.height) %>m
+                        </p>
                         <i class="fa-solid fa-weight-hanging weigth-icon"></i>
-                        <p class="pokestat__weigth"><%= convert(pokemon.weight) %>kg</p>
+                        <p class="pokestat__weigth">
+                            <%= convert(pokemon.weight) %>kg
+                        </p>
                     </section>
                 </section>
                 <section class="pokestat__top--right">
-                    <img class="pokestat__img"
-                        src="<%= pokemon.front_image %>" alt="<%= pokemon.name %>">
+                    <img class="pokestat__img" src="<%= pokemon.front_image %>" alt="<%= pokemon.name %>">
                 </section>
             </section>
             <section class="pokestat__buttons">
                 <a href="battle.html" class="pokestat__catch">Catch</a>
                 <a href="http://localhost:3000/compare?id1=<%= pokemon.id %>" class="pokestat__compare">Compare</a>
             </section>
-            <% if (pokemon.evolution_chain != null) {%>
-            <section class="pokestat__chain">
-                <h3 class="chain__title">Evolution chain</h1>
-                    <section class="chain-wrapper">
-                        <% pokemon.evolution_chain.forEach(poke => { %>
-                            <section class="chain--first">
-                                <h2><%= poke.name %></h2>
-                                <img src="<%= poke.front_default %>">
-                            </section>
-                        <% }); %>
-                    </section>
-            </section>
-            <% } %>
-            <section class="pokestat__stats">
-                <section class="stats--left">
-                    <section class="stats__block">
-                        <h3>Base stats</h3>
-                        <section class="stats">
-                            <p class="stats__title">HP</p>
-                            <section class="bar">
-                                <section class="hp-fill fill type-<%= pokemon.types[0] %>">
-                                    <%= pokemon.hp %>
+            <% if (pokemon.evolution_chain !=null) {%>
+                <section class="pokestat__chain">
+                    <h3 class="chain__title">Evolution chain</h1>
+                        <section class="chain-wrapper">
+                            <% pokemon.evolution_chain.forEach(poke=> { %>
+                                <section class="chain--first">
+                                    <h2>
+                                        <%= poke.name %>
+                                    </h2>
+                                    <img src="<%= poke.front_default %>">
                                 </section>
-                            </section>
+                                <% }); %>
                         </section>
-                        <section class="stats">
-                            <p class="stats__title">Atk</p>
-                            <section class="bar">
-                                <section class="atk-fill fill type-<%= pokemon.types[0] %>">
-                                    <%= pokemon.attack %>
-                                </section>
-                            </section>
-
-                        </section>
-                        <section class="stats">
-                            <p class="stats__title">Def</p>
-                            <section class="bar">
-                                <section class="def-fill fill type-<%= pokemon.types[0] %>">
-                                    <%= pokemon.defense %>
-                                </section>
-                            </section>
-
-                        </section>
-                        <section class="stats">
-                            <p class="stats__title">Sp.Atk</p>
-                            <section class="bar">
-                                <section class="spatk-fill fill type-<%= pokemon.types[0] %>">
-                                    <%= pokemon.special_attack %>
-                                </section>
-                            </section>
-
-                        </section>
-                        <section class="stats">
-                            <p class="stats__title">Sp.Def</p>
-                            <section class="bar">
-                                <section class="spdef-fill fill type-<%= pokemon.types[0] %>">
-                                    <%= pokemon.special_defense %>
-                                </section>
-                            </section>
-                        </section>
-                        <section class="stats">
-                            <p class="stats__title">Spd</p>
-                            <section class="bar">
-                                <section class="spd-fill fill type-<%= pokemon.types[0] %>">
-                                    <%= pokemon.speed %>
-                                </section>
-                            </section>
-                        </section>
-                    </section>
-                    <section class="stats__block">
-                        <h3>Abilities</h3>
-                        <% pokemon.abilities.forEach(ability => { %>
-                            <p class="bold"><%= ability.name %></p>
-                            <p><%= ability.description %></p>
-                        <% }); %>
-                    </section>
                 </section>
-                <section class="stats--right">
-                    <section class="stats__block">
-                        <p><span class="bold">Generation: </span><%= generation(pokemon.generation) %></p>
-                        <p><span class="bold">Habitat: </span><%= pokemon.habitat %></p>
-                        <p><span class="bold">Capture Rate: </span><%= pokemon.capture_rate %></p>
-                        <p><span class="bold">Growth Rate: </span><%= pokemon.growth_rate %></p>
-                        <p><span class="bold">EV Yield: </span><%= pokemon.ev_yield %></p>
-                        <p><span class="bold">Base Exp: </span><%= pokemon.base_experience %></p>
-                        <p><span class="bold">Base Happiness: </span><%= pokemon.base_happiness %></p>
-                    </section>
-                    <section class="stats__block">
+                <% } %>
+                    <section class="pokestat__stats">
+                        <section class="stats--left">
+                            <section class="stats__block">
+                                <h3>Base stats</h3>
+                                <section class="stats">
+                                    <p class="stats__title">HP</p>
+                                    <section class="bar">
+                                        <section class="hp-fill fill type-<%= pokemon.types[0] %>">
+                                            <%= pokemon.hp %>
+                                        </section>
+                                    </section>
+                                </section>
+                                <section class="stats">
+                                    <p class="stats__title">Atk</p>
+                                    <section class="bar">
+                                        <section class="atk-fill fill type-<%= pokemon.types[0] %>">
+                                            <%= pokemon.attack %>
+                                        </section>
+                                    </section>
 
-                        <section class="stats__type">
-                            <h3>Type</h3>
-                            <section class="type-water type">Water</section>
-                        </section>
-                        <section class="two times">
-                            <p class="bold">Takes 2x damage</p>
-                            <section class="types">
-                                <section class="type-grass type">Grass</section>
-                                <section class="type-electric type">Electric</section>
+                                </section>
+                                <section class="stats">
+                                    <p class="stats__title">Def</p>
+                                    <section class="bar">
+                                        <section class="def-fill fill type-<%= pokemon.types[0] %>">
+                                            <%= pokemon.defense %>
+                                        </section>
+                                    </section>
 
+                                </section>
+                                <section class="stats">
+                                    <p class="stats__title">Sp.Atk</p>
+                                    <section class="bar">
+                                        <section class="spatk-fill fill type-<%= pokemon.types[0] %>">
+                                            <%= pokemon.special_attack %>
+                                        </section>
+                                    </section>
+
+                                </section>
+                                <section class="stats">
+                                    <p class="stats__title">Sp.Def</p>
+                                    <section class="bar">
+                                        <section class="spdef-fill fill type-<%= pokemon.types[0] %>">
+                                            <%= pokemon.special_defense %>
+                                        </section>
+                                    </section>
+                                </section>
+                                <section class="stats">
+                                    <p class="stats__title">Spd</p>
+                                    <section class="bar">
+                                        <section class="spd-fill fill type-<%= pokemon.types[0] %>">
+                                            <%= pokemon.speed %>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                            <section class="stats__block">
+                                <h3>Abilities</h3>
+                                <% pokemon.abilities.forEach(ability=> { %>
+                                    <p class="bold">
+                                        <%= ability.name %>
+                                    </p>
+                                    <p>
+                                        <%= ability.description %>
+                                    </p>
+                                    <% }); %>
                             </section>
                         </section>
-                        <section class="one times">
-                            <p class="bold">Takes 1x damage</p>
-                            <section class="types">
-                                <section class="type-normal type">Normal</section>
-                                <section class="type-fighting type">Fighting</section>
-                                <section class="type-flying type">Flying</section>
-                                <section class="type-poison type">Poison</section>
-                                <section class="type-ground type">Ground</section>
-                                <section class="type-rock type">Rock</section>
-                                <section class="type-bug type">Bug</section>
-                                <section class="type-ghost type">Ghost</section>
-                                <section class="type-psychic type">Psychic</section>
-                                <section class="type-dragon type">Dragon</section>
-                                <section class="type-dark type">Dark</section>
-                                <section class="type-fairy type">Fairy</section>
+                        <section class="stats--right">
+                            <section class="stats__block">
+                                <p><span class="bold">Generation: </span>
+                                    <%= generation(pokemon.generation) %>
+                                </p>
+                                <p><span class="bold">Habitat: </span>
+                                    <%= pokemon.habitat %>
+                                </p>
+                                <p><span class="bold">Capture Rate: </span>
+                                    <%= pokemon.capture_rate %>
+                                </p>
+                                <p><span class="bold">Growth Rate: </span>
+                                    <%= pokemon.growth_rate %>
+                                </p>
+                                <p><span class="bold">EV Yield: </span>
+                                    <%= pokemon.ev_yield %>
+                                </p>
+                                <p><span class="bold">Base Exp: </span>
+                                    <%= pokemon.base_experience %>
+                                </p>
+                                <p><span class="bold">Base Happiness: </span>
+                                    <%= pokemon.base_happiness %>
+                                </p>
                             </section>
-                        </section>
-                        <section class="half times">
-                            <p class="bold">Takes 1/2x damage</p>
-                            <section class="types">
-                                <section class="type-steel type">Steel</section>
-                                <section class="type-fire type">Fire</section>
-                                <section class="type-water type">water</section>
-                            </section>
-                        </section>
-                        <section class="half times">
-                            <p class="bold">Takes 1/2x damage</p>
-                            <section class="types">
-                                <section class="type-steel type">Steel</section>
-                                <section class="type-fire type">Fire</section>
-                                <section class="type-water type">water</section>
-                                <section class="type-ice type">Ice</section>
+                            <section class="stats__block">
+
+                                <section class="stats__type">
+                                    <h3>Type</h3>
+                                    <section class="types">
+                                        <% pokemon.types.forEach(type=> { %>
+                                            <section class="type-<%= type %> type">
+                                                <%= type %>
+                                            </section>
+                                            <% }); %>
+                                    </section>
+
+                                </section>
+                                <section class="two times">
+                                    <p class="bold">Takes 2x damage</p>
+                                    <section class="types">
+                                        <section class="type-grass type">Grass</section>
+                                        <section class="type-electric type">Electric</section>
+
+                                    </section>
+                                </section>
+                                <section class="one times">
+                                    <p class="bold">Takes 1x damage</p>
+                                    <section class="types">
+                                        <section class="type-normal type">Normal</section>
+                                        <section class="type-fighting type">Fighting</section>
+                                        <section class="type-flying type">Flying</section>
+                                        <section class="type-poison type">Poison</section>
+                                        <section class="type-ground type">Ground</section>
+                                        <section class="type-rock type">Rock</section>
+                                        <section class="type-bug type">Bug</section>
+                                        <section class="type-ghost type">Ghost</section>
+                                        <section class="type-psychic type">Psychic</section>
+                                        <section class="type-dragon type">Dragon</section>
+                                        <section class="type-dark type">Dark</section>
+                                        <section class="type-fairy type">Fairy</section>
+                                    </section>
+                                </section>
+                                <section class="half times">
+                                    <p class="bold">Takes 1/2x damage</p>
+                                    <section class="types">
+                                        <section class="type-steel type">Steel</section>
+                                        <section class="type-fire type">Fire</section>
+                                        <section class="type-water type">water</section>
+                                    </section>
+                                </section>
+                                <section class="half times">
+                                    <p class="bold">Takes 1/2x damage</p>
+                                    <section class="types">
+                                        <section class="type-steel type">Steel</section>
+                                        <section class="type-fire type">Fire</section>
+                                        <section class="type-water type">water</section>
+                                        <section class="type-ice type">Ice</section>
+                                    </section>
+                                </section>
                             </section>
                         </section>
                     </section>
-                </section>
-            </section>
         </section>
 
-<%- include("partials/footer.ejs") %>
+        <%- include("partials/footer.ejs") %>
