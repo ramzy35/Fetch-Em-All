@@ -149,50 +149,83 @@
                                             </section>
                                             <% }); %>
                                     </section>
-
                                 </section>
-                                <section class="two times">
-                                    <p class="bold">Takes 2x damage</p>
-                                    <section class="types">
-                                        <section class="type-grass type">Grass</section>
-                                        <section class="type-electric type">Electric</section>
-
+                                <% if (pokemon.type_damage[0].length>= 1) {%>
+                                    <section class="no times">
+                                        <p class="bold">Takes no damage</p>
+                                        <section class="types">
+                                            <% pokemon.type_damage[0].forEach(type=> { %>
+                                                <section class="type-<%= type %> type">
+                                                    <%= type %>
+                                                </section>
+                                                <% }); %>
+                                        </section>
                                     </section>
-                                </section>
-                                <section class="one times">
-                                    <p class="bold">Takes 1x damage</p>
-                                    <section class="types">
-                                        <section class="type-normal type">Normal</section>
-                                        <section class="type-fighting type">Fighting</section>
-                                        <section class="type-flying type">Flying</section>
-                                        <section class="type-poison type">Poison</section>
-                                        <section class="type-ground type">Ground</section>
-                                        <section class="type-rock type">Rock</section>
-                                        <section class="type-bug type">Bug</section>
-                                        <section class="type-ghost type">Ghost</section>
-                                        <section class="type-psychic type">Psychic</section>
-                                        <section class="type-dragon type">Dragon</section>
-                                        <section class="type-dark type">Dark</section>
-                                        <section class="type-fairy type">Fairy</section>
-                                    </section>
-                                </section>
-                                <section class="half times">
-                                    <p class="bold">Takes 1/2x damage</p>
-                                    <section class="types">
-                                        <section class="type-steel type">Steel</section>
-                                        <section class="type-fire type">Fire</section>
-                                        <section class="type-water type">water</section>
-                                    </section>
-                                </section>
-                                <section class="half times">
-                                    <p class="bold">Takes 1/2x damage</p>
-                                    <section class="types">
-                                        <section class="type-steel type">Steel</section>
-                                        <section class="type-fire type">Fire</section>
-                                        <section class="type-water type">water</section>
-                                        <section class="type-ice type">Ice</section>
-                                    </section>
-                                </section>
+                                    <% } %>
+                                        <% if (pokemon.type_damage[1].length>= 1) {%>
+                                            <section class="quarter times">
+                                                <p class="bold">Takes 1/4x damage</p>
+                                                <section class="types">
+                                                    <% pokemon.type_damage[1].forEach(type=> { %>
+                                                        <section class="type-<%= type %> type">
+                                                            <%= type %>
+                                                        </section>
+                                                        <% }); %>
+                                                </section>
+                                            </section>
+                                            <% } %>
+                                                <% if (pokemon.type_damage[2].length>= 1) {%>
+                                                    <section class="half times">
+                                                        <p class="bold">Takes 1/2x damage</p>
+                                                        <section class="types">
+                                                            <% pokemon.type_damage[2].forEach(type=> { %>
+                                                                <section class="type-<%= type %> type">
+                                                                    <%= type %>
+                                                                </section>
+                                                                <% }); %>
+                                                        </section>
+                                                    </section>
+                                                    <% } %>
+                                                        <% if (pokemon.type_damage[3].length>= 1) {%>
+                                                            <section class="no times">
+                                                                <p class="bold">Takes 1x damage</p>
+                                                                <section class="types">
+                                                                    <% pokemon.type_damage[3].forEach(type=> { %>
+                                                                        <section class="type-<%= type %> type">
+                                                                            <%= type %>
+                                                                        </section>
+                                                                        <% }); %>
+                                                                </section>
+                                                            </section>
+                                                            <% } %>
+                                                                <% if (pokemon.type_damage[4].length>= 1) {%>
+                                                                    <section class="two times">
+                                                                        <p class="bold">Takes 2x damage</p>
+                                                                        <section class="types">
+                                                                            <% pokemon.type_damage[4].forEach(type=> {
+                                                                                %>
+                                                                                <section class="type-<%= type %> type">
+                                                                                    <%= type %>
+                                                                                </section>
+                                                                                <% }); %>
+                                                                        </section>
+                                                                    </section>
+                                                                    <% } %>
+                                                                        <% if (pokemon.type_damage[5].length>= 1) {%>
+                                                                            <section class="four times">
+                                                                                <p class="bold">Takes 4x damage</p>
+                                                                                <section class="types">
+                                                                                    <%
+                                                                                        pokemon.type_damage[5].forEach(type=>
+                                                                                        { %>
+                                                                                        <section
+                                                                                            class="type-<%= type %> type">
+                                                                                            <%= type %>
+                                                                                        </section>
+                                                                                        <% }); %>
+                                                                                </section>
+                                                                            </section>
+                                                                            <% } %>
                             </section>
                         </section>
                     </section>
