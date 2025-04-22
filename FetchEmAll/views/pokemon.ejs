@@ -158,74 +158,74 @@
                                                 <section class="type-<%= type %> type">
                                                     <%= type %>
                                                 </section>
-                                                <% }); %>
+                                            <% }); %>
                                         </section>
                                     </section>
-                                    <% } %>
-                                        <% if (pokemon.type_damage[1].length>= 1) {%>
-                                            <section class="quarter times">
-                                                <p class="bold">Takes 1/4x damage</p>
-                                                <section class="types">
-                                                    <% pokemon.type_damage[1].forEach(type=> { %>
-                                                        <section class="type-<%= type %> type">
-                                                            <%= type %>
-                                                        </section>
-                                                        <% }); %>
+                                <% } %>
+                                <% if (pokemon.type_damage[1].length>= 1) {%>
+                                    <section class="quarter times">
+                                        <p class="bold">Takes 1/4x damage</p>
+                                        <section class="types">
+                                            <% pokemon.type_damage[1].forEach(type=> { %>
+                                                <section class="type-<%= type %> type">
+                                                    <%= type %>
                                                 </section>
-                                            </section>
-                                            <% } %>
-                                                <% if (pokemon.type_damage[2].length>= 1) {%>
-                                                    <section class="half times">
-                                                        <p class="bold">Takes 1/2x damage</p>
-                                                        <section class="types">
-                                                            <% pokemon.type_damage[2].forEach(type=> { %>
-                                                                <section class="type-<%= type %> type">
-                                                                    <%= type %>
-                                                                </section>
-                                                                <% }); %>
-                                                        </section>
-                                                    </section>
-                                                    <% } %>
-                                                        <% if (pokemon.type_damage[3].length>= 1) {%>
-                                                            <section class="no times">
-                                                                <p class="bold">Takes 1x damage</p>
-                                                                <section class="types">
-                                                                    <% pokemon.type_damage[3].forEach(type=> { %>
-                                                                        <section class="type-<%= type %> type">
-                                                                            <%= type %>
-                                                                        </section>
-                                                                        <% }); %>
-                                                                </section>
-                                                            </section>
-                                                            <% } %>
-                                                                <% if (pokemon.type_damage[4].length>= 1) {%>
-                                                                    <section class="two times">
-                                                                        <p class="bold">Takes 2x damage</p>
-                                                                        <section class="types">
-                                                                            <% pokemon.type_damage[4].forEach(type=> {
-                                                                                %>
-                                                                                <section class="type-<%= type %> type">
-                                                                                    <%= type %>
-                                                                                </section>
-                                                                                <% }); %>
-                                                                        </section>
-                                                                    </section>
-                                                                    <% } %>
-                                                                        <% if (pokemon.type_damage[5].length>= 1) {%>
-                                                                            <section class="four times">
-                                                                                <p class="bold">Takes 4x damage</p>
-                                                                                <section class="types">
-                                                                                    <%
-                                                                                        pokemon.type_damage[5].forEach(type=>
-                                                                                        { %>
-                                                                                        <section
-                                                                                            class="type-<%= type %> type">
-                                                                                            <%= type %>
-                                                                                        </section>
-                                                                                        <% }); %>
-                                                                                </section>
-                                                                            </section>
-                                                                            <% } %>
+                                            <% }); %>
+                                        </section>
+                                    </section>
+                                <% } %>
+                                <% if (pokemon.type_damage[2].length>= 1) {%>
+                                    <section class="half times">
+                                        <p class="bold">Takes 1/2x damage</p>
+                                        <section class="types">
+                                            <% pokemon.type_damage[2].forEach(type=> { %>
+                                                <section class="type-<%= type %> type">
+                                                    <%= type %>
+                                                </section>
+                                            <% }); %>
+                                        </section>
+                                    </section>
+                                <% } %>
+                                <% if (pokemon.type_damage[3].length>= 1) {%>
+                                    <section class="no times">
+                                        <p class="bold">Takes 1x damage</p>
+                                        <section class="types">
+                                            <% pokemon.type_damage[3].forEach(type=> { %>
+                                                <section class="type-<%= type %> type">
+                                                    <%= type %>
+                                                </section>
+                                            <% }); %>
+                                        </section>
+                                    </section>
+                                <% } %>
+                                <% if (pokemon.type_damage[4].length>= 1) {%>
+                                    <section class="two times">
+                                        <p class="bold">Takes 2x damage</p>
+                                        <section class="types">
+                                            <% pokemon.type_damage[4].forEach(type=> {
+                                                %>
+                                                <section class="type-<%= type %> type">
+                                                    <%= type %>
+                                                </section>
+                                            <% }); %>
+                                        </section>
+                                    </section>
+                                <% } %>
+                                <% if (pokemon.type_damage[5].length>= 1) {%>
+                                    <section class="four times">
+                                        <p class="bold">Takes 4x damage</p>
+                                        <section class="types">
+                                            <%
+                                                pokemon.type_damage[5].forEach(type=>
+                                                { %>
+                                                <section
+                                                    class="type-<%= type %> type">
+                                                    <%= type %>
+                                                </section>
+                                            <% }); %>
+                                        </section>
+                                    </section>
+                                <% } %>
                             </section>
                         </section>
                     </section>

@@ -1,259 +1,325 @@
 <%- include("partials/header.ejs") %>
 <%- include("partials/nav.ejs") %>
 
-        <section class="wrapper">
-            <section class="compare--top">
-                <section class="compare__icons--top">
-                    <i class="fa-solid fa-ruler-vertical length-icon"></i>
-                    <i class="fa-solid fa-weight-hanging weigth-icon"></i>
-                </section>
-                <section class="compare__left--top">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= poke1.id %>.png"
-                        class="compare__img">
-                    <p class="compare__id">#<%= poke1.id %></p>
-                    <h2 class="compare__name"><%= poke1.name%></h2>
-                    <p class="compare__types"><%= poke1.types %></p>
-                    <p class="compare__length"><%= convert(poke1.height) %>m</p>
-                    <p class="compare__weigth"><%= convert(poke1.weight) %>kg</p>
-                </section>
-                <section class="compare__right--top">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= poke2.id %>.png"
-                        class="compare__img">
-                    <p class="compare__id">#<%= poke2.id %></p>
-                    <h2 class="compare__name"><%= poke2.name%></h2>
-                    <p class="compare__types"><%= poke2.types %></p>
-                    <p class="compare__length"><%= convert(poke2.height) %>m</p>
-                    <p class="compare__weigth"><%= convert(poke2.weight) %>kg</p>
-                </section>
-            </section>
-            <section class="compare--second">
-                <section class="compare__icons--second">
-                    <i class="fa-solid fa-info info"></i>
-                </section>
-                <section class="compare__left--second">
-                    <section class="compare__info">
-                        <p><span class="bold">Generation: </span><%= generation(poke1.generation) %></p>
-                        <p><span class="bold">Habitat: </span><%= poke1.habitat %></p>
-                        <p><span class="bold">Capture Rate: </span><%= poke1.capture_rate %></p>
-                        <p><span class="bold">Growth Rate: </span><%= poke1.growth_rate %></p>
-                        <p><span class="bold">EV Yield: </span><%= poke1.ev_yield %></p>
-                        <p><span class="bold">Base Exp: </span><%= poke1.base_experience %></p>
-                        <p><span class="bold">Base Happiness: </span><%= poke2.base_experience %></p>
-                    </section>
-                </section>
-                <section class="compare__right--second">
-                    <section class="compare__info">
-                        <p><span class="bold">Generation: </span><%= generation(poke2.generation) %></p>
-                        <p><span class="bold">Habitat: </span><%= poke2.habitat %></p>
-                        <p><span class="bold">Capture Rate: </span><%= poke2.capture_rate %></p>
-                        <p><span class="bold">Growth Rate: </span><%= poke2.growth_rate %></p>
-                        <p><span class="bold">EV Yield: </span><%= poke2.ev_yield %></p>
-                        <p><span class="bold">Base Exp: </span><%= poke2.base_experience %></p>
-                        <p><span class="bold">Base Happiness: </span><%= poke2.base_experience %></p>
-                    </section>
-                </section>
-            </section>
-            <section class="compare--third">
-                <section class="compare__icons--third">
-                    <i class="fa-solid fa-chart-simple"></i>
-                </section>
-                <section class="compare__right--third">
-                    <section class="compare__hp">
-                        <p><%= poke1.hp %> </p>
-                        <section class="compare__hp__bar">
-                            <section class="compare__hp__bar__fill hp__left"></section>
-                        </section>
-                        <section class="compare__stats__title">
-                            <p>HP</p>
-                        </section>
-                        <section class="compare__hp__bar">
-                            <section class="compare__hp__bar__fill hp__right"></section>
-                        </section>
-                        <p><%= poke2.hp %> </p>
-                    </section>
-                    <section class="compare__atk">
-                        <p><%= poke1.attack %> </p>
-                        <section class="compare__atk__bar">
-                            <section class="compare__atk__bar__fill atk__left"></section>
-                        </section>
-                        <section class="compare__stats__title">
-                            <p>Atk</p>
-                        </section>
-                        <section class="compare__atk__bar">
-                            <section class="compare__atk__bar__fill atk__right"></section>
-                        </section>
-                        <p><%= poke2.attack %> </p>
-                    </section>
-                    <section class="compare__def">
-                        <p><%= poke1.defense %> </p>
-                        <section class="compare__def__bar">
-                            <section class="compare__def__bar__fill def__left"></section>
-                        </section>
-                        <section class="compare__stats__title">
-                            <p>Def</p>
-                        </section>
-                        <section class="compare__def__bar">
-                            <section class="compare__def__bar__fill def__right"></section>
-                        </section>
-                        <p><%= poke2.defense %> </p>
-                    </section>
-                    <section class="compare__spatk">
-                        <p><%= poke1.special_attack %> </p>
-                        <section class="compare__spatk__bar">
-                            <section class="compare__spatk__bar__fill spatk__left"></section>
-                        </section>
-                        <section class="compare__stats__title">
-                            <p>Sp.Atk</p>
-                        </section>
-                        <section class="compare__spatk__bar">
-                            <section class="compare__spatk__bar__fill spatk__right"></section>
-                        </section>
-                        <p><%= poke2.special_attack %> </p>
-                    </section>
-                    <section class="compare__spdef">
-                        <p><%= poke1.special_defense %> </p>
-                        <section class="compare__spdef__bar">
-                            <section class="compare__spdef__bar__fill spdef__left"></section>
-                        </section>
-                        <section class="compare__stats__title">
-                            <p>Sp.Def</p>
-                        </section>
-                        <section class="compare__spdef__bar">
-                            <section class="compare__spdef__bar__fill spdef__right"></section>
-                        </section>
-                        <p><%= poke2.special_defense %> </p>
-                    </section>
-                    <section class="compare__speed">
-                        <p><%= poke1.speed %> </p>
-                        <section class="compare__speed__bar">
-                            <section class="compare__speed__bar__fill speed__left"></section>
-                        </section>
-                        <section class="compare__stats__title">
-                            <p>Speed</p>
-                        </section>
-                        <section class="compare__speed__bar">
-                            <section class="compare__speed__bar__fill speed__right"></section>
-                        </section>
-                        <p><%= poke2.speed %> </p>
-                    </section>
-                </section>
-            </section>
-            <section class="compare--fourth">
-                <section class="compare__icons--fourth">
-                    <i class="fa-solid fa-fire"></i>
-                </section>
-                <section class="compare__left--fourth">
-                    <% poke1.abilities.forEach(ability => { %>
-                        <section class="compare__info">
-                            <p class="bold"><%= ability.name %></p>
-                            <p><%= ability.description %></p>
-                        </section>
-                    <% }); %>
-                </section>
-                <section class="compare__right--fourth">
-                    <% poke2.abilities.forEach(ability => { %>
-                        <section class="compare__info">
-                            <p class="bold"><%= ability.name %></p>
-                            <p><%= ability.description %></p>
-                        </section>
-                    <% }); %>
-                </section>
-            </section>
-            <section class="compare--fifth">
-                <section class="compare__icons--fifth">
-                    <i class="fa-solid fa-shield-halved"></i>
-                </section>
-                <section class="compare__left--fifth">
-                    <section class="two times">
-                        <p class="bold">Takes 2x damage</p>
-                        <section class="types">
-                            <section class="type-flying type">Flying</section>
-                            <section class="type-fire type">Fire</section>
-                            <section class="type-psychic type">Psychic</section>
-                            <section class="type-ice type">Ice</section>
-                        </section>
-                    </section>
-                    <section class="one times">
-                        <p class="bold">Takes 1x damage</p>
-                        <section class="types">
-                            <section class="type-normal type">Normal</section>
-                            <section class="type-poison type">Poison</section>
-                            <section class="type-ground type">Ground</section>
-                            <section class="type-rock type">Rock</section>
-                            <section class="type-bug type">Bug</section>
-                            <section class="type-ghost type">Ghost</section>
-                            <section class="type-steel type">Steel</section>
-                            <section class="type-dragon type">Dragon</section>
-                            <section class="type-dark type">Dark</section>
-                        </section>
-                    </section>
-                    <section class="half times">
-                        <p class="bold">Takes 1/2x damage</p>
-                        <section class="types">
-                            <section class="type-fighting type">Fighting</section>
-                            <section class="type-water type">Water</section>
-                            <section class="type-electric type">Electric</section>
-                            <section class="type-fairy type">Fairy</section>
-                        </section>
-                    </section>
-                    <section class="quarter times">
-                        <p class="bold">Takes 1/4x damage</p>
-                        <section class="types">
-                            <section class="type-grass type">Grass</section>
-                        </section>
-                    </section>
-                </section>
-                <section class="compare__right--fifth">
-                    <section class="four times">
-                        <p class="bold">Takes 4x damage</p>
-                        <section class="types">
-                            <section class="type-rock type">Rock</section>
-                        </section>
-                    </section>
-                    <section class="two times">
-                        <p class="bold">Takes 2x damage</p>
-                        <section class="types">
-                            <section class="type-water type">Water</section>
-                            <section class="type-electric type">Electric</section>
-                        </section>
-                    </section>
-                    <section class="one times">
-                        <p class="bold">Takes 1x damage</p>
-                        <section class="types">
-                            <section class="type-normal type">Normal</section>
-                            <section class="type-flying type">Flying</section>
-                            <section class="type-poison type">Poison</section>
-                            <section class="type-ghost type">Ghost</section>
-                            <section class="type-psychic type">Psychic</section>
-                            <section class="type-ice type">Ice</section>
-                            <section class="type-dragon type">Dragon</section>
-                            <section class="type-dark type">Dark</section>
-                        </section>
-                    </section>
-                    <section class="half times">
-                        <p class="bold">Takes 1/2x damage</p>
-                        <section class="types">
-                            <section class="type-fighting type">Fighting</section>
-                            <section class="type-steel type">Steel</section>
-                            <section class="type-fire type">Fire</section>
-                            <section class="type-fairy type">Fairy</section>
-                        </section>
-                    </section>
-                    <section class="quarter times">
-                        <p class="bold">Takes 1/4x damage</p>
-                        <section class="types">
-                            <section class="type-bug type">Bug</section>
-                            <section class="type-grass type">Grass</section>
-                        </section>
-                    </section>
-                    <section class="no times">
-                        <p class="bold">Takes no damage</p>
-                        <section class="types">
-                            <section class="type-ground type">Ground</section>
-                        </section>
-                    </section>
-                </section>
+<section class="wrapper">
+    <section class="compare--top">
+        <section class="compare__icons--top">
+            <i class="fa-solid fa-ruler-vertical length-icon"></i>
+            <i class="fa-solid fa-weight-hanging weigth-icon"></i>
+        </section>
+        <section class="compare__left--top">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= poke1.id %>.png"
+                class="compare__img">
+            <p class="compare__id">#<%= poke1.id %></p>
+            <h2 class="compare__name"><%= poke1.name%></h2>
+            <p class="compare__types"><%= poke1.types %></p>
+            <p class="compare__length"><%= convert(poke1.height) %>m</p>
+            <p class="compare__weigth"><%= convert(poke1.weight) %>kg</p>
+        </section>
+        <section class="compare__right--top">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= poke2.id %>.png"
+                class="compare__img">
+            <p class="compare__id">#<%= poke2.id %></p>
+            <h2 class="compare__name"><%= poke2.name%></h2>
+            <p class="compare__types"><%= poke2.types %></p>
+            <p class="compare__length"><%= convert(poke2.height) %>m</p>
+            <p class="compare__weigth"><%= convert(poke2.weight) %>kg</p>
+        </section>
+    </section>
+    <section class="compare--second">
+        <section class="compare__icons--second">
+            <i class="fa-solid fa-info info"></i>
+        </section>
+        <section class="compare__left--second">
+            <section class="compare__info">
+                <p><span class="bold">Generation: </span><%= generation(poke1.generation) %></p>
+                <p><span class="bold">Habitat: </span><%= poke1.habitat %></p>
+                <p><span class="bold">Capture Rate: </span><%= poke1.capture_rate %></p>
+                <p><span class="bold">Growth Rate: </span><%= poke1.growth_rate %></p>
+                <p><span class="bold">EV Yield: </span><%= poke1.ev_yield %></p>
+                <p><span class="bold">Base Exp: </span><%= poke1.base_experience %></p>
+                <p><span class="bold">Base Happiness: </span><%= poke2.base_experience %></p>
             </section>
         </section>
+        <section class="compare__right--second">
+            <section class="compare__info">
+                <p><span class="bold">Generation: </span><%= generation(poke2.generation) %></p>
+                <p><span class="bold">Habitat: </span><%= poke2.habitat %></p>
+                <p><span class="bold">Capture Rate: </span><%= poke2.capture_rate %></p>
+                <p><span class="bold">Growth Rate: </span><%= poke2.growth_rate %></p>
+                <p><span class="bold">EV Yield: </span><%= poke2.ev_yield %></p>
+                <p><span class="bold">Base Exp: </span><%= poke2.base_experience %></p>
+                <p><span class="bold">Base Happiness: </span><%= poke2.base_experience %></p>
+            </section>
+        </section>
+    </section>
+    <section class="compare--third">
+        <section class="compare__icons--third">
+            <i class="fa-solid fa-chart-simple"></i>
+        </section>
+        <section class="compare__right--third">
+            <section class="compare__hp">
+                <p><%= poke1.hp %> </p>
+                <section class="compare__hp__bar">
+                    <section class="compare__hp__bar__fill hp__left"></section>
+                </section>
+                <section class="compare__stats__title">
+                    <p>HP</p>
+                </section>
+                <section class="compare__hp__bar">
+                    <section class="compare__hp__bar__fill hp__right"></section>
+                </section>
+                <p><%= poke2.hp %> </p>
+            </section>
+            <section class="compare__atk">
+                <p><%= poke1.attack %> </p>
+                <section class="compare__atk__bar">
+                    <section class="compare__atk__bar__fill atk__left"></section>
+                </section>
+                <section class="compare__stats__title">
+                    <p>Atk</p>
+                </section>
+                <section class="compare__atk__bar">
+                    <section class="compare__atk__bar__fill atk__right"></section>
+                </section>
+                <p><%= poke2.attack %> </p>
+            </section>
+            <section class="compare__def">
+                <p><%= poke1.defense %> </p>
+                <section class="compare__def__bar">
+                    <section class="compare__def__bar__fill def__left"></section>
+                </section>
+                <section class="compare__stats__title">
+                    <p>Def</p>
+                </section>
+                <section class="compare__def__bar">
+                    <section class="compare__def__bar__fill def__right"></section>
+                </section>
+                <p><%= poke2.defense %> </p>
+            </section>
+            <section class="compare__spatk">
+                <p><%= poke1.special_attack %> </p>
+                <section class="compare__spatk__bar">
+                    <section class="compare__spatk__bar__fill spatk__left"></section>
+                </section>
+                <section class="compare__stats__title">
+                    <p>Sp.Atk</p>
+                </section>
+                <section class="compare__spatk__bar">
+                    <section class="compare__spatk__bar__fill spatk__right"></section>
+                </section>
+                <p><%= poke2.special_attack %> </p>
+            </section>
+            <section class="compare__spdef">
+                <p><%= poke1.special_defense %> </p>
+                <section class="compare__spdef__bar">
+                    <section class="compare__spdef__bar__fill spdef__left"></section>
+                </section>
+                <section class="compare__stats__title">
+                    <p>Sp.Def</p>
+                </section>
+                <section class="compare__spdef__bar">
+                    <section class="compare__spdef__bar__fill spdef__right"></section>
+                </section>
+                <p><%= poke2.special_defense %> </p>
+            </section>
+            <section class="compare__speed">
+                <p><%= poke1.speed %> </p>
+                <section class="compare__speed__bar">
+                    <section class="compare__speed__bar__fill speed__left"></section>
+                </section>
+                <section class="compare__stats__title">
+                    <p>Speed</p>
+                </section>
+                <section class="compare__speed__bar">
+                    <section class="compare__speed__bar__fill speed__right"></section>
+                </section>
+                <p><%= poke2.speed %> </p>
+            </section>
+        </section>
+    </section>
+    <section class="compare--fourth">
+        <section class="compare__icons--fourth">
+            <i class="fa-solid fa-fire"></i>
+        </section>
+        <section class="compare__left--fourth">
+            <% poke1.abilities.forEach(ability => { %>
+                <section class="compare__info">
+                    <p class="bold"><%= ability.name %></p>
+                    <p><%= ability.description %></p>
+                </section>
+            <% }); %>
+        </section>
+        <section class="compare__right--fourth">
+            <% poke2.abilities.forEach(ability => { %>
+                <section class="compare__info">
+                    <p class="bold"><%= ability.name %></p>
+                    <p><%= ability.description %></p>
+                </section>
+            <% }); %>
+        </section>
+    </section>
+    <section class="compare--fifth">
+        <section class="compare__icons--fifth">
+            <i class="fa-solid fa-shield-halved"></i>
+        </section>
+        <section class="compare__left--fifth">
+            <% if (poke1.type_damage[0].length>= 1) {%>
+                <section class="no times">
+                    <p class="bold">Takes no damage</p>
+                    <section class="types">
+                        <% poke1.type_damage[0].forEach(type=> { %>
+                            <section class="type-<%= type %> type">
+                                <%= type %>
+                            </section>
+                        <% }); %>
+                    </section>
+                </section>
+            <% } %>
+            <% if (poke1.type_damage[1].length>= 1) {%>
+                <section class="quarter times">
+                    <p class="bold">Takes 1/4x damage</p>
+                    <section class="types">
+                        <% poke1.type_damage[1].forEach(type=> { %>
+                            <section class="type-<%= type %> type">
+                                <%= type %>
+                                </section>  
+                        <% }); %>
+                    </section>
+                </section>
+            <% } %>
+            <% if (poke1.type_damage[2].length>= 1) {%>
+                <section class="half times">
+                    <p class="bold">Takes 1/2x damage</p>
+                    <section class="types">
+                        <% poke1.type_damage[2].forEach(type=> { %>
+                            <section class="type-<%= type %> type">
+                                <%= type %>
+                            </section>
+                        <% }); %>
+                    </section>
+                </section>
+            <% } %>
+            <% if (poke1.type_damage[3].length>= 1) {%>
+                <section class="no times">
+                    <p class="bold">Takes 1x damage</p>
+                    <section class="types">
+                        <% poke1.type_damage[3].forEach(type=> { %>
+                            <section class="type-<%= type %> type">
+                                <%= type %>
+                            </section>
+                        <% }); %>
+                    </section>
+                </section>
+            <% } %>
+            <% if (poke1.type_damage[4].length>= 1) {%>
+                <section class="two times">
+                    <p class="bold">Takes 2x damage</p>
+                    <section class="types">
+                        <% poke1.type_damage[4].forEach(type=> {
+                            %>
+                            <section class="type-<%= type %> type">
+                                <%= type %>
+                            </section>
+                        <% }); %>
+                    </section>
+                </section>
+            <% } %>
+            <% if (poke1.type_damage[5].length>= 1) {%>
+                <section class="four times">
+                    <p class="bold">Takes 4x damage</p>
+                    <section class="types">
+                        <%
+                            poke1.type_damage[5].forEach(type=>
+                            { %>
+                            <section
+                                class="type-<%= type %> type"><%= type %>
+                            </section>
+                        <% }); %>
+                    </section>
+                </section>
+            <% } %>
+        </section>
+        <section class="compare__right--fifth">
+            <% if (poke2.type_damage[0].length>= 1) {%>
+                <section class="no times">
+                    <p class="bold">Takes no damage</p>
+                    <section class="types">
+                        <% poke2.type_damage[0].forEach(type=> { %>
+                            <section class="type-<%= type %> type">
+                                <%= type %>
+                            </section>
+                        <% }); %>
+                    </section>
+                </section>
+            <% } %>
+            <% if (poke2.type_damage[1].length>= 1) {%>
+                <section class="quarter times">
+                    <p class="bold">Takes 1/4x damage</p>
+                    <section class="types">
+                        <% poke2.type_damage[1].forEach(type=> { %>
+                            <section class="type-<%= type %> type">
+                                <%= type %>
+                            </section>
+                        <% }); %>
+                    </section>
+                </section>
+            <% } %>
+            <% if (poke2.type_damage[2].length>= 1) {%>
+                <section class="half times">
+                    <p class="bold">Takes 1/2x damage</p>
+                    <section class="types">
+                        <% poke2.type_damage[2].forEach(type=> { %>
+                            <section class="type-<%= type %> type">
+                                <%= type %>
+                            </section>
+                        <% }); %>
+                    </section>
+                </section>
+            <% } %>
+            <% if (poke2.type_damage[3].length>= 1) {%>
+                <section class="no times">
+                    <p class="bold">Takes 1x damage</p>
+                    <section class="types">
+                        <% poke2.type_damage[3].forEach(type=> { %>
+                            <section class="type-<%= type %> type">
+                                <%= type %>
+                            </section>
+                        <% }); %>
+                    </section>
+                </section>
+            <% } %>
+            <% if (poke2.type_damage[4].length>= 1) {%>
+                <section class="two times">
+                    <p class="bold">Takes 2x damage</p>
+                    <section class="types">
+                        <% poke2.type_damage[4].forEach(type=> {
+                            %>
+                            <section class="type-<%= type %> type">
+                                <%= type %>
+                            </section>
+                        <% }); %>
+                    </section>
+                </section>
+            <% } %>
+            <% if (poke2.type_damage[5].length>= 1) {%>
+                <section class="four times">
+                    <p class="bold">Takes 4x damage</p>
+                    <section class="types">
+                        <%
+                            poke2.type_damage[5].forEach(type=>
+                            { %>
+                            <section
+                                class="type-<%= type %> type">
+                                <%= type %>
+                            </section>
+                        <% }); %>
+                    </section>
+                </section>
+            <% } %>
+        </section>
+        </section>
+    </section>
+</section>
 
 <%- include("partials/footer.ejs") %>
