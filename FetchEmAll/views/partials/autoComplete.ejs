@@ -13,14 +13,15 @@
 </footer>
 
 <script>
-    async function autocomplete(input, pokeNameArr) {
+    async function autocomplete(input, nameArr) {
+
+    const pokeNameArr = nameArr.split(",")
     // Function derived from https://www.w3schools.com/howto/howto_js_autocomplete.asp, adapted to typescript
     // input: html element, pokeNameArr: string array with all pokemon names
     let currentFocus;
     
     input.addEventListener("input", function (e) {
-        const val = e.value;
-        console.log(val)
+        const val = this.value;
         closeAllLists();
         if (!val) { return false; }
         currentFocus = -1;
@@ -30,8 +31,8 @@
         itemContainer.classList.add("wtp__form__autocomplete__item");
         
         // Make sure parentnode exists before appending
-        if (e.parentNode) {
-            e.parentNode.appendChild(itemContainer); 
+        if (this.parentNode) {
+            this.parentNode.appendChild(itemContainer); 
         } else {
             console.error("Parent node for autocomplete not found")
         }
@@ -48,7 +49,7 @@
                 
                 matchingItems.addEventListener("click", function (e) {
                     // input clicked pokemon name
-                    input.value = e.getElementsByTagName("input")[0].value;
+                    input.value = this.getElementsByTagName("input")[0].value;
                 
                     closeAllLists();
                 });
@@ -62,13 +63,11 @@
         if (selectedName) selectedName = selectedName.getElementsByTagName("div");
         if (e.keyCode === 40) {
             // => downArrow
-            console.log("down")
             e.preventDefault()
             currentFocus++;
             addActive(selectedName);
         } else if (e.keyCode === 38) {
             // => upArrow
-            console.log("up")
             e.preventDefault()
             currentFocus--;
             addActive(selectedName);
