@@ -11,7 +11,7 @@ body {
   }
   
   .wtp {
-    z-index: 100;
+    z-index: 1;
     justify-self: center;
     /* border: 1px black solid; */
     min-height: 87vh;
@@ -26,7 +26,10 @@ body {
   }
   
   
-  
+  .wtp__form__autocomplete__list {
+    z-index: 2;
+  }
+
   .wtp__title {
     z-index: inherit;
     font-family: pokemonSolid;
