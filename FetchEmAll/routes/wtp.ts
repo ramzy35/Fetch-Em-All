@@ -9,9 +9,10 @@ function rndmPokeId() {
 
 wtpRoute.get("/", async (req, res) => {
     res.locals.currentPage = "wtp"
-
+    const pokemonNames = res.locals.pokemonNameList
     res.render("wtp", {
-        rndmPokeId
+        rndmPokeId,
+        pokemonNames
     });
 });
 
