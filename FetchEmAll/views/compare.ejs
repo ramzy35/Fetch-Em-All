@@ -216,8 +216,7 @@
                 <section class="two times">
                     <p class="bold">Takes 2x damage</p>
                     <section class="types">
-                        <% poke1.type_damage[4].forEach(type=> {
-                            %>
+                        <% poke1.type_damage[4].forEach(type=> { %>
                             <section class="type-<%= type %> type">
                                 <%= type %>
                             </section>
@@ -229,9 +228,7 @@
                 <section class="four times">
                     <p class="bold">Takes 4x damage</p>
                     <section class="types">
-                        <%
-                            poke1.type_damage[5].forEach(type=>
-                            { %>
+                        <% poke1.type_damage[5].forEach(type=>{ %>
                             <section
                                 class="type-<%= type %> type"><%= type %>
                             </section>
@@ -293,8 +290,7 @@
                 <section class="two times">
                     <p class="bold">Takes 2x damage</p>
                     <section class="types">
-                        <% poke2.type_damage[4].forEach(type=> {
-                            %>
+                        <% poke2.type_damage[4].forEach(type=> {%>
                             <section class="type-<%= type %> type">
                                 <%= type %>
                             </section>
@@ -306,9 +302,7 @@
                 <section class="four times">
                     <p class="bold">Takes 4x damage</p>
                     <section class="types">
-                        <%
-                            poke2.type_damage[5].forEach(type=>
-                            { %>
+                        <% poke2.type_damage[5].forEach(type=>{ %>
                             <section
                                 class="type-<%= type %> type">
                                 <%= type %>
@@ -317,7 +311,6 @@
                     </section>
                 </section>
             <% } %>
-        </section>
         </section>
     </section>
 </section>

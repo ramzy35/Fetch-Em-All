@@ -1,26 +1,22 @@
 <%- include("partials/header.ejs") %>
 <%- include("partials/nav.ejs") %>
 
-    <h1 class="wtp__title">Who's That Pokemon</h1>
-    <section class="wtp">
-
-        <img src="<%= pokemonList[rndmPokeId()].front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image">
-
-        <form autocomplete="off" action="" class="wtp__form">
-            <div class="input__container" style="width:300px;">
-              <input id="input__field" type="text" name="myPokemon" placeholder="Pokemon">
-                <!-- 
-                <div id="autocomplete__list" class="autocomplete__item">
-                    <div><strong>pid</strong>gey<input type="hidden" value="pidgey"></div>
-                    <div class="autocomplete__item--active"><strong>pid</strong>geotto<input type="hidden" value="pidgeotto"></div>
-                    <div><strong>pid</strong>geot<input type="hidden" value="pidgeot"></div>
-                </div>
-                 -->
+<h1 class="wtp__title">Who's That Pokemon</h1>
+<section class="wtp">
+    <img src="<%= pokemonList[rndmPokeId()].front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image">
+    <form autocomplete="off" action="" class="wtp__form">
+        <div class="input__container" style="width:300px;">
+            <input id="input__field" type="text" name="myPokemon" placeholder="Pokemon">
+            <!-- 
+            <div id="autocomplete__list" class="autocomplete__item">
+                <div><strong>pid</strong>gey<input type="hidden" value="pidgey"></div>
+                <div class="autocomplete__item--active"><strong>pid</strong>geotto<input type="hidden" value="pidgeotto"></div>
+                <div><strong>pid</strong>geot<input type="hidden" value="pidgeot"></div>
             </div>
-            <button type="button" id="reveal" class="submit">Submit</button>   
-        </form>
-
-    </section>
-
+                -->
+        </div>
+        <button type="button" id="reveal" class="submit">Submit</button>   
+    </form>
+</section>
 
 <%- include("partials/autoComplete") %>
