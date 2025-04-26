@@ -118,8 +118,20 @@
     })
 }
 
+function changeLink(id1, pokemonNames) {
+    const input = document.getElementById("wtp__form__input__field")
+    const pokeNameArr = pokemonNames.split(",")
+    var id2 = 1 + pokeNameArr.indexOf(`${input.value.toLowerCase()}`)
+    console.log(id1, id2)
+    if (id1.toString() === id2.toString()) {
+        document.getElementById("compare__link").href = `http://localhost:3000/pokemon?id=${id1}`
+    } else {
+        document.getElementById("compare__link").href = `http://localhost:3000/compare?id1=${id1}&id2=${id2}`
+    }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
-    autocomplete(document.getElementById("wtp__form__input__field"), "<%= pokemonNames %>");
+    autocomplete(document.getElementById("wtp__form__input__field"), "<%= pokemonNameList %>");
 });
 
 
