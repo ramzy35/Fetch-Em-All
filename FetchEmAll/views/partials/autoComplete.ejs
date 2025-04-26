@@ -13,9 +13,9 @@
 </footer>
 
 <script>
-    async function autocomplete(input, nameArr) {
+    async function autocomplete(input) {
 
-    const pokeNameArr = nameArr.split(",")
+    const pokeNameArr = '<%= pokemonNameList %>'.split(",")
     // Function derived from https://www.w3schools.com/howto/howto_js_autocomplete.asp, adapted to typescript
     // input: html element, pokeNameArr: string array with all pokemon names
     let currentFocus;
@@ -27,8 +27,8 @@
         currentFocus = -1;
         // itemContainer that holds values of items
         const itemContainer = document.createElement("DIV");
-        itemContainer.setAttribute("id",    "wtp__form__autocomplete__list");
-        itemContainer.classList.add("wtp__form__autocomplete__item");
+        itemContainer.setAttribute("id",    "autocomplete__list");
+        itemContainer.classList.add("autocomplete__item");
         
         // Make sure parentnode exists before appending
         if (this.parentNode) {
@@ -59,7 +59,7 @@
     });
     
     input.addEventListener("keydown", function (e) {
-        let selectedName = document.getElementById("wtp__form__autocomplete__list");
+        let selectedName = document.getElementById("autocomplete__list");
         if (selectedName) selectedName = selectedName.getElementsByTagName("div");
         if (e.keyCode === 40) {
             // => downArrow
@@ -88,18 +88,18 @@
         if (currentFocus >= itemList.length) currentFocus = 0;
         if (currentFocus < 0) currentFocus = (itemList.length - 1);
         // Add active class for styling
-        itemList[currentFocus].classList.add("wtp__form__autocomplete__item--active");
+        itemList[currentFocus].classList.add("autocomplete__item--active");
     }
 
     function removeActive(itemList) {
         for (const el of itemList) {
-            el.classList.remove("wtp__form__autocomplete__item--active")
+            el.classList.remove("autocomplete__item--active")
         }
     }
 
     function closeAllLists(elmnt) {
         
-        const itemList = document.getElementsByClassName("wtp__form__autocomplete__item");
+        const itemList = document.getElementsByClassName("autocomplete__item");
         for (const el of itemList) {
             if (elmnt != el && elmnt != input) {
                 el.parentNode?.removeChild(el);
@@ -118,24 +118,25 @@
     })
 }
 
-function changeLink(id1, pokemonNames) {
-    const input = document.getElementById("wtp__form__input__field")
-    const pokeNameArr = pokemonNames.split(",")
-    var id2 = 1 + pokeNameArr.indexOf(`${input.value.toLowerCase()}`)
-    console.log(id1, id2)
+function changeLink(id1) {
+    const input = document.getElementById("input__field")
+    let link = document.getElementById("pokestat__compare__link").href
+    const pokeNameArr = '<%= pokemonNameList %>'.split(",")
+    const id2 = 1 + pokeNameArr.indexOf(`${input.value.toLowerCase()}`)
     if (id1.toString() === id2.toString()) {
-        document.getElementById("compare__link").href = `http://localhost:3000/pokemon?id=${id1}`
+        link = `http://localhost:3000/pokemon?id=${id1}`
     } else {
-        document.getElementById("compare__link").href = `http://localhost:3000/compare?id1=${id1}&id2=${id2}`
+        link = `http://localhost:3000/compare?id1=${id1}&id2=${id2}`
     }
+    document.getElementById("pokestat__compare__link").href = link;
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    autocomplete(document.getElementById("wtp__form__input__field"), "<%= pokemonNameList %>");
+    autocomplete(document.getElementById("input__field"));
 });
 
 
-const submitBtn = document.getElementById("wtp__form__reveal")
+const submitBtn = document.getElementById("reveal")
 submitBtn?.addEventListener("click", () => {
     const pokeImg = document.getElementById("wtp__image--reveal")
     pokeImg?.classList.remove("wtp__image")

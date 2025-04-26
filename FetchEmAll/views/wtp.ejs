@@ -7,10 +7,17 @@
         <img src="<%= pokemonList[rndmPokeId()].front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image">
 
         <form autocomplete="off" action="" class="wtp__form">
-            <div class="wtp__form__input__container" style="width:300px;">
-              <input id="wtp__form__input__field" type="text" name="myPokemon" placeholder="Pokemon">
+            <div class="input__container" style="width:300px;">
+              <input id="input__field" type="text" name="myPokemon" placeholder="Pokemon">
+                <!-- 
+                <div id="autocomplete__list" class="autocomplete__item">
+                    <div><strong>pid</strong>gey<input type="hidden" value="pidgey"></div>
+                    <div><strong>pid</strong>geotto<input type="hidden" value="pidgeotto"></div>
+                    <div><strong>pid</strong>geot<input type="hidden" value="pidgeot"></div>
+                </div>
+                 -->
             </div>
-            <button type="button" id="wtp__form__reveal" class="wtp__form__submit">Submit</button>   
+            <button type="button" id="reveal" class="submit">Submit</button>   
         </form>
 
     </section>

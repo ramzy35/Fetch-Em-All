@@ -29,12 +29,21 @@
             </section>
             <section class="pokestat__buttons">
                 <a href="battle.html" class="pokestat__catch">Catch</a>
-                <form autocomplete="off" action="" class="wtp__form">
-                    <div class="pokemon__form__input__container">
-                      <input id="pokemon__form__input__field" type="text" name="id2" placeholder="Compare with...">
+                <form autocomplete="off" action="" class="pokemon__form">
+                    <div class="input__container">
+                      <input id="input__field" type="text" name="id2" placeholder="Compare with...">
+                      
+                      <input id="input__field" type="text" name="id2" placeholder="Compare with...">
+                        <!-- 
+                        <div id="autocomplete__list" class="autocomplete__item">
+                            <div><strong>pid</strong>gey<input type="hidden" value="pidgey"></div>
+                            <div><strong>pid</strong>geotto<input type="hidden" value="pidgeotto"></div>
+                            <div><strong>pid</strong>geot<input type="hidden" value="pidgeot"></div>
+                        </div> 
+                        -->
                     </div>
-                    <button type="button" id="pokemon__form__reveal" class="pokemon__form__submit" onclick="changeLink('<%= pokemon.id%>', '<%= pokemonNameList%>')">
-                        <a href="http://localhost:3000/compare" class="pokestat__compare" id="compare__link">Compare</a>
+                    <button type="button" id="reveal" class="submit" onclick="changeLink('<%= pokemon.id%>')">
+                        <a href="http://localhost:3000/compare" class="pokestat__compare" id="pokestat__compare__link">Compare</a>
                     </button>   
                 </form>  
             </section>
