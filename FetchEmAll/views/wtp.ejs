@@ -2,7 +2,6 @@
 <%- include("partials/nav.ejs") %>
 
     <h1 class="wtp__title">Who's That Pokemon</h1>
-
     <section class="wtp">
 
         <img src="<%= pokemonList[rndmPokeId()].front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image">
@@ -17,4 +16,4 @@
     </section>
 
 
-<%- include("partials/footer.ejs") %>
+<%- include("partials/autoComplete") %>
