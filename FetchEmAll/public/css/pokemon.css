@@ -12,10 +12,13 @@ main, footer {
 body {
     background-color: var(--blue);
     background-image: url(../assets/backgrounddddd_1.png);
-    width: 100vw;
-    height: 100vw;
+    background-size: 50vw;
+    /* width: 100vw;
+    height: 100vw; */
 
 }
+
+
 
 main {
     display: flex;
