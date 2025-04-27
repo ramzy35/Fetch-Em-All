@@ -11,6 +11,10 @@
     <p><a href="./sources.html">Sources</a></p>
 </footer>
 
+<% if(currentPage === "wtp" || currentPage === "compare") { %>
+    <%- include("./autoComplete.ejs") %>   
+<% } %>
+
 </body>
 
 </html>
