@@ -30,7 +30,7 @@ main {
     width: 850px;
     border-radius: 15px;
     /* background-color: var(--blue); */
-    background-image: linear-gradient(to bottom, red 0%, rgb(60, 201, 107) 50%, rgba(0, 0, 0, 0) 100%);
+    background-image: linear-gradient(to bottom, rgb(59, 197, 185) 0%, rgb(72, 197, 170) 50%, rgba(0, 0, 0, 0) 100%);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
 }
@@ -101,8 +101,10 @@ main {
 }
 
 h3 {
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: bold;
+    text-align: center;
+    font-family: Pokemon Hollow;
 }
 
 .margin {
