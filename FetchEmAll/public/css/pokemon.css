@@ -29,7 +29,8 @@ main {
     padding: 20px 20px;
     width: 850px;
     border-radius: 15px;
-    background-color: var(--blue);
+    /* background-color: var(--blue); */
+    background-image: linear-gradient(to bottom, red 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
 }
@@ -66,8 +67,13 @@ main {
     gap: 20px;
 }
 
+.pokestat__buttons {
+
+    
+}
+
 .pokestat__buttons a {
-    background-color: #222;
+    background-color: #000000;
     /*make it a variable*/
     border-radius: 4px;
     border-style: none;
@@ -81,6 +87,7 @@ main {
     text-align: center;
     text-transform: none;
     width: 120px;
+    /* height: 20px; */
 }
 
 .pokestat__buttons a:hover, .pokestat__buttons a:focus {
