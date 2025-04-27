@@ -30,7 +30,7 @@ main {
     width: 850px;
     border-radius: 15px;
     /* background-color: var(--blue); */
-    background-image: linear-gradient(to bottom, red 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+    background-image: linear-gradient(to bottom, red 0%, rgb(60, 201, 107) 50%, rgba(0, 0, 0, 0) 100%);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
 }
@@ -65,11 +65,6 @@ main {
     display: flex;
     flex-direction: row;
     gap: 20px;
-}
-
-.pokestat__buttons {
-
-    
 }
 
 .pokestat__buttons a {
