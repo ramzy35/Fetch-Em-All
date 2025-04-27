@@ -8,7 +8,6 @@
     /* gap: 20px; */
     flex-wrap: wrap;
     padding: 8px 10px 8px 10px;
-    background-color: rgba(141, 212, 134, 0.82);
 }
 
 .pokedex__card:hover {
@@ -69,4 +68,18 @@ body {
 
 .catchEmAll {
     border-color: var(--green);
+}
+
+.pokedex__card__left__types {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.types {
+    border: 1px solid black;
+    font-size: 1.6rem;
+    padding: 3px 3px;
+    border-radius: 3px;
 }
