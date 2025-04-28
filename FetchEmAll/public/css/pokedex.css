@@ -91,11 +91,81 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 5px;
+}
+
+.poketype-bug__poketype {
+    display:inline-block;
+}
+
+.poketype-fire__poketype {
+    display:inline-block;
+}
+
+.poketype-flying__poketype {
+    display:inline-block;
+}
+
+.poketype-dark__poketype {
+    display:inline-block;
+}
+
+.poketype-dragon__poketype {
+    display:inline-block;
+}
+
+.poketype-electric__poketype {
+    display:inline-block;
+}
+
+.poketype-fairy__poketype {
+    display:inline-block;
+}
+
+.poketype-fighting__poketype {
+    display:inline-block;
+}
+
+.poketype-ghost__poketype {
+    display:inline-block;
+}
+
+.poketype-grass__poketype {
+    display:inline-block;
+}
+
+.poketype-ground__poketype {
+    display:inline-block;
+}
+
+.poketype-ice__poketype {
+    display:inline-block;
+}
+
+.poketype-normal__poketype {
+    display:inline-block;
+}
+
+.poketype-poison__poketype {
+    display:inline-block;
+}
+
+.poketype-psychic__poketype {
+    display:inline-block;
+}
+
+.poketype-rock__poketype {
+    display:inline-block;
+}
+
+.poketype-steel__poketype {
+    display:inline-block;
+}
+
+.poketype-water__poketype {
+    display:inline-block;
 }
 
 .types {
-    border: 1px solid black;
     font-size: 1.6rem;
     padding: 3px 3px;
     border-radius: 3px;
