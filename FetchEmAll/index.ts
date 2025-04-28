@@ -5,6 +5,8 @@ import pokemonRoute from "./routes/pokemon";
 import compareRoute from "./routes/compare";
 import myPokemonRoute from "./routes/myPokemon";
 import landingRoute from "./routes/landing";
+import signInRoute from "./routes/signIn";
+import signUpRoute from "./routes/signUp";
 import { getPokemonList } from "./middleware/getPokemonList";
 import { pokedexUtility } from "./middleware/pokedexUtility";
 
@@ -26,6 +28,8 @@ app.use("/compare", compareRoute)
 app.use("/pokemon", pokemonRoute)
 app.use("/myPokemon", myPokemonRoute)
 app.use("/landing", landingRoute)
+app.use("/signin", signInRoute)
+app.use("/signup", signUpRoute)
 
 app.listen(app.get("port"), () => {
     console.log("Server started on http://localhost:" + app.get("port"));
