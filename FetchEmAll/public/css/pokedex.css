@@ -50,7 +50,7 @@ body {
 }
 
 .pokedex__card__left__id {
-    color: var(--light-gray);
+    color: var(--black);
     text-shadow: 1px 0 10px;
 }
 
