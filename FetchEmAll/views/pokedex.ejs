@@ -17,7 +17,14 @@
                     <%= poke.id %>
                 </p>
                 <p class="pokedex__card__left__types">
-                    <%= getTypes(poke.types) %>
+                    
+                    <% poke.types.forEach(type=> { %>
+                        <section class="type-<%= type %> type">
+                            <%= type %>
+                            <img src="../public/assets/icons/<%= type %>.svg" />
+                        </section>
+                    <%})%>
+                    
                 </p>
             </section>
 
