@@ -1,7 +1,9 @@
 .pokedex__card {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    margin-left: 2px;
+    margin-right: 2px;
     /*border: 3px solid var(--red);
     border-radius: 10px;*/
     --b: 15px;   /* thickness of the border */
@@ -18,7 +20,7 @@
         conic-gradient(from 0deg   at bottom var(--b) left  var(--b),var(--_g)) 0    100% / var(--_p),
         conic-gradient(from -90deg at bottom var(--b) right var(--b),var(--_g)) 100% 100% / var(--_p);
         background-color: whitesmoke;
-    outline: 2px solid var(--red);
+    outline: 4px solid var(--red);
     
     width: 250px;
     /* gap: 20px; */
