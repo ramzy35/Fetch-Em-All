@@ -104,21 +104,30 @@
     })
 }
 
-function changeLink(id1) {
-    const input = document.getElementById("input__field")
+function changeLink(event, id1) {
+    // prevent going to link of button
+    event.preventDefault();
     let link = document.getElementById("pokestat__compare__link").href
-    const pokeNameArr = '<%= pokemonNameList %>'.split(",")
-    const id2 = 1 + pokeNameArr.indexOf(`${input.value.toLowerCase()}`)
-    if (id1.toString() === id2.toString()) {
-        link = `http://localhost:3000/pokemon?id=${id1}`
-    } else {
-        link = `http://localhost:3000/compare?id1=${id1}&id2=${id2}`
+    if(document.getElementById("input__field").value) {
+        const input = document.getElementById("input__field").value
+        const pokeNameArr = '<%= pokemonNameList %>'.split(",")
+        const id2 = 1 + pokeNameArr.indexOf(`${input.toLowerCase()}`)
+        if (id1.toString() === id2.toString()) {
+            link = "#"
+        } else if (pokeNameArr.includes(input.toString())) {
+            link = `http://localhost:3000/compare?id1=${id1}&id2=${id2}`
+        } else {
+            link = "#"
+        }
     }
-    document.getElementById("pokestat__compare__link").href = link;
+    else {
+        link = "#"
+    }
+    location.href = link
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    autocomplete(document.getElementById("input__field"));
+        autocomplete(document.getElementById("input__field"));
 });
 
 
