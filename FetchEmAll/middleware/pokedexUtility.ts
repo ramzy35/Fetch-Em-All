@@ -20,5 +20,9 @@ export function pokedexUtility(req: Request, res: Response, next: NextFunction) 
         };
         return map[gen] || gen;
     };
+    res.locals.formatId = (id : number) => {
+        const idString : string = "000" + id.toString()
+        return `#${idString.slice(-3)}`
+    }
     next();
 }
