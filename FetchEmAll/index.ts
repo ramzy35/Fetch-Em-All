@@ -9,6 +9,9 @@ import signInRoute from "./routes/signIn";
 import signUpRoute from "./routes/signUp";
 import { connect } from "./database";
 import { formattingLocals } from "./middleware/formatting";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
@@ -17,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.set("port", 3000);
+app.set("port", process.env.PORT);
 
 app.use(formattingLocals)
 
