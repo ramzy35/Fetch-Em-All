@@ -1,5 +1,22 @@
 import { Request, Response, NextFunction} from "express";
 import { getAllPokemon } from "../database";
+
+export async function pokeNamesLocal(req:Request, res:Response, next:NextFunction){
+    const pokeList = await getAllPokemon()
+    res.locals.pokemonNameList = [];
+    // site crashes when this line is not here, looking into this later
+    pokeList.forEach(poke => {
+        res.locals.pokemonNameList.push(poke?.name) 
+    });
+    next();
+}
+
+export async function pokeListLocal(req: Request, res: Response, next: NextFunction) {
+    const pokeList = await getAllPokemon()
+    res.locals.pokemonList = pokeList
+    next();
+}
+
 export async function formattingLocals(req: Request, res: Response, next: NextFunction) {
     res.locals.getTypes = (types: string[]) => {
         return types.join(", ");

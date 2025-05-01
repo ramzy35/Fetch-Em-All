@@ -1,6 +1,4 @@
 import express from "express";
-import { getPokemonList } from "../middleware/getPokemonList";
-import { Pokemon } from "./pokedex";
 
 const landingRoute = express.Router();
 

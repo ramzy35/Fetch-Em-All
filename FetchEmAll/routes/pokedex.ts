@@ -1,5 +1,5 @@
 import express from "express";
-import { pokeListLocal } from "../middleware/getPokemonList";
+import { pokeListLocal } from "../middleware/locals";
 
 const pokedexRoute = express.Router();
 

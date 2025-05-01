@@ -1,11 +1,11 @@
 import express from "express";
-import { getPokemonList, pokeListLocal } from "../middleware/getPokemonList";
-import { Pokemon } from "./pokedex";
+import { pokeListLocal } from "../middleware/locals";
+import { PokemonStats } from "../pokemonStats";
 
 const myPokemonRoute = express.Router();
 
 myPokemonRoute.get("/", pokeListLocal, async (req, res) => {
-    res.locals.myPokemon = res.locals.pokemonList.filter((poke:Pokemon) => {
+    res.locals.myPokemon = res.locals.pokemonList.filter((poke:PokemonStats) => {
         return poke.name.includes("p")
     })
     // just testing if this works, now returns only pokemon with P in name

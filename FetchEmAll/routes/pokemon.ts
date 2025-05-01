@@ -1,7 +1,5 @@
 import express from "express";
-import { Pokemon } from "./pokedex";
-import { getPokemonStats } from "../pokemonStats";
-import { pokeNamesLocal } from "../middleware/pokeNames";
+import { pokeNamesLocal } from "../middleware/locals";
 import { getPokemonById } from "../database";
 
 const pokemonRoute = express.Router();

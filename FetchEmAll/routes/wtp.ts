@@ -1,12 +1,11 @@
 import express from "express";
-import { Pokemon } from "./pokedex";
-import { pokeNamesLocal } from "../middleware/pokeNames";
+import { pokeNamesLocal } from "../middleware/locals";
 import { getPokemonById } from "../database";
 
 const wtpRoute = express.Router();
 
 function rndmPoke() {
-    const rndmId = Math.floor(Math.random()*151)+1
+    const rndmId : number = Math.floor(Math.random()*151)+1
     const rndmPokemon = getPokemonById(rndmId)
     return rndmPokemon
 }

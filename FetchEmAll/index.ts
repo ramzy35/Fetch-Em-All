@@ -1,4 +1,6 @@
 import express from "express";
+import dotenv from "dotenv";
+
 import pokedexRoute from "./routes/pokedex";
 import wtpRoute from "./routes/wtp";
 import pokemonRoute from "./routes/pokemon";
@@ -7,9 +9,10 @@ import myPokemonRoute from "./routes/myPokemon";
 import landingRoute from "./routes/landing";
 import signInRoute from "./routes/signIn";
 import signUpRoute from "./routes/signUp";
+
 import { connect } from "./database";
-import { formattingLocals } from "./middleware/formatting";
-import dotenv from "dotenv";
+import { formattingLocals } from "./middleware/locals";
+
 
 dotenv.config();
 
