@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction} from "express";
 import { getAllPokemon } from "../database";
 
-export async function getPokeNames(req:Request, res:Response, next:NextFunction){
+export async function pokeNamesLocal(req:Request, res:Response, next:NextFunction){
     const pokeList = await getAllPokemon()
     res.locals.pokemonNameList = [];
     // site crashes when this line is not here, looking into this later

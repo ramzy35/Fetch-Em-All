@@ -1,3 +1,5 @@
+import { ObjectId } from "mongodb";
+
 export interface PokemonStats {
     name: string,
     id: number,

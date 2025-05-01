@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction} from "express";
 import { getAllPokemon } from "../database";
-export async function formattingGlobals(req: Request, res: Response, next: NextFunction) {
+export async function formattingLocals(req: Request, res: Response, next: NextFunction) {
     res.locals.getTypes = (types: string[]) => {
         return types.join(", ");
     }

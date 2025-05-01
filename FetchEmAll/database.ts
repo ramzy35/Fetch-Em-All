@@ -22,6 +22,7 @@ async function seed() {
     try {
         const pokeList: PokemonStats[] = await getPokemonList()
         pokeCollection.insertMany(pokeList);
+        console.log(pokeCollection.countDocuments())
     } catch (error) {
         console.log(error)
     }

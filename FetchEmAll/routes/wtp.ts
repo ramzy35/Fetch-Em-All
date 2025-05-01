@@ -1,18 +1,21 @@
 import express from "express";
 import { Pokemon } from "./pokedex";
+import { pokeNamesLocal } from "../middleware/pokeNames";
+import { getPokemonById } from "../database";
 
 const wtpRoute = express.Router();
 
-function rndmPokeId() {
-    return Math.floor(Math.random()*151)+1
+function rndmPoke() {
+    const rndmId = Math.floor(Math.random()*151)+1
+    const rndmPokemon = getPokemonById(rndmId)
+    return rndmPokemon
 }
 
-wtpRoute.get("/", async (req, res) => {
+wtpRoute.get("/", pokeNamesLocal, async (req, res) => {
     res.locals.currentPage = "wtp"
-    const pokemonNames = res.locals.pokemonNameList
+    const poke = await rndmPoke()
     res.render("wtp", {
-        rndmPokeId,
-        pokemonNames
+        poke : poke[0],
     });
 });
 

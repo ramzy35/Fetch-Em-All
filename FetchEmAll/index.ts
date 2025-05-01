@@ -7,8 +7,8 @@ import myPokemonRoute from "./routes/myPokemon";
 import landingRoute from "./routes/landing";
 import signInRoute from "./routes/signIn";
 import signUpRoute from "./routes/signUp";
-import { getPokemonList } from "./middleware/getPokemonList";
-import { pokedexUtility } from "./middleware/pokedexUtility";
+import { connect } from "./database";
+import { formattingLocals } from "./middleware/formatting";
 
 const app = express();
 
@@ -19,8 +19,7 @@ app.use(express.static("public"));
 
 app.set("port", 3000);
 
-app.use(getPokemonList)
-app.use(pokedexUtility)
+app.use(formattingLocals)
 
 app.use("/pokedex", pokedexRoute);
 app.use("/wtp", wtpRoute);
@@ -31,6 +30,7 @@ app.use("/landing", landingRoute)
 app.use("/signin", signInRoute)
 app.use("/signup", signUpRoute)
 
-app.listen(app.get("port"), () => {
+app.listen(app.get("port"), async() => {
+    await connect()
     console.log("Server started on http://localhost:" + app.get("port"));
 });

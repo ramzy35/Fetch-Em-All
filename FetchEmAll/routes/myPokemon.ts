@@ -1,10 +1,10 @@
 import express from "express";
-import { getPokemonList } from "../middleware/getPokemonList";
+import { getPokemonList, pokeListLocal } from "../middleware/getPokemonList";
 import { Pokemon } from "./pokedex";
 
 const myPokemonRoute = express.Router();
 
-myPokemonRoute.get("/", async (req, res) => {
+myPokemonRoute.get("/", pokeListLocal, async (req, res) => {
     res.locals.myPokemon = res.locals.pokemonList.filter((poke:Pokemon) => {
         return poke.name.includes("p")
     })
