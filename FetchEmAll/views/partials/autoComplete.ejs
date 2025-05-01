@@ -104,7 +104,9 @@
     })
 }
 
-function changeLink(id1) {
+function changeLink(event, id1) {
+    event.preventDefault;
+    event.link
     const input = document.getElementById("input__field")
     let link = document.getElementById("pokestat__compare__link").href
     const pokeNameArr = '<%= pokemonNameList %>'.split(",")
@@ -114,6 +116,7 @@ function changeLink(id1) {
     } else {
         link = `http://localhost:3000/compare?id1=${id1}&id2=${id2}`
     }
+    console.log(link)
     document.getElementById("pokestat__compare__link").href = link;
 }
 

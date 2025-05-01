@@ -20,6 +20,7 @@ export async function getPokemonById(id:number) {
 
 async function seed() {
     try {
+        pokeCollection.deleteMany();
         const pokeList: PokemonStats[] = await getPokemonList()
         pokeCollection.insertMany(pokeList);
         console.log(pokeCollection.countDocuments())
@@ -42,7 +43,7 @@ export async function connect() {
     try {
         await client.connect();
         console.log("Connected to database");
-        if(await pokeCollection.countDocuments() === 0){
+        if(await pokeCollection.countDocuments() != 151){
             seed()
         }
         process.on("SIGINT", exit);
