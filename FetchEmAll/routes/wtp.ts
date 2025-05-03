@@ -2,7 +2,6 @@ import express from "express";
 import { pokeNamesLocal } from "../middleware/locals";
 import { getPokemonById } from "../database";
 import * as pokeStats from "../pokemonStats";
-import { WithId } from "mongodb";
 
 const wtpRoute = express.Router();
 
@@ -11,13 +10,14 @@ async function rndmPoke() {
     return await getPokemonById(rndmId)
 }
 
-let poke : WithId<pokeStats.PokemonStats>[];
+let poke : pokeStats.PokemonStats[];
 
 wtpRoute.get("/", pokeNamesLocal, async (req, res) => {
     res.locals.currentPage = "wtp"
     poke = await rndmPoke()
     res.render("wtp", {
         poke : poke[0],
+        answer : ""
     });
 });
 
@@ -26,9 +26,10 @@ wtpRoute.post("/", pokeNamesLocal, async (req, res) => {
     res.locals.currentPage = "wtp"
     const guess = typeof req.body.guess === "string" ? req.body.guess : "";
     console.log("posting", poke, guess)
-    const anwer = checkGuess(guess, poke[0].name, res.locals.pokemonNameList)
+    const answer = checkGuess(guess, poke[0].name, res.locals.pokemonNameList)
     res.render("wtp", {
         poke : poke[0],
+        answer : answer
     });
 });
 
