@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction} from "express";
 import { getAllPokemon } from "../database";
+import { PokemonStats } from "../pokemonStats";
 
 export async function pokeNamesLocal(req:Request, res:Response, next:NextFunction){
-    const pokeList = await getAllPokemon()
+    const pokeList : PokemonStats[]  = await getAllPokemon()
     res.locals.pokemonNameList = [];
     // site crashes when this line is not here, looking into this later
     pokeList.forEach(poke => {
@@ -12,7 +13,7 @@ export async function pokeNamesLocal(req:Request, res:Response, next:NextFunctio
 }
 
 export async function pokeListLocal(req: Request, res: Response, next: NextFunction) {
-    const pokeList = await getAllPokemon()
+    const pokeList: PokemonStats[] = await getAllPokemon()
     res.locals.pokemonList = pokeList
     next();
 }
