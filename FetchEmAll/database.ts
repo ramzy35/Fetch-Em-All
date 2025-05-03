@@ -1,5 +1,4 @@
 import { Collection, MongoClient } from "mongodb";
-import express from "express";
 import { getPokemonList } from "./middleware/fetchPokemon";
 import { PokemonStats } from "./pokemonStats";
 import dotenv from "dotenv"
@@ -10,12 +9,24 @@ export const client = new MongoClient(link);
 export const pokeCollection : Collection<PokemonStats> = client.db("FetchEmAll").collection("pokemon");
 
 
-export async function getAllPokemon() {
-    return await pokeCollection.find({}).toArray();
+export async function getAllPokemon():Promise<PokemonStats[]> {
+    try {
+        const allPokemon:PokemonStats[] = await pokeCollection.find({}).toArray();
+        return allPokemon;
+    } catch (error) {
+        console.error(error)
+    }
+    return [];
 }
 
-export async function getPokemonById(id:number) {
-    return await pokeCollection.find({ id : id }).toArray();
+export async function getPokemonById(id:number):Promise<PokemonStats[]> {
+    try {
+        const pokemon:PokemonStats[] = await pokeCollection.find({ id : id }).toArray();
+        return pokemon
+    } catch (error) {
+        console.error(error)
+    }
+    return [];
 }
 
 async function seed() {

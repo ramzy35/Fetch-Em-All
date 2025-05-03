@@ -2,7 +2,7 @@ import { Request, Response, NextFunction} from "express";
 import * as pokeStats from "../pokemonStats";
 import { getAllPokemon } from "../database";
 
-export async function getPokemonList() { 
+export async function getPokemonList():Promise<pokeStats.PokemonStats[]> { 
     const promises = [];
     for (let id = 1; id <= 151; id++) {
         try {
@@ -15,7 +15,7 @@ export async function getPokemonList() {
     return results
 }
 
-export async function getPokemonStats(id:number) {
+export async function getPokemonStats(id:number):Promise<pokeStats.PokemonStats> {
     const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const pokemonJson = await pokemonResponse.json();
 
