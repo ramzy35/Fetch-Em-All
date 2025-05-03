@@ -1,26 +1,34 @@
 <%- include("partials/header.ejs") %>
 <%- include("partials/nav.ejs") %>
 
-    <h1 class="wtp__title">Who's That Pokemon</h1>
-    <section class="wtp">
+<h1 class="wtp__title">Who's That Pokemon</h1>
+<section class="wtp">
+    <% if (Math.random() > 0.5) { %>
+           <img src="<%= pokemonList[rndmPokeId()].front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image" draggable="false" style="filter: brightness(100%);"> 
+           <p>Correct! You guessed the right pokemon</p>
+    <% } else { %>
+        <img src="<%= pokemonList[rndmPokeId()].front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image" draggable="false">
+        <p>Sorry, you guessed incorrectly.</p>
+    <% } %>
 
-        <img src="<%= pokemonList[rndmPokeId()].front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image">
-
-        <form autocomplete="off" action="" class="wtp__form">
+    <form autocomplete="off" action="" method="post" class="wtp__form">
+        <% if (Math.random() > 0.5) { %>
+            <a href="http://localhost:3000/wtp"><button type="button">Next</button></a>
+        <% } else { %>
             <div class="input__container" style="width:300px;">
-              <input id="input__field" type="text" name="myPokemon" placeholder="Pokemon">
+                <input id="input__field" type="text" name="guess" placeholder="Pokemon">
                 <!-- 
                 <div id="autocomplete__list" class="autocomplete__item">
                     <div><strong>pid</strong>gey<input type="hidden" value="pidgey"></div>
                     <div class="autocomplete__item--active"><strong>pid</strong>geotto<input type="hidden" value="pidgeotto"></div>
                     <div><strong>pid</strong>geot<input type="hidden" value="pidgeot"></div>
                 </div>
-                 -->
+                    -->
             </div>
-            <button type="button" id="reveal" class="submit">Submit</button>   
-        </form>
-
-    </section>
-
+            <button type="submit" id="reveal" name="post" value="post" class="submit">Submit</button>
+            <a href="http://localhost:3000/wtp"><button type="button">Skip</button></a>
+        <% } %>
+    </form>
+</section>
 
 <%- include("partials/autoComplete") %>
