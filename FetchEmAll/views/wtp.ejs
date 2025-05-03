@@ -3,10 +3,10 @@
 
 <h1 class="wtp__title">Who's That Pokemon</h1>
 <section class="wtp">
-    <img src="<%= pokemonList[rndmPokeId()].front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image">
-    <form autocomplete="off" action="" class="wtp__form">
+    <img src="<%= poke.front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image" draggable="false">
+    <form autocomplete="off" action="" method="post" class="wtp__form">
         <div class="input__container" style="width:300px;">
-            <input id="input__field" type="text" name="myPokemon" placeholder="Pokemon">
+            <input id="input__field" type="text" name="guess" placeholder="Pokemon">
             <!-- 
             <div id="autocomplete__list" class="autocomplete__item">
                 <div><strong>pid</strong>gey<input type="hidden" value="pidgey"></div>
@@ -15,7 +15,7 @@
             </div>
                 -->
         </div>
-        <button type="button" id="reveal" class="submit">Submit</button>   
+        <button type="submit" id="reveal" name="post" value="post" class="submit">Submit</button>   
     </form>
 </section>
 
