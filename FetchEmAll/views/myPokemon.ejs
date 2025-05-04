@@ -19,13 +19,11 @@
                 <p class="pokedex__card__left__id">
                     # <%= poke.id %>
                 </p>
-                <p class="pokedex__card__left__types">
-                    <% poke.types.forEach(type=> { %>
-                        <section class="poketype-<%= type %>__poketype">
-                            <img src="/assets/icons/<%= type %>.svg" width="30px" />
-                        </section>
-                    <%})%>
-                </p>
+                <% poke.types.forEach(type => { %>
+                    <section class="pokedex__card__left__types" data-tooltip="<%= type.charAt(0).toUpperCase() + type.slice(1) %>">
+                        <img src="/assets/icons/<%= type %>.svg" width="30px" alt="<%= type %> type icon" />
+                    </section>
+                <% }); %>
             </section>
 
             <img src="<%= poke.front_image %>" class="pokedex__card__img--front" alt="<%= poke.name %>">
