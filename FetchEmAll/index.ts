@@ -6,13 +6,12 @@ import wtpRoute from "./routes/wtp";
 import pokemonRoute from "./routes/pokemon";
 import compareRoute from "./routes/compare";
 import myPokemonRoute from "./routes/myPokemon";
+import battleRoute from "./routes/battle";
 import landingRoute from "./routes/landing";
 import signInRoute from "./routes/signIn";
 import signUpRoute from "./routes/signUp";
-
 import { connect } from "./database";
 import { formattingLocals } from "./middleware/locals";
-
 
 dotenv.config();
 
@@ -27,14 +26,16 @@ app.set("port", process.env.PORT);
 
 app.use(formattingLocals)
 
+
 app.use("/pokedex", pokedexRoute);
 app.use("/wtp", wtpRoute);
-app.use("/compare", compareRoute)
-app.use("/pokemon", pokemonRoute)
-app.use("/myPokemon", myPokemonRoute)
-app.use("/landing", landingRoute)
-app.use("/signin", signInRoute)
-app.use("/signup", signUpRoute)
+app.use("/compare", compareRoute);
+app.use("/pokemon", pokemonRoute);
+app.use("/myPokemon", myPokemonRoute);
+app.use("/landing", landingRoute);
+app.use("/signin", signInRoute);
+app.use("/signup", signUpRoute);
+app.use("/battle", battleRoute);    
 
 app.listen(app.get("port"), async() => {
     await connect()
