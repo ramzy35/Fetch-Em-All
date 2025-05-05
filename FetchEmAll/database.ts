@@ -1,6 +1,6 @@
 import { Collection, MongoClient } from "mongodb";
 import { getPokemonList } from "./middleware/fetchPokemon";
-import { Pokemon, User } from "./interfaces";
+import { MyPokemon, Pokemon, User } from "./interfaces";
 import dotenv from "dotenv"
 
 dotenv.config();
@@ -45,25 +45,43 @@ async function getAllUsers():Promise<User[]> {
     return [];
 }
 
-async function getUserById(id:number):Promise<User[]> {
+async function getUserById(id:number):Promise<User> {
     try {
-        const user:User[] = await userCollection.find({ id : id }).toArray();
+        const user:User = await userCollection.findOne({ userId : id });
         return user
     } catch (error) {
         console.error(error)
     }
-    return [];
+    return await userCollection.findOne({ userId : 1 });
 }
 
 async function createUser(email:string, username:string) {
+    const allPokemon = await getAllPokemon()
+    const somePokemon = allPokemon.filter((poke) => {
+        return poke.name.includes("p")
+    })
     const newUser:User = {
         userId : (await userCollection.countDocuments()) + 1,
         username : username,
         email : email,
-        pokemon : null,
+        pokemon : somePokemon,
         currentPokemon : null
     }
     userCollection.insertOne(newUser)
+}
+
+
+export async function getMyPokemon(userId:number):Promise<Pokemon[]> {
+    try {
+        const user: User = await getUserById(userId)
+        if(user.pokemon){
+            const myPokemon: Pokemon[] = user.pokemon
+            return myPokemon
+        }
+    } catch (error) {
+        console.error(error)
+    }
+    return [];
 }
 
 async function seed() {
@@ -94,7 +112,8 @@ export async function connect() {
         if(await pokeCollection.countDocuments() != 151){
             seed()
         }
-        // createUser("example@email.com", "John Doe")
+        await userCollection.deleteMany()
+        createUser("example@email.com", "John Doe")
         process.on("SIGINT", exit);
     } catch (error) {
         console.error(error);

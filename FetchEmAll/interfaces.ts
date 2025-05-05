@@ -31,7 +31,7 @@ export interface User {
     userId: number;
     email: string;
     username: string;
-    pokemon: number[] | null;
+    pokemon: Pokemon[] | null;
     currentPokemon: number | null;
 }
 
@@ -84,7 +84,11 @@ export type AbilityDescription = {
 };
 
 export interface MyPokemon extends Pokemon {
+    MaxHP: number;
     currentHp: number;
+    currentAttack: number;
+    currentSpeed: number;
+    currentDefense : number;
     isFainted: boolean;
     level: number;
 }
