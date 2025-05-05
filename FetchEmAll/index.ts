@@ -33,7 +33,7 @@ app.use("/wtp", wtpRoute);
 app.use("/compare", compareRoute);
 app.use("/pokemon", pokemonRoute);
 app.use("/myPokemon", myPokemonRoute);
-app.use("/landing", landingRoute);
+app.use("/", landingRoute);
 app.use("/signin", signInRoute);
 app.use("/signup", signUpRoute);
 app.use("/battle", battleRoute);    

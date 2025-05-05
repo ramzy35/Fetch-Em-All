@@ -1,56 +1,69 @@
-<%- include("partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FetchEmAll</title>
+    <link rel="stylesheet" href="/css/landing.css">
+</head>
 
 <body>
+
     <header>
-        <a href="http://localhost:3000/signin"><button class="landing__login">Log in</button></a>
+        <h1>FetchEmAll</h1>
+        <a href="/login" class="login-button">Log In</a>
     </header>
+
     <main>
-        <h1 class="projects__title"></h1>
-        <section class="projects">
-            <section class="projects__card">
-                <h2 class="projects__card__title">Pokemon</h2>
-                <section class="projects__card__bottom">
-                    <img class="projects__card__img" src="/assets/poke.png" alt="project type image">
-                    <a href="http://localhost:3000/pokedex"><button class="projects_card__button">Visit site</button></a>
-                </section>
-            </section>
-            <section class="projects__card">
-                <h2 class="projects__card__title">Fifa</h2>
-                <section class="projects__card__bottom">
-                    <img class="projects__card__img" src="/assets/fifa.png" alt="project type image">
-                    <button class="projects_card__button"><i class="fa-solid fa-lock"></i></i></button>
-                </section>
-            </section>
-            <section class="projects__card">
-                <h2 class="projects__card__title">Fortnite</h2>
-                <section class="projects__card__bottom">
-                    <img class="projects__card__img" src="/assets/fortnite.png" alt="project type image">
-                    <button class="projects_card__button"><i class="fa-solid fa-lock"></i></button>
-                </section>
-            </section>
-            <section class="projects__card">
-                <h2 class="projects__card__title">MTG</h2>
-                <section class="projects__card__bottom">
-                    <img class="projects__card__img" src="/assets/MTG.png" alt="project type image">
-                    <button class="projects_card__button"><i class="fa-solid fa-lock"></i></button>
-                </section>
-            </section>
-            <section class="projects__card">
-                <h2 class="projects__card__title">LegoMasters</h2>
-                <section class="projects__card__bottom">
-                    <img class="projects__card__img" src="/assets/lego.png" alt="project type image">
-                    <button class="projects_card__button"><i class="fa-solid fa-lock"></i></button>
-                </section>
-            </section>
-            <section class="projects__card">
-                <h2 class="projects__card__title">LOTR</h2>
-                <section class="projects__card__bottom">
-                    <img class="projects__card__img" src="/assets/lotr.png" alt="project type image">
-                    <button class="projects_card__button"><i class="fa-solid fa-lock"></i></button>
-                </section>
-            </section>
-        </section>
+        <div class="project-card">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+                alt="Pokemon">
+            <h3>Pokemon</h3>
+            <a href="/pokedex" class="visit">Visit Site</a>
+        </div>
+
+        <div class="project-card">
+            <img src="../assets/fifa.png" alt="FIFA">
+            <h3>FIFA</h3>
+            <button class="locked" disabled>
+                🔒 Locked
+            </button>
+        </div>
+
+        <div class="project-card">
+            <img src="../assets/fortnite.png" alt="Fortnite">
+            <h3>Fortnite</h3>
+            <button class="locked" disabled>
+                🔒 Locked
+            </button>
+        </div>
+
+        <div class="project-card">
+            <img src="../assets/MTG.png" alt="MTG">
+            <h3>MTG</h3>
+            <button class="locked" disabled>
+                🔒 Locked
+            </button>
+        </div>
+
+        <div class="project-card">
+            <img src="../assets/lego.png" alt="LegoMasters">
+            <h3>LegoMasters</h3>
+            <button class="locked" disabled>
+                🔒 Locked
+            </button>
+        </div>
+
+        <div class="project-card">
+            <img src="../assets/lotr.png" alt="LOTR">
+            <h3>LOTR</h3>
+            <button class="locked" disabled>
+                🔒 Locked
+            </button>
+        </div>
     </main>
-    <!-- NO footer needed. -->
+
 </body>
+
 </html>
