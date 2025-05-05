@@ -46,6 +46,7 @@ function checkGuess(guess:string, correctPoke:string, pokeNameList:string[]):{re
         if (guess.toLowerCase() === correctPoke) {
             answer.response = "Correct! You guessed the right pokemon.";
             answer.correct = true;
+            giveEXP();
         } else {
             answer.response = "Incorrect, you guessed the wrong pokemon.";
             answer.correct = false;
@@ -56,6 +57,11 @@ function checkGuess(guess:string, correctPoke:string, pokeNameList:string[]):{re
     }
      
     return answer
+}
+
+function giveEXP() {
+    // currentPokemon.exp = currenPokemon.exp + (1 * expScaling);
+    
 }
 
 export default wtpRoute;
