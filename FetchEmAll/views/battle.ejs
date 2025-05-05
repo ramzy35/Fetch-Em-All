@@ -1,86 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("partials/header.ejs") %>
+    <section class="app">
+        <h1 class="title">Battle</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pokémon Battle</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
+        <section class="battle">
+            <section class="battle__box--top-left">
+                <h2 class="battle__pokemon--top">Venusaur</h2>
+                <section class="battle__hpbar--top">
+                    <section class="battle__hpbar__fill--top">
 
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
+                    </section>
+                </section>
+                <h4 class="battle__pokemon__lvl--top">Lvl. 4</h4>
+            </section>
+            <section class="battle__box--top-right">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png" alt=""
+                    class="battle__pokemon__img--top">
+            </section>
+            <section class="battle__box--bottom-left">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/25.png" alt=""
+                    class="battle__pokemon__img--bottom">
+            </section>
+            <section class="battle__box--bottom-right">
+                <h2 class="battle__pokemon--bottom">Pikachu</h2>
+                <section class="battle__hpbar--bottom">
+                    <section class="battle__hpbar__fill--bottom">
 
-        #battle-log {
-            width: 90%;
-            max-width: 600px;
-            height: 300px;
-            padding: 10px;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            background-color: white;
-            overflow-y: auto;
-            white-space: pre-line;
-            font-size: 16px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        }
+                    </section>
+                </section>
+                <h4 class="battle__pokemon__lvl--bottom">Lvl. 3</h4>
+                <h4 class="battle__pokemon__hp--bottom">3/30</h4>
+            </section>
+            <section class="battle__bottom-menu">
+                <section class="battle-text battle__text-box-left">
+                    Battle text
+                </section>
+                <section class="battle__text-box-right">
+                    <section class="battle__options">
+                        <h4 class="battle__options--top-left">Fight</h4>
+                        <!-- <h4 class="battle__options--top-right">Pokemon</h4> -->
+                        <h4 class="battle__options--bottom-left">Catch</h4>
+                        <a href="statpage.html">
+                            <h4 class="battle__options--bottom-right">Run</h4>
+                        </a>
+                    </section>
 
-        .buttons {
-            margin-top: 20px;
-            display: flex;
-            gap: 20px;
-        }
-
-        button {
-            padding: 12px 24px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        button:disabled {
-            background-color: #999;
-            cursor: not-allowed;
-        }
-    </style>
-</head>
-
-<body>
-
-    <h1>Pokémon Battle</h1>
-
-    <div id="battle-log">
-        Battle messages will appear here...
-    </div>
-
-    <div class="buttons">
-        <form action="/attack" method="POST">
-            <button type="submit">Attack</button>
-        </form>
-        <form action="/catch" method="POST">
-            <button type="submit">Catch</button>
-        </form>
-    </div>
-
+                </section>
+            </section>
+        </section>
+    </section>
 </body>
 
 </html>
