@@ -27,6 +27,7 @@ nav {
     display: flex;
     flex-direction: row;
     gap: 20px;
+    z-index: 9999 !important;
 }
 
 .nav__items li {
@@ -66,21 +67,13 @@ nav {
         padding: 0px 0px 20px 0px;
     }
 
-    /*.nav__items {
-        flex-direction: row;
-        gap: 20px;
-        flex-wrap: wrap;
-        text-align: center;
-        justify-content: center;
-    }*/
-
     .hamburger {
         display: block;
         position: absolute;
         top: 1rem;
         right: 1rem;
         z-index: 102;
-        background: none;
+        background: linear-gradient(to right, red, yellow);
         border: none;
         cursor: pointer;
     }
@@ -91,9 +84,6 @@ nav {
         right: -100%;
         height: 100vh;
         width: 100vw;
-        /*flex-direction: column;
-        justify-content: center;
-        align-items: center;*/
         flex-direction: column;
         gap: 20px;
         flex-wrap: wrap;
@@ -101,14 +91,28 @@ nav {
         justify-content: center;
         align-items: center;
         background: linear-gradient(to right, red, yellow);
-        /*gap: 40px;*/
         transition: right 0.3s ease-in-out;
-        z-index: 14;
+        z-index: 9999 !important;
     }
 
     #menu:target {
         right: 0;
     }
+
+    .overlay {
+        display: none;
+    }
+    
+    #menu:target ~ .overlay {
+        display: block;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 9990;
+    }
+    
 
     .close {
         position: relative;
@@ -123,7 +127,7 @@ nav {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 634px) {
-   nav {
+   /*nav {
         flex-direction: column;
         padding: 0px 0px 20px 0px;
     }
@@ -131,6 +135,67 @@ nav {
     .nav__items {
         flex-direction: row;
         gap: 20px;
+    }*/
+    nav {
+        flex-direction: column;
+        padding: 0px 0px 20px 0px;
+    }
+
+    .hamburger {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 102;
+        background: linear-gradient(to right, red, yellow);
+        border: none;
+        cursor: pointer;
+    }
+
+    .nav__items {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 100vw;
+        flex-direction: column;
+        gap: 20px;
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to right, red, yellow);
+        transition: right 0.3s ease-in-out;
+        z-index: 9999 !important;
+    }
+
+    #menu:target {
+        right: 0;
+    }
+
+    .overlay {
+        display: none;
+    }
+    
+    #menu:target ~ .overlay {
+        display: block;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 9990;
+    }
+    
+
+    .close {
+        position: relative;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        z-index: 103;
+        cursor: pointer;
     }
 }
 
