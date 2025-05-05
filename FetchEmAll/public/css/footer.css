@@ -1,16 +1,9 @@
-/* footer {
-    text-align: center;
-    padding: 10px;
-    border-top: 2px var(--black) solid;
-    background-color: var(--light-gray);
-    margin-bottom: 0;
-} */
+
 footer {
     position: relative;
     text-align: center;
     width: 100%;
-    height: 500px;
-    /* background-color: #1ad1ff; */
+    height: 300px;
     overflow: hidden;
 }
 
@@ -29,18 +22,16 @@ footer p, footer a {
 .pokemon-grass {
     height: 40vh;
     width: 100%;
-    /* background-color: #33cc33; */
 }
 
 
-.pokemon-sky{
+/* .pokemon-sky{
     height: 40vh;
     width: 100%;
-    /* background-color: #1ad1ff; */
-}
+} */
 
 
-.cloud-1 {
+/* .cloud-1 {
     position: absolute;
     top: 10%;
     left: 20%;
@@ -71,15 +62,14 @@ footer p, footer a {
     height: 8px;
     width: 8px;
     box-shadow: 32px 0 #e6e6e6, 40px 0 #e6e6e6, 48px 0 #e6e6e6, 56px 0 #e6e6e6, 24px 8px #e6e6e6, 32px 8px #fff, 40px 8px #fff, 48px 8px #fff, 56px 8px #fff, 64px 8px #e6e6e6, 16px 16px #e6e6e6, 24px 16px #fff, 32px 16px #fff, 40px 16px #fff, 48px 16px #fff, 56px 16px #fff, 64px 16px #fff, 72px 16px #e6e6e6, 8px 24px #e6e6e6, 16px 24px #fff, 24px 24px #fff, 32px 24px #fff, 40px 24px #fff, 48px 24px #fff, 56px 24px #fff, 64px 24px #fff, 72px 24px #fff, 80px 24px #e6e6e6, 0px 32px #e6e6e6, 8px 32px #fff, 16px 32px #fff, 24px 32px #fff, 32px 32px #fff, 40px 32px #fff, 48px 32px #fff, 56px 32px #fff, 64px 32px #fff, 72px 32px #fff, 80px 32px #fff, 88px 32px #e6e6e6, 8px 40px #e6e6e6, 16px 40px #e6e6e6, 24px 40px #e6e6e6, 32px 40px #e6e6e6, 40px 40px #e6e6e6, 48px 40px #e6e6e6, 56px 40px #e6e6e6, 64px 40px #e6e6e6, 72px 40px #e6e6e6, 80px 40px #e6e6e6;
-}
+} */
 
 footer .pokemon {
     position: absolute;
     bottom: 140px;
     width: 80px;
     height: 80px;
-    right: 50px;
-    /* animation-timing-function: linear; */
+    right: 750px;
     animation: lopen 20s linear infinite;
 }
 
@@ -88,8 +78,7 @@ footer .trainer1 {
     bottom: 180px;
     width: 80px;
     height: 80px;
-    right: -110px;
-    /* animation-timing-function: linear; */
+    right: 510px;
     animation: lopen 20s linear infinite;
 }
 
@@ -97,9 +86,8 @@ footer .trainer2 {
     position: absolute;
     bottom: 40px;
     width: 80px;
-    height: 100px;
-    right: -150px;
-    /* animation-timing-function: linear; */
+    height: 90px;
+    right: 550px;
     animation: lopen 20s linear infinite; 
 } 
 
@@ -130,7 +118,7 @@ footer .pokemon:after {
     animation: lopen 10s steps(100) infinite, opEnNeer 0.3s infinite;
 }
 
-@keyframes lopen {
+/* @keyframes lopen {
   from {
     transform: translateX(0);
   }
@@ -146,4 +134,4 @@ footer .pokemon:after {
   50% {
     transform: translateY(6px);
   }
-}
+} */
