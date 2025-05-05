@@ -1,6 +1,4 @@
-import { Request, Response, NextFunction} from "express";
 import * as pokeStats from "../pokemonStats";
-import { getAllPokemon } from "../database";
 
 export async function getPokemonList():Promise<pokeStats.PokemonStats[]> { 
     const promises = [];
