@@ -30,6 +30,26 @@ export async function getPokemonById(id:number):Promise<PokemonStats[]> {
     return [];
 }
 
+async function getAllUsers():Promise<User[]> {
+    try {
+        const allUsers:User[] = await userCollection.find({}).toArray();
+        return allUsers;
+    } catch (error) {
+        console.error(error)
+    }
+    return [];
+}
+
+async function getUserById(id:number):Promise<User[]> {
+    try {
+        const user:User[] = await userCollection.find({ id : id }).toArray();
+        return user
+    } catch (error) {
+        console.error(error)
+    }
+    return [];
+}
+
 async function createUser(email:string, username:string) {
     const newUser:User = {
         userId : (await userCollection.countDocuments()) + 1,
@@ -68,7 +88,7 @@ export async function connect() {
         if(await pokeCollection.countDocuments() != 151){
             seed()
         }
-        userCollection.deleteMany()
+        // createUser("example@email.com", "John Doe")
         process.on("SIGINT", exit);
     } catch (error) {
         console.error(error);
