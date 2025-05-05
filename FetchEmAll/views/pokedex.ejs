@@ -1,31 +1,57 @@
 <%- include("partials/header.ejs") %>
-<%- include("partials/nav.ejs") %>
-<link rel="stylesheet" href="/FetchEmAll/public/css/pokedex.css">
+    <%- include("partials/nav.ejs") %>
+        <link rel="stylesheet" href="/FetchEmAll/public/css/pokedex.css">
 
+        <section id="modal" class="modal">
+            <section class="modal__backdrop">
 
-<section class="pokedex">
-    <% pokemonList.forEach(poke => { %>
-    <a href="/pokemon?id=<%= poke.id %>" class="pokedex__card__link">
-        <section class="pokedex__card">
-            <section class="pokedex__card__left">
-                <h2 class="pokedex__card__left__name">
-                    <%= poke.name %>
-                </h2>
-                <p class="pokedex__card__left__id">
-                    <%= formatId(poke.id) %>
-                </p>
-                <% poke.types.forEach(type => { %>
-                    <section class="pokedex__card__left__types" data-tooltip="<%= type.charAt(0).toUpperCase() + type.slice(1) %>">
-                        <img src="/assets/icons/<%= type %>.svg" width="30px" alt="<%= type %> type icon" />
-                    </section>
-                <% }); %>                
-                </p>
             </section>
+            <section class="modal__content">
+                <h2>Choose a starter pokemon!</h2>
+                <section class="choices">
+                    <button class="modal__choice bulbasaur">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+                            alt="bulbasaur">
+                        <p>Bulbasaur</p>
+                    </button>
+                    <button class="modal__choice charmander">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
+                            alt="charmander">
+                        <p>Charmander</p>
+                    </button>
+                    <button class="modal__choice squirtle">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"
+                            alt="squirtle">
+                        <p>Squirtle</p>
+                    </button>
+                </section>
 
-            <img src="<%= poke.front_image %>" class="pokedex__card__img--front" alt="<%= poke.name %>">
+            </section>
         </section>
-    </a>
-    <% }); %>
-</section>
+        <section class="pokedex">
+            <% pokemonList.forEach(poke=> { %>
+                <a href="/pokemon?id=<%= poke.id %>" class="pokedex__card__link">
+                    <section class="pokedex__card">
+                        <section class="pokedex__card__left">
+                            <h2 class="pokedex__card__left__name">
+                                <%= poke.name %>
+                            </h2>
+                            <p class="pokedex__card__left__id">
+                                <%= formatId(poke.id) %>
+                            </p>
+                            <% poke.types.forEach(type=> { %>
+                                <section class="pokedex__card__left__types"
+                                    data-tooltip="<%= type.charAt(0).toUpperCase() + type.slice(1) %>">
+                                    <img src="/assets/icons/<%= type %>.svg" width="30px" alt="<%= type %> type icon" />
+                                </section>
+                                <% }); %>
+                                    </p>
+                        </section>
 
-<%- include("partials/footer.ejs") %>
+                        <img src="<%= poke.front_image %>" class="pokedex__card__img--front" alt="<%= poke.name %>">
+                    </section>
+                </a>
+                <% }); %>
+        </section>
+
+        <%- include("partials/footer.ejs") %>
