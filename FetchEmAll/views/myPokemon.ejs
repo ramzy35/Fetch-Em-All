@@ -1,7 +1,7 @@
 <%- include("partials/header.ejs") %>
 <%- include("partials/nav.ejs") %>
 
-<h1>Mijn Pokémon</h1>
+
 
 <section class="pokedex">
     <% myPokemon.forEach(poke => { %>
@@ -17,11 +17,13 @@
                     <%= poke.name %>
                 </h2>
                 <p class="pokedex__card__left__id">
-                    <%= poke.id %>
+                    # <%= poke.id %>
                 </p>
-                <p class="pokedex__card__left__types">
-                    <%= getTypes(poke.types) %>
-                </p>
+                <% poke.types.forEach(type => { %>
+                    <section class="pokedex__card__left__types" data-tooltip="<%= type.charAt(0).toUpperCase() + type.slice(1) %>">
+                        <img src="/assets/icons/<%= type %>.svg" width="30px" alt="<%= type %> type icon" />
+                    </section>
+                <% }); %>
             </section>
 
             <img src="<%= poke.front_image %>" class="pokedex__card__img--front" alt="<%= poke.name %>">

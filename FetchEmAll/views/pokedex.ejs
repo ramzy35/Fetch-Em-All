@@ -1,9 +1,7 @@
 <%- include("partials/header.ejs") %>
 <%- include("partials/nav.ejs") %>
 <link rel="stylesheet" href="/FetchEmAll/public/css/pokedex.css">
-<section class="title">
-    <h1 class="pokedex__title">Pokedex</h1>
-</section>
+
 
 <section class="pokedex">
     <% pokemonList.forEach(poke => { %>
@@ -14,17 +12,13 @@
                     <%= poke.name %>
                 </h2>
                 <p class="pokedex__card__left__id">
-                    <%= poke.id %>
+                    <%= formatId(poke.id) %>
                 </p>
-                <p class="pokedex__card__left__types">
-                    
-                    <% poke.types.forEach(type=> { %>
-                        <section class="type-<%= type %> type">
-                            <%= type %>
-                            <img src="/assets/icons/<%= type %>.svg" />
-                        </section>
-                    <%})%>
-                    
+                <% poke.types.forEach(type => { %>
+                    <section class="pokedex__card__left__types" data-tooltip="<%= type.charAt(0).toUpperCase() + type.slice(1) %>">
+                        <img src="/assets/icons/<%= type %>.svg" width="30px" alt="<%= type %> type icon" />
+                    </section>
+                <% }); %>                
                 </p>
             </section>
 

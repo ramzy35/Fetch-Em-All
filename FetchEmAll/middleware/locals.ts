@@ -38,5 +38,9 @@ export async function formattingLocals(req: Request, res: Response, next: NextFu
         };
         return map[gen] || gen;
     };
+    res.locals.formatId = (id : number) => {
+        const idString : string = "000" + id.toString()
+        return `#${idString.slice(-3)}`
+    }
     next();
 }
