@@ -3,6 +3,26 @@ main {
     background-color: var(--blue);
     background-color: var(--black);
     background: transparent;
+    align-items: center;
+}
+
+.pokestat__title {
+    font-family: PressStart;
+    font-size: 3rem;
+    text-transform: uppercase;
+}
+
+.pokestat__id {
+    font-family: PressStart;
+    font-size: 1.5rem;
+    text-shadow: 1px 0 10px;
+}
+
+.pokestat_types {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 40px;
 }
 
 main, footer {

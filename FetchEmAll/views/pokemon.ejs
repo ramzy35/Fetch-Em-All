@@ -7,11 +7,16 @@
             <h2 class="pokestat__title">
                 <%= pokemon.name %>
             </h2>
-                    <p class="pokestat__id">#<%= pokemon.id %>
+                    <p class="pokestat__id"><%= formatId(pokemon.id) %>
             </p>
-            <p class="pokestat__types">
-                <%= getTypes(pokemon.types) %>
-            </p>
+            <section class="pokestat_types">
+                <% pokemon.types.forEach(type => { %>
+                    <section class="pokestat__types" data-tooltip="<%= type.charAt(0).toUpperCase() + type.slice(1) %>">
+                        <img src="/assets/icons/<%= type %>.svg" width="40px" alt="<%= type %> type icon" />
+                    </section>
+                <% }); %> 
+            </section>
+            
             <section class="small-stats">
                 <i class="fa-solid fa-ruler-vertical length-icon"></i>
                 <p class="pokestat__length">
