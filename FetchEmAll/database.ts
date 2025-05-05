@@ -1,12 +1,13 @@
 import { Collection, MongoClient } from "mongodb";
 import { getPokemonList } from "./middleware/fetchPokemon";
-import { PokemonStats } from "./interfaces";
+import { PokemonStats, User } from "./interfaces";
 import dotenv from "dotenv"
 
 dotenv.config();
 const link = process.env.MONGO_URI ||""
-export const client = new MongoClient(link);
-export const pokeCollection : Collection<PokemonStats> = client.db("FetchEmAll").collection("pokemon");
+const client = new MongoClient(link);
+const pokeCollection : Collection<PokemonStats> = client.db("FetchEmAll").collection("pokemon");
+const userCollection : Collection<any> = client.db("FetchEmAll").collection("users")
 
 
 export async function getAllPokemon():Promise<PokemonStats[]> {
@@ -27,6 +28,16 @@ export async function getPokemonById(id:number):Promise<PokemonStats[]> {
         console.error(error)
     }
     return [];
+}
+
+async function createUser(email:string, username:string) {
+    const newUser:User = {
+        userId : (await userCollection.countDocuments()) + 1,
+        username : username,
+        email : email,
+        pokemon : null
+    }
+    userCollection.insertOne(newUser)
 }
 
 async function seed() {
@@ -57,6 +68,7 @@ export async function connect() {
         if(await pokeCollection.countDocuments() != 151){
             seed()
         }
+        userCollection.deleteMany()
         process.on("SIGINT", exit);
     } catch (error) {
         console.error(error);

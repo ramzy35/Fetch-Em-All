@@ -26,6 +26,14 @@ export interface PokemonStats {
     type_damage: string[][],
 }
 
+export interface User {
+    _id?: ObjectId;
+    userId: number;
+    email: string;
+    username: string;
+    pokemon: number[] | null;
+}
+
 export type EvolutionDetail = {
     min_level: number | null;
     trigger: { name: string; url: string };
