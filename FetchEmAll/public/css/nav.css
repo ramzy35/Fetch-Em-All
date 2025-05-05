@@ -24,9 +24,10 @@ nav {
 }
 
 .nav__items {
-    display: flex;
+    display: none;
+    /*display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 20px;*/
 }
 
 .nav__items li {
@@ -35,7 +36,15 @@ nav {
 }
 
 .nav__items li:active, .nav__items li:hover, .nav__items .active {
-    color: var(--orangered);
+    color: var(--white);
+}
+
+.nav__items a.icon {
+    background: black;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .nav__left__logo img {
