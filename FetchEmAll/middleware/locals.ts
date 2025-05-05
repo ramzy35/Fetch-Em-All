@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction} from "express";
 import { getAllPokemon } from "../database";
-import { PokemonStats } from "../pokemonStats";
+import { PokemonStats } from "../interfaces";
 
 export async function pokeNamesLocal(req:Request, res:Response, next:NextFunction){
     const pokeList : PokemonStats[]  = await getAllPokemon()

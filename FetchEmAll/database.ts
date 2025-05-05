@@ -1,6 +1,6 @@
 import { Collection, MongoClient } from "mongodb";
 import { getPokemonList } from "./middleware/fetchPokemon";
-import { PokemonStats } from "./pokemonStats";
+import { PokemonStats } from "./interfaces";
 import dotenv from "dotenv"
 
 dotenv.config();

@@ -74,4 +74,10 @@ export type AbilityDescription = {
     description: string;
 };
 
-export * as pokemonStats from "./pokemonStats";
+export interface MyPokemon extends PokemonStats {
+    currentHp: number;
+    isFainted: boolean;
+    level: number;
+}
+
+export * as type from "./interfaces";

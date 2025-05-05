@@ -1,6 +1,6 @@
-import * as pokeStats from "../pokemonStats";
+import * as type from "../interfaces";
 
-export async function getPokemonList():Promise<pokeStats.PokemonStats[]> { 
+export async function getPokemonList():Promise<type.PokemonStats[]> { 
     const promises = [];
     for (let id = 1; id <= 151; id++) {
         try {
@@ -9,11 +9,11 @@ export async function getPokemonList():Promise<pokeStats.PokemonStats[]> {
             console.log(error)
         }
     }
-    const results:pokeStats.PokemonStats[] = await Promise.all(promises);
+    const results:type.PokemonStats[] = await Promise.all(promises);
     return results
 }
 
-export async function getPokemonStats(id:number):Promise<pokeStats.PokemonStats> {
+export async function getPokemonStats(id:number):Promise<type.PokemonStats> {
     const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const pokemonJson = await pokemonResponse.json();
 
@@ -46,7 +46,7 @@ export async function getPokemonStats(id:number):Promise<pokeStats.PokemonStats>
     }
     const abilities = await getAbilityDescriptions(pokemonJson.abilities);
 
-    const poke:pokeStats.PokemonStats = {
+    const poke:type.PokemonStats = {
         name: pokemonJson.name,
         id: pokemonJson.id,
         front_image: pokemonJson.sprites.front_default,
@@ -74,10 +74,10 @@ export async function getPokemonStats(id:number):Promise<pokeStats.PokemonStats>
     return poke;
 }
 
-function getFullEvolutionPath(evolutionData: pokeStats.EvolutionChain, target: string): string[] {
+function getFullEvolutionPath(evolutionData: type.EvolutionChain, target: string): string[] {
     let result: string[] = [];
   
-    function traverse(chain: pokeStats.EvolutionChainLink, path: string[]) {
+    function traverse(chain: type.EvolutionChainLink, path: string[]) {
       const newPath = [...path, chain.species.name];
   
       if (chain.species.name === target) {
@@ -93,7 +93,7 @@ function getFullEvolutionPath(evolutionData: pokeStats.EvolutionChain, target: s
       return false;
     }
   
-    function collectFurtherEvolutions(chain: pokeStats.EvolutionChainLink, path: string[]) {
+    function collectFurtherEvolutions(chain: type.EvolutionChainLink, path: string[]) {
       for (const evo of chain.evolves_to) {
         path.push(evo.species.name);
         collectFurtherEvolutions(evo, path);
@@ -106,7 +106,7 @@ function getFullEvolutionPath(evolutionData: pokeStats.EvolutionChain, target: s
 
 
   
-async function getEvolutions(names: string[]): Promise<pokeStats.PokemonInfo[]> {
+async function getEvolutions(names: string[]): Promise<type.PokemonInfo[]> {
     const pokemonData = await Promise.all(
         names.map(async (name) => {
             const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
@@ -127,7 +127,7 @@ async function getEvolutions(names: string[]): Promise<pokeStats.PokemonInfo[]> 
 
 
   
-function getEffortStats(stats: pokeStats.Stat[]): string {
+function getEffortStats(stats: type.Stat[]): string {
     return stats.filter(s => s.effort > 0)
         .map(s => `${s.effort} ${s.stat.name}`)
         .join(', ');
@@ -135,8 +135,8 @@ function getEffortStats(stats: pokeStats.Stat[]): string {
 
 
   
-async function getAbilityDescriptions(abilities: pokeStats.AbilityInfo[]): Promise<pokeStats.AbilityDescription[]> {
-    const results: pokeStats.AbilityDescription[] = [];
+async function getAbilityDescriptions(abilities: type.AbilityInfo[]): Promise<type.AbilityDescription[]> {
+    const results: type.AbilityDescription[] = [];
 
     for (const abilityEntry of abilities) {
         const res = await fetch(abilityEntry.ability.url);

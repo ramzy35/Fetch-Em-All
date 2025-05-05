@@ -1,5 +1,5 @@
 import express from "express";
-import { PokemonStats } from "../pokemonStats";
+import { PokemonStats, MyPokemon } from "../interfaces";
 import { multiplierToIndexMapper, indexToMultiplierMapper } from "../middleware/fetchPokemon"
 import { getPokemonById } from "../database";
 
@@ -16,12 +16,6 @@ let battleState: {
 };
 
 const battleRoute = express.Router();
-
-export interface MyPokemon extends PokemonStats {
-    currentHp: number;
-    isFainted: boolean;
-    level: number;
-}
 
 battleRoute.get("/", async (req, res) => {
     const charmander:MyPokemon = prepareForBattle(await getPokemonById(4));

@@ -1,6 +1,6 @@
 import express from "express";
 import { pokeListLocal } from "../middleware/locals";
-import { PokemonStats } from "../pokemonStats";
+import { PokemonStats } from "../interfaces";
 
 const myPokemonRoute = express.Router();
 

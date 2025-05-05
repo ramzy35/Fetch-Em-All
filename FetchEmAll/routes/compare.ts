@@ -1,7 +1,7 @@
 import express from "express";
 import { getPokemonById } from "../database";
 import { pokeNamesLocal } from "../middleware/locals";
-import { PokemonStats } from "../pokemonStats";
+import { PokemonStats } from "../interfaces";
 
 const compareRoute = express.Router();
 

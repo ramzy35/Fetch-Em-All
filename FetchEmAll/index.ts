@@ -10,6 +10,7 @@ import battleRoute from "./routes/battle";
 import landingRoute from "./routes/landing";
 import signInRoute from "./routes/signIn";
 import signUpRoute from "./routes/signUp";
+
 import { connect } from "./database";
 import { formattingLocals } from "./middleware/locals";
 
