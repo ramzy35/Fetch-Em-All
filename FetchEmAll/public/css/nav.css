@@ -24,10 +24,9 @@ nav {
 }
 
 .nav__items {
-    display: none;
-    /*display: flex;
+    display: flex;
     flex-direction: row;
-    gap: 20px;*/
+    gap: 20px;
 }
 
 .nav__items li {
