@@ -32,6 +32,7 @@ export interface User {
     email: string;
     username: string;
     pokemon: number[] | null;
+    currentPokemon: number | null;
 }
 
 export type EvolutionDetail = {

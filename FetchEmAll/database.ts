@@ -55,7 +55,8 @@ async function createUser(email:string, username:string) {
         userId : (await userCollection.countDocuments()) + 1,
         username : username,
         email : email,
-        pokemon : null
+        pokemon : null,
+        currentPokemon : null
     }
     userCollection.insertOne(newUser)
 }

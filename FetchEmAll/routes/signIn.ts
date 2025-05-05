@@ -7,4 +7,9 @@ signInRoute.get("/", async (req, res) => {
     res.render("signIn");
 });
 
+signInRoute.post("/", async (req, res) => {
+    
+    res.redirect("pokedex")
+})
+
 export default signInRoute;
