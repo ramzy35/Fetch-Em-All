@@ -3,13 +3,13 @@ footer {
     position: relative;
     text-align: center;
     width: 100%;
-    height: 300px;
-    overflow: hidden;
+    height: 400px;
+    /* overflow: hidden; */
 }
 
 footer a {
     font-family: pokemonSolid;
-    color:yellow;
+    color:white;
     text-decoration: underline;
 }
 
@@ -66,10 +66,10 @@ footer p, footer a {
 
 footer .pokemon {
     position: absolute;
-    bottom: 140px;
+    bottom: 170px;
     width: 80px;
     height: 80px;
-    right: 750px;
+    right: 20%;
     animation: lopen 20s linear infinite;
 }
 
@@ -78,16 +78,16 @@ footer .trainer1 {
     bottom: 180px;
     width: 80px;
     height: 80px;
-    right: 510px;
+    right: 80%;
     animation: lopen 20s linear infinite;
 }
 
 footer .trainer2 {
     position: absolute;
-    bottom: 40px;
+    bottom: 350px;
     width: 80px;
-    height: 90px;
-    right: 550px;
+    height: 40px;
+    right: 50%;
     animation: lopen 20s linear infinite; 
 } 
 
