@@ -108,7 +108,6 @@ nav {
 
     #menu:target {
         right: 0;
-        overflow: hidden;
     }
 
     .close {
