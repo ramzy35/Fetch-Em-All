@@ -192,37 +192,37 @@ function extractDamageFromTypes(data: any): string[][] {
     ];
 }
 
+export const indexToMultiplierMapper = (index: number): number => {
+    const mapping: Record<number, number> = {
+        0: 0,
+        1: 0.25,
+        2: 0.5,
+        3: 1,
+        4: 2,
+        5: 4
+    };
+    return mapping[index] ?? 1;
+};
+
+export const multiplierToIndexMapper = (multiplier: number): number => {
+    const mapping: Record<number, number> = {
+        0: 0,
+        0.25: 1,
+        0.5: 2,
+        1: 3,
+        2: 4,
+        4: 5
+    };
+    return mapping[multiplier] ?? 3;
+};
+
 function combineDamageFromTypes(type1: string[][], type2: string[][]): string[][] {
     const allTypes = [
         "normal", "fighting", "flying", "poison", "ground", "rock",
         "bug", "ghost", "steel", "fire", "water", "grass", "electric",
         "psychic", "ice", "dragon", "dark", "fairy"
     ];
-
-    const indexToMultiplierMapper = (index: number): number => {
-        const mapping: Record<number, number> = {
-            0: 0,
-            1: 0.25,
-            2: 0.5,
-            3: 1,
-            4: 2,
-            5: 4
-        };
-        return mapping[index] ?? 1;
-    };
-
-    const multiplierToIndexMapper = (multiplier: number): number => {
-        const mapping: Record<number, number> = {
-            0: 0,
-            0.25: 1,
-            0.5: 2,
-            1: 3,
-            2: 4,
-            4: 5
-        };
-        return mapping[multiplier] ?? 3;
-    };
-
+    
     const combinedMap: Record<string, number> = {};
 
     for (const type of allTypes) {

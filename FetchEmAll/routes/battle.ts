@@ -1,6 +1,7 @@
 import express from "express";
-import { Pokemon } from "./pokedex";
-import { getPokemonStats, indexToMultiplierMapper, PokemonStats } from "../pokemonStats";
+import { PokemonStats } from "../pokemonStats";
+import { multiplierToIndexMapper, indexToMultiplierMapper } from "../middleware/fetchPokemon"
+import { getPokemonById } from "../database";
 
 let battleState: {
     user: MyPokemon | null;
@@ -23,8 +24,8 @@ export interface MyPokemon extends PokemonStats {
 }
 
 battleRoute.get("/", async (req, res) => {
-    const charmander = prepareForBattle(await getPokemonStats(4));
-    const bulbasaur = prepareForBattle(await getPokemonStats(1));
+    const charmander:MyPokemon = prepareForBattle(await getPokemonById(4));
+    const bulbasaur:MyPokemon = prepareForBattle(await getPokemonById(1));
 
     const firstTurn = charmander.speed >= bulbasaur.speed ? 'user' : 'ai';
 
@@ -150,19 +151,19 @@ function getDefenderTypeIndex(defenderTypes: string[], defenderTypeDamage: strin
     return damageIndex;
 }
 
-export function prepareForBattle(pokemon: PokemonStats): MyPokemon {
+export function prepareForBattle(pokemon: PokemonStats[]): MyPokemon {
     return {
-      ...pokemon,
-      currentHp: pokemon.hp,
+      ...pokemon[0],
+      currentHp: pokemon[0].hp,
       isFainted: false,
       level: 50,
     };
 }
 
 battleRoute.get("/", async (req, res) => {
-    let rawPokemon = await getPokemonStats(1);
+    let rawPokemon = await getPokemonById(1);
     const charmander = prepareForBattle(rawPokemon);
-    rawPokemon = await getPokemonStats(1);
+    rawPokemon = await getPokemonById(1);
     const squirtle = prepareForBattle(rawPokemon);
     res.render("battle", {
         user: charmander,
