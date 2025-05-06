@@ -2,6 +2,7 @@ import { Collection, MongoClient } from "mongodb";
 import { getPokemonList } from "./middleware/fetchPokemon";
 import { MyPokemon, Pokemon, User } from "./interfaces";
 import dotenv from "dotenv"
+import { isNull } from "util";
 
 dotenv.config();
 const link = process.env.MONGO_URI ||""
@@ -30,9 +31,24 @@ export async function getPokemonById(id:number):Promise<Pokemon[]> {
     return [];
 }
 
-export async function addPokemonToUser(pokeId : number, userId : number) {
-    const poke:Pokemon[] = await getPokemonById(pokeId)
+export async function catchPokemon(pokeId : number, userId : number, pokeLevel : number) {
+    const basePoke:Pokemon[] = await getPokemonById(pokeId)
     const user = await getUserById(userId)
+    const fullPoke : MyPokemon = {
+        ...basePoke[0],
+        MaxHP : basePoke[0].hp + 1/50 * pokeLevel * basePoke[0].hp,
+        currentHp: basePoke[0].hp + 1/50 * pokeLevel * basePoke[0].hp,
+        currentAttack: basePoke[0].attack + 1/50 * pokeLevel * basePoke[0].attack,
+        currentSpeed: basePoke[0].speed + 1/50 * pokeLevel * basePoke[0].speed,
+        currentDefense : basePoke[0].defense + 1/50 * pokeLevel * basePoke[0].defense,
+        isFainted: false,
+        level: pokeLevel,
+    }
+    if (user.currentPokemon === null) {
+        user.currentPokemon = fullPoke.id;
+    }
+    user.pokemon?.push(fullPoke)
+    await userCollection.updateOne({userId : userId}, {$set : user})
 }
 
 async function getAllUsers():Promise<User[]> {
@@ -57,14 +73,14 @@ async function getUserById(id:number):Promise<User> {
 
 async function createUser(email:string, username:string) {
     const allPokemon = await getAllPokemon()
-    const somePokemon = allPokemon.filter((poke) => {
-        return poke.name.includes("p")
-    })
+    // const somePokemon = allPokemon.filter((poke) => {
+    //     return poke.name.includes("p")
+    // })
     const newUser:User = {
         userId : (await userCollection.countDocuments()) + 1,
         username : username,
         email : email,
-        pokemon : somePokemon,
+        pokemon : [],
         currentPokemon : null
     }
     userCollection.insertOne(newUser)
