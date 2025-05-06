@@ -46,8 +46,13 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number) {
     return fullPoke
 }
 
-export async function getFullPokemon(pokeId : number) {
-    
+export async function getFullPokemon(pokeId : number, userId : number) {
+    const user : User[] = await getUserById(userId)
+    const myPokemon:MyPokemon[] | null = user[0].pokemon
+    const pokemon:MyPokemon[]|undefined = myPokemon?.filter(poke => {
+        return poke.id === pokeId
+    });
+    return pokemon
 }
 
 export async function catchPokemon(pokeId : number, userId : number, pokeLevel : number) {
@@ -61,9 +66,13 @@ export async function catchPokemon(pokeId : number, userId : number, pokeLevel :
 }
 
 
-export async function getCurrentPokemon(userId : number):Promise<MyPokemon[]> {
+export async function getCurrentPokemon(userId : number):Promise<MyPokemon[] | undefined> {
     const user = await userCollection.find({userId : userId}).toArray()
-    const currentPokemon = await getFullPokemon()
+    if (user[0].currentPokemon) {
+        const currentPokemonId = user[0].currentPokemon
+        return await getFullPokemon(currentPokemonId, userId)
+    }
+    return [];
 }
 
 async function getAllUsers():Promise<User[]> {

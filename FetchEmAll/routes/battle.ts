@@ -1,7 +1,8 @@
 import express from "express";
 import { Pokemon, MyPokemon } from "../interfaces";
 import { multiplierToIndexMapper, indexToMultiplierMapper } from "../middleware/fetchPokemon"
-import { getCurrentPokemon, getPokemonById } from "../database";
+import { catchPokemon, getCurrentPokemon, getPokemonById, getFullPokemon } from "../database";
+import { exit } from "process";
 
 let battleState: {
     user: MyPokemon | null;
@@ -18,25 +19,35 @@ let battleState: {
 const battleRoute = express.Router();
 
 battleRoute.get("/", async (req, res) => {
-    const charmander:MyPokemon = getCurrentPokemon(1)
+    let playerPoke : MyPokemon[]
+    const test : MyPokemon[] | undefined = await getCurrentPokemon(1)
+    if (typeof test != "undefined") {
+        playerPoke = test
+    } else {
+        return
+    }
+    const aiPokeId : number = 25
+    const aiPokeLevel : number = 33
+    const aiPoke : MyPokemon[] = getFullPokemon(aiPokeId, 9999, aiPokeLevel)
+    // const playerPoke:MyPokemon[] = await getCurrentPokemon(1)
     prepareForBattle(await getPokemonById(4));
     const bulbasaur:MyPokemon = prepareForBattle(await getPokemonById(1));
 
-    const firstTurn = charmander.speed >= bulbasaur.speed ? 'user' : 'ai';
+    const firstTurn = playerPoke[0].speed >= bulbasaur.speed ? 'user' : 'ai';
 
     battleState = {
-        user: charmander,
+        user: playerPoke[0],
         ai: bulbasaur,
         turn: firstTurn,
         log: [
             `A wild ${bulbasaur.name} appeared!`,
-            `Go! ${charmander.name}!`,
+            `Go! ${playerPoke[0].name}!`,
             `${firstTurn === 'user' ? 'You' : 'The opponent'} go first!`,
         ]
     };
 
     res.render("battle", {
-        user: charmander,
+        user: playerPoke[0],
         ai: bulbasaur,
         log: battleState.log.join("\n")
     });
@@ -146,22 +157,13 @@ function getDefenderTypeIndex(defenderTypes: string[], defenderTypeDamage: strin
     return damageIndex;
 }
 
-export function prepareForBattle(pokemon: Pokemon[]): MyPokemon {
-    return {
-      ...pokemon[0],
-      currentHp: pokemon[0].hp,
-      isFainted: false,
-      level: 50,
-    };
-}
-
 battleRoute.get("/", async (req, res) => {
     let rawPokemon = await getPokemonById(1);
-    const charmander = prepareForBattle(rawPokemon);
+    const playerPoke[0] = prepareForBattle(rawPokemon);
     rawPokemon = await getPokemonById(1);
     const squirtle = prepareForBattle(rawPokemon);
     res.render("battle", {
-        user: charmander,
+        user: playerPoke[0],
         ai: squirtle,
     });
 });

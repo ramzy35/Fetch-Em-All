@@ -31,7 +31,7 @@ export interface User {
     userId: number;
     email: string;
     username: string;
-    pokemon: Pokemon[] | null;
+    pokemon: MyPokemon[] | null;
     currentPokemon: number | null;
 }
 
