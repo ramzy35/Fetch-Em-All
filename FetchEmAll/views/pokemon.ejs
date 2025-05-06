@@ -33,7 +33,9 @@
         </section>
     </section>
     <section class="pokestat__buttons">
-        <a href="battle.html" class="pokestat__catch">Catch</a>
+        <button>
+            <a href="battle.html" class="pokestat__catch">Catch</a>
+        </button>
         <form autocomplete="off" action="" class="pokemon__form">
             <div class="input__container">
                 <input id="input__field" type="text" name="id2" placeholder="Compare with...">
@@ -47,7 +49,7 @@
             </div>
             <button type="button" id="reveal" class="submit" onclick="changeLink(event, '<%= pokemon.id%>')">
                 <a href="http://localhost:3000/compare" class="pokestat__compare" id="pokestat__compare__link">Compare</a>
-            </button>   
+            </button>  
         </form>  
     </section>
     <% if (pokemon.evolution_chain !=null) {%>
