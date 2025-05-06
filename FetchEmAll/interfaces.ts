@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 
-export interface PokemonStats {
+export interface Pokemon {
     _id?: ObjectId,
     name: string,
     id: number,
@@ -83,7 +83,7 @@ export type AbilityDescription = {
     description: string;
 };
 
-export interface MyPokemon extends PokemonStats {
+export interface MyPokemon extends Pokemon {
     currentHp: number;
     isFainted: boolean;
     level: number;

@@ -1,19 +1,19 @@
 import * as type from "../interfaces";
 
-export async function getPokemonList():Promise<type.PokemonStats[]> { 
+export async function getPokemonList():Promise<type.Pokemon[]> { 
     const promises = [];
     for (let id = 1; id <= 151; id++) {
         try {
-            promises.push(getPokemonStats(id));
+            promises.push(getPokemon(id));
         } catch (error) {
             console.log(error)
         }
     }
-    const results:type.PokemonStats[] = await Promise.all(promises);
+    const results:type.Pokemon[] = await Promise.all(promises);
     return results
 }
 
-export async function getPokemonStats(id:number):Promise<type.PokemonStats> {
+export async function getPokemon(id:number):Promise<type.Pokemon> {
     const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const pokemonJson = await pokemonResponse.json();
 
@@ -46,7 +46,7 @@ export async function getPokemonStats(id:number):Promise<type.PokemonStats> {
     }
     const abilities = await getAbilityDescriptions(pokemonJson.abilities);
 
-    const poke:type.PokemonStats = {
+    const poke:type.Pokemon = {
         name: pokemonJson.name,
         id: pokemonJson.id,
         front_image: pokemonJson.sprites.front_default,

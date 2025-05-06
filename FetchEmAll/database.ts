@@ -1,18 +1,18 @@
 import { Collection, MongoClient } from "mongodb";
 import { getPokemonList } from "./middleware/fetchPokemon";
-import { PokemonStats, User } from "./interfaces";
+import { Pokemon, User } from "./interfaces";
 import dotenv from "dotenv"
 
 dotenv.config();
 const link = process.env.MONGO_URI ||""
 const client = new MongoClient(link);
-const pokeCollection : Collection<PokemonStats> = client.db("FetchEmAll").collection("pokemon");
+const pokeCollection : Collection<Pokemon> = client.db("FetchEmAll").collection("pokemon");
 const userCollection : Collection<any> = client.db("FetchEmAll").collection("users")
 
 
-export async function getAllPokemon():Promise<PokemonStats[]> {
+export async function getAllPokemon():Promise<Pokemon[]> {
     try {
-        const allPokemon:PokemonStats[] = await pokeCollection.find({}).toArray();
+        const allPokemon:Pokemon[] = await pokeCollection.find({}).toArray();
         return allPokemon;
     } catch (error) {
         console.error(error)
@@ -20,14 +20,19 @@ export async function getAllPokemon():Promise<PokemonStats[]> {
     return [];
 }
 
-export async function getPokemonById(id:number):Promise<PokemonStats[]> {
+export async function getPokemonById(id:number):Promise<Pokemon[]> {
     try {
-        const pokemon:PokemonStats[] = await pokeCollection.find({ id : id }).toArray();
+        const pokemon:Pokemon[] = await pokeCollection.find({ id : id }).toArray();
         return pokemon
     } catch (error) {
         console.error(error)
     }
     return [];
+}
+
+export async function addPokemonToUser(pokeId : number, userId : number) {
+    const poke:Pokemon[] = await getPokemonById(pokeId)
+    const user = await getUserById(userId)
 }
 
 async function getAllUsers():Promise<User[]> {
@@ -64,7 +69,7 @@ async function createUser(email:string, username:string) {
 async function seed() {
     try {
         pokeCollection.deleteMany();
-        const pokeList: PokemonStats[] = await getPokemonList()
+        const pokeList: Pokemon[] = await getPokemonList()
         pokeCollection.insertMany(pokeList);
         console.log(pokeCollection.countDocuments())
     } catch (error) {
