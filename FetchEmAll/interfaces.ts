@@ -91,6 +91,7 @@ export interface MyPokemon extends Pokemon {
     currentDefense : number;
     isFainted: boolean;
     level: number;
+    currentPokemon: boolean;
 }
 
 export * as type from "./interfaces";

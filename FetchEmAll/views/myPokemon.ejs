@@ -6,7 +6,7 @@
 <section class="pokedex">
     <% myPokemon.forEach(poke => { %>
     <a href="/pokemon?id=<%= poke.id %>" class="pokedex__card__link">
-        <section class="pokedex__card <%if (currentPokemon == poke.id) { %>
+        <section class="pokedex__card <%if (currentPokemon === poke.id) { %>
             <%= "myPokemon__current" %> 
         <% } %>">
         <!-- adds current class to pokemon currently selected, 

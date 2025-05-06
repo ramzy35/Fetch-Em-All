@@ -2,13 +2,12 @@ import { Collection, MongoClient } from "mongodb";
 import { getPokemonList } from "./middleware/fetchPokemon";
 import { MyPokemon, Pokemon, User } from "./interfaces";
 import dotenv from "dotenv"
-import { isNull } from "util";
 
 dotenv.config();
 const link = process.env.MONGO_URI ||""
 const client = new MongoClient(link);
-const pokeCollection : Collection<Pokemon> = client.db("FetchEmAll").collection("pokemon");
-const userCollection : Collection<any> = client.db("FetchEmAll").collection("users")
+const pokeCollection : Collection<Pokemon> = client.db("FetchEmAll").collection<Pokemon>("pokemon");
+const userCollection : Collection<User> = client.db("FetchEmAll").collection<User>("users")
 
 
 export async function getAllPokemon():Promise<Pokemon[]> {
@@ -31,9 +30,8 @@ export async function getPokemonById(id:number):Promise<Pokemon[]> {
     return [];
 }
 
-export async function catchPokemon(pokeId : number, userId : number, pokeLevel : number) {
+export async function createFullPokemon(pokeId : number, pokeLevel : number) {
     const basePoke:Pokemon[] = await getPokemonById(pokeId)
-    const user = await getUserById(userId)
     const fullPoke : MyPokemon = {
         ...basePoke[0],
         MaxHP : basePoke[0].hp + 1/50 * pokeLevel * basePoke[0].hp,
@@ -43,12 +41,29 @@ export async function catchPokemon(pokeId : number, userId : number, pokeLevel :
         currentDefense : basePoke[0].defense + 1/50 * pokeLevel * basePoke[0].defense,
         isFainted: false,
         level: pokeLevel,
+        currentPokemon: false
     }
-    if (user.currentPokemon === null) {
-        user.currentPokemon = fullPoke.id;
+    return fullPoke
+}
+
+export async function getFullPokemon(pokeId : number) {
+    
+}
+
+export async function catchPokemon(pokeId : number, userId : number, pokeLevel : number) {
+    const user : User[] = await getUserById(userId)
+    const fullPoke : MyPokemon = await createFullPokemon(pokeId, pokeLevel)
+    if (user[0].currentPokemon === null) {
+        fullPoke.currentPokemon = true;
     }
-    user.pokemon?.push(fullPoke)
-    await userCollection.updateOne({userId : userId}, {$set : user})
+    user[0].pokemon?.push(fullPoke)
+    await userCollection.updateOne({userId : userId}, {$set : user[0]})
+}
+
+
+export async function getCurrentPokemon(userId : number):Promise<MyPokemon[]> {
+    const user = await userCollection.find({userId : userId}).toArray()
+    const currentPokemon = await getFullPokemon()
 }
 
 async function getAllUsers():Promise<User[]> {
@@ -61,14 +76,14 @@ async function getAllUsers():Promise<User[]> {
     return [];
 }
 
-async function getUserById(id:number):Promise<User> {
+export async function getUserById(id:number):Promise<User[]> {
     try {
-        const user:User = await userCollection.findOne({ userId : id });
+        const user:User[] = await userCollection.find({ userId : id }).toArray();
         return user
     } catch (error) {
         console.error(error)
     }
-    return await userCollection.findOne({ userId : 1 });
+    return [];
 }
 
 async function createUser(email:string, username:string) {
@@ -76,8 +91,10 @@ async function createUser(email:string, username:string) {
     // const somePokemon = allPokemon.filter((poke) => {
     //     return poke.name.includes("p")
     // })
+    const newestUser : User[] = await userCollection.find({}).sort({userId: -1}).limit(1).toArray();
+    const newId = newestUser[0] ? newestUser[0].userId + 1 : 1
     const newUser:User = {
-        userId : (await userCollection.countDocuments()) + 1,
+        userId : newId,
         username : username,
         email : email,
         pokemon : [],
@@ -89,9 +106,9 @@ async function createUser(email:string, username:string) {
 
 export async function getMyPokemon(userId:number):Promise<Pokemon[]> {
     try {
-        const user: User = await getUserById(userId)
-        if(user.pokemon){
-            const myPokemon: Pokemon[] = user.pokemon
+        const user: User[] = await getUserById(userId)
+        if(user[0].pokemon){
+            const myPokemon: Pokemon[] = user[0].pokemon
             return myPokemon
         }
     } catch (error) {
