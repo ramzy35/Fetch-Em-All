@@ -1,7 +1,7 @@
 import express from "express";
 import { getPokemonById } from "../database";
 import { pokeNamesLocal } from "../middleware/locals";
-import { PokemonStats } from "../interfaces";
+import { Pokemon } from "../interfaces";
 
 const compareRoute = express.Router();
 
@@ -11,8 +11,8 @@ compareRoute.get("/", pokeNamesLocal, async (req, res) => {
     const id2:number = typeof req.query.id2 === "string" ? parseInt(req.query.id2) : 2;
     // standard values for both id's incase no id is given
 
-    const poke1 : PokemonStats[] = await getPokemonById(id1);
-    const poke2 : PokemonStats[] = await getPokemonById(id2);
+    const poke1 : Pokemon[] = await getPokemonById(id1);
+    const poke2 : Pokemon[] = await getPokemonById(id2);
     
     res.locals.currentPage = "compare" 
 

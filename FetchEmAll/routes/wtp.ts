@@ -1,16 +1,16 @@
 import express from "express";
 import { pokeNamesLocal } from "../middleware/locals";
 import { getPokemonById } from "../database";
-import { PokemonStats } from "../interfaces";
+import { Pokemon } from "../interfaces";
 
 const wtpRoute = express.Router();
 
-async function rndmPoke():Promise<PokemonStats[]> {
+async function rndmPoke():Promise<Pokemon[]> {
     const rndmId : number = Math.floor(Math.random()*151)+1
     return await getPokemonById(rndmId)
 }
 
-let poke : PokemonStats[];
+let poke : Pokemon[];
 
 wtpRoute.get("/", pokeNamesLocal, async (req, res) => {
     res.locals.currentPage = "wtp"

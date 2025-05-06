@@ -1,5 +1,5 @@
 import express from "express";
-import { PokemonStats, MyPokemon } from "../interfaces";
+import { Pokemon, MyPokemon } from "../interfaces";
 import { multiplierToIndexMapper, indexToMultiplierMapper } from "../middleware/fetchPokemon"
 import { getPokemonById } from "../database";
 
@@ -145,7 +145,7 @@ function getDefenderTypeIndex(defenderTypes: string[], defenderTypeDamage: strin
     return damageIndex;
 }
 
-export function prepareForBattle(pokemon: PokemonStats[]): MyPokemon {
+export function prepareForBattle(pokemon: Pokemon[]): MyPokemon {
     return {
       ...pokemon[0],
       currentHp: pokemon[0].hp,
