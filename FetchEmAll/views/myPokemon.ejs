@@ -17,7 +17,7 @@
                     <%= poke.name %>
                 </h2>
                 <p class="pokedex__card__left__id">
-                    # <%= poke.id %>
+                    <%= formatId(poke.id) %>
                 </p>
                 <% poke.types.forEach(type => { %>
                     <section class="pokedex__card__left__types" data-tooltip="<%= type.charAt(0).toUpperCase() + type.slice(1) %>">
