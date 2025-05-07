@@ -155,6 +155,7 @@ export async function connect() {
             seed()
         }
         await userCollection.deleteMany()
+        await myPokemonCollection.deleteMany()
         createUser("example@email.com", "John Doe")
         process.on("SIGINT", exit);
     } catch (error) {
