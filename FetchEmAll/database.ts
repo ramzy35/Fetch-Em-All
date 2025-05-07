@@ -4,7 +4,7 @@ import { MyPokemon, Pokemon, User } from "./interfaces";
 import dotenv from "dotenv"
 
 dotenv.config();
-const link = process.env.MONGO_URI ||""
+const link = process.env.MONGO_URI || ""
 const client = new MongoClient(link);
 
 const pokedexCollection : Collection<Pokemon> = client.db("FetchEmAll").collection<Pokemon>("pokedex");
@@ -63,9 +63,9 @@ export async function getFullPokemon(pokeId : number, userId : number):Promise<M
 }
 
 export async function changeCurrentPokemon(pokeId : number, userId : number) {
-    const newCurrentPoke = await getFullPokemon(pokeId, userId)
+    const newCurrentPoke : MyPokemon[] = await getFullPokemon(pokeId, userId)
     await myPokemonCollection.updateMany({ _id : {$ne : newCurrentPoke[0]._id} }, {currentPokemon : false})
-    await myPokemonCollection.updateOne( {_id : newCurrentPoke[0]._id }, {currentPokemon : true})
+    await myPokemonCollection.updateOne({ _id : newCurrentPoke[0]._id }, {currentPokemon : true})
 }
 
 export async function catchPokemon(pokeId : number, userId : number, pokeLevel : number) {
