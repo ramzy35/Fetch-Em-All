@@ -24,7 +24,14 @@
 
 <% if(currentPage==="wtp" || currentPage==="pokemon" ) { %>
     <%- include("./autoComplete.ejs") %>
+<% } else if (currentPage==="compare") { %>
+    <%- include("./statBar.ejs", {
+        poke1,
+        poke2
+    }) %>
 <% } %>
+    
+
 
 <script>
   function toggleModal() {
