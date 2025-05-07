@@ -124,7 +124,7 @@ body {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease-in-out;
-    z-index: 100;
+    z-index: 5;
 }
 
 .pokedex__card__left__types:hover::after {
