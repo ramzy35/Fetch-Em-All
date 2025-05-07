@@ -6,13 +6,24 @@ import dotenv from "dotenv"
 dotenv.config();
 const link = process.env.MONGO_URI ||""
 const client = new MongoClient(link);
-const pokeCollection : Collection<Pokemon> = client.db("FetchEmAll").collection<Pokemon>("pokemon");
-const userCollection : Collection<User> = client.db("FetchEmAll").collection<User>("users")
 
+const pokedexCollection : Collection<Pokemon> = client.db("FetchEmAll").collection<Pokemon>("pokedex");
+const userCollection : Collection<User> = client.db("FetchEmAll").collection<User>("users")
+const myPokemonCollection : Collection<MyPokemon> = client.db("FetchEmAll").collection<MyPokemon>("myPokemon")
 
 export async function getAllPokemon():Promise<Pokemon[]> {
     try {
-        const allPokemon:Pokemon[] = await pokeCollection.find({}).toArray();
+        const allPokemon:Pokemon[] = await pokedexCollection.find({}).toArray();
+        return allPokemon;
+    } catch (error) {
+        console.error(error)
+    }
+    return [];
+}
+
+export async function getAllOwnedPokemon():Promise<MyPokemon[]> {
+    try {
+        const allPokemon:MyPokemon[] = await myPokemonCollection.find({}).toArray();
         return allPokemon;
     } catch (error) {
         console.error(error)
@@ -22,7 +33,7 @@ export async function getAllPokemon():Promise<Pokemon[]> {
 
 export async function getPokemonById(id:number):Promise<Pokemon[]> {
     try {
-        const pokemon:Pokemon[] = await pokeCollection.find({ id : id }).toArray();
+        const pokemon:Pokemon[] = await pokedexCollection.find({ id : id }).toArray();
         return pokemon
     } catch (error) {
         console.error(error)
@@ -30,7 +41,7 @@ export async function getPokemonById(id:number):Promise<Pokemon[]> {
     return [];
 }
 
-export async function createFullPokemon(pokeId : number, pokeLevel : number) {
+export async function createFullPokemon(pokeId : number, pokeLevel : number, ownerId : number) {
     const basePoke:Pokemon[] = await getPokemonById(pokeId)
     const fullPoke : MyPokemon = {
         ...basePoke[0],
@@ -41,38 +52,32 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number) {
         currentDefense : basePoke[0].defense + 1/50 * pokeLevel * basePoke[0].defense,
         isFainted: false,
         level: pokeLevel,
-        currentPokemon: false
+        currentPokemon: false,
+        ownerId : ownerId
     }
     return fullPoke
 }
 
-export async function getFullPokemon(pokeId : number, userId : number) {
-    const user : User[] = await getUserById(userId)
-    const myPokemon:MyPokemon[] | null = user[0].pokemon
-    const pokemon:MyPokemon[]|undefined = myPokemon?.filter(poke => {
-        return poke.id === pokeId
-    });
-    return pokemon
-}
+// export async function getFullPokemon(pokeId : number, userId : number) {
+//     const user : User[] = await getUserById(userId)
+//     const myPokemon:MyPokemon[] | null = user[0].pokemon
+//     const pokemon:MyPokemon[]|undefined = myPokemon?.filter(poke => {
+//         return poke.id === pokeId
+//     });
+//     return pokemon
+// }
 
 export async function catchPokemon(pokeId : number, userId : number, pokeLevel : number) {
-    const user : User[] = await getUserById(userId)
-    const fullPoke : MyPokemon = await createFullPokemon(pokeId, pokeLevel)
-    if (user[0].currentPokemon === null) {
-        fullPoke.currentPokemon = true;
-    }
-    user[0].pokemon?.push(fullPoke)
-    await userCollection.updateOne({userId : userId}, {$set : user[0]})
+    const fullPoke : MyPokemon = await createFullPokemon(pokeId, pokeLevel, userId)
+    await myPokemonCollection.insertOne(fullPoke)
 }
 
-
-export async function getCurrentPokemon(userId : number):Promise<MyPokemon[] | undefined> {
-    const user = await userCollection.find({userId : userId}).toArray()
-    if (user[0].currentPokemon) {
-        const currentPokemonId = user[0].currentPokemon
-        return await getFullPokemon(currentPokemonId, userId)
+export async function getCurrentPokemon(userId : number):Promise<MyPokemon[]> {
+    const currentPokemon : MyPokemon[] = await myPokemonCollection.find({$and : [{ownerId : userId}, {currentPokemon : true}]}).toArray()
+    if (!Array.isArray(currentPokemon) || !currentPokemon.length) {
+        return [];
     }
-    return [];
+    return currentPokemon;
 }
 
 async function getAllUsers():Promise<User[]> {
@@ -105,9 +110,7 @@ async function createUser(email:string, username:string) {
     const newUser:User = {
         userId : newId,
         username : username,
-        email : email,
-        pokemon : [],
-        currentPokemon : null
+        email : email
     }
     userCollection.insertOne(newUser)
 }
@@ -115,11 +118,8 @@ async function createUser(email:string, username:string) {
 
 export async function getMyPokemon(userId:number):Promise<Pokemon[]> {
     try {
-        const user: User[] = await getUserById(userId)
-        if(user[0].pokemon){
-            const myPokemon: Pokemon[] = user[0].pokemon
-            return myPokemon
-        }
+        const myPokemon : MyPokemon[] = await myPokemonCollection.find({ownerId : userId}).toArray()
+        return myPokemon
     } catch (error) {
         console.error(error)
     }
@@ -128,10 +128,10 @@ export async function getMyPokemon(userId:number):Promise<Pokemon[]> {
 
 async function seed() {
     try {
-        pokeCollection.deleteMany();
+        pokedexCollection.deleteMany();
         const pokeList: Pokemon[] = await getPokemonList()
-        pokeCollection.insertMany(pokeList);
-        console.log(pokeCollection.countDocuments())
+        pokedexCollection.insertMany(pokeList);
+        console.log(pokedexCollection.countDocuments())
     } catch (error) {
         console.log(error)
     }
@@ -151,7 +151,7 @@ export async function connect() {
     try {
         await client.connect();
         console.log("Connected to database");
-        if(await pokeCollection.countDocuments() != 151){
+        if(await pokedexCollection.countDocuments() != 151){
             seed()
         }
         await userCollection.deleteMany()

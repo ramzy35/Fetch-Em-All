@@ -31,8 +31,18 @@ export interface User {
     userId: number;
     email: string;
     username: string;
-    pokemon: MyPokemon[] | null;
-    currentPokemon: number | null;
+}
+
+export interface MyPokemon extends Pokemon {
+    MaxHP: number;
+    currentHp: number;
+    currentAttack: number;
+    currentSpeed: number;
+    currentDefense : number;
+    isFainted: boolean;
+    level: number;
+    currentPokemon: boolean;
+    ownerId : number;
 }
 
 export type EvolutionDetail = {
@@ -82,16 +92,5 @@ export type AbilityDescription = {
     name: string;
     description: string;
 };
-
-export interface MyPokemon extends Pokemon {
-    MaxHP: number;
-    currentHp: number;
-    currentAttack: number;
-    currentSpeed: number;
-    currentDefense : number;
-    isFainted: boolean;
-    level: number;
-    currentPokemon: boolean;
-}
 
 export * as type from "./interfaces";
