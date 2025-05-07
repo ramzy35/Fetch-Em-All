@@ -56,10 +56,6 @@ nav {
     position: relative;
 }
 
-/*#menu:target {
-    right: 0;
-  }*/
-
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 300px) {
     nav {
@@ -113,15 +109,6 @@ nav {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-   /*nav {
-        flex-direction: column;
-        padding: 0px 0px 20px 0px;
-    }
-
-    .nav__items {
-        flex-direction: row;
-        gap: 20px;
-    }*/
     nav {
         flex-direction: column;
         padding: 0px 0px 20px 0px;
