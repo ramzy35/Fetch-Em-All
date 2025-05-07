@@ -1,8 +1,10 @@
 
 body {
   background-color: var(--blue);
-  background-image: url(../assets/backgrounddddd_1.png);
-  background-size: 50vw 100%;
+  background-image: url(../assets/Indie\ Game\ Background\ 953.jpg);
+  /* background-size: 50vw 100%; */
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 main {
