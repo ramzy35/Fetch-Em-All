@@ -1,4 +1,15 @@
 
+body {
+  background-color: var(--blue);
+  background-image: url(../assets/backgrounddddd_1.png);
+  background-size: 50vw 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
   
 nav, footer {
   min-height: 5vh;
@@ -24,6 +35,56 @@ strong {
   
 .wtp__form__autocomplete__list {
   z-index: 2;
+}
+
+.input__container {
+  background-color: rgb(255, 255, 255);
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 10px 20px 10px;
+  border: 1px;
+  margin-left: 15px;
+  border-radius: 4px;
+
+}
+
+.pokestat__buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.pokestat__buttons a {
+  background-color: var(--black);
+  /*make it a variable*/
+  border-radius: 4px;
+  border-style: none;
+  box-sizing: border-box;
+  color: var(--white);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.6rem;
+  padding: 10px 20px 10px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  width: 120px;
+  /* height: 20px; */
+}
+
+.pokestat__buttons a:hover, .pokestat__buttons a:focus {
+  opacity: 0.75;
+}
+
+.pokestat__chain {
+  margin-top: 20px;
+  border-radius: 5px;
+  border: 1px solid var(--black);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px 10px 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .wtp__title {

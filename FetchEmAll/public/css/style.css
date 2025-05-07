@@ -48,6 +48,14 @@ h2 {
   font-family: Aldrich;
 }
 
+
+h3 {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  font-family: Pokemon Hollow;
+}
+
 p {
   font-size: 1.6rem;
 }
