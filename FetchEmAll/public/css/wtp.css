@@ -141,12 +141,39 @@ strong {
   width: fit-content;
 }
 
+.submit_button:hover {
+  transform: scale(1.2);
+}
+
+.submit_button.has-transition {
+  transition: transform 250ms ease-out;
+}
+
+/* .submit_button span {
+  font-size: 4rem;
+} */
+
+
+
 .skip_button {
   background-color: white;
   border: 1px solid black;
   margin-left: 2px;
   border-radius: 4px;
 }
+
+.skip_button:hover {
+  transform: scale(1.2);
+}
+
+.skip_button.has-transition {
+  transition: transform 250ms ease-out;
+}
+
+
+
+
+
 
 button {
   padding: 10px 20px 10px;
