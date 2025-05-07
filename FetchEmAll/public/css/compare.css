@@ -4,9 +4,9 @@ main {
     background: transparent;
 }
 
-main, footer {
+main, nav, footer {
     position: relative;
-    z-index: 10;
+    z-index: 1;
 }
 
 body {
