@@ -62,6 +62,14 @@ export async function getFullPokemon(pokeId : number, userId : number):Promise<M
     return await myPokemonCollection.find({$and : [{ownerId : userId}, {id : pokeId}]}).toArray()
 }
 
+export async function getCurrentPokemon(userId : number):Promise<MyPokemon[]> {
+    const currentPokemon : MyPokemon[] = await myPokemonCollection.find({$and : [{ownerId : userId}, {currentPokemon : true}]}).toArray()
+    if (!Array.isArray(currentPokemon) || !currentPokemon.length) {
+        return [];
+    }
+    return currentPokemon;
+}
+
 export async function changeCurrentPokemon(pokeId : number, userId : number) {
     const newCurrentPoke : MyPokemon[] = await getFullPokemon(pokeId, userId)
     await myPokemonCollection.updateMany({ _id : {$ne : newCurrentPoke[0]._id} }, {currentPokemon : false})
@@ -71,14 +79,6 @@ export async function changeCurrentPokemon(pokeId : number, userId : number) {
 export async function catchPokemon(pokeId : number, userId : number, pokeLevel : number) {
     const fullPoke : MyPokemon = await createFullPokemon(pokeId, pokeLevel, userId)
     await myPokemonCollection.insertOne(fullPoke)
-}
-
-export async function getCurrentPokemon(userId : number):Promise<MyPokemon[]> {
-    const currentPokemon : MyPokemon[] = await myPokemonCollection.find({$and : [{ownerId : userId}, {currentPokemon : true}]}).toArray()
-    if (!Array.isArray(currentPokemon) || !currentPokemon.length) {
-        return [];
-    }
-    return currentPokemon;
 }
 
 async function getAllUsers():Promise<User[]> {
