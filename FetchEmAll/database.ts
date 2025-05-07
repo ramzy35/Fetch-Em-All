@@ -41,7 +41,7 @@ export async function getPokemonById(id:number):Promise<Pokemon[]> {
     return [];
 }
 
-export async function createFullPokemon(pokeId : number, pokeLevel : number, ownerId : number) {
+export async function createFullPokemon(pokeId : number, pokeLevel : number, userId : number):Promise<MyPokemon> {
     const basePoke:Pokemon[] = await getPokemonById(pokeId)
     const fullPoke : MyPokemon = {
         ...basePoke[0],
@@ -53,19 +53,20 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number, own
         isFainted: false,
         level: pokeLevel,
         currentPokemon: false,
-        ownerId : ownerId
+        ownerId : userId
     }
     return fullPoke
 }
 
-// export async function getFullPokemon(pokeId : number, userId : number) {
-//     const user : User[] = await getUserById(userId)
-//     const myPokemon:MyPokemon[] | null = user[0].pokemon
-//     const pokemon:MyPokemon[]|undefined = myPokemon?.filter(poke => {
-//         return poke.id === pokeId
-//     });
-//     return pokemon
-// }
+export async function getFullPokemon(pokeId : number, userId : number):Promise<MyPokemon[]> {
+    return await myPokemonCollection.find({$and : [{ownerId : userId}, {id : pokeId}]}).toArray()
+}
+
+export async function changeCurrentPokemon(pokeId : number, userId : number) {
+    const newCurrentPoke = await getFullPokemon(pokeId, userId)
+    await myPokemonCollection.updateMany({ _id : {$ne : newCurrentPoke[0]._id} }, {currentPokemon : false})
+    await myPokemonCollection.updateOne( {_id : newCurrentPoke[0]._id }, {currentPokemon : true})
+}
 
 export async function catchPokemon(pokeId : number, userId : number, pokeLevel : number) {
     const fullPoke : MyPokemon = await createFullPokemon(pokeId, pokeLevel, userId)
@@ -101,10 +102,6 @@ export async function getUserById(id:number):Promise<User[]> {
 }
 
 async function createUser(email:string, username:string) {
-    const allPokemon = await getAllPokemon()
-    // const somePokemon = allPokemon.filter((poke) => {
-    //     return poke.name.includes("p")
-    // })
     const newestUser : User[] = await userCollection.find({}).sort({userId: -1}).limit(1).toArray();
     const newId = newestUser[0] ? newestUser[0].userId + 1 : 1
     const newUser:User = {
