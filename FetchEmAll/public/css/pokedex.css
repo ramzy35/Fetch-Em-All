@@ -37,7 +37,7 @@
 }
 
 main {
-    padding: 20px 30px;
+    padding: 20px 0px;
     background-color: var(--blue);
     background: transparent;
 }
@@ -53,6 +53,8 @@ nav {
 
 body {
     background-color: var(--blue);
+    background-image: url(../assets/backgrounddddd_1.png);
+    background-size: 50vw 100%;
 }
 
 .pokedex__card__left__id {

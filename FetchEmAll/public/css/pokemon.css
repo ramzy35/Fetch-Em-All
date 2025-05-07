@@ -102,7 +102,6 @@ main {
 
 .pokestat__buttons a {
     background-color: var(--black);
-    /*make it a variable*/
     border-radius: 4px;
     border-style: none;
     box-sizing: border-box;
@@ -115,12 +114,15 @@ main {
     text-align: center;
     text-transform: none;
     width: 120px;
-    /* height: 20px; */
 }
 
 .pokestat__buttons a:hover, .pokestat__buttons a:focus {
     opacity: 0.75;
 }
+
+button {
+    padding: 10px 20px 10px;
+  }
 
 .pokestat__chain {
     margin-top: 20px;
@@ -143,7 +145,6 @@ h3 {
 
 .margin {
     margin-top: 10px;
-
 }
 
 .chain-wrapper {

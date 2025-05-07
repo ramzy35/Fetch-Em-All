@@ -11,6 +11,8 @@ main, nav, footer {
 
 body {
     background-color: var(--blue);
+    background-image: url(../assets/backgrounddddd_1.png);
+    background-size: 50vw 100%;
 }
 
 main {
