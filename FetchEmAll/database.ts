@@ -127,10 +127,8 @@ async function createUser(email:string, username:string) {
     userCollection.insertOne(newUser)
 }
 
-
-
-
 async function seed() {
+    // Add all pokemon to pokedex to seed database
     try {
         pokedexCollection.deleteMany();
         const pokeList: Pokemon[] = await getPokemonList()
@@ -160,7 +158,9 @@ export async function connect() {
         }
         await userCollection.deleteMany()
         await myPokemonCollection.deleteMany()
+        // Temp code to add dummy user with pokemon
         createUser("example@email.com", "John Doe")
+        catchPokemon(151, 1, 20)
         process.on("SIGINT", exit);
     } catch (error) {
         console.error(error);
