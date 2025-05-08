@@ -9,8 +9,7 @@
             <h2 class="pokestat__title">
                 <%= pokemon.name %>
             </h2>
-                    <p class="pokestat__id"><%= formatId(pokemon.id) %>
-            </p>
+            <p class="pokestat__id"><%= formatId(pokemon.id) %></p>
             <section class="pokestat_types">
                 <% pokemon.types.forEach(type => { %>
                     <section class="pokestat__types" data-tooltip="<%= type.charAt(0).toUpperCase() + type.slice(1) %>">
@@ -29,6 +28,7 @@
                     <%= convert(pokemon.weight) %>kg
                 </p>
             </section>
+        
         </section>
         <section class="pokestat__top--right">
             <img class="pokestat__img" src="<%= pokemon.front_image %>" alt="<%= pokemon.name %>">

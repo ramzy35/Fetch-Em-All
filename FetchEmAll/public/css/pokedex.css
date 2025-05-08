@@ -49,8 +49,9 @@ nav {
 
 body {
     background-color: var(--blue);
-    background-image: url(../assets/backgrounddddd_1.png);
-    background-size: 50vw 100%;
+    background-image: url(../assets/background1fix.png);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .pokedex__card__left__id {
