@@ -46,17 +46,26 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number, use
     // Add all needed stats to convert from Type Pokemon to MyPokemon
     const fullPoke : MyPokemon = {
         ...basePoke[0],
-        MaxHP : basePoke[0].hp + 1/50 * pokeLevel * basePoke[0].hp,
         currentHp: basePoke[0].hp + 1/50 * pokeLevel * basePoke[0].hp,
-        currentAttack: basePoke[0].attack + 1/50 * pokeLevel * basePoke[0].attack,
-        currentSpeed: basePoke[0].speed + 1/50 * pokeLevel * basePoke[0].speed,
-        currentDefense : basePoke[0].defense + 1/50 * pokeLevel * basePoke[0].defense,
         isFainted: false,
         level: pokeLevel,
         currentPokemon: false,
         ownerId : userId
     }
     return fullPoke
+}
+
+async function levelPokemon(pokeId : number, userId : number, level? : number | undefined) {
+    const lvl : number = typeof level != "number" ? 1 : level
+    const basePoke:Pokemon[] = await getPokemonById(pokeId)
+    const myPoke:MyPokemon[] = await getMyPokemonById(userId, pokeId)
+
+    await myPokemonCollection.updateOne({ _id : myPoke[0]._id }, {$set : {
+        hp        : basePoke[0].hp + (lvl - 1) * basePoke[0].hp / 50,
+        attack    : basePoke[0].attack + (lvl - 1) * basePoke[0].attack / 50,
+        speed     : basePoke[0].speed + (lvl - 1) * basePoke[0].speed / 50,
+        defense   : basePoke[0].defense + (lvl - 1) * basePoke[0].defense / 50,
+    }})
 }
 
 export async function getFullPokemon(pokeId : number, userId : number):Promise<MyPokemon[]> {
@@ -68,14 +77,24 @@ export async function getCurrentPokemon(userId : number):Promise<MyPokemon[]> {
     if(currentPokemon.length === 0 || currentPokemon === undefined || !currentPokemon) {
         return [];
     } else {
-        // If more than 1 pokemon has currentpokemon = true, only return the highest level one
+        // If more than 1 pokemon has currentpokemon = true, only return one (with highest level)
         return currentPokemon.slice(0, 1);
     }
 }
 
-export async function getMyPokemon(userId:number):Promise<Pokemon[]> {
+export async function getMyPokemon(userId:number):Promise<MyPokemon[]> {
     try {
         const myPokemon : MyPokemon[] = await myPokemonCollection.find({ownerId : userId}).sort({ level : 1 }).toArray()
+        return myPokemon
+    } catch (error) {
+        console.error(error)
+    }
+    return [];
+}
+
+export async function getMyPokemonById(userId:number, pokeId : number):Promise<MyPokemon[]> {
+    try {
+        const myPokemon : MyPokemon[] = await myPokemonCollection.find({ $and : [{ownerId : userId}, { id: pokeId}]}).toArray()
         return myPokemon
     } catch (error) {
         console.error(error)
@@ -91,9 +110,10 @@ export async function changeCurrentPokemon(pokeId : number, userId : number) {
 }
 
 export async function catchPokemon(pokeId : number, userId : number, pokeLevel : number) {
-    // Add a full pokemon to user with given level
+    // Add a full pokemon to user with given level, then apply leveled stats
     const fullPoke : MyPokemon = await createFullPokemon(pokeId, pokeLevel, userId)
     await myPokemonCollection.insertOne(fullPoke)
+    await levelPokemon(fullPoke.id, userId, pokeLevel)
 }
 
 async function getAllUsers():Promise<User[]> {
@@ -124,13 +144,13 @@ async function createUser(email:string, username:string) {
         username : username,
         email : email
     }
-    userCollection.insertOne(newUser)
+    await userCollection.insertOne(newUser)
 }
 
 async function seed() {
     // Add all pokemon to pokedex to seed database
     try {
-        pokedexCollection.deleteMany();
+        await pokedexCollection.deleteMany();
         const pokeList: Pokemon[] = await getPokemonList()
         await pokedexCollection.insertMany(pokeList);
     } catch (error) {
@@ -154,7 +174,6 @@ export async function connect() {
         console.log("Connected to database");
         if(await pokedexCollection.countDocuments() != 151){
             await seed()
-            console.log(pokedexCollection.countDocuments())
         }
         await userCollection.deleteMany()
         await myPokemonCollection.deleteMany()

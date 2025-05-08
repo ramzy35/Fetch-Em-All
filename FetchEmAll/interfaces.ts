@@ -34,11 +34,7 @@ export interface User {
 }
 
 export interface MyPokemon extends Pokemon {
-    MaxHP: number;
     currentHp: number;
-    currentAttack: number;
-    currentSpeed: number;
-    currentDefense : number;
     isFainted: boolean;
     level: number;
     currentPokemon: boolean;
