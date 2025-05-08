@@ -92,6 +92,10 @@ export async function getMyPokemon(userId:number):Promise<MyPokemon[]> {
     return [];
 }
 
+export async function deleteMyPokemon(userId : number) {
+    await myPokemonCollection.deleteMany({ownerId : userId})
+}
+
 export async function getMyPokemonById(userId:number, pokeId : number):Promise<MyPokemon[]> {
     try {
         const myPokemon : MyPokemon[] = await myPokemonCollection.find({ $and : [{ownerId : userId}, { id: pokeId}]}).toArray()

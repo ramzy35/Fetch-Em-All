@@ -1,11 +1,12 @@
 import express from "express";
 import { pokeListLocal } from "../middleware/locals";
-import { catchPokemon, getMyPokemon } from "../database";
+import { catchPokemon, deleteMyPokemon, getMyPokemon } from "../database";
 
 const pokedexRoute = express.Router();
 
 pokedexRoute.post("/choose-starter", async (req, res) => {
     const { starterId } = req.body;
+    await deleteMyPokemon(1)
     await catchPokemon(parseInt(starterId), 1, 20)
     console.log("Starter chosen:", starterId);
     res.redirect("/pokedex?hasStarter=true");
