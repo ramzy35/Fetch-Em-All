@@ -2,14 +2,17 @@ import { Collection, MongoClient } from "mongodb";
 import { getPokemonList } from "./middleware/fetchPokemon";
 import { MyPokemon, Pokemon, User } from "./interfaces";
 import dotenv from "dotenv"
+import bcrypt from "bcrypt";
 
 dotenv.config();
-const link = process.env.MONGO_URI || ""
+export const link = process.env.MONGO_URI || ""
 const client = new MongoClient(link);
 
+const saltRounds : number = 10;
+
 const pokedexCollection : Collection<Pokemon> = client.db("FetchEmAll").collection<Pokemon>("pokedex");
-const userCollection : Collection<User> = client.db("FetchEmAll").collection<User>("users")
-const myPokemonCollection : Collection<MyPokemon> = client.db("FetchEmAll").collection<MyPokemon>("myPokemon")
+const userCollection : Collection<User> = client.db("FetchEmAll").collection<User>("users");
+const myPokemonCollection : Collection<MyPokemon> = client.db("FetchEmAll").collection<MyPokemon>("myPokemon");
 
 export async function getAllPokemon():Promise<Pokemon[]> {
     try {
@@ -116,15 +119,50 @@ export async function getUserById(id:number):Promise<User[]> {
     return [];
 }
 
-async function createUser(email:string, username:string) {
-    const newestUser : User[] = await userCollection.find({}).sort({userId: -1}).limit(1).toArray();
-    const newId = newestUser[0] ? newestUser[0].userId + 1 : 1
-    const newUser:User = {
-        userId : newId,
-        username : username,
-        email : email
+// async function createUser(email:string, username:string) {
+//     const newestUser : User[] = await userCollection.find({}).sort({userId: -1}).limit(1).toArray();
+//     const newId = newestUser[0] ? newestUser[0].userId + 1 : 1
+//     const newUser:User = {
+//         userId : newId,
+//         username : username,
+//         email : email
+//     }
+//     userCollection.insertOne(newUser)
+// }
+
+async function createInitialUser() {
+    if (await userCollection.countDocuments() > 0) {
+        return;
     }
-    userCollection.insertOne(newUser)
+    let email : string | undefined = process.env.ADMIN_EMAIL;
+    let username : string | undefined = process.env.ADMIN_USERNAME;
+    let password : string | undefined = process.env.ADMIN_PASSWORD;
+    if (email === undefined || username === undefined || password === undefined) {
+        throw new Error("ADMIN_EMAIL, ADMIN_USERNAME and ADMIN_PASSWORD must be set in .env");
+    }
+    await userCollection.insertOne({
+        email: email,
+        username: username,
+        password: await bcrypt.hash(password, saltRounds),
+        role: "ADMIN"
+    });
+    console.log("🌱👤 Created initial user");
+}
+
+export async function login(username: string, password: string) {
+    if (username === "" || password === "") {
+        throw new Error("Email and password required");
+    }
+    let user : User | null = await userCollection.findOne<User>({username: username});
+    if (user) {
+        if (await bcrypt.compare(password, user.password!)) {
+            return user;
+        } else {
+            throw new Error("Password incorrect");
+        }
+    } else {
+        throw new Error("User not found");
+    }
 }
 
 async function seed() {
@@ -141,7 +179,7 @@ async function seed() {
 async function exit() {
     try {
         await client.close();
-        console.log("Disconnected from database");
+        console.log("❌ Disconnected from database");
     } catch (error) {
         console.error(error);
     }
@@ -151,16 +189,17 @@ async function exit() {
 export async function connect() {
     try {
         await client.connect();
-        console.log("Connected to database");
+        console.log("✅ Connected to database");
         if(await pokedexCollection.countDocuments() != 151){
-            await seed()
-            console.log(pokedexCollection.countDocuments())
+            await seed();
+            console.log("🌱 Seeded pokedex");
         }
-        await userCollection.deleteMany()
-        await myPokemonCollection.deleteMany()
+        await createInitialUser();
+        // await userCollection.deleteMany()
+        // await myPokemonCollection.deleteMany()
         // Temp code to add dummy user with pokemon
-        await createUser("example@email.com", "John Doe")
-        await catchPokemon(151, 1, 20)
+        // await createUser("example@email.com", "John Doe")
+        // await catchPokemon(151, 1, 20)
         process.on("SIGINT", exit);
     } catch (error) {
         console.error(error);

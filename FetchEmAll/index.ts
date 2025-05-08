@@ -13,6 +13,7 @@ import signUpRoute from "./routes/signUp";
 
 import { connect } from "./database";
 import { formattingLocals } from "./middleware/locals";
+import session from "./session";
 
 dotenv.config();
 
@@ -25,7 +26,8 @@ app.use(express.static("public"));
 
 app.set("port", process.env.PORT);
 
-app.use(formattingLocals)
+app.use(formattingLocals);
+app.use(session);
 
 
 app.use("/pokedex", pokedexRoute);
@@ -40,5 +42,5 @@ app.use("/signup", signUpRoute);
 
 app.listen(app.get("port"), async() => {
     await connect()
-    console.log("Server started on http://localhost:" + app.get("port"));
+    console.log("🚀 Server started on http://localhost:" + app.get("port"));
 });

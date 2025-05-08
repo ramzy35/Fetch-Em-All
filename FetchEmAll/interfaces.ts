@@ -28,9 +28,10 @@ export interface Pokemon {
 
 export interface User {
     _id?: ObjectId;
-    userId: number;
     email: string;
     username: string;
+    password?: string;
+    role: "ADMIN" | "USER";
 }
 
 export interface MyPokemon extends Pokemon {
