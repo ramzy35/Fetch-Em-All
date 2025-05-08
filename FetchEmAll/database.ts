@@ -132,7 +132,7 @@ async function seed() {
     try {
         pokedexCollection.deleteMany();
         const pokeList: Pokemon[] = await getPokemonList()
-        pokedexCollection.insertMany(pokeList);
+        await pokedexCollection.insertMany(pokeList);
     } catch (error) {
         console.log(error)
     }
@@ -159,8 +159,8 @@ export async function connect() {
         await userCollection.deleteMany()
         await myPokemonCollection.deleteMany()
         // Temp code to add dummy user with pokemon
-        createUser("example@email.com", "John Doe")
-        catchPokemon(151, 1, 20)
+        await createUser("example@email.com", "John Doe")
+        await catchPokemon(151, 1, 20)
         process.on("SIGINT", exit);
     } catch (error) {
         console.error(error);
