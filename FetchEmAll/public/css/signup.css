@@ -41,6 +41,7 @@ main {
     border-radius: 6px;
     border: solid 1px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 40px
 }
 
 .signup h2, .signin h2 {
@@ -142,4 +143,27 @@ form .signup__text h3 a:hover, form .signin__text h3 a:hover {
     cursor: pointer;
     font-weight: bold;
     text-decoration: none;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 20px;
+    }
+
+    .signup, .signin {
+        margin: 20px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
 }
