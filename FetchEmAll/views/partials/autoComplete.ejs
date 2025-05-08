@@ -120,7 +120,7 @@ function changeLink(event, id1) {
         if (id1.toString() === id2.toString()) {
             link = "#"
         } else if (pokeNameArr.includes(input.toString())) {
-            link = `http://localhost:3000/compare?id1=${id1}&id2=${id2}`
+            link = `/compare?id1=${id1}&id2=${id2}`
         } else {
             link = "#"
         }
