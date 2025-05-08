@@ -13,7 +13,7 @@ const myPokemonCollection : Collection<MyPokemon> = client.db("FetchEmAll").coll
 
 export async function getAllPokemon():Promise<Pokemon[]> {
     try {
-        const allPokemon:Pokemon[] = await pokedexCollection.find({}).toArray();
+        const allPokemon:Pokemon[] = await pokedexCollection.find({}).sort({ id : 1 }).toArray();
         return allPokemon;
     } catch (error) {
         console.error(error)
