@@ -56,132 +56,6 @@ nav {
     position: relative;
 }
 
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-/*@media only screen and (min-width: 300px) {
-    nav {
-        flex-direction: column;
-        padding: 0px 0px 20px 0px;
-    }
-
-    .hamburger {
-        display: block;
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        z-index: 102;
-        background: linear-gradient(to right, red, yellow);
-        border: none;
-        cursor: pointer;
-    }
-
-    .nav__items {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        height: 100vh;
-        width: 100vw;
-        flex-direction: column;
-        gap: 20px;
-        flex-wrap: wrap;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(to right, red, yellow);
-        transition: right 0.3s ease-in-out;
-        z-index: 9999 !important;
-    }
-
-    #menu:target {
-        right: 0;
-    }
-    
-
-    .close {
-        position: relative;
-        top: 1rem;
-        right: 1rem;
-        background: none;
-        border: none;
-        z-index: 103;
-        cursor: pointer;
-    }
-}*/
-
-/* Medium devices (landscape tablets, 768px and up) */
-/*@media only screen and (min-width: 768px) {
-    nav {
-        flex-direction: column;
-        padding: 0px 0px 20px 0px;
-    }
-
-    .hamburger {
-        display: block;
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        z-index: 102;
-        background: linear-gradient(to right, red, yellow);
-        border: none;
-        cursor: pointer;
-    }
-
-    .nav__items {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        height: 100vh;
-        width: 100vw;
-        flex-direction: column;
-        gap: 20px;
-        flex-wrap: wrap;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(to right, red, yellow);
-        transition: right 0.3s ease-in-out;
-        z-index: 9999 !important;
-    }
-
-    #menu:target {
-        right: 0;
-    }
-
-
-    .close {
-        position: relative;
-        top: 1rem;
-        right: 1rem;
-        background: none;
-        border: none;
-        z-index: 103;
-        cursor: pointer;
-    }
-}*/
-
-/* Large devices (laptops/desktops, 992px and up) */
-/*@media only screen and (min-width: 1062px) {
-    nav {
-        flex-direction: row;
-        padding: 0px 20px
-    }
-
-    .hamburger {
-        display: none;
-    }
-
-    .nav__items {
-        position: static;
-        height: auto;
-        width: auto;
-        flex-direction: row;
-        background: none;
-    }
-
-    .close {
-        display: none;
-    }
-} */
  /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 300px) {
     nav {
@@ -198,6 +72,7 @@ nav {
         background: linear-gradient(to right, red, yellow);
         border: none;
         cursor: pointer;
+        font-size: 2rem;
     }
 
     .nav__items {
@@ -237,49 +112,35 @@ nav {
 @media only screen and (min-width: 768px) {
     nav {
         flex-direction: column;
-        padding: 0px 0px 20px 0px;
+        padding: 0 0 20px 0;
+    }
+    
+    .nav__left {
+        flex-direction: row;
+        align-items: left;
+        font-size: 2rem;
+        gap: 0.5rem;
     }
 
     .hamburger {
-        display: block;
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        z-index: 102;
-        background: linear-gradient(to right, red, yellow);
-        border: none;
-        cursor: pointer;
+        display: none;
     }
 
     .nav__items {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        height: 100vh;
-        width: 100vw;
-        flex-direction: column;
-        gap: 20px;
-        flex-wrap: wrap;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(to right, red, yellow);
-        transition: right 0.3s ease-in-out;
-        z-index: 9999 !important;
+        position: static;
+        height: auto;
+        width: auto;
+        flex-direction: row;
+        background: none;
     }
 
-    #menu:target {
-        right: 0;
+    .nav__items li {
+        font-family: PressStart;
+        font-size: 1.6rem;
     }
 
     .close {
-        position: relative;
-        top: 1rem;
-        right: 1rem;
-        background: none;
-        border: none;
-        z-index: 103;
-        cursor: pointer;
+        display: none;
     }
 }
 
@@ -300,6 +161,11 @@ nav {
         width: auto;
         flex-direction: row;
         background: none;
+    }
+
+    .nav__items li {
+        font-family: PressStart;
+        font-size: 2rem;
     }
 
     .close {
