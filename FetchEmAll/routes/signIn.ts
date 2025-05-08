@@ -9,7 +9,7 @@ signInRoute.get("/", async (req, res) => {
     res.render("signIn");
 });
 
-signInRoute.post("/signin", async (req, res) => {
+signInRoute.post("/", async (req, res) => {
     const username : string = req.body.username;
     const password : string = req.body.password;
     try {

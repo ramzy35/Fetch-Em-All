@@ -12,7 +12,14 @@
 
     <header>
         <h1>FetchEmAll</h1>
-        <a href="/signin" class="login-button">Log In</a>
+
+        <% if (user) {%>
+            <form action="/logout" method="post">
+                <button type="submit" class="login-button">Logout</button>
+            </form>
+            <% } else { %>
+                <a href="/signin" class="login-button">Log In</a>
+                <% } %>
     </header>
 
     <main>
@@ -20,7 +27,11 @@
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
                 alt="Pokemon">
             <h3>Pokemon</h3>
-            <a href="/pokedex" class="visit">Visit Site</a>
+            <% if (user) { %>
+                <a href="/pokedex" class="visit">Visit Site</a>
+                <% } else { %>
+                    <a href="/signin" class="visit">Visit Site</a>
+                    <% } %>
         </div>
 
         <div class="project-card">
