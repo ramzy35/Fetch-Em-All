@@ -17,20 +17,28 @@
     <main>
         <section class="signin">
             <h2>Sign In</h2>
-            <form action="/signin" method="post">
-                <section class="signin__input">
-                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            <% if (typeof error !=='undefined' ) { %>
+                <section class="signup__error">
+                    <p style="color: red;">
+                        <%= decodeURIComponent(error) %>
+                    </p>
                 </section>
-                <section class="signin__input">
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                </section>
-                <section class="signin__input button">
-                    <input type="submit" value="Login">
-                </section>
-                <section class="signin__text">
-                    <h3>Need an account? <a href="/signup">Register now</a></h3>
-                </section>
-            </form>
+                <% } %>
+                    <form action="/signin" method="post">
+                        <section class="signin__input">
+                            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                        </section>
+                        <section class="signin__input">
+                            <input type="password" id="password" name="password" placeholder="Enter your password"
+                                required>
+                        </section>
+                        <section class="signin__input button">
+                            <input type="submit" value="Login">
+                        </section>
+                        <section class="signin__text">
+                            <h3>Need an account? <a href="/signup">Register now</a></h3>
+                        </section>
+                    </form>
         </section>
     </main>
 

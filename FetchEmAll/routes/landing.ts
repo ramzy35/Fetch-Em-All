@@ -9,7 +9,7 @@ landingRoute.get("/", async (req, res) => {
 
 landingRoute.post("/logout", async (req, res) => {
     req.session.destroy(() => {
-        console.log("🗑️  destroyed session")
+        console.log("👋 Logged out");
         res.redirect("/");
     });
 });

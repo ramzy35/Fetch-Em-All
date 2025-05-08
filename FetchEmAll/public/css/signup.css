@@ -41,7 +41,7 @@ main {
     border-radius: 6px;
     border: solid 1px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    margin-top: 40px
+    margin: 40px 0;
 }
 
 .signup h2, .signin h2 {
@@ -67,12 +67,24 @@ main {
 }
 
 .signup form, .signin form {
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 .signup form .signup__input, .signin form .signin__input {
     height: 52px;
     margin: 18px 0;
+}
+
+.signup__error {
+    background-color: #ffe6e6;
+    border: 1px solid red;
+    padding: 0 15px;
+    text-transform: capitalize;
+    border-radius: 6px;
+    margin: 0px 0;
+    border-bottom-width: 2.5px;
+    color: red;
+    font-weight: bold;
 }
 
 form .signup__input input, form .signin__input input {

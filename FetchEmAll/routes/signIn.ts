@@ -5,8 +5,9 @@ import { User } from "../interfaces";
 const signInRoute = express.Router();
 
 signInRoute.get("/", async (req, res) => {
-    res.locals.currentPage = "signIn" 
-    res.render("signIn");
+    res.locals.currentPage = "signIn";
+    const error = req.query.error as string | undefined;
+    res.render("signIn", { error });
 });
 
 signInRoute.post("/", async (req, res) => {
@@ -17,8 +18,9 @@ signInRoute.post("/", async (req, res) => {
         delete user.password;
         req.session.user = user;
         res.redirect("/");
-    } catch (e: any) {
-        res.redirect("/signin");
+    } catch (error: any) {
+        console.log("Signin error:", error.message);
+        res.redirect("/signin?error=" + encodeURIComponent(error.message));
     }
 });
 

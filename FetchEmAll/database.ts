@@ -149,6 +149,22 @@ async function createInitialUser() {
     console.log("🌱👤 Created initial user");
 }
 
+export async function createUser(username: string, email: string, password: string) {
+    const existingUser = await userCollection.findOne({ $or: [{ username }, { email }] });
+    if (existingUser) {
+        throw new Error("Username or email already exists");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    await userCollection.insertOne({
+        username,
+        email,
+        password: hashedPassword,
+        role: "USER"
+    });
+    console.log(`🆕👤 New user created: ${username}`);
+}
+
 export async function login(username: string, password: string) {
     if (username === "" || password === "") {
         throw new Error("Email and password required");
@@ -156,6 +172,7 @@ export async function login(username: string, password: string) {
     let user : User | null = await userCollection.findOne<User>({username: username});
     if (user) {
         if (await bcrypt.compare(password, user.password!)) {
+            console.log(`🙋 Logged in as : \x1b[32m${user.username}\x1b[0m`);
             return user;
         } else {
             throw new Error("Password incorrect");
