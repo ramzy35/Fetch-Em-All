@@ -1,7 +1,8 @@
 // import express from "express";
 // import { Pokemon, MyPokemon } from "../interfaces";
 // import { multiplierToIndexMapper, indexToMultiplierMapper } from "../middleware/fetchPokemon"
-// import { getPokemonById } from "../database";
+// import { catchPokemon, getCurrentPokemon, getPokemonById, getFullPokemon } from "../database";
+// import { exit } from "process";
 
 // let battleState: {
 //     user: MyPokemon | null;
@@ -18,25 +19,36 @@
 // const battleRoute = express.Router();
 
 // battleRoute.get("/", async (req, res) => {
-//     const charmander:MyPokemon = prepareForBattle(await getPokemonById(4));
-//     const bulbasaur:MyPokemon = prepareForBattle(await getPokemonById(1));
+//     let playerPoke : MyPokemon[]
+//     const currentPokemon : MyPokemon[] = await getCurrentPokemon(1)
+//     if (typeof test != "undefined") {
+//         playerPoke = currentPokemon
+//     } else {
+//         return
+//     }
+//     const aiPokeId : number = 25
+//     const aiPokeLevel : number = 33
+//     const aiPoke : MyPokemon[] = getFullPokemon(aiPokeId, 9999, aiPokeLevel)
+//     // const playerPoke:MyPokemon[] = await getCurrentPokemon(1)
+//     // prepareForBattle(await getPokemonById(4));
+//     // const aiPoke[0]:MyPokemon = prepareForBattle(await getPokemonById(1));
 
-//     const firstTurn = charmander.speed >= bulbasaur.speed ? 'user' : 'ai';
+//     const firstTurn = playerPoke[0].speed >= aiPoke[0].speed ? 'user' : 'ai';
 
 //     battleState = {
-//         user: charmander,
-//         ai: bulbasaur,
+//         user: playerPoke[0],
+//         ai: aiPoke[0],
 //         turn: firstTurn,
 //         log: [
-//             `A wild ${bulbasaur.name} appeared!`,
-//             `Go! ${charmander.name}!`,
+//             `A wild ${aiPoke[0].name} appeared!`,
+//             `Go! ${playerPoke[0].name}!`,
 //             `${firstTurn === 'user' ? 'You' : 'The opponent'} go first!`,
 //         ]
 //     };
 
 //     res.render("battle", {
-//         user: charmander,
-//         ai: bulbasaur,
+//         user: playerPoke[0],
+//         ai: aiPoke[0],
 //         log: battleState.log.join("\n")
 //     });
 // });
@@ -145,22 +157,13 @@
 //     return damageIndex;
 // }
 
-// export function prepareForBattle(pokemon: Pokemon[]): MyPokemon {
-//     return {
-//       ...pokemon[0],
-//       currentHp: pokemon[0].hp,
-//       isFainted: false,
-//       level: 50,
-//     };
-// }
-
 // battleRoute.get("/", async (req, res) => {
 //     let rawPokemon = await getPokemonById(1);
-//     const charmander = prepareForBattle(rawPokemon);
+//     const playerPoke[0] = prepareForBattle(rawPokemon);
 //     rawPokemon = await getPokemonById(1);
 //     const squirtle = prepareForBattle(rawPokemon);
 //     res.render("battle", {
-//         user: charmander,
+//         user: playerPoke[0],
 //         ai: squirtle,
 //     });
 // });
