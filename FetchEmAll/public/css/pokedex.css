@@ -1,0 +1,268 @@
+.pokedex__card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 2px;
+    margin-right: 2px;
+    /*border: 3px solid var(--red);
+    border-radius: 10px;*/
+    --b: 15px;
+    /* thickness of the border */
+    --c: black;
+    /* color of the border */
+    --w: 15px;
+    /* width of border */
+
+
+    border: var(--b) solid #0000;
+    /* space for the border */
+    --_g: #0000 90deg, var(--c) 0;
+    --_p: var(--w) var(--w) border-box no-repeat;
+    background:
+        conic-gradient(from 90deg at top var(--b) left var(--b), var(--_g)) 100.5% 0 / var(--_p),
+        conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) 0 0 / var(--_p),
+        conic-gradient(from 0deg at bottom var(--b) left var(--b), var(--_g)) 0 100.5% / var(--_p),
+        conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--_g)) 100.5% 100.5% / var(--_p);
+    background-color: whitesmoke;
+    outline: 4px solid var(--red);
+
+    width: 275px;
+    /* gap: 20px; */
+    flex-wrap: wrap;
+    padding: 8px 10px 8px 10px;
+}
+
+.pokedex__card:hover {
+    transform: scale(1.3);
+}
+
+main {
+    padding: 20px 0px;
+    background-color: var(--blue);
+    background: transparent;
+}
+
+main, footer {
+    position: relative;
+    z-index: 1;
+}
+
+nav {
+    z-index: 2;
+}
+
+body {
+    background-color: var(--blue);
+    background-image: url(../assets/backgrounddddd_1.png);
+    background-size: 50vw 100%;
+}
+
+.pokedex__card__left__id {
+    font-family: PressStart;
+    font-size: 1.2rem;
+    /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+    color: var(--black);
+    text-shadow: 1px 0 10px;
+    padding-top: 2px;
+}
+
+.pokedex__card__left__name {
+    font-family: PressStart;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.types {
+    font-size: 1.6rem;
+    padding: 3px 3px;
+    border-radius: 3px;
+}
+
+.pokedex__card__left__types {
+    padding-top: 40px;
+    font-style: italic;
+    /* color: rgb(215, 209, 203); */
+}
+
+.pokedex__card__img--front {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.pokedex {
+    justify-content: center;
+    min-height: 85vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.catchEmAll {
+    border-color: var(--green);
+}
+
+.pokedex__card__left__types {
+    display: inline-block;
+    position: relative;
+    cursor: help;
+}
+
+.pokedex__card__left__types::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 5;
+}
+
+.pokedex__card__left__types:hover::after {
+    opacity: 1;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+.modal__backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    --b: 15px;
+    /* thickness of the border */
+    --c: black;
+    /* color of the border */
+    --w: 15px;
+    /* width of border */
+
+
+    border: var(--b) solid #0000;
+    /* space for the border */
+    --_g: #0000 90deg, var(--c) 0;
+    --_p: var(--w) var(--w) border-box no-repeat;
+    background:
+        conic-gradient(from 90deg at top var(--b) left var(--b), var(--_g)) 100.5% 0 / var(--_p),
+        conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) 0 0 / var(--_p),
+        conic-gradient(from 0deg at bottom var(--b) left var(--b), var(--_g)) 0 100.5% / var(--_p),
+        conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--_g)) 100.5% 100.5% / var(--_p);
+    background-color: whitesmoke;
+    outline: 1px solid var(--black);
+    width: auto;
+    height: auto;
+    padding: 20px;
+    z-index: 1001;
+}
+
+.choices {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.modal__choice {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    background: none;
+    width: 250px;
+    height: 250px;
+    border-radius: 12px;
+    padding: 0;
+    transition: transform 0.2s ease;
+}
+
+.modal__choice::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    z-index: 0;
+    transition: opacity 0.2s ease;
+}
+
+.modal__choice.bulbasaur::before {
+    background-image: url('/assets/icons/grass.svg');
+}
+
+.modal__choice.charmander::before {
+    background-image: url('/assets/icons/fire.svg');
+}
+
+.modal__choice.squirtle::before {
+    background-image: url('/assets/icons/water.svg');
+}
+
+.modal__content h2 {
+    font-family: PressStart;
+    font-size: 3rem;
+}
+
+.modal__choice img {
+    position: relative;
+    z-index: 1;
+    width: 200px;
+    height: 200px;
+    transition: transform 0.2s ease;
+    margin-top: -10px;
+}
+
+.modal__choice p {
+    position: absolute;
+    z-index: 1;
+    font-size: 2rem;
+    font-family: 'PressStart';
+    text-align: center;
+    margin: 0;
+    color: black;
+    margin-top: 130px;
+    margin-left: 10px;
+}
+
+.modal__choice:hover::before {
+    opacity: 0.9;
+}
+
+.modal__choice:hover img {
+    transform: scale(1.3);
+}

@@ -1,0 +1,40 @@
+<%- include("partials/header.ejs") %>
+<%- include("partials/nav.ejs") %>
+
+<link rel="stylesheet" href="/css/wtp.css">
+
+<h1 class="wtp__title">Who's That Pokemon</h1>
+<section class="wtp">
+    <% if (answer.correct) { %>
+           <img src="<%= poke.front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image" draggable="false" style="filter: brightness(100%);"> 
+           <p><%= answer.response %></p>
+    <% } else if(answer.response != "Correct! You guessed the right pokemon.") { %>
+        <img src="<%= poke.front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image" draggable="false">
+        <p><%= answer.response %></p>
+    <% } %>
+
+    <form autocomplete="off" action="" method="post" class="wtp__form">
+        <% if (answer.correct) { %>
+            <a href="/wtp"><button type="button">Next</button></a>
+        <% } else { %>
+            <div class="input__container" style="width:300px;">
+                <input id="input__field" type="text" name="guess" placeholder="Pokemon">
+                <!-- 
+                <div id="autocomplete__list" class="autocomplete__item">
+                    <div><strong>pid</strong>gey<input type="hidden" value="pidgey"></div>
+                    <div class="autocomplete__item--active"><strong>pid</strong>geotto<input type="hidden" value="pidgeotto"></div>
+                    <div><strong>pid</strong>geot<input type="hidden" value="pidgeot"></div>
+                </div>
+                    -->
+            </div>
+            <div class="submit_button">
+                <button type="submit" id="reveal" name="post" value="post" class="submit">Submit</button>
+            </div>
+            <div class="skip_button">
+                <a href="/wtp"><button type="button">Skip</button></a>
+            </div>
+        <% } %>
+    </form>
+</section>
+
+<%- include("partials/footer") %>

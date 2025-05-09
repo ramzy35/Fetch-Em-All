@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/signup.css">
+</head>
+
+<body>
+    <header>
+        <h1>FetchEmAll</h1>
+        <a href="/" class="goback">Landing Page</a>
+    </header>
+    <main>
+        <section class="signin">
+            <h2>Sign In</h2>
+            <% if (typeof error !=='undefined' ) { %>
+                <section class="signup__error">
+                    <p style="color: red;">
+                        <%= decodeURIComponent(error) %>
+                    </p>
+                </section>
+                <% } %>
+                    <form action="/signin" method="post">
+                        <section class="signin__input">
+                            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                        </section>
+                        <section class="signin__input">
+                            <input type="password" id="password" name="password" placeholder="Enter your password"
+                                required>
+                        </section>
+                        <section class="signin__input button">
+                            <input type="submit" value="Login">
+                        </section>
+                        <section class="signin__text">
+                            <h3>Need an account? <a href="/signup">Register now</a></h3>
+                        </section>
+                    </form>
+        </section>
+    </main>
+
+</body>
+
+</html>

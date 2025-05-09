@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FetchEmAll</title>
+    <link rel="stylesheet" href="/css/landing.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>FetchEmAll</h1>
+
+        <% if (user) {%>
+            <form action="/logout" method="post">
+                <button type="submit" class="login-button">Logout</button>
+            </form>
+            <% } else { %>
+                <a href="/signin" class="login-button">Log In</a>
+                <% } %>
+    </header>
+
+    <main>
+        <div class="project-card">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+                alt="Pokemon">
+            <h3>Pokemon</h3>
+            <% if (user) { %>
+                <a href="/pokedex" class="visit">Visit Site</a>
+                <% } else { %>
+                    <a href="/signin" class="visit">Visit Site</a>
+                    <% } %>
+        </div>
+
+        <div class="project-card">
+            <img src="../assets/fifa.png" alt="FIFA">
+            <h3>FIFA</h3>
+            <button class="locked" disabled>
+                🔒 Locked
+            </button>
+        </div>
+
+        <div class="project-card">
+            <img src="../assets/fortnite.png" alt="Fortnite">
+            <h3>Fortnite</h3>
+            <button class="locked" disabled>
+                🔒 Locked
+            </button>
+        </div>
+
+        <div class="project-card">
+            <img src="../assets/MTG.png" alt="MTG">
+            <h3>MTG</h3>
+            <button class="locked" disabled>
+                🔒 Locked
+            </button>
+        </div>
+
+        <div class="project-card">
+            <img src="../assets/lego.png" alt="LegoMasters">
+            <h3>LegoMasters</h3>
+            <button class="locked" disabled>
+                🔒 Locked
+            </button>
+        </div>
+
+        <div class="project-card">
+            <img src="../assets/lotr.png" alt="LOTR">
+            <h3>LOTR</h3>
+            <button class="locked" disabled>
+                🔒 Locked
+            </button>
+        </div>
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/signup.css">
+</head>
+
+<body>
+    <header>
+        <h1>FetchEmAll</h1>
+        <a href="/" class="goback">Landing Page</a>
+    </header>
+    <main>
+        <section class="signup">
+            <h2>Registration</h2>
+            <% if (typeof error !=='undefined' ) { %>
+                <section class="signup__error">
+                    <p style="color: red;">
+                        <%= decodeURIComponent(error) %>
+                    </p>
+                </section>
+                <% } %>
+                    <form action="/signup" method="post">
+                        <section class="signup__input">
+                            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                        </section>
+                        <section class="signup__input">
+                            <input type="text" id="email" name="email" placeholder="Enter your email" required>
+                        </section>
+                        <section class="signup__input">
+                            <input type="password" id="password" name="password" placeholder="Create password" required>
+                        </section>
+                        <section class="signup__input">
+                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                placeholder="Confirm password" required>
+                        </section>
+                        <section class="signup__policy">
+                            <input type="checkbox" required>
+                            <h3>I accept all terms & condition</h3>
+                        </section>
+                        <section class="signup__input button">
+                            <input type="submit" value="Register Now">
+                        </section>
+                        <section class="signup__text">
+                            <h3>Already have an account? <a href="/signin">Login now</a></h3>
+                        </section>
+                    </form>
+        </section>
+    </main>
+
+</body>
+
+</html>
