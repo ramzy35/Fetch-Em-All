@@ -104,6 +104,18 @@ footer .pokemon:after {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    footer .pokemon:after{
+        display: none;
+    }
+
+    footer .trainer1:after{
+        display: none;
+    }
+
+    footer .trainer2:after{
+        display: none;
+    }
+
     footer {
         position: static;
         height: auto;

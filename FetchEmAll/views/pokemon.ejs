@@ -13,7 +13,7 @@
             </p>
             <section class="pokestat_types">
                 <% pokemon.types.forEach(type => { %>
-                    <section class="pokestat__types" data-tooltip="<%= type.charAt(0).toUpperCase() + type.slice(1) %>">
+                    <section class="pokestat__typesi" data-tooltip="<%= type.charAt(0).toUpperCase() + type.slice(1) %>">
                         <img src="/assets/icons/<%= type %>.svg" width="40px" alt="<%= type %> type icon" />
                     </section>
                 <% }); %> 
