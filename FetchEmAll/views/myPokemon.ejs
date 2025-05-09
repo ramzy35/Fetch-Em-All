@@ -1,36 +1,67 @@
 <%- include("partials/header.ejs") %>
-<%- include("partials/nav.ejs") %>
-<link rel="stylesheet" href="/css/pokedex.css">
+    <%- include("partials/nav.ejs") %>
+        <link rel="stylesheet" href="/css/pokedex.css">
+        <link rel="stylesheet" href="/css/myPokemon.css">
 
 
-
-<section class="pokedex">
-    <% myPokemon.forEach(poke => { %>
-    <a href="/pokemon?id=<%= poke.id %>" class="pokedex__card__link">
-        <section class="pokedex__card <%if (currentPokemon === poke.id) { %>
-            <%= "myPokemon__current" %> 
-        <% } %>">
-        <!-- adds current class to pokemon currently selected, 
-         this is the only class that needs different styling than pokedex, so other classes stay pokedex__... 
-         if other classes are needed later, add more instead of replacing -->
-            <section class="pokedex__card__left">
-                <h2 class="pokedex__card__left__name">
-                    <%= poke.name %>
-                </h2>
-                <p class="pokedex__card__left__id">
-                    # <%= poke.id %>
-                </p>
-                <% poke.types.forEach(type => { %>
-                    <section class="pokedex__card__left__types" data-tooltip="<%= type.charAt(0).toUpperCase() + type.slice(1) %>">
-                        <img src="/assets/icons/<%= type %>.svg" width="30px" alt="<%= type %> type icon" />
-                    </section>
-                <% }); %>
+        <section class="myPoke">
+            <section class="myPoke__card">
+                <p class="myPoke__lvl"><span class="smoll">Lvl.</span>8</p>
+                <h2 class="myPoke__name">Bulby uwu</h2>
+                <img class="myPoke__img"
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+                    alt="bulby pic uwu">
+                <p class="myPoke__hp">30/35<span class="smoll">hp</span></p>
+                <section class="bar">
+                    <section class="fill hp-fill"></section>
+                </section>
+            </section>
+            <section class="myPoke__card">
+                <p class="myPoke__lvl"><span class="smoll">Lvl.</span>8</p>
+                <h2 class="myPoke__name">Bulby uwu</h2>
+                <img class="myPoke__img"
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+                    alt="bulby pic uwu">
+                <p class="myPoke__hp">30/35<span class="smoll">hp</span></p>
+                <section class="bar">
+                    <section class="fill hp-fill"></section>
+                </section>
+            </section>
+            <section class="myPoke__card">
+                <p class="myPoke__lvl"><span class="smoll">Lvl.</span>8</p>
+                <h2 class="myPoke__name">Bulby uwu</h2>
+                <img class="myPoke__img"
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+                    alt="bulby pic uwu">
+                <p class="myPoke__hp">30/35<span class="smoll">hp</span></p>
+                <section class="bar">
+                    <section class="fill hp-fill"></section>
+                </section>
+            </section>
+            <section class="myPoke__card">
+                <p class="myPoke__lvl"><span class="smoll">Lvl.</span>8</p>
+                <h2 class="myPoke__name">Bulby uwu</h2>
+                <img class="myPoke__img"
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+                    alt="bulby pic uwu">
+                <p class="myPoke__hp">30/35<span class="smoll">hp</span></p>
+                <section class="bar">
+                    <section class="fill hp-fill"></section>
+                </section>
+            </section>
+            <section class="myPoke__card">
+                <p class="myPoke__lvl"><span class="smoll">Lvl.</span>8</p>
+                <h2 class="myPoke__name">Bulby uwu</h2>
+                <img class="myPoke__img"
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+                    alt="bulby pic uwu">
+                <p class="myPoke__hp">30/35<span class="smoll">hp</span></p>
+                <section class="bar">
+                    <section class="fill hp-fill"></section>
+                </section>
             </section>
 
-            <img src="<%= poke.front_image %>" class="pokedex__card__img--front" alt="<%= poke.name %>">
         </section>
-    </a>
-    <% }); %>
-</section>
 
-<%- include("partials/footer.ejs") %>
+
+        <%- include("partials/footer.ejs") %>
