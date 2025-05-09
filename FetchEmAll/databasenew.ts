@@ -114,16 +114,15 @@ export async function getMyPokemonById(pokeId : number, userId : ObjectId):Promi
 }
 
 export async function catchPokemon(pokeId : number, userId : ObjectId, level : number) {
-    let fullPoke = await createFullPokemon(pokeId, level)
-    const allMyPoke = await getMyPokemon(userId)
-    console.log(allMyPoke)
-    console.log(fullPoke)
-    if(allMyPoke.length < 1) {
-        fullPoke.currentPokemon = true
-    }
-        console.log(fullPoke)
-    allMyPoke.push(fullPoke)
-    await myPokemonCollection.updateOne({ownerId : userId},{$set : {pokemon : allMyPoke}})
+    const fullPoke = await createFullPokemon(pokeId, level)
+    let allMyPoke = await getMyPokemon(userId)
+    const updatedPoke = allMyPoke.map((poke) => {
+        if(poke.id === pokeId) {
+            poke = fullPoke
+        }
+        return poke
+    })
+    await myPokemonCollection.updateOne({ownerId : userId},{$set : {pokemon : updatedPoke}})
 }
 
 export async function deleteMyPokemon(userId : ObjectId) {
@@ -137,7 +136,7 @@ export async function deleteMyPokemon(userId : ObjectId) {
 export async function getCurrentPokemon(userId : ObjectId):Promise<FullPokemon> {
     let allMyPoke = await getMyPokemon(userId)
     const currentPokemon = allMyPoke.find((poke) => {
-        if (poke.currentPokemon === true) {
+        if (poke.currentPokemon) {
             return true
         } 
     })

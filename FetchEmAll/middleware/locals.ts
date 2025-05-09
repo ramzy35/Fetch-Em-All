@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction} from "express";
-import { getAllOwnedPokemon, getAllPokemon, getPokemonById } from "../database";
+import { getMyPokemon, getAllPokemon, getPokemonById } from "../database";
 import { FullPokemon, MyPokemon, Pokemon } from "../interfaces";
 
 export async function pokeNamesLocal(_req:Request, res:Response, next:NextFunction){
@@ -12,8 +12,13 @@ export async function pokeNamesLocal(_req:Request, res:Response, next:NextFuncti
     next();
 }
 
-export async function myPokemonLocal(_req:Request, res:Response, next:NextFunction){
-    const myPokemon : FullPokemon[] = await getAllOwnedPokemon(res.locals.user._id)
+export async function myPokemonLocal(req:Request, res:Response, next:NextFunction){
+    if (req.session.user && typeof req.session.user != "undefined" && typeof req.session.user._id != "undefined") {
+        res.locals.user = req.session.user;
+    } else {
+        res.redirect("/login");
+    }
+    const myPokemon : FullPokemon[] = await getMyPokemon(res.locals.user._id)
     res.locals.myPokemon = myPokemon;
     next();
 }
