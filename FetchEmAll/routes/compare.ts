@@ -2,10 +2,11 @@ import express from "express";
 import { getPokemonById } from "../database";
 import { pokeNamesLocal } from "../middleware/locals";
 import { Pokemon } from "../interfaces";
+import { secureMiddleware } from "../middleware/secureMiddleware";
 
 const compareRoute = express.Router();
 
-compareRoute.get("/", pokeNamesLocal, async (req, res) => {
+compareRoute.get("/", pokeNamesLocal, secureMiddleware, async (req, res) => {
 
     const id1:number = typeof req.query.id1 === "string" ? parseInt(req.query.id1) : 1;
     const id2:number = typeof req.query.id2 === "string" ? parseInt(req.query.id2) : 2;

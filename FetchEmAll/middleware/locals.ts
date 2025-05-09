@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction} from "express";
-import { getAllPokemon, getMyPokemon, getPokemonById } from "../database";
-import { MyPokemon, Pokemon } from "../interfaces";
+import { getAllOwnedPokemon, getAllPokemon, getPokemonById } from "../database";
+import { FullPokemon, MyPokemon, Pokemon } from "../interfaces";
 
 export async function pokeNamesLocal(_req:Request, res:Response, next:NextFunction){
     const pokeList : Pokemon[]  = await getAllPokemon()
@@ -13,7 +13,7 @@ export async function pokeNamesLocal(_req:Request, res:Response, next:NextFuncti
 }
 
 export async function myPokemonLocal(_req:Request, res:Response, next:NextFunction){
-    const myPokemon : Pokemon[] = await getMyPokemon(1)
+    const myPokemon : FullPokemon[] = await getAllOwnedPokemon(res.locals.user._id)
     res.locals.myPokemon = myPokemon;
     next();
 }
