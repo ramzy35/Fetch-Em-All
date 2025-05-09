@@ -6,6 +6,10 @@ main {
     align-items: center;
 }
 
+.chain__title {
+    height: 50px;
+}
+
 .pokestat__title {
     font-family: PressStart;
     font-size: 3rem;
@@ -32,9 +36,10 @@ main, footer {
 
 body {
     background-color: var(--blue);
-    
-    background-image: url(../assets/backgrounddddd_1.png);
-    background-size: 50vw 100%;
+    background-image: url(../assets/background1fix.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    /* min-height: 100vh; */
 }
 
 
@@ -114,6 +119,7 @@ main {
     text-align: center;
     text-transform: none;
     width: 120px;
+    font-family: Aldrich;
 }
 
 .pokestat__buttons a:hover, .pokestat__buttons a:focus {
@@ -122,7 +128,7 @@ main {
 
 button {
     padding: 10px 20px 10px;
-  }
+}
 
 .pokestat__chain {
     margin-top: 20px;
@@ -135,13 +141,12 @@ button {
     gap: 20px;
 }
 
-
-h3 {
+/* h3 {
     font-size: 3rem;
     font-weight: bold;
     text-align: center;
     font-family: Pokemon Hollow;
-}
+} */
 
 .margin {
     margin-top: 10px;
