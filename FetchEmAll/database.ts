@@ -220,7 +220,7 @@ async function seed() {
 async function exit() {
     try {
         await client.close();
-        console.log("❌ Disconnected from database");
+        console.log("\n❌ Disconnected from database");
     } catch (error) {
         console.error(error);
     }
