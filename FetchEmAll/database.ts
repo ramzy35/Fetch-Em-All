@@ -3,7 +3,6 @@ import { getPokemonList } from "./middleware/fetchPokemon";
 import { FullPokemon, MyPokemon, Pokemon, User } from "./interfaces";
 import dotenv from "dotenv"
 import bcrypt from "bcrypt";
-import { isNull } from "util";
 
 dotenv.config();
 export const link = process.env.MONGO_URI || ""
@@ -13,7 +12,7 @@ const saltRounds : number = 10;
 
 const pokedexCollection     : Collection<Pokemon> = client.db("FetchEmAll").collection<Pokemon>("pokedex");
 const userCollection        : Collection<User> = client.db("FetchEmAll").collection<User>("users");
-const myPokemonCollection   : Collection<MyPokemon> = client.db("FetchEmAll").collection<MyPokemon>("myPokemon");
+const myPokemonCollection   : Collection<MyPokemon> = client.db("FetchEmAll").collection<MyPokemon>("mypokemon");
 
 export async function getAllPokemon():Promise<Pokemon[]> {
     try {
@@ -79,11 +78,9 @@ async function levelPokemon(pokeId : number, userId : ObjectId) {
         myPoke.defense   = basePoke[0].defense + basePoke[0].defense / 50
     }
 
-
-    allMyPoke.shift
-    await myPokemonCollection.updateOne({ _id : userId }, {$set : {
-        pokemon : all
-    }})
+    // await myPokemonCollection.updateOne({ _id : userId }, {$set : {
+    //     pokemon : all
+    // }})
 }
 
 export async function getFullPokemon(pokeId : number, userId : ObjectId):Promise<MyPokemon[]> {
@@ -106,9 +103,12 @@ export async function deleteMyPokemon(userId : ObjectId) {
 
 export async function getMyPokemonById(userId:ObjectId, pokeId : number) {
     try {
-        const myPokemon : MyPokemon | null =  await myPokemonCollection.aggregate([
-            {{"pokemon.id" : pokeId}}
-        ])
+        const myPokemon : any | null =  await myPokemonCollection.aggregate([
+            { $match : {ownerId : userId}},
+            { $unwind: "$pokemon" }, 
+            { $match: { "pokemon.id": pokeId } },
+            { $limit: 1 } 
+        ]).toArray()
         console.log(getPokemonById)
         console.log(myPokemon)
         if (myPokemon) {
@@ -138,7 +138,6 @@ export async function catchPokemon(pokeId : number, userId : ObjectId, pokeLevel
     await myPokemonCollection.updateOne({ _id : userId }, {$set : {
         pokemon : allPokemon
     }})
-    await levelPokemon(fullPoke.id, userId, pokeLevel)
 }
 
 async function getAllUsers():Promise<User[]> {
