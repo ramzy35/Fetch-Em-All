@@ -15,7 +15,9 @@
 
     <form autocomplete="off" action="" method="post" class="wtp__form">
         <% if (answer.correct) { %>
-            <a href="http://localhost:3000/wtp"><button type="button">Next</button></a>
+            <div class="next_button">
+                <a href="http://localhost:3000/wtp"><button type="button">Next</button></a>
+            </div>
         <% } else { %>
             <div class="input__container" style="width:300px;">
                 <input id="input__field" type="text" name="guess" placeholder="Pokemon">
