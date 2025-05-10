@@ -34,12 +34,17 @@ export interface User {
     role: "ADMIN" | "USER";
 }
 
-export interface MyPokemon extends Pokemon {
+export interface FullPokemon extends Pokemon {
     currentHp: number;
     isFainted: boolean;
     level: number;
     currentPokemon: boolean;
-    ownerId : number;
+}
+
+export interface MyPokemon {
+    _id? : ObjectId;
+    ownerId : ObjectId;
+    pokemon : FullPokemon[];
 }
 
 export type EvolutionDetail = {

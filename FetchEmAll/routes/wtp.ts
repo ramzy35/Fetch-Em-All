@@ -5,18 +5,18 @@ import { Pokemon } from "../interfaces";
 
 const wtpRoute = express.Router();
 
-async function rndmPoke():Promise<Pokemon[]> {
+async function rndmPoke():Promise<Pokemon> {
     const rndmId : number = Math.floor(Math.random()*151)+1
     return await getPokemonById(rndmId)
 }
 
-let poke : Pokemon[];
+let poke : Pokemon;
 
 wtpRoute.get("/", pokeNamesLocal, async (req, res) => {
     res.locals.currentPage = "wtp"
     poke = await rndmPoke()
     res.render("wtp", {
-        poke : poke[0],
+        poke : poke,
         answer : {
             response : "",
             correct : false
@@ -29,9 +29,9 @@ wtpRoute.post("/", pokeNamesLocal, async (req, res) => {
     res.locals.currentPage = "wtp"
     const guess = typeof req.body.guess === "string" ? req.body.guess : "";
 
-    const answer = checkGuess(guess, poke[0].name, res.locals.pokemonNameList)
+    const answer = checkGuess(guess, poke.name, res.locals.pokemonNameList)
     res.render("wtp", {
-        poke : poke[0],
+        poke : poke,
         answer : answer
     });
 });
