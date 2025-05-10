@@ -58,8 +58,8 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number):Pro
         isFainted: false,
         level: pokeLevel,
         currentPokemon: false,
+        nickname: basePoke.name
     }
-
     fullPoke.hp        = basePoke.hp + (pokeLevel - 1) * basePoke.hp / 50;
     fullPoke.attack    = basePoke.attack + (pokeLevel - 1) * basePoke.attack / 50;
     fullPoke.speed     = basePoke.speed + (pokeLevel - 1) * basePoke.speed / 50;
@@ -108,14 +108,14 @@ export async function getMyPokemon(ownerId : ObjectId):Promise<FullPokemon[]> {
 }
 
 // Get pokemon by Id out of pokemon array of given user
-export async function getMyPokemonById(pokeId : number, userId : ObjectId):Promise<any> {
+export async function getMyPokemonById(pokeId : number, userId : ObjectId):Promise<FullPokemon> {
     const myPoke : any = await myPokemonCollection.aggregate([
         { $match : {ownerId : userId}},
         { $unwind: "$pokemon" }, 
         { $match: { "pokemon.id": pokeId } },
         { $limit: 1 } 
     ]).toArray()
-    return myPoke[0]
+    return myPoke[0].pokemon
 }
 
 // Add full pokemon with given level to user
@@ -126,6 +126,17 @@ export async function catchPokemon(pokeId : number, userId : ObjectId, level : n
         fullPoke.currentPokemon = true
     }
     allMyPoke.push(fullPoke)
+    await myPokemonCollection.updateOne({ownerId : userId},{$set : {pokemon : allMyPoke}})
+}
+
+export async function renamePokemon(pokeId : number, userId : ObjectId, nickname : string) {
+    let fullPoke : FullPokemon = await getMyPokemonById(pokeId, userId)
+    const allMyPoke : FullPokemon[]= await getMyPokemon(userId)
+    allMyPoke.map((poke) => {
+        if(poke._id?.toString() === fullPoke._id?.toString()) {
+            poke.nickname = `${nickname.charAt(0).toUpperCase()}${nickname.substring(1).toLowerCase()}`
+        }
+    })
     await myPokemonCollection.updateOne({ownerId : userId},{$set : {pokemon : allMyPoke}})
 }
 

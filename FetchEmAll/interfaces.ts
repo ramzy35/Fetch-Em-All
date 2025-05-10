@@ -39,6 +39,7 @@ export interface FullPokemon extends Pokemon {
     isFainted: boolean;
     level: number;
     currentPokemon: boolean;
+    nickname: string;
 }
 
 export interface MyPokemon {

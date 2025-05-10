@@ -8,72 +8,16 @@
             <% myPokemon.forEach(poke => { %>
                 <section class="myPoke__card">
                     <p class="myPoke__lvl"><span class="smoll">Lvl.</span><%= poke.level %></p>
-                    <h2 class="myPoke__name">Bulby uwu</h2>
+                    <h2 class="myPoke__name"><%= poke.nickname %></h2>
                     <img class="myPoke__img"
                         src="<%= poke.front_image%>"
-                        alt="bulby pic uwu">
+                        alt="<%= poke.name %> front image">
                     <p class="myPoke__hp"><%= poke.currentHp %>/<%= poke.hp %><span class="smoll">hp</span></p>
                     <section class="bar">
                         <section class="fill hp-fill"></section>
                     </section>
                 </section>  
             <% }); %>
-            <section class="myPoke__card">
-                <p class="myPoke__lvl"><span class="smoll">Lvl.</span>8</p>
-                <h2 class="myPoke__name">Bulby uwu</h2>
-                <img class="myPoke__img"
-                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-                    alt="bulby pic uwu">
-                <p class="myPoke__hp">30/35<span class="smoll">hp</span></p>
-                <section class="bar">
-                    <section class="fill hp-fill"></section>
-                </section>
-            </section>
-            <section class="myPoke__card">
-                <p class="myPoke__lvl"><span class="smoll">Lvl.</span>8</p>
-                <h2 class="myPoke__name">Bulby uwu</h2>
-                <img class="myPoke__img"
-                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-                    alt="bulby pic uwu">
-                <p class="myPoke__hp">30/35<span class="smoll">hp</span></p>
-                <section class="bar">
-                    <section class="fill hp-fill"></section>
-                </section>
-            </section>
-            <section class="myPoke__card">
-                <p class="myPoke__lvl"><span class="smoll">Lvl.</span>8</p>
-                <h2 class="myPoke__name">Bulby uwu</h2>
-                <img class="myPoke__img"
-                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-                    alt="bulby pic uwu">
-                <p class="myPoke__hp">30/35<span class="smoll">hp</span></p>
-                <section class="bar">
-                    <section class="fill hp-fill"></section>
-                </section>
-            </section>
-            <section class="myPoke__card">
-                <p class="myPoke__lvl"><span class="smoll">Lvl.</span>8</p>
-                <h2 class="myPoke__name">Bulby uwu</h2>
-                <img class="myPoke__img"
-                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-                    alt="bulby pic uwu">
-                <p class="myPoke__hp">30/35<span class="smoll">hp</span></p>
-                <section class="bar">
-                    <section class="fill hp-fill"></section>
-                </section>
-            </section>
-            <section class="myPoke__card">
-                <p class="myPoke__lvl"><span class="smoll">Lvl.</span>8</p>
-                <h2 class="myPoke__name">Bulby uwu</h2>
-                <img class="myPoke__img"
-                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-                    alt="bulby pic uwu">
-                <p class="myPoke__hp">30/35<span class="smoll">hp</span></p>
-                <section class="bar">
-                    <section class="fill hp-fill"></section>
-                </section>
-            </section>
-
         </section>
 
 
