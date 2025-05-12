@@ -40,6 +40,12 @@ app.use("/signin", signInRoute);
 app.use("/signup", signUpRoute);
 // app.use("/battle", battleRoute);    
 
+app.get("/:status", async (req, res) => {
+    res.status(404);
+    res.locals.currentPage = "404"
+    res.render("404");
+})
+
 app.listen(app.get("port"), async() => {
     await connect()
     console.log("🚀 Server started on http://localhost:" + app.get("port"));

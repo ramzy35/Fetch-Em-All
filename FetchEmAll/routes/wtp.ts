@@ -1,5 +1,6 @@
 import express from "express";
 import { pokeNamesLocal } from "../middleware/locals";
+import { secureMiddleware } from "../middleware/secureMiddleware";
 import { getPokemonById } from "../database";
 import { Pokemon } from "../interfaces";
 
@@ -12,7 +13,7 @@ async function rndmPoke():Promise<Pokemon> {
 
 let poke : Pokemon;
 
-wtpRoute.get("/", pokeNamesLocal, async (req, res) => {
+wtpRoute.get("/", pokeNamesLocal, secureMiddleware, async (req, res) => {
     res.locals.currentPage = "wtp"
     poke = await rndmPoke()
     res.render("wtp", {
@@ -35,6 +36,12 @@ wtpRoute.post("/", pokeNamesLocal, async (req, res) => {
         answer : answer
     });
 });
+
+wtpRoute.get("/:status", async (req, res) => {
+    res.status(404);
+    res.locals.currentPage = "404"
+    res.render("404");
+})
 
 function checkGuess(guess:string, correctPoke:string, pokeNameList:string[]):{response:string, correct:boolean} {
     const answer = {
