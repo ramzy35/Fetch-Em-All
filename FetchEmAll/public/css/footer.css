@@ -82,7 +82,7 @@ footer .pokemon:after {
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 300px) {
+/* @media only screen and (min-width: 300px) {
     footer .pokemon:after{
         display: none;
     }
@@ -101,10 +101,10 @@ footer .pokemon:after {
         font-size: 1.2rem;
         padding-bottom: 3px;
         }
-}
+} */
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
+/* @media only screen and (min-width: 768px) {
     footer .pokemon:after{
         display: none;
     }
@@ -132,10 +132,10 @@ footer .pokemon:after {
     font-size: 1.5rem;
     padding-bottom: 3px;
     }
-}
+} */
 
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 1062px) {
+/* @media only screen and (min-width: 1062px) {
     footer .trainer1:after {
         content: "";
         display: block;
@@ -168,4 +168,4 @@ footer .pokemon:after {
         font-size: 1.9rem;
         padding-bottom: 3px;
     }
-}
+} */
