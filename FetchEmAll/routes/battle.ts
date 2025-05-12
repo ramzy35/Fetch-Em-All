@@ -168,4 +168,10 @@
 //     });
 // });
 
+// battleRoute.get("/:status", async (req, res) => {
+//     res.status(404);
+//     res.locals.currentPage = "404"
+    // res.render("404");
+// })
+
 // export default battleRoute;
