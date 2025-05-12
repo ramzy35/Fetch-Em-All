@@ -1,7 +1,9 @@
 import express from "express";
-import { pokeListLocal } from "../middleware/locals";
-import { catchPokemon, changeCurrentPokemon, deleteMyPokemon, getMyPokemonById, levelPokemon, renamePokemon } from "../database";
+import { hasStarterLocal, pokeListLocal } from "../middleware/locals";
+import { catchPokemon, changeCurrentPokemon, deleteMyPokemon, getMyPokemon, getMyPokemonById, levelPokemon, renamePokemon } from "../database";
 import { secureMiddleware } from "../middleware/secureMiddleware";
+import { FullPokemon } from "../interfaces";
+import { ObjectId } from "mongodb";
 
 const pokedexRoute = express.Router();
 
@@ -16,10 +18,9 @@ pokedexRoute.post("/choose-starter", secureMiddleware, async (req, res) => {
     res.redirect("/pokedex?hasStarter=true");
 });
 
-pokedexRoute.get("/", pokeListLocal, secureMiddleware, async (req, res) => {
+pokedexRoute.get("/", pokeListLocal, secureMiddleware, hasStarterLocal, async (req, res) => {
     res.locals.currentPage = "pokedex";
-    const hasStarter = req.query.hasStarter === "true";
-    res.render("pokedex", { hasStarter });
+    res.render("pokedex");
 });
 
 export default pokedexRoute;

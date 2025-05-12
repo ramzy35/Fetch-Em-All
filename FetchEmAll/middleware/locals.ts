@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction} from "express";
 import { getMyPokemon, getAllPokemon, getPokemonById } from "../database";
 import { FullPokemon, MyPokemon, Pokemon } from "../interfaces";
+import { ObjectId } from "mongodb";
 
 export async function pokeNamesLocal(_req:Request, res:Response, next:NextFunction){
     const pokeList : Pokemon[]  = await getAllPokemon()
@@ -52,6 +53,17 @@ export async function formattingLocals(_req: Request, res: Response, next: NextF
     res.locals.formatId = (id : number) => {
         const idString : string = "000" + id.toString()
         return `#${idString.slice(-3)}`
+    }
+    next();
+}
+
+export async function hasStarterLocal(req: Request, res: Response, next: NextFunction) {
+    const ownerId = req.session.user?._id;
+    if (ownerId) {
+        const myPoke: FullPokemon[] = await getMyPokemon(ownerId);
+        res.locals.hasStarter = myPoke.length > 0;
+    } else {
+        res.locals.hasStarter = false;
     }
     next();
 }
