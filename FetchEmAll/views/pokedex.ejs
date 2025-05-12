@@ -38,19 +38,27 @@
 
                 </section>
             </section>
-            <% } %>
+            <% } else if (query.justChoseStarter && query.starterId) {%>
                 <section id="modal" class="modal">
                     <section class="modal__backdrop">
 
                     </section>
                     <section class="modal__content">
                         <h2>Would you like to give it a nickname?</h2>
-                        <form action="" class="form__nickname">
+                        <form action="/pokedex/nickname" class="form__nickname" method="post">
+                            <input type="hidden" name="starterId" value="<%= query.starterId %>">
                             <input type="text" id="nickname" name="nickname">
                         </form>
 
                     </section>
                 </section>
+                <script>
+                    <!-- JS to remove query params after modal load -->
+                    if (window.location.search.includes("justChoseStarter")) {
+                        history.replaceState(null, "", window.location.pathname);
+                    }
+                </script>
+                <% } %>
                 <section class="pokedex">
                     <% pokemonList.forEach(poke=> { %>
                         <a href="/pokemon?id=<%= poke.id %>" class="pokedex__card__link">

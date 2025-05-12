@@ -162,12 +162,16 @@ body {
 .modal__content {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     gap: 20px;
     align-items: center;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    max-height: 75vh;
+    overflow: auto;
     --b: 15px;
     /* thickness of the border */
     --c: black;
@@ -187,7 +191,7 @@ body {
         conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--_g)) 100.5% 100.5% / var(--_p);
     background-color: whitesmoke;
     outline: 1px solid var(--black);
-    width: auto;
+    max-width: 1000px;
     height: auto;
     padding: 20px;
     z-index: 1001;
@@ -196,6 +200,8 @@ body {
 .choices {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 30px;
 }
 
@@ -243,6 +249,7 @@ body {
 .modal__content h2 {
     font-family: PressStart;
     font-size: 3rem;
+    text-align: center;
 }
 
 .modal__choice img {
