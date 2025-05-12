@@ -25,6 +25,34 @@ main {
     margin-top: 40px;
 }
 
+.pokestat__types {
+    display: inline-block;
+    position: relative;
+    cursor: help;
+}
+
+.pokestat__types::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 50%;
+    left: 40%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 5;
+}
+
+.pokestat__types:hover::after {
+    opacity: 1;
+}
+
 main, footer {
     position: relative;
     z-index: 1;
@@ -90,12 +118,14 @@ main {
 }
 
 .input__container {
+    position:absolute;
     background-color: rgb(255, 255, 255);
     display: inline-block;
     box-sizing: border-box;
     padding: 10px 20px 10px;
     border: 1px;
     margin-left: 15px;
+    margin-top: 14px;
     border-radius: 4px;
 
 }
@@ -123,6 +153,10 @@ main {
 button {
     padding: 10px 20px 10px;
   }
+
+.pokestat__compare{
+    margin-left: 180px;
+}
 
 .pokestat__chain {
     margin-top: 20px;
