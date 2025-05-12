@@ -425,6 +425,18 @@ button {
     }
 }
 
+@media (max-width: 850px) {
+
+    main {
+        padding: 0px 0px
+    }
+
+    .pokestat {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+}
+
 .hp-fill {
     width: calc(100% * 79 / 255);
 }

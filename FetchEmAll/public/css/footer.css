@@ -169,3 +169,13 @@ footer .pokemon:after {
         padding-bottom: 3px;
     }
 } */
+
+@media (max-width: 500px) {
+    .trainer2, .trainer1, .pokemon, .pokemon-grass {
+        display: none;
+    }
+
+    footer {
+        height: 200px;
+    }
+}
