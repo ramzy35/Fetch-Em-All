@@ -54,7 +54,7 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number):Pro
     // Add all needed stats to convert from Type Pokemon to MyPokemon
     let fullPoke : FullPokemon = {
         ...basePoke,
-        currentHp: basePoke.hp + 1/50 * pokeLevel * basePoke.hp,
+        currentHp: Math.floor(basePoke.hp + 1/50 * pokeLevel * basePoke.hp),
         isFainted: false,
         level: pokeLevel,
         currentPokemon: false,
@@ -75,10 +75,10 @@ export async function levelPokemon(pokeId : number, userId : ObjectId) {
 
     const updatedPoke = allMyPoke.map((poke) => {
         if(poke.id === pokeId) {
-            poke.hp        += basePoke.hp / 50;
-            poke.attack    += basePoke.attack / 50;
-            poke.speed     += basePoke.speed / 50;
-            poke.defense   += basePoke.defense / 50;
+            poke.hp        = Math.floor(poke.hp + basePoke.hp / 50);
+            poke.attack    = Math.floor(poke.attack + basePoke.attack / 50);
+            poke.speed     = Math.floor(poke.speed + basePoke.speed / 50);
+            poke.defense   = Math.floor(poke.defense + basePoke.defense / 50);
             poke.level     += 1;
         }
         return poke

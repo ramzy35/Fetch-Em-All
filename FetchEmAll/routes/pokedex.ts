@@ -10,7 +10,7 @@ const pokedexRoute = express.Router();
 pokedexRoute.post("/choose-starter", secureMiddleware, async (req, res) => {
     const { starterId } = req.body;
     await deleteMyPokemon(res.locals.user._id)
-    await catchPokemon(parseInt(starterId), res.locals.user._id, 20)
+    await catchPokemon(parseInt(starterId), res.locals.user._id, 0)
     await changeCurrentPokemon(parseInt(starterId), res.locals.user._id)
     await levelPokemon(parseInt(starterId), res.locals.user._id)
     await renamePokemon(parseInt(starterId), res.locals.user._id, "IT WORKS")
