@@ -22,20 +22,6 @@ export async function myPokemonLocal(req:Request, res:Response, next:NextFunctio
     const myPokemon : FullPokemon[] = await getMyPokemon(res.locals.user._id)
     res.locals.myPokemon = myPokemon;
 
-    res.locals.getPercent = (currentHp: number, maxHp: number): string => {
-    const percent = currentHp / maxHp;
-    let color: string;
-
-    if (percent >= 0.7) {
-        color = "#008000"; // Green
-    } else if (percent >= 0.3) {
-        color = "#ffff00"; // Yellow
-    } else {
-        color = "#ff0000"; // Red
-    }
-
-    return `"width: calc(100% * ${currentHp} / ${maxHp}); background-color: ${color}"`;
-};
     next();
 }
 
@@ -54,10 +40,10 @@ export async function pokeListLocal(req: Request, res: Response, next: NextFunct
 }
 
 export async function formattingLocals(_req: Request, res: Response, next: NextFunction) {
-    res.locals.getTypes = (types: string[]) => {
+    res.locals.getTypes = (types: string[]) : string=> {
         return types.join(", ");
     }
-    res.locals.convert = (num: number) => {
+    res.locals.convert = (num: number) : number => {
         return num/10;
     }
     res.locals.generation = (gen: string) => {
@@ -73,10 +59,37 @@ export async function formattingLocals(_req: Request, res: Response, next: NextF
         };
         return map[gen] || gen;
     };
-    res.locals.formatId = (id : number) => {
+    res.locals.formatId = (id : number) : string => {
         const idString : string = "000" + id.toString()
         return `#${idString.slice(-3)}`
     }
+    res.locals.getPercentAndColor = (currentHp: number, maxHp: number): string => {
+        const percent = currentHp / maxHp;
+        let color: string;
+
+        if (percent >= 0.7) {
+            color = "#008000"; // Green
+        } else if (percent >= 0.3) {
+            color = "#ffff00"; // Yellow
+        } else {
+            color = "#ff0000"; // Red
+        }
+
+        return `"width: calc(100% * ${percent}); background-color: ${color}"`;
+    };
+    res.locals.getPercent = (stat: number, statMax: number): string => {
+        return `"width: calc(100% * ${stat} / ${statMax});"`;
+    };
+    res.locals.getCompareStyling = (stat1: number, stat2: number, statMax : number): string => {
+        const percent = stat1 / statMax;
+        let color:string;
+        if(stat1 >= stat2) {
+            color = "#008000";
+        } else {
+            color = "#ff0000";
+        }
+        return `"width: calc(100% * ${percent}); background-color: ${color}"`;
+    };
     next();
 }
 

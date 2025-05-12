@@ -79,7 +79,7 @@
                 <section class="stats">
                     <p class="stats__title">HP</p>
                     <section class="bar">
-                        <section class="hp-fill fill type-<%= pokemon.types[0] %>">
+                        <section class="hp-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.hp, 250) %>>
                             <%= pokemon.hp %>
                         </section>
                     </section>
@@ -87,7 +87,7 @@
                 <section class="stats">
                     <p class="stats__title">Atk</p>
                     <section class="bar">
-                        <section class="atk-fill fill type-<%= pokemon.types[0] %>">
+                        <section class="atk-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.attack, 134) %>>
                             <%= pokemon.attack %>
                         </section>
                     </section>
@@ -96,7 +96,7 @@
                 <section class="stats">
                     <p class="stats__title">Def</p>
                     <section class="bar">
-                        <section class="def-fill fill type-<%= pokemon.types[0] %>">
+                        <section class="def-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.defense, 180) %>>
                             <%= pokemon.defense %>
                         </section>
                     </section>
@@ -105,7 +105,7 @@
                 <section class="stats">
                     <p class="stats__title">Sp.Atk</p>
                     <section class="bar">
-                        <section class="spatk-fill fill type-<%= pokemon.types[0] %>">
+                        <section class="spatk-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.special_attack, 154) %>>
                             <%= pokemon.special_attack %>
                         </section>
                     </section>
@@ -114,7 +114,7 @@
                 <section class="stats">
                     <p class="stats__title">Sp.Def</p>
                     <section class="bar">
-                        <section class="spdef-fill fill type-<%= pokemon.types[0] %>">
+                        <section class="spdef-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.special_defense, 125) %>>
                             <%= pokemon.special_defense %>
                         </section>
                     </section>
@@ -122,7 +122,7 @@
                 <section class="stats">
                     <p class="stats__title">Spd</p>
                     <section class="bar">
-                        <section class="spd-fill fill type-<%= pokemon.types[0] %>">
+                        <section class="spd-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.speed, 140) %>>
                             <%= pokemon.speed %>
                         </section>
                     </section>
