@@ -127,7 +127,7 @@ nav {
         display: none;
     }
 
-    .nav__items {
+    .nav__items p{
         position: static;
         height: auto;
         width: auto;
