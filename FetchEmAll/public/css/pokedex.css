@@ -58,14 +58,10 @@ nav {
 body {
     /* background-color: var(--blue); */
     background-image: url(../assets/background1fix.png);
-<<<<<<< HEAD
-    background-size: 50vw 100%;
-=======
     background-repeat: no-repeat;
     /* background-size: 100vh; */
     background-size: 100% 100%;
     background-attachment: fixed;
->>>>>>> ramzycss
 }
 
 .pokedex__card__left__id {
