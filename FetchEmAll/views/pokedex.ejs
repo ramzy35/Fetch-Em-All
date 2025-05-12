@@ -41,7 +41,9 @@
                 <section class="pokedex">
                     <% pokemonList.forEach(poke=> { %>
                         <a href="/pokemon?id=<%= poke.id %>" class="pokedex__card__link">
-                            <section class="pokedex__card">
+                            <section class="pokedex__card <% if (myPokeIds.includes(poke.id)) { %>
+                                green
+                            <% } %>">
                                 <section class="pokedex__card__left">
                                     <h2 class="pokedex__card__left__name">
                                         <%= poke.name %>

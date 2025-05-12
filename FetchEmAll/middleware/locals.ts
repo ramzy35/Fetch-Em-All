@@ -23,7 +23,16 @@ export async function myPokemonLocal(req:Request, res:Response, next:NextFunctio
     next();
 }
 
-export async function pokeListLocal(_req: Request, res: Response, next: NextFunction) {
+export async function pokeListLocal(req: Request, res: Response, next: NextFunction) {
+    if (req.session.user && typeof req.session.user != "undefined" && typeof req.session.user._id != "undefined") {
+        const myPokemon : FullPokemon[] = await getMyPokemon(req.session.user._id)
+        const idList : number[] = myPokemon.map((poke) => {
+            console.log(poke.id)
+            return poke.id
+        })
+        res.locals.myPokeIds = idList;
+    }
+
     const pokeList: Pokemon[] = await getAllPokemon()
     res.locals.pokemonList = pokeList
     next();
