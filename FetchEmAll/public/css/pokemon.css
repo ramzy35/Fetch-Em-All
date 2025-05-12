@@ -24,9 +24,9 @@ main {
 
 .pokestat_types {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 5px;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .pokestat__types {
@@ -38,8 +38,8 @@ main {
 .pokestat__types::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: 50%;
-    left: 40%;
+    /* bottom: 50%;
+    left: 40%; */
     transform: translateX(-50%);
     background-color: black;
     color: white;
@@ -82,7 +82,7 @@ main {
     display: flex;
     flex-direction: column;
     padding: 20px 20px;
-    width: 850px;
+    max-width: 850px;
     border-radius: 15px;
     /* background-color: var(--blue); */
     background-image: linear-gradient(to bottom, rgb(59, 197, 185) 0%, rgb(72, 197, 170) 50%, rgba(0, 0, 0, 0) 100%);
@@ -129,7 +129,7 @@ main {
     box-sizing: border-box;
     padding: 10px 20px 10px;
     border: 1px;
-    margin-left: 15px;
+    /* margin-left: 15px; */
     margin-top: 10px;
     border-radius: 4px;
 }
@@ -345,6 +345,35 @@ button {
     height: 25px;
     border-radius: 5px;
 }
+
+@media (max-width: 850px) {
+    .pokestat__stats {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (max-width: 700px) {
+    .pokestat__buttons {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .pokestat__chain {
+        margin-top: 80px;
+    }
+
+    /* .pokestat {
+        width: 500px;
+    } */
+
+    /* .pokestat__top {
+        flex-direction: column;
+        align-items: center;
+    } */
+}
+
 
 @media (max-width: 450px) {
     .pokestat__img {
