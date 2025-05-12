@@ -39,6 +39,18 @@
                 </section>
             </section>
             <% } %>
+                <section id="modal" class="modal">
+                    <section class="modal__backdrop">
+
+                    </section>
+                    <section class="modal__content">
+                        <h2>Would you like to give it a nickname?</h2>
+                        <form action="" class="form__nickname">
+                            <input type="text" id="nickname" name="nickname">
+                        </form>
+
+                    </section>
+                </section>
                 <section class="pokedex">
                     <% pokemonList.forEach(poke=> { %>
                         <a href="/pokemon?id=<%= poke.id %>" class="pokedex__card__link">

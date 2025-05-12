@@ -331,3 +331,10 @@ body {
     }
 }
 
+.form__nickname input {
+    border: 1px solid black;
+    font-family: PressStart;
+    font-size: 2rem;
+    padding: 5px 10px;
+}
+

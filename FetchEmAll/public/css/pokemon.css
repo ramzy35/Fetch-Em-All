@@ -106,10 +106,10 @@ main {
 }
 
 .small-stats {
-    padding-top: 20px;
     display: flex;
     flex-direction: row;
     gap: 10px;
+    padding: 10px 0px;
 }
 
 .small-stats i {
@@ -119,7 +119,7 @@ main {
 .pokestat__buttons {
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 10px;
 }
 
 .input__container {
@@ -130,9 +130,12 @@ main {
     padding: 10px 20px 10px;
     border: 1px;
     margin-left: 15px;
-    margin-top: 14px;
+    margin-top: 10px;
     border-radius: 4px;
+}
 
+#input__field {
+    font-size: 1.6rem;
 }
 
 .pokestat__buttons a {
@@ -158,7 +161,7 @@ main {
 
 
 button {
-    padding: 10px 20px 10px;
+    padding: 10px 0px 10px;
 }
 
 .autocomplete__item div strong {
@@ -220,7 +223,12 @@ button {
     border: 1px solid var(--black);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     padding: 10px 5px 0px 5px;
-    width: 130px;
+    width: 150px;
+    height: 150px;
+}
+
+.chain__title {
+    font-size: 1.4rem;
 }
 
 .pokestat__stats {
@@ -249,6 +257,8 @@ button {
 .bold {
     font-size: 1.6rem;
     font-weight: bold;
+    /* text-shadow: 1px 0 1px; */
+    color: rgb(73, 6, 6);
 }
 
 .times {
@@ -266,8 +276,9 @@ button {
 .type {
     border: 1px solid black;
     font-size: 1.6rem;
-    padding: 3px 3px;
+    padding: 5px 5px;
     border-radius: 3px;
+    text-transform: uppercase;
 }
 
 .stats__type {
@@ -286,7 +297,7 @@ button {
     content: attr(data-tooltip);
     position: absolute;
     bottom: 50%;
-    left: 50%;
+    left: 28%;
     transform: translateX(-50%);
     background-color: black;
     color: white;
@@ -320,7 +331,7 @@ button {
 
 .fill {
     color: white;
-    height: 20px;
+    height: 25px;
     padding: 1%;
     text-align: center;
     font-size: 1.6em;
@@ -331,7 +342,7 @@ button {
 .bar {
     background-color: var(--light-gray);
     width: 100%;
-    height: 20px;
+    height: 25px;
     border-radius: 5px;
 }
 
