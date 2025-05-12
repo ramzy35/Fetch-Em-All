@@ -21,6 +21,21 @@ export async function myPokemonLocal(req:Request, res:Response, next:NextFunctio
     }
     const myPokemon : FullPokemon[] = await getMyPokemon(res.locals.user._id)
     res.locals.myPokemon = myPokemon;
+
+    res.locals.getPercent = (currentHp: number, maxHp: number): string => {
+    const percent = currentHp / maxHp;
+    let color: string;
+
+    if (percent >= 0.7) {
+        color = "#008000"; // Green
+    } else if (percent >= 0.3) {
+        color = "#ffff00"; // Yellow
+    } else {
+        color = "#ff0000"; // Red
+    }
+
+    return `"width: calc(100% * ${currentHp} / ${maxHp}); background-color: ${color}"`;
+};
     next();
 }
 
