@@ -35,6 +35,13 @@ main {
     cursor: help;
 }
 
+.submit {
+    right: 50vw;
+}
+
+
+
+
 .pokestat__types::after {
     content: attr(data-tooltip);
     position: absolute;
