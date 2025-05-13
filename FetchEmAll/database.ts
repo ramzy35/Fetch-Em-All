@@ -160,10 +160,10 @@ export async function getCurrentPokemon(userId : ObjectId):Promise<FullPokemon> 
     let allMyPoke = await getMyPokemon(userId)
     const currentPokemon = allMyPoke.find((poke) => {
         if (poke.currentPokemon === true) {
-            return true
+            return poke
         } 
     })
-    if(currentPokemon === undefined || !currentPokemon) {
+    if(typeof currentPokemon === "undefined" || !currentPokemon) {
         throw new Error("No currentPokemon");
     } else {
         return currentPokemon;

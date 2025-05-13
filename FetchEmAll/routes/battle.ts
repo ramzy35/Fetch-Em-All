@@ -19,19 +19,10 @@ let battleState: {
 const battleRoute = express.Router();
 
 battleRoute.get("/", secureMiddleware, async (req, res) => {
-    let playerPoke : FullPokemon
-    const currentPokemon : FullPokemon = await getCurrentPokemon(res.locals.user._id)
-    if (typeof test != "undefined") {
-        playerPoke = currentPokemon
-    } else {
-        return
-    }
+    let playerPoke : FullPokemon = await getCurrentPokemon(res.locals.user._id)
     const aiPokeId : number = typeof req.query.id === "string" ? parseInt(req.query.id) : 1;
     const aiPokeLevel : number = 33
     const aiPoke : FullPokemon = await createFullPokemon(aiPokeId, aiPokeLevel)
-    // const playerPoke:MyPokemon[] = await getCurrentPokemon(1)
-    // prepareForBattle(await getPokemonById(4));
-    // const aiPoke:MyPokemon = prepareForBattle(await getPokemonById(1));
 
     const firstTurn = playerPoke.speed >= aiPoke.speed ? 'user' : 'ai';
 
@@ -82,7 +73,6 @@ battleRoute.post("/attack", (req, res) => {
     if (!defender.isFainted) {
         battleState.turn = turn === "user" ? "ai" : "user";
     }
-
     res.render("battle", {
         user: battleState.user,
         ai: battleState.ai,
@@ -153,16 +143,6 @@ function getDefenderTypeIndex(defenderTypes: string[], defenderTypeDamage: strin
     return damageIndex;
 }
 
-// battleRoute.get("/", async (req, res) => {
-//     let rawPokemon = await getPokemonById(1);
-//     const playerPoke = prepareForBattle(rawPokemon);
-//     rawPokemon = await getPokemonById(1);
-//     const squirtle = prepareForBattle(rawPokemon);
-//     res.render("battle", {
-//         user: playerPoke,
-//         ai: squirtle,
-//     });
-// });
 
 battleRoute.get("/:status", async (req, res) => {
     res.status(404);
