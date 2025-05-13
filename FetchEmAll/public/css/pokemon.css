@@ -1,10 +1,10 @@
-main {
+/*main {
     padding: 20px 0;
     background-color: var(--blue);
     background-color: var(--black);
     background: transparent;
     align-items: center;
-}
+}*/
 
 .chain__title {
     height: 50px;
@@ -62,21 +62,21 @@ main, footer {
     z-index: 1;
 }
 
-body {
+/*body {
     background-color: var(--blue);
     background-image: url(../assets/background1fix.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    /* min-height: 100vh; */
-}
+    min-height: 100vh;
+}*/
 
 
 
-main {
+/*main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
+}*/
 
 .pokestat {
     display: flex;

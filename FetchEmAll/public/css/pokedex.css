@@ -40,26 +40,26 @@
     transform: scale(1.3);
 }
 
-main {
+/*main {
     padding: 20px 0px;
     background-color: var(--blue);
     background: transparent;
-}
+}*/
 
 main, footer {
     position: relative;
     z-index: 1;
 }
 
-nav {
+/*nav {
     z-index: 2;
-}
+}*/
 
-body {
+/*body {*/
     /* background-color: var(--blue); */
-    background-image: url(../assets/background1fix.png);
+    /*background-image: url(../assets/background1fix.png);
     background-size: 50vw 100%;
-}
+}*/
 
 .pokedex__card__left__id {
     font-family: PressStart;

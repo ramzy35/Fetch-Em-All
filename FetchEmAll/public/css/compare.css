@@ -1,4 +1,7 @@
-main {
+.compare--top, .compare--second, .compare--third, .compare--fourth, .compare--fifth {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     padding: 20px 0;
     background-color: var(--blue);
     background: transparent;
@@ -9,23 +12,18 @@ main, nav, footer {
     z-index: 1;
 }
 
-body {
+/*body {
     background-color: var(--blue);
     background-image: url(../assets/background1fix.png); 
     background-repeat: no-repeat;
     background-size: 100% 100%;
-
-}
-
-main {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
+}*/
 
 .wrapper {
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 1;
     width: 850px;
     border-radius: 15px;
     background-image: linear-gradient(to bottom, rgb(59, 197, 185) 0%, rgb(72, 197, 170) 50%, rgba(0, 0, 0, 0) 100%);
@@ -122,10 +120,10 @@ main {
     padding-bottom: 1.6rem;
 }
 
-i {
+/*i {
     font-size: 2.5rem;
     color: black;
-}
+}*/
 
 .bold {
     font-size: 1.6rem;

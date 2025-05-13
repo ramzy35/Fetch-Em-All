@@ -6,12 +6,12 @@ body {
   background-size: cover;
 }
 
-main {
+/*main {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+}*/
   
 nav, footer {
   min-height: 5vh;

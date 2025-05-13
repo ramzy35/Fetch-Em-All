@@ -59,3 +59,27 @@ h3 {
 p {
   font-size: 1.6rem;
 }
+
+i {
+    font-size: 2.5rem;
+    color: black;
+}
+
+body {
+    background-color: var(--blue);
+    background-image: url(../assets/background1fix.png); 
+    background-repeat: repeat;
+    background-size: 100% 100%;
+
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0;
+    background-color: var(--blue);
+    background-color: var(--black);
+    background: transparent;
+    align-items: center;
+}
