@@ -7,10 +7,10 @@
     background: transparent;
 }
 
-main, nav, footer {
+/*main, nav, footer {
     position: relative;
     z-index: 1;
-}
+}*/
 
 /*body {
     background-color: var(--blue);

@@ -57,10 +57,10 @@
     opacity: 1;
 }
 
-main, footer {
+/*main, footer {
     position: relative;
     z-index: 1;
-}
+}*/
 
 /*body {
     background-color: var(--blue);

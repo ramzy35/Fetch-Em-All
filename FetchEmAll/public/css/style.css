@@ -83,3 +83,8 @@ main {
     background: transparent;
     align-items: center;
 }
+
+body, nav, footer {
+    position: relative;
+    z-index: 1;
+}
