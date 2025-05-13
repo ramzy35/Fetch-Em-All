@@ -32,8 +32,20 @@
         conic-gradient(from 0deg at bottom var(--b) left var(--b), var(--_g)) 0 100.5% / var(--_p),
         conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--_g)) 100.5% 100.5% / var(--_p);
     background-color: whitesmoke;
-    outline: 4px solid var(--black);
+    outline: 5px solid black;
     width: 220px;
+    transition: outline 0.2s ease-in-out;
+}
+
+.current {
+    outline: 5px solid goldenrod;
+    outline-style: ridge;
+}
+
+.myPoke__card:hover:not(.current):not(:disabled) {
+    outline: 5px solid rgba(218, 165, 32, 0.5);
+    outline-style: ridge;
+    transition: outline 0.2s ease-in-out;
 }
 
 .myPoke__img {

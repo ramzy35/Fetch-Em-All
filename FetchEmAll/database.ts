@@ -60,10 +60,10 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number):Pro
         currentPokemon: false,
         nickname: basePoke.name
     }
-    fullPoke.hp        = basePoke.hp + (pokeLevel - 1) * basePoke.hp / 50;
-    fullPoke.attack    = basePoke.attack + (pokeLevel - 1) * basePoke.attack / 50;
-    fullPoke.speed     = basePoke.speed + (pokeLevel - 1) * basePoke.speed / 50;
-    fullPoke.defense   = basePoke.defense + (pokeLevel - 1) * basePoke.defense / 50;
+    fullPoke.hp        = Math.floor(basePoke.hp + (pokeLevel - 1) * basePoke.hp / 50);
+    fullPoke.attack    = Math.floor(basePoke.attack + (pokeLevel - 1) * basePoke.attack / 50);
+    fullPoke.speed     = Math.floor(basePoke.speed + (pokeLevel - 1) * basePoke.speed / 50);
+    fullPoke.defense   = Math.floor(basePoke.defense + (pokeLevel - 1) * basePoke.defense / 50);
 
     return fullPoke
 }

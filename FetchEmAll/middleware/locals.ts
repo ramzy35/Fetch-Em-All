@@ -17,7 +17,9 @@ export async function pokeNamesLocal(_req:Request, res:Response, next:NextFuncti
 // Array of pokemon owned by user
 export async function myPokemonLocal(req:Request, res:Response, next:NextFunction){
     res.locals.user = req.session.user;
-    const myPokemon : FullPokemon[] = await getMyPokemon(res.locals.user._id)
+    const myPokemon : FullPokemon[] = await getMyPokemon(res.locals.user._id);
+
+    myPokemon.sort((a,b) => (b.currentPokemon ? 1 : 0) - (a.currentPokemon ? 1 : 0));
     res.locals.myPokemon = myPokemon;
 
     next();
