@@ -41,7 +41,7 @@
             </section>
             <section class="pokestat__buttons">
                 <button>
-                    <a href="battle.html" class="pokestat__catch">Catch</a>
+                    <a href="/battle?id=<%= pokemon.id %>" class="pokestat__catch">Catch</a>
                 </button>
                 <button type="button" id="reveal" class="submit" onclick="changeLink(event, '<%= pokemon.id%>')">
                     <a href="http://localhost:3000/compare" class="pokestat__compare"
