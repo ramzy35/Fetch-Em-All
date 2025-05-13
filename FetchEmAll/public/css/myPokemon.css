@@ -33,6 +33,7 @@
         conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--_g)) 100.5% 100.5% / var(--_p);
     background-color: whitesmoke;
     outline: 4px solid var(--black);
+    width: 220px;
 }
 
 .myPoke__img {
