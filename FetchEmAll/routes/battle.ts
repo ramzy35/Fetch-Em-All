@@ -21,7 +21,7 @@ const battleRoute = express.Router();
 battleRoute.get("/", secureMiddleware, async (req, res) => {
     let playerPoke : FullPokemon = await getCurrentPokemon(res.locals.user._id)
     const aiPokeId : number = typeof req.query.id === "string" ? parseInt(req.query.id) : 1;
-    const aiPokeLevel : number = 33
+    const aiPokeLevel : number = 1
     const aiPoke : FullPokemon = await createFullPokemon(aiPokeId, aiPokeLevel)
 
     const firstTurn = playerPoke.speed >= aiPoke.speed ? 'user' : 'ai';
@@ -52,14 +52,13 @@ battleRoute.post("/attack", (req, res) => {
     const defender = turn === "user" ? ai : user;
 
     const crit = Math.random() < 0.1 ? 1.4 : 1.0;
-    const multiplier = getDamageMultiplier(attacker, defender);
+    const multiplier = getTypeDamage(attacker, defender);
     const stab = attacker.types.includes(attacker.types[0]) ? 1.2 : 1.0;
-
+  
     const baseDamage = Math.floor(
         ((2 * attacker.level / 5 + 2) * attacker.attack * 60 / defender.defense / 50) + 2
     );
     const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
-
     defender.currentHp -= totalDamage;
     battleState.log.push(`${attacker.name} used a basic move!`);
     battleState.log.push(`It dealt ${totalDamage} damage!`);
@@ -104,8 +103,35 @@ battleRoute.post("/catch", (req, res) => {
     });
 });
 
+function getTypeDamage(attacker : FullPokemon, defender : FullPokemon) : number {
+    let mult : number = 1
+    if(defender.type_damage[0].includes(attacker.types[0])) {
+        mult *= 0
+    } else if (defender.type_damage[2].includes(attacker.types[0])) {
+        mult /= 2
+    } else if (defender.type_damage[3].includes(attacker.types[0])) {
+        mult *= 1
+    } else if (defender.type_damage[4].includes(attacker.types[0])) {
+        mult *= 2
+    }
+    if(attacker.type_damage.length === 1) {
+        return mult
+    }
+    if(defender.type_damage[0].includes(attacker.types[1])) {
+        mult *= 0
+    } else if (defender.type_damage[2].includes(attacker.types[1])) {
+        mult /= 2
+    } else if (defender.type_damage[3].includes(attacker.types[1])) {
+        mult *= 1
+    } else if (defender.type_damage[4].includes(attacker.types[1])) {
+        mult *= 2
+    }
+    return mult
+}
+
 function getDamageMultiplier(attacker: FullPokemon, defender: FullPokemon): number {
     const attackerTypes = attacker.types;
+    const TypeDamage = attacker.type_damage[4];
     const defenderTypes = defender.types;
     const defenderTypeDamage = defender.type_damage;
 

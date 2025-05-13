@@ -9,7 +9,7 @@
                 <section class="battle__hpbar--top">
                     <section class="battle__hpbar__fill--top" style=<%- getPercentAndColor(ai.currentHp, ai.hp) %>></section>
                 </section>
-                <h4 class="battle__pokemon__lvl--top">Lvl. 4</h4>
+                <h4 class="battle__pokemon__lvl--top">Lvl. <%= ai.level %></h4>
             </section>
             <section class="battle__box--top-right">
                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= ai.id %>.png" alt=""
@@ -38,9 +38,12 @@
                                 <h4 class="battle__options--top-left">Fight</h4>
                             </button>
                         </form>
-
+                        <form action="/battle/catch" method="POST">
+                            <button>
+                                <h4 class="battle__options--bottom-left">Catch</h4>
+                            </button>
+                        </form>
                         <!-- <h4 class="battle__options--top-right">Pokemon</h4> -->
-                        <h4 class="battle__options--bottom-left">Catch</h4>
                         <a href="/pokemon?id=<%= ai.id %>">
                             <h4 class="battle__options--bottom-right">Run</h4>
                             
