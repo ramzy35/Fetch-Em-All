@@ -53,7 +53,7 @@ strong {
   border-radius: 4px;
   cursor: pointer;
   position: absolute;
-  left: 35vw;
+  left: 31.5vw;
 }
 
 
@@ -167,7 +167,7 @@ strong {
 button {
   padding: 10px 20px 10px;
   color: white;
-  font-family: Aldrich;
+  font-family: PressStart;
 }
 
 
@@ -199,14 +199,12 @@ button {
 .submit_button {
   background-color: black;
   border: 1px solid black;
-  margin-left: 2px;
   border-radius: 4px;
   width: 50px;
   width: fit-content;
-  height: 30px;
-  margin-left: 5px;
+  /* height: 38px; */
   position: absolute;
-  right: 37vw;
+  right: 38vw;
 }
 
 .submit_button:hover {
@@ -220,11 +218,11 @@ button {
 .skip_button {
   background-color: black;
   border-radius: 4px;
-  height: 30px;
+  /* height: 38px; */
   margin-left: 5px;
   cursor: grab;
   position: absolute;
-  right: 32.5vw;
+  right: 31.5vw;
 }
 
 

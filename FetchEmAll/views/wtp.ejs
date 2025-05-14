@@ -16,7 +16,8 @@
     <form autocomplete="off" action="" method="post" class="wtp__form">
         <% if (answer.correct) { %>
             <div class="next_button">
-                <a href="/wtp"><button type="button">Next</button></a>
+                <button type="button"><a href="/wtp">Next</a></button>
+                <!-- <a href="/wtp"><button type="button">Next</button></a> -->
             </div>
         <% } else { %>
             <div class="input__container" style="width:300px;">
@@ -26,7 +27,8 @@
                 <button type="submit" id="reveal" name="post" value="post" class="submit">Submit</button>
             </div>
             <div class="skip_button">
-                <a href="/wtp"><button type="button">Skip</button></a>
+                <button type="button"><a href="/wtp">skip</a></button>
+                <!-- <a href="/wtp"><button type="button">Skip</button></a> -->
             </div>
         <% } %>
     </form>
