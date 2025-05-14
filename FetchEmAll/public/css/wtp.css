@@ -20,6 +20,11 @@ nav, footer {
 strong {
   font-weight: bold;
 }
+
+.answer_wrong {
+  margin: 0px 10px 0px;
+  text-align: center;
+}
   
 .wtp {
   z-index: 1;
@@ -195,6 +200,13 @@ button {
   /* height: 20px; */
 }
 
+.wtp_buttons {
+  display: flex;
+  flex-direction: row;
+  width: 500px;
+  justify-content: end;
+}
+
 
 .submit_button {
   background-color: black;
@@ -203,8 +215,7 @@ button {
   width: 50px;
   width: fit-content;
   /* height: 38px; */
-  position: absolute;
-  right: 38vw;
+  position: relative;
 }
 
 .submit_button:hover {
@@ -221,8 +232,7 @@ button {
   /* height: 38px; */
   margin-left: 5px;
   cursor: grab;
-  position: absolute;
-  right: 31.5vw;
+  position: relative;
 }
 
 
