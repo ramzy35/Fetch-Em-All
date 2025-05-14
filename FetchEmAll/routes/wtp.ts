@@ -55,7 +55,7 @@ function checkGuess(guess:string, correctPoke:string, pokeNameList:string[]):{re
             answer.correct = true;
             giveEXP();
         } else {
-            answer.response = "Incorrect, you guessed the wrong pokemon.";
+            answer.response = "Incorrect, you guessed the wrong pokemon. Try again!";
             answer.correct = false;
         }
     } else {;
