@@ -35,11 +35,6 @@ main {
     cursor: help;
 }
 
-.submit {
-    right: 50vw;
-}
-
-
 
 
 .pokestat__types::after {
