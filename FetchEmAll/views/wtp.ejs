@@ -13,25 +13,23 @@
         <p><%= answer.response %></p>
     <% } %>
 
-    <section class="wtp_button">
-        <form autocomplete="off" action="" method="post" class="wtp__form">
-            <% if (answer.correct) { %>
-                <div class="next_button">
-                    <a href="/wtp"><button type="button">Next</button></a>
-                </div>
-                <% } else { %>
-                    <div class="input__container" style="width:300px;">
-                        <input id="input__field" type="text" name="guess" placeholder="Pokemon">
-                    </div>
-                    <div class="submit_button">
-                        <button type="submit" id="reveal" name="post" value="post" class="submit">Submit</button>
-                    </div>
-                    <div class="skip_button">
-                        <a href="/wtp"><button type="button">Skip</button></a>
-                    </div>
-                <% } %>
-        </form>
-    </section>
+    <form autocomplete="off" action="" method="post" class="wtp__form">
+        <% if (answer.correct) { %>
+            <div class="next_button">
+                <a href="/wtp"><button type="button">Next</button></a>
+            </div>
+        <% } else { %>
+            <div class="input__container" style="width:300px;">
+                <input id="input__field" type="text" name="guess" placeholder="Pokemon">
+            </div>
+            <div class="submit_button">
+                <button type="submit" id="reveal" name="post" value="post" class="submit">Submit</button>
+            </div>
+            <div class="skip_button">
+                <a href="/wtp"><button type="button">Skip</button></a>
+            </div>
+        <% } %>
+    </form>
 </section>
 
 <%- include("partials/footer") %>

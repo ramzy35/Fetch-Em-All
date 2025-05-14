@@ -164,12 +164,6 @@ strong {
 
 /* ---------------------------------------------------------- */
 
-.wtp_button {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-
 button {
   padding: 10px 20px 10px;
   color: white;
