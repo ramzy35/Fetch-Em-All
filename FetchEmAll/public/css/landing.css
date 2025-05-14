@@ -13,7 +13,7 @@ header {
     color: #fff;
 }
 
-header h1 {
+/*header h1 {
     margin: 0;
 }
 
@@ -28,7 +28,7 @@ header h1 {
     text-decoration: none;
 }
 
-main {
+.main__landing {
     padding: 40px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -103,4 +103,4 @@ a.visit {
 
 a.visit:hover {
     background-color: #218838;
-}
+}*/

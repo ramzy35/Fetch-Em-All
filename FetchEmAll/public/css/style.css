@@ -88,3 +88,87 @@ body, nav, footer {
     position: relative;
     z-index: 1;
 }
+
+.types {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.type {
+    border: 1px solid black;
+    font-size: 1.6rem;
+    padding: 3px 3px;
+    border-radius: 3px;
+}
+
+.times {
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.bold {
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.fill {
+    color: white;
+    background-color: green;
+    height: 20px;
+    padding: 1%;
+    text-align: center;
+    font-size: 1.6em;
+    border-radius: 5px;
+    width: 80%;
+}
+
+.bar {
+    background-color: var(--light-gray);
+    width: 100%;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.input__container {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 10px 20px 10px;
+  border: 1px;
+  margin-left: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+}
+
+button {
+    padding: 10px 20px 10px;
+    color: white;
+}
+
+.pokestat__buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.pokestat__buttons a {
+  background-color: var(--black);
+  border-radius: 4px;
+  border-style: none;
+  box-sizing: border-box;
+  color: var(--white);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.6rem;
+  padding: 10px 20px 10px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  width: 120px;
+  /* height: 20px; */
+}
+

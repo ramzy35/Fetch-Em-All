@@ -59,7 +59,7 @@
     margin: 8px 0;
 }
 
-.fill {
+/*.fill {
     background-color: green;
     height: 20px;
     padding: 1%;
@@ -67,14 +67,14 @@
     font-size: 1.6em;
     border-radius: 5px;
     width: 80%;
-}
+}*/
 
-.bar {
+/*.bar {
     background-color: var(--light-gray);
     width: 100%;
     height: 20px;
     border-radius: 5px;
-}
+}*/
 
 .hp-fill {
     width: calc(100% * 30 / 35);

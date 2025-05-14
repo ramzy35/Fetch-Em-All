@@ -125,10 +125,10 @@
     color: black;
 }*/
 
-.bold {
+/*.bold {
     font-size: 1.6rem;
     font-weight: bold;
-}
+}*/
 
 .compare__info {
     border-radius: 5px;
@@ -244,17 +244,17 @@
     gap: 5px;
 }
 
-.type {
+/*.type {
     border: 1px solid black;
     font-size: 1.6rem;
     padding: 3px 3px;
     border-radius: 3px;
-}
+}*/
 
-.times {
+/*.times {
     padding-bottom: 5px;
     padding-top: 5px;
-}
+}*/
 
 @media (max-width: 640px) {
 
