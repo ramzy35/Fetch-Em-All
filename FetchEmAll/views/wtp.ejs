@@ -12,26 +12,28 @@
         <img src="<%= poke.front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image" draggable="false">
         <p><%= answer.response %></p>
     <% } %>
+    <section class="wtp_buttons">
+        <form autocomplete="off" action="" method="post" class="wtp__form">
+            <% if (answer.correct) { %>
+                <div class="next_button">
+                    <button type="button"><a href="/wtp">Next</a></button>
+                    <!-- <a href="/wtp"><button type="button">Next</button></a> -->
+                </div>
+            <% } else { %>
+                <div class="input__container" style="width:300px;">
+                    <input id="input__field" type="text" name="guess" placeholder="Pokemon">
+                </div>
+                <div class="submit_button">
+                    <button type="submit" id="reveal" name="post" value="post" class="submit">Submit</button>
+                </div>
+                <div class="skip_button">
+                    <button type="button"><a href="/wtp">skip</a></button>
+                    <!-- <a href="/wtp"><button type="button">Skip</button></a> -->
+                </div>
+            <% } %>
+        </form>
+    </section>
 
-    <form autocomplete="off" action="" method="post" class="wtp__form">
-        <% if (answer.correct) { %>
-            <div class="next_button">
-                <button type="button"><a href="/wtp">Next</a></button>
-                <!-- <a href="/wtp"><button type="button">Next</button></a> -->
-            </div>
-        <% } else { %>
-            <div class="input__container" style="width:300px;">
-                <input id="input__field" type="text" name="guess" placeholder="Pokemon">
-            </div>
-            <div class="submit_button">
-                <button type="submit" id="reveal" name="post" value="post" class="submit">Submit</button>
-            </div>
-            <div class="skip_button">
-                <button type="button"><a href="/wtp">skip</a></button>
-                <!-- <a href="/wtp"><button type="button">Skip</button></a> -->
-            </div>
-        <% } %>
-    </form>
 </section>
 
 <%- include("partials/footer") %>
