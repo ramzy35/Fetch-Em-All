@@ -14,25 +14,25 @@ export async function getPokemonList():Promise<type.Pokemon[]> {
 }
 
 export async function getPokemon(id:number):Promise<type.Pokemon> {
-    const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const pokemonResponse : Response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const pokemonJson = await pokemonResponse.json();
 
-    const speciesResponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
+    const speciesResponse : Response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
     const speciesJson = await speciesResponse.json();
 
-    const evolutionResponse = await fetch(speciesJson.evolution_chain.url);
+    const evolutionResponse : Response = await fetch(speciesJson.evolution_chain.url);
     const evolutionJson = await evolutionResponse.json();
-    const evolutionNames = getFullEvolutionPath(evolutionJson, pokemonJson.name);
+    const evolutionNames : string[] = getFullEvolutionPath(evolutionJson, pokemonJson.name);
 
     const types = pokemonJson.types ? pokemonJson.types.map((t: any) => t.type.name) : [];
     let combinedDamage: string[][] | null = null;
     if (types.length == 2){
         const type1 = await fetch(`https://pokeapi.co/api/v2/type/${types[0]}`);
         const type1Json = await type1.json();
-        const type1Damage = extractDamageFromTypes(type1Json);
+        const type1Damage : string[][] = extractDamageFromTypes(type1Json);
         const type2 = await fetch(`https://pokeapi.co/api/v2/type/${types[1]}`);
         const type2Json = await type2.json();
-        const type2Damage = extractDamageFromTypes(type2Json);
+        const type2Damage : string[][] = extractDamageFromTypes(type2Json);
         combinedDamage = combineDamageFromTypes(type1Damage, type2Damage);
     } else {
         const type1 = await fetch(`https://pokeapi.co/api/v2/type/${types[0]}`);
@@ -44,7 +44,7 @@ export async function getPokemon(id:number):Promise<type.Pokemon> {
     if (evolutionNames.length != 1) {
         evolutionChain = await getEvolutions(evolutionNames);
     }
-    const abilities = await getAbilityDescriptions(pokemonJson.abilities);
+    const abilities : type.AbilityDescription[]= await getAbilityDescriptions(pokemonJson.abilities);
 
     const poke:type.Pokemon = {
         name: pokemonJson.name,
