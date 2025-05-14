@@ -1,177 +1,179 @@
-// import express from "express";
-// import { Pokemon, MyPokemon } from "../interfaces";
-// import { multiplierToIndexMapper, indexToMultiplierMapper } from "../middleware/fetchPokemon"
-// import { catchPokemon, getCurrentPokemon, getPokemonById, getFullPokemon } from "../database";
-// import { exit } from "process";
+import express from "express";
+import { FullPokemon } from "../interfaces";
+import { multiplierToIndexMapper, indexToMultiplierMapper } from "../middleware/fetchPokemon"
+import { getCurrentPokemon, createFullPokemon } from "../database";
+import { secureMiddleware } from "../middleware/secureMiddleware";
 
-// let battleState: {
-//     user: MyPokemon | null;
-//     ai: MyPokemon | null;
-//     turn: 'user' | 'ai';
-//     log: string[];
-// } = {
-//     user: null,
-//     ai: null,
-//     turn: 'user',
-//     log: [],
-// };
+let battleState: {
+    user: FullPokemon | null;
+    ai: FullPokemon | null;
+    turn: 'user' | 'ai';
+    log: string[];
+} = {
+    user: null,
+    ai: null,
+    turn: 'user',
+    log: [],
+};
 
-// const battleRoute = express.Router();
+const battleRoute = express.Router();
 
-// battleRoute.get("/", async (req, res) => {
-//     let playerPoke : MyPokemon[]
-//     const currentPokemon : MyPokemon[] = await getCurrentPokemon(1)
-//     if (typeof test != "undefined") {
-//         playerPoke = currentPokemon
-//     } else {
-//         return
-//     }
-//     const aiPokeId : number = 25
-//     const aiPokeLevel : number = 33
-//     const aiPoke : MyPokemon[] = getFullPokemon(aiPokeId, 9999, aiPokeLevel)
-//     // const playerPoke:MyPokemon[] = await getCurrentPokemon(1)
-//     // prepareForBattle(await getPokemonById(4));
-//     // const aiPoke[0]:MyPokemon = prepareForBattle(await getPokemonById(1));
+battleRoute.get("/", secureMiddleware, async (req, res) => {
+    let playerPoke : FullPokemon = await getCurrentPokemon(res.locals.user._id)
+    const aiPokeId : number = typeof req.query.id === "string" ? parseInt(req.query.id) : 1;
+    const aiPokeLevel : number = 1
+    const aiPoke : FullPokemon = await createFullPokemon(aiPokeId, aiPokeLevel)
 
-//     const firstTurn = playerPoke[0].speed >= aiPoke[0].speed ? 'user' : 'ai';
+    const firstTurn = playerPoke.speed >= aiPoke.speed ? 'user' : 'ai';
 
-//     battleState = {
-//         user: playerPoke[0],
-//         ai: aiPoke[0],
-//         turn: firstTurn,
-//         log: [
-//             `A wild ${aiPoke[0].name} appeared!`,
-//             `Go! ${playerPoke[0].name}!`,
-//             `${firstTurn === 'user' ? 'You' : 'The opponent'} go first!`,
-//         ]
-//     };
+    battleState = {
+        user: playerPoke,
+        ai: aiPoke,
+        turn: firstTurn,
+        log: [
+            `A wild ${aiPoke.name} appeared!`,
+            `Go! ${playerPoke.name}!`,
+            `${firstTurn === 'user' ? 'You go' : 'The opponent goes'} first!`,
+        ]
+    };
 
-//     res.render("battle", {
-//         user: playerPoke[0],
-//         ai: aiPoke[0],
-//         log: battleState.log.join("\n")
-//     });
-// });
+    res.render("battle", {
+        user: playerPoke,
+        ai: aiPoke,
+        log: battleState.log.join("\n")
+    });
+});
 
-// battleRoute.post("/attack", (req, res) => {
-//     const { user, ai, turn } = battleState;
-//     if (!user || !ai) return res.redirect("/");
+battleRoute.post("/attack", (req, res) => {
+    const { user, ai, turn } = battleState;
+    if (!user || !ai) return res.redirect("/");
 
-//     const attacker = turn === "user" ? user : ai;
-//     const defender = turn === "user" ? ai : user;
+    const attacker = turn === "user" ? user : ai;
+    const defender = turn === "user" ? ai : user;
 
-//     const crit = Math.random() < 0.1 ? 1.4 : 1.0;
-//     const multiplier = getDamageMultiplier(attacker, defender);
-//     const stab = attacker.types.includes(attacker.types[0]) ? 1.2 : 1.0;
+    const crit = Math.random() < 0.1 ? 1.4 : 1.0;
+    const multiplier = getTypeDamage(attacker, defender);
+    const stab = attacker.types.includes(attacker.types[0]) ? 1.2 : 1.0;
+  
+    const baseDamage = Math.floor(
+        ((2 * attacker.level / 5 + 2) * attacker.attack * 60 / defender.defense / 50) + 2
+    );
+    const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
+    defender.currentHp -= totalDamage;
+    battleState.log.push(`${attacker.name} used a basic move!`);
+    battleState.log.push(`It dealt ${totalDamage} damage!`);
+    if (defender.currentHp <= 0) {
+        defender.currentHp = 0;
+        defender.isFainted = true;
+        battleState.log.push(`${defender.name} fainted!`);
+    }
 
-//     const baseDamage = Math.floor(
-//         ((((2 * attacker.level / 5 + 2) * attacker.attack * 60) / defender.defense) / 50) + 2
-//     );
-//     const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
+    // Only switch turn if both are still alive
+    if (!defender.isFainted) {
+        battleState.turn = turn === "user" ? "ai" : "user";
+    }
+    res.render("battle", {
+        user: battleState.user,
+        ai: battleState.ai,
+        log: battleState.log.join("\n")
+    });
+});
 
-//     defender.currentHp -= totalDamage;
-//     if (defender.currentHp <= 0) {
-//         defender.currentHp = 0;
-//         defender.isFainted = true;
-//         battleState.log.push(`${attacker.name} used a basic move!`);
-//         battleState.log.push(`It dealt ${totalDamage} damage!`);
-//         battleState.log.push(`${defender.name} fainted!`);
-//     } else {
-//         battleState.log.push(`${attacker.name} used a basic move!`);
-//         battleState.log.push(`It dealt ${totalDamage} damage.`);
-//     }
+battleRoute.post("/catch", (req, res) => {
+    const { ai } = battleState;
+    if (!ai) return res.redirect("/");
 
-//     // Only switch turn if both are still alive
-//     if (!defender.isFainted) {
-//         battleState.turn = turn === "user" ? "ai" : "user";
-//     }
+    const hpFactor = ai.currentHp / ai.hp; // Lower HP = easier
+    const captureChance = (ai.capture_rate / 255) * (1 - hpFactor) * 1.5;
 
-//     res.render("battle", {
-//         user: battleState.user,
-//         ai: battleState.ai,
-//         log: battleState.log.join("\n")
-//     });
-// });
+    battleState.log.push(`You threw a Pokéball...`);
+    if (Math.random() < captureChance) {
+        ai.isFainted = true;
+        battleState.log.push(`Gotcha! ${ai.name} was caught!`);
+    } else {
+        battleState.log.push(`${ai.name} broke free!`);
+        // Switch turn to AI if still alive
+        if (!ai.isFainted) {battleState.turn = "ai";}
+    }
 
-// battleRoute.post("/catch", (req, res) => {
-//     const { ai } = battleState;
-//     if (!ai) return res.redirect("/");
+    res.render("battle", {
+        user: battleState.user,
+        ai: battleState.ai,
+        log: battleState.log.join("\n")
+    });
+});
 
-//     const hpFactor = ai.currentHp / ai.hp; // Lower HP = easier
-//     const captureChance = (ai.capture_rate / 255) * (1 - hpFactor) * 1.5;
+function getTypeDamage(attacker : FullPokemon, defender : FullPokemon) : number {
+    let mult : number = 1
+    if(defender.type_damage[0].includes(attacker.types[0])) {
+        mult *= 0
+    } else if (defender.type_damage[2].includes(attacker.types[0])) {
+        mult /= 2
+    } else if (defender.type_damage[3].includes(attacker.types[0])) {
+        mult *= 1
+    } else if (defender.type_damage[4].includes(attacker.types[0])) {
+        mult *= 2
+    }
+    if(attacker.type_damage.length === 1) {
+        return mult
+    }
+    if(defender.type_damage[0].includes(attacker.types[1])) {
+        mult *= 0
+    } else if (defender.type_damage[2].includes(attacker.types[1])) {
+        mult /= 2
+    } else if (defender.type_damage[3].includes(attacker.types[1])) {
+        mult *= 1
+    } else if (defender.type_damage[4].includes(attacker.types[1])) {
+        mult *= 2
+    }
+    return mult
+}
 
-//     if (Math.random() < captureChance) {
-//         ai.isFainted = true;
-//         battleState.log.push(`You threw a Pokéball...`);
-//         battleState.log.push(`Gotcha! ${ai.name} was caught!`);
-//     } else {
-//         battleState.log.push(`You threw a Pokéball...`);
-//         battleState.log.push(`${ai.name} broke free!`);
-//         // Switch turn to AI if still alive
-//         if (!ai.isFainted) battleState.turn = "ai";
-//     }
+function getDamageMultiplier(attacker: FullPokemon, defender: FullPokemon): number {
+    const attackerTypes = attacker.types;
+    const TypeDamage = attacker.type_damage[4];
+    const defenderTypes = defender.types;
+    const defenderTypeDamage = defender.type_damage;
 
-//     res.render("battle", {
-//         user: battleState.user,
-//         ai: battleState.ai,
-//         log: battleState.log.join("\n")
-//     });
-// });
+    let damageMultiplier = 1;
 
-// function getDamageMultiplier(attacker: MyPokemon, defender: MyPokemon): number {
-//     const attackerTypes = attacker.types;
-//     const defenderTypes = defender.types;
-//     const defenderTypeDamage = defender.type_damage;
+    if (attackerTypes.length === 1) {
+        const attackerType = attackerTypes[0];
+        const defenderIndex = getDefenderTypeIndex(defenderTypes, defenderTypeDamage);
+        if (defenderIndex >= 0)
+        {
+            damageMultiplier *= indexToMultiplierMapper(defenderIndex);
+        }
+    }
+    else if (attackerTypes.length === 2) {
+        const randomTypeIndex = Math.floor(Math.random() * 2);
+        const attackerType = attackerTypes[randomTypeIndex];
+        const defenderIndex = getDefenderTypeIndex(defenderTypes, defenderTypeDamage);
+        if (defenderIndex >= 0)
+        {
+            damageMultiplier *= indexToMultiplierMapper(defenderIndex);
+        }
+    }
+    return damageMultiplier;
+}
 
-//     let damageMultiplier = 1;
+function getDefenderTypeIndex(defenderTypes: string[], defenderTypeDamage: string[][]): number {
+    let damageIndex = -1;
+    for (const defenderType of defenderTypes) {
+        const typeIndex = defenderTypeDamage.findIndex((damageArr) => damageArr.includes(defenderType));
+        if (typeIndex !== -1) {
+            damageIndex = typeIndex;
+            break;
+        }
+    }
+    return damageIndex;
+}
 
-//     if (attackerTypes.length === 1) {
-//         const attackerType = attackerTypes[0];
-//         const defenderIndex = getDefenderTypeIndex(defenderTypes, defenderTypeDamage);
-//         if (defenderIndex >= 0)
-//         {
-//             damageMultiplier *= indexToMultiplierMapper(defenderIndex);
-//         }
-//     }
-//     else if (attackerTypes.length === 2) {
-//         const randomTypeIndex = Math.floor(Math.random() * 2);
-//         const attackerType = attackerTypes[randomTypeIndex];
-//         const defenderIndex = getDefenderTypeIndex(defenderTypes, defenderTypeDamage);
-//         if (defenderIndex >= 0)
-//         {
-//             damageMultiplier *= indexToMultiplierMapper(defenderIndex);
-//         }
-//     }
-//     return damageMultiplier;
-// }
 
-// function getDefenderTypeIndex(defenderTypes: string[], defenderTypeDamage: string[][]): number {
-//     let damageIndex = -1;
-//     for (const defenderType of defenderTypes) {
-//         const typeIndex = defenderTypeDamage.findIndex((damageArr) => damageArr.includes(defenderType));
-//         if (typeIndex !== -1) {
-//             damageIndex = typeIndex;
-//             break;
-//         }
-//     }
-//     return damageIndex;
-// }
+battleRoute.get("/:status", async (req, res) => {
+    res.status(404);
+    res.locals.currentPage = "404"
+    res.render("404");
+})
 
-// battleRoute.get("/", async (req, res) => {
-//     let rawPokemon = await getPokemonById(1);
-//     const playerPoke[0] = prepareForBattle(rawPokemon);
-//     rawPokemon = await getPokemonById(1);
-//     const squirtle = prepareForBattle(rawPokemon);
-//     res.render("battle", {
-//         user: playerPoke[0],
-//         ai: squirtle,
-//     });
-// });
-
-// battleRoute.get("/:status", async (req, res) => {
-//     res.status(404);
-//     res.locals.currentPage = "404"
-    // res.render("404");
-// })
-
-// export default battleRoute;
+export default battleRoute;
