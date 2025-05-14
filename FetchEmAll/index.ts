@@ -6,7 +6,7 @@ import wtpRoute from "./routes/wtp";
 import pokemonRoute from "./routes/pokemon";
 import compareRoute from "./routes/compare";
 import myPokemonRoute from "./routes/myPokemon";
-// import battleRoute from "./routes/battle";
+import battleRoute from "./routes/battle";
 import landingRoute from "./routes/landing";
 import signInRoute from "./routes/signIn";
 import signUpRoute from "./routes/signUp";
@@ -38,7 +38,7 @@ app.use("/myPokemon", myPokemonRoute);
 app.use("/", landingRoute);
 app.use("/signin", signInRoute);
 app.use("/signup", signUpRoute);
-// app.use("/battle", battleRoute);    
+app.use("/battle", battleRoute);    
 
 app.get("/:status", async (req, res) => {
     res.status(404);

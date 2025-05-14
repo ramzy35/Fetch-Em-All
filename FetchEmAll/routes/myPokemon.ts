@@ -1,4 +1,5 @@
 import express from "express";
+import { ObjectId } from "mongodb";
 import { catchPokemon, changeCurrentPokemon, getCurrentPokemon, getUserById } from "../database";
 import { myPokemonLocal } from "../middleware/locals";
 import { secureMiddleware } from "../middleware/secureMiddleware";
@@ -20,13 +21,13 @@ myPokemonRoute.get("/:status", async (req, res) => {
 });
 
 myPokemonRoute.post("/change", async (req, res) => {
-    const { pokeId } = req.body;
-    const userId = req.session.user?._id;
+    const  pokeId : number = parseInt(req.body.pokeId);
+    const userId : ObjectId | undefined = req.session.user?._id;
     if (!userId) {
         return res.status(401).render("401");
     }
 
-    await changeCurrentPokemon(Number(pokeId), userId);
+    await changeCurrentPokemon(pokeId, userId);
     res.redirect("/myPokemon"); // Redirect back to the list
 });
 
