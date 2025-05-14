@@ -1,7 +1,7 @@
 import express from "express";
 import { FullPokemon } from "../interfaces";
 import { multiplierToIndexMapper, indexToMultiplierMapper } from "../middleware/fetchPokemon"
-import { getCurrentPokemon, createFullPokemon } from "../database";
+import { getCurrentPokemon, createFullPokemon, catchPokemon } from "../database";
 import { secureMiddleware } from "../middleware/secureMiddleware";
 
 let battleState: {
@@ -79,7 +79,7 @@ battleRoute.post("/attack", (req, res) => {
     });
 });
 
-battleRoute.post("/catch", (req, res) => {
+battleRoute.post("/catch", secureMiddleware, async (req, res) => {
     const { ai } = battleState;
     if (!ai) return res.redirect("/");
 
@@ -89,6 +89,7 @@ battleRoute.post("/catch", (req, res) => {
     battleState.log.push(`You threw a Pokéball...`);
     if (Math.random() < captureChance) {
         ai.isFainted = true;
+        await catchPokemon(ai.id, res.locals.user._id, ai.level)
         battleState.log.push(`Gotcha! ${ai.name} was caught!`);
     } else {
         battleState.log.push(`${ai.name} broke free!`);
