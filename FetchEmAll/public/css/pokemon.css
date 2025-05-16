@@ -87,8 +87,7 @@ main {
     padding: 20px 20px;
     max-width: 850px;
     border-radius: 15px;
-    /* background-color: var(--blue); */
-    background-image: linear-gradient(to bottom, rgb(59, 197, 185) 0%, rgb(72, 197, 170) 50%, rgba(0, 0, 0, 0) 100%);
+    background-image: linear-gradient(to bottom, oklch(78.9% 0.154 211.53) 0%, oklch(78.9% 0.154 211.53) 50%, rgba(0, 0, 0, 0) 100%);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 
 }
