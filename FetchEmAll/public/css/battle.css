@@ -242,6 +242,28 @@ body {
     cursor: pointer;
 }
 
+#battle-log {
+    display: inline; /* or inline-block */
+}
+  
+.blinker {
+    animation: blink 1s infinite;
+    font-size: 1.5rem;
+    color: white;
+    margin-left: 4px;
+    display: inline; /* keep it inline */
+}
+  
+.hidden {
+    display: none;
+}
+  
+  @keyframes blink {
+    0%   { opacity: 1; }
+    50%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
 @media all and (max-width: 600px) {
     .battle {
         position: relative;

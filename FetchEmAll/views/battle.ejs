@@ -29,16 +29,19 @@
             </section>
             <section class="battle__bottom-menu">
                 <section class="battle-text battle__text-box-left">
-                    <p><%=log%></p>
+                    <p id="battle-log"></p>
+                    <span id="blinker" class="blinker hidden">▶</span>
                 </section>
                 <section class="battle__text-box-right">
                     <section class="battle__options">
                         <form action="/battle/attack" method="POST">
+                            <input type="hidden" name="lastLogIndex" value="<%= logLength %>">
                             <button>
                                 <h4 class="battle__options--top-left">Fight</h4>
                             </button>
                         </form>
                         <form action="/battle/catch" method="POST">
+                            <input type="hidden" name="lastLogIndex" value="<%= logLength %>">
                             <button>
                                 <h4 class="battle__options--bottom-left">Catch</h4>
                                 <input type="hidden" name="pokeId" value="<%= ai.id %>">
@@ -55,6 +58,53 @@
             </section>
         </section>
     </section>
+    <script>
+        const logMessages = <%- JSON.stringify(log.split("\n")) %>;
+        let currentLogIndex = 0;
+        const logElement = document.getElementById("battle-log");
+        const blinker = document.getElementById("blinker");
+        const buttons = document.querySelectorAll(".battle__options button");
+    
+        // Disable buttons while typing
+        buttons.forEach(btn => btn.disabled = true);
+        blinker.classList.add("hidden");
+    
+        function typeWriter(text, i = 0, callback) {
+            if (i < text.length) {
+                logElement.textContent += text.charAt(i);
+                setTimeout(() => typeWriter(text, i + 1, callback), 50);
+            } else {
+                callback();
+            }
+        }
+    
+        function displayNextLog() {
+            if (currentLogIndex >= logMessages.length) {
+                buttons.forEach(btn => btn.disabled = false);
+                blinker.classList.remove("hidden");
+                return;
+            }
+    
+            logElement.textContent = "";
+            blinker.classList.add("hidden");
+    
+            typeWriter(logMessages[currentLogIndex], 0, () => {
+                currentLogIndex++;
+                setTimeout(displayNextLog, 1200);
+            });
+        }
+    
+        window.addEventListener("DOMContentLoaded", () => {
+            displayNextLog();
+        });
+    
+        // Hide blinker on user action
+        document.querySelectorAll("form").forEach(form => {
+            form.addEventListener("submit", () => {
+                blinker.classList.add("hidden");
+            });
+        });
+    </script>
 </body>
 
 </html>

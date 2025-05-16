@@ -40,11 +40,13 @@ battleRoute.get("/", secureMiddleware, async (req, res) => {
     res.render("battle", {
         user: playerPoke,
         ai: aiPoke,
-        log: battleState.log.join("\n")
+        log: battleState.log.join("\n"),
+        logLength: battleState.log.length,
     });
 });
 
 battleRoute.post("/attack", (req, res) => {
+    const lastLogIndex = parseInt(req.body.lastLogIndex || "0");
     const { user, ai, turn } = battleState;
     if (!user || !ai) return res.redirect("/");
 
@@ -68,19 +70,21 @@ battleRoute.post("/attack", (req, res) => {
         battleState.log.push(`${defender.name} fainted!`);
     }
 
-    // Only switch turn if both are still alive
     if (!defender.isFainted) {
         battleState.turn = turn === "user" ? "ai" : "user";
     }
+    const newLog = battleState.log.slice(lastLogIndex);
     res.render("battle", {
         user: battleState.user,
         ai: battleState.ai,
-        log: battleState.log.join("\n")
+        log: newLog.join("\n"),
+        logLength: battleState.log.length,
     });
 });
 
 battleRoute.post("/catch", secureMiddleware, async (req, res) => {
     const { ai } = battleState;
+    const lastLogIndex = parseInt(req.body.lastLogIndex || "0");
     if (!ai) return res.redirect("/");
 
     const hpFactor = ai.currentHp / ai.hp; // Lower HP = easier
@@ -96,11 +100,13 @@ battleRoute.post("/catch", secureMiddleware, async (req, res) => {
         // Switch turn to AI if still alive
         if (!ai.isFainted) {battleState.turn = "ai";}
     }
+    const newLog = battleState.log.slice(lastLogIndex);
 
     res.render("battle", {
         user: battleState.user,
         ai: battleState.ai,
-        log: battleState.log.join("\n")
+        log: newLog.join("\n"),
+        logLength: battleState.log.length
     });
 });
 

@@ -48,6 +48,10 @@ export async function getPokemonById(id:number):Promise<Pokemon> {
 // FULL POKEMON //
 //////////////////
 
+function scaleStat(base: number, level: number): number {
+    return Math.floor(base + (level - 1) * base / 50);
+}
+
 // Add all needed stats and increase stats to add Pokemon to user
 export async function createFullPokemon(pokeId : number, pokeLevel : number):Promise<FullPokemon> {
     const basePoke:Pokemon = await getPokemonById(pokeId)
@@ -60,10 +64,10 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number):Pro
         currentPokemon: false,
         nickname: basePoke.name
     }
-    fullPoke.hp        = Math.floor(basePoke.hp + (pokeLevel - 1) * basePoke.hp / 50);
-    fullPoke.attack    = Math.floor(basePoke.attack + (pokeLevel - 1) * basePoke.attack / 50);
-    fullPoke.speed     = Math.floor(basePoke.speed + (pokeLevel - 1) * basePoke.speed / 50);
-    fullPoke.defense   = Math.floor(basePoke.defense + (pokeLevel - 1) * basePoke.defense / 50);
+    fullPoke.hp        = scaleStat(basePoke.hp, pokeLevel);
+    fullPoke.attack    = scaleStat(basePoke.attack, pokeLevel);
+    fullPoke.speed     = scaleStat(basePoke.speed, pokeLevel);
+    fullPoke.defense   = scaleStat(basePoke.defense, pokeLevel);
 
     return fullPoke
 }
