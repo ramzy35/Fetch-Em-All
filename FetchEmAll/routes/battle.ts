@@ -50,30 +50,64 @@ battleRoute.post("/attack", (req, res) => {
     const { user, ai, turn } = battleState;
     if (!user || !ai) return res.redirect("/");
 
-    const attacker = turn === "user" ? user : ai;
-    const defender = turn === "user" ? ai : user;
+    console.log(`User clicked Attack. Current turn: ${turn}`);
 
-    const crit = Math.random() < 0.1 ? 1.4 : 1.0;
-    const multiplier = getTypeDamage(attacker, defender);
-    const stab = attacker.types.includes(attacker.types[0]) ? 1.2 : 1.0;
-  
-    const baseDamage = Math.floor(
-        ((2 * attacker.level / 5 + 2) * attacker.attack * 60 / defender.defense / 50) + 2
-    );
-    const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
-    defender.currentHp -= totalDamage;
-    battleState.log.push(`${attacker.name} used a basic move!`);
-    battleState.log.push(`It dealt ${totalDamage} damage!`);
-    if (defender.currentHp <= 0) {
-        defender.currentHp = 0;
-        defender.isFainted = true;
-        battleState.log.push(`${defender.name} fainted!`);
+    const logs: string[] = [];
+
+    const performAttack = (attacker: FullPokemon, defender: FullPokemon, isAI: boolean = false) => {
+        const crit = Math.random() < 0.1 ? 1.4 : 1.0;
+        const multiplier = getTypeDamage(attacker, defender);
+        const stab = attacker.types.includes(attacker.types[0]) ? 1.2 : 1.0;
+
+        const baseDamage = Math.floor(
+            ((2 * attacker.level / 5 + 2) * attacker.attack * 60 / defender.defense / 50) + 2
+        );
+        const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
+        defender.currentHp -= totalDamage;
+
+        console.log(`${attacker.name} attacked ${defender.name} for ${totalDamage} damage.`);
+
+        if (attacker.abilities && attacker.abilities.length > 0 && Math.random() < 0.5) {
+            const ability = attacker.abilities[Math.floor(Math.random() * attacker.abilities.length)];
+            battleState.log.push(`${attacker.name} used ${ability.name}!`);
+            console.log(`${attacker.name} triggered ability: ${ability.name}`);
+        } else {
+            battleState.log.push(`${attacker.name} attacked!`);
+            console.log(`${attacker.name} used a regular attack.`);
+        }
+        logs.push(`It dealt ${totalDamage} damage!`);
+
+        if (defender.currentHp <= 0) {
+            defender.currentHp = 0;
+            defender.isFainted = true;
+            logs.push(`${defender.name} fainted!`);
+            console.log(`${defender.name} has fainted.`);
+        }
+
+        return !defender.isFainted;
+    };
+
+    if (turn === "user") {
+        performAttack(user, ai);
+        if (!ai.isFainted) {
+            battleState.turn = "ai";
+        }
     }
 
-    if (!defender.isFainted) {
-        battleState.turn = turn === "user" ? "ai" : "user";
+    // If AI’s turn now
+    if (battleState.turn === "ai" && !ai.isFainted) {
+        console.log(`AI turn begins.`);
+        performAttack(ai, user, true);
+        if (!user.isFainted) {
+            battleState.turn = "user";
+        }
     }
+
+    battleState.log.push(...logs);
     const newLog = battleState.log.slice(lastLogIndex);
+
+    console.log(`Turn ends. New turn: ${battleState.turn}`);
+
     res.render("battle", {
         user: battleState.user,
         ai: battleState.ai,
@@ -83,24 +117,70 @@ battleRoute.post("/attack", (req, res) => {
 });
 
 battleRoute.post("/catch", secureMiddleware, async (req, res) => {
-    const { ai } = battleState;
+    const { user, ai, turn } = battleState;
     const lastLogIndex = parseInt(req.body.lastLogIndex || "0");
-    if (!ai) return res.redirect("/");
+    if (!user || !ai) {
+        console.error("User or AI Pokémon missing in battle state.");
+        return res.redirect("/");
+    }
 
-    const hpFactor = ai.currentHp / ai.hp; // Lower HP = easier
+    const logs: string[] = [];
+    console.log(`User attempted to catch ${ai.name}`);
+
+    const hpFactor = ai.currentHp / ai.hp;
     const captureChance = (ai.capture_rate / 255) * (1 - hpFactor) * 1.5;
 
-    battleState.log.push(`You threw a Pokéball...`);
+    logs.push(`You threw a Pokeball...`);
+
     if (Math.random() < captureChance) {
         ai.isFainted = true;
-        await catchPokemon(ai.id, res.locals.user._id, ai.level)
-        battleState.log.push(`Gotcha! ${ai.name} was caught!`);
+        await catchPokemon(ai.id, res.locals.user._id, ai.level);
+        logs.push(`Gotcha! ${ai.name} was caught!`);
+        console.log(`✅ Catch succeeded: ${ai.name} was caught.`);
+        res.redirect("/myPokemon");
     } else {
-        battleState.log.push(`${ai.name} broke free!`);
-        // Switch turn to AI if still alive
-        if (!ai.isFainted) {battleState.turn = "ai";}
+        logs.push(`${ai.name} broke free!`);
+        console.log(`❌ Catch failed: ${ai.name} broke free.`);
+        battleState.turn = "ai";
     }
+
+    // If AI’s turn now
+    if (battleState.turn === "ai" && !ai.isFainted) {
+        console.log(`AI turn after failed catch.`);
+        const attacker = ai;
+        const defender = user;
+
+        const crit = Math.random() < 0.1 ? 1.4 : 1.0;
+        const multiplier = getTypeDamage(attacker, defender);
+        const stab = attacker.types.includes(attacker.types[0]) ? 1.2 : 1.0;
+
+        const baseDamage = Math.floor(
+            ((2 * attacker.level / 5 + 2) * attacker.attack * 60 / defender.defense / 50) + 2
+        );
+        const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
+        defender.currentHp -= totalDamage;
+
+        logs.push(`${attacker.name} attacked!`);
+        logs.push(`It dealt ${totalDamage} damage!`);
+
+        console.log(`${attacker.name} attacked ${defender.name} for ${totalDamage} damage.`);
+
+        if (defender.currentHp <= 0) {
+            defender.currentHp = 0;
+            defender.isFainted = true;
+            logs.push(`${defender.name} fainted!`);
+            console.log(`${defender.name} has fainted.`);
+        }
+
+        if (!defender.isFainted) {
+            battleState.turn = "user";
+        }
+    }
+
+    battleState.log.push(...logs);
     const newLog = battleState.log.slice(lastLogIndex);
+
+    console.log(`Turn ends. New turn: ${battleState.turn}`);
 
     res.render("battle", {
         user: battleState.user,

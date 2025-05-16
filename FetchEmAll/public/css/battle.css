@@ -377,3 +377,23 @@ body {
 
 
 }
+
+@keyframes attackMove {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes attackMoveReverse {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-20px); }
+  100% { transform: translateX(0); }
+}
+
+.attack-anim {
+  animation: attackMove 0.4s ease forwards;
+}
+
+.attack-anim-reverse {
+  animation: attackMoveReverse 0.4s ease forwards;
+}
