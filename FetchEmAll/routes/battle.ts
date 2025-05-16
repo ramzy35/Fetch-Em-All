@@ -37,6 +37,15 @@ battleRoute.get("/", secureMiddleware, async (req, res) => {
         ]
     };
 
+    const logs: string[] = [];
+
+    if (firstTurn === 'ai') {
+        const logs: string[] = [];
+        performAttack(aiPoke, playerPoke, logs, true);
+        battleState.log.push(...logs);
+        battleState.turn = 'user';
+    }
+
     res.render("battle", {
         user: playerPoke,
         ai: aiPoke,
@@ -45,7 +54,7 @@ battleRoute.get("/", secureMiddleware, async (req, res) => {
     });
 });
 
-const performAttack = (attacker: FullPokemon, defender: FullPokemon, logs: string[]): boolean => {
+function performAttack(attacker: FullPokemon, defender: FullPokemon, logs: string[], isAI: boolean = false): boolean {
     const crit = Math.random() < 0.1 ? 1.4 : 1.0;
     const multiplier = getTypeDamage(attacker, defender);
     const stab = attacker.types.includes(attacker.types[0]) ? 1.2 : 1.0;
@@ -66,7 +75,6 @@ const performAttack = (attacker: FullPokemon, defender: FullPokemon, logs: strin
         logs.push(`${attacker.name} attacked!`);
         console.log(`${attacker.name} used a regular attack.`);
     }
-
     logs.push(`It dealt ${totalDamage} damage!`);
 
     if (defender.currentHp <= 0) {
@@ -77,7 +85,7 @@ const performAttack = (attacker: FullPokemon, defender: FullPokemon, logs: strin
     }
 
     return !defender.isFainted;
-};
+}
 
 battleRoute.post("/attack", (req, res) => {
     const lastLogIndex = parseInt(req.body.lastLogIndex || "0");

@@ -85,13 +85,11 @@
             const userImg = document.getElementById("user-pokemon-img");
 
             if (attacker === "user") {
-                console.log("added animation user");
                 userImg.classList.add("attack-anim");
                 userImg.addEventListener("animationend", () => {
                     userImg.classList.remove("attack-anim");
                 }, { once: true });
             } else {
-                console.log("added animation ai");
                 aiImg.classList.add("attack-anim-reverse");
                 aiImg.addEventListener("animationend", () => {
                     aiImg.classList.remove("attack-anim-reverse");
