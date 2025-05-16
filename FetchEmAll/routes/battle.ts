@@ -45,6 +45,40 @@ battleRoute.get("/", secureMiddleware, async (req, res) => {
     });
 });
 
+const performAttack = (attacker: FullPokemon, defender: FullPokemon, logs: string[]): boolean => {
+    const crit = Math.random() < 0.1 ? 1.4 : 1.0;
+    const multiplier = getTypeDamage(attacker, defender);
+    const stab = attacker.types.includes(attacker.types[0]) ? 1.2 : 1.0;
+
+    const baseDamage = Math.floor(
+        ((2 * attacker.level / 5 + 2) * attacker.attack * 60 / defender.defense / 50) + 2
+    );
+    const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
+    defender.currentHp -= totalDamage;
+
+    console.log(`${attacker.name} attacked ${defender.name} for ${totalDamage} damage.`);
+
+    if (attacker.abilities && attacker.abilities.length > 0 && Math.random() < 0.5) {
+        const ability = attacker.abilities[Math.floor(Math.random() * attacker.abilities.length)];
+        logs.push(`${attacker.name} used ${ability.name}!`);
+        console.log(`${attacker.name} triggered ability: ${ability.name}`);
+    } else {
+        logs.push(`${attacker.name} attacked!`);
+        console.log(`${attacker.name} used a regular attack.`);
+    }
+
+    logs.push(`It dealt ${totalDamage} damage!`);
+
+    if (defender.currentHp <= 0) {
+        defender.currentHp = 0;
+        defender.isFainted = true;
+        logs.push(`${defender.name} fainted!`);
+        console.log(`${defender.name} has fainted.`);
+    }
+
+    return !defender.isFainted;
+};
+
 battleRoute.post("/attack", (req, res) => {
     const lastLogIndex = parseInt(req.body.lastLogIndex || "0");
     const { user, ai, turn } = battleState;
@@ -54,56 +88,23 @@ battleRoute.post("/attack", (req, res) => {
 
     const logs: string[] = [];
 
-    const performAttack = (attacker: FullPokemon, defender: FullPokemon, isAI: boolean = false) => {
-        const crit = Math.random() < 0.1 ? 1.4 : 1.0;
-        const multiplier = getTypeDamage(attacker, defender);
-        const stab = attacker.types.includes(attacker.types[0]) ? 1.2 : 1.0;
-
-        const baseDamage = Math.floor(
-            ((2 * attacker.level / 5 + 2) * attacker.attack * 60 / defender.defense / 50) + 2
-        );
-        const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
-        defender.currentHp -= totalDamage;
-
-        console.log(`${attacker.name} attacked ${defender.name} for ${totalDamage} damage.`);
-
-        if (attacker.abilities && attacker.abilities.length > 0 && Math.random() < 0.5) {
-            const ability = attacker.abilities[Math.floor(Math.random() * attacker.abilities.length)];
-            battleState.log.push(`${attacker.name} used ${ability.name}!`);
-            console.log(`${attacker.name} triggered ability: ${ability.name}`);
-        } else {
-            battleState.log.push(`${attacker.name} attacked!`);
-            console.log(`${attacker.name} used a regular attack.`);
-        }
-        logs.push(`It dealt ${totalDamage} damage!`);
-
-        if (defender.currentHp <= 0) {
-            defender.currentHp = 0;
-            defender.isFainted = true;
-            logs.push(`${defender.name} fainted!`);
-            console.log(`${defender.name} has fainted.`);
-        }
-
-        return !defender.isFainted;
-    };
-
     if (turn === "user") {
-        performAttack(user, ai);
-        if (!ai.isFainted) {
+        const stillAlive = performAttack(user, ai, logs);
+        battleState.log.push(...logs);
+        if (stillAlive) {
             battleState.turn = "ai";
         }
     }
 
-    // If AI’s turn now
     if (battleState.turn === "ai" && !ai.isFainted) {
-        console.log(`AI turn begins.`);
-        performAttack(ai, user, true);
-        if (!user.isFainted) {
+        logs.length = 0; // clear logs for AI turn
+        const stillAlive = performAttack(ai, user, logs);
+        battleState.log.push(...logs);
+        if (stillAlive) {
             battleState.turn = "user";
         }
     }
 
-    battleState.log.push(...logs);
     const newLog = battleState.log.slice(lastLogIndex);
 
     console.log(`Turn ends. New turn: ${battleState.turn}`);
