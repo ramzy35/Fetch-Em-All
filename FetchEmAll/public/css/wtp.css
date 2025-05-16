@@ -21,7 +21,7 @@ strong {
   font-weight: bold;
 }
 
-.answer_wron, .wtp__p {
+.answer_wrong, .wtp__p {
   margin: 0px 10px 0px;
   text-align: center;
 }
