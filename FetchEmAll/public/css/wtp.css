@@ -21,15 +21,14 @@ strong {
   font-weight: bold;
 }
 
-.answer_wrong {
+.answer_wron, .wtp__p {
   margin: 0px 10px 0px;
   text-align: center;
 }
   
 .wtp {
   z-index: 1;
-  min-height: 87vh;
-  width: 600px;
+  max-width: 850px;
   background-image: linear-gradient(to bottom, rgb(118, 195, 31) 0%, rgb(72, 197, 170) 50%, rgb(222, 210, 210) 100%);
   display: flex;
   flex-direction: column;
@@ -37,6 +36,8 @@ strong {
   align-items: center;
   justify-content: center;
   border-radius: 15px;
+  margin: 20px;
+  margin-bottom: 40px;
 }
   
   
@@ -49,16 +50,15 @@ strong {
 }
 
 .input__container {
-  background-color: rgb(255, 255, 255);
-  display: inline-block;
-  box-sizing: border-box;
-  padding: 10px 20px 10px;
-  border: 1px;
-  margin-left: 15px;
+  background-color: white;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  cursor: pointer;
-  position: absolute;
-  left: 31.5vw;
+  cursor: text;
+  max-width: 500px;
+  min-width: 250px;
+  box-sizing: border-box;
+  /* position: absolute; */
 }
 
 
@@ -71,17 +71,21 @@ strong {
 
   
 .wtp__image {
-  z-index: inherit;
-  height: 70vh;
-  width: 70vh;
+  width: 100%;
+  height: auto;
   filter: brightness(0%);
+  display: block;
+}
+
+.submit, .skip_button, .next {
+  max-height: 38px;
 }
   
 .wtp__image--revealPokemon {
   animation: revealPokemon 5s ease-in-out 0s 1;
   z-index: inherit;
-  height: 70vh;
-  width: 70vh;
+  max-width: 850px;
+  min-width: 600px;
 }
   
 @keyframes revealPokemon {
@@ -92,31 +96,7 @@ strong {
     filter: brightness(100%) !important;
   }
 }
-  
-@media only screen and (max-width: 620px) {
-  
-  .wtp__image, .wtp__image--revealPokemon{
-    width: 500px;
-    height: 500px;
-  }
-}
-  
-@media only screen and (max-width: 520px) {
-  
-  .wtp__image, .wtp__image--revealPokemon {
-    width: 400px;
-    height: 400px;
-  }
-}
-  
-@media only screen and (max-width: 420px) {
-  
-  .wtp__image, .wtp__image--revealPokemon {
-    width: 300px;
-    height: 300px;
-  }
-}
-  
+ 
 
 /* Disable selecting of image to make sure you can't cheat */
 
@@ -133,9 +113,13 @@ strong {
 
 .wtp__form {
   margin-top: 2rem;
+  position: relative;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-around;
+  padding: 20px;
 }
   
 .wtp__form__input__container {
@@ -175,6 +159,16 @@ button {
   font-family: PressStart;
 }
 
+.next {
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 4px;
+  width: 50px;
+  width: fit-content;
+  /* height: 38px; */
+  position: relative;
+  max-height: 38px;
+}
 
 .pokestat__buttons {
   display: flex;
@@ -200,11 +194,16 @@ button {
   /* height: 20px; */
 }
 
-.wtp_buttons {
+/* .wtp_buttons {
   display: flex;
   flex-direction: row;
   width: 500px;
   justify-content: end;
+} */
+
+.wtp__form {
+  display: flex;
+  flex-direction: row;
 }
 
 
@@ -216,6 +215,7 @@ button {
   width: fit-content;
   /* height: 38px; */
   position: relative;
+  max-height: 38px;
 }
 
 .submit_button:hover {
@@ -281,10 +281,4 @@ button {
   
 .autocomplete__item--active {
   background-color: DodgerBlue !important;
-}
-  
-@media only screen and (max-width: 400px) {
-  .wtp__form {
-    width: 300px;
-  }
 }
