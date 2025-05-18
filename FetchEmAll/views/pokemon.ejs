@@ -40,9 +40,12 @@
         </section>
     </section>
     <section class="pokestat__buttons">
-        <button>    
-            <a href="/battle?id=<%= pokemon.id %>" class="pokestat__catch">Battle</a>
-        </button>
+        <% const alreadyOwned = myPokemon.some(p => p.id === pokemon.id); %>
+        <% if (!alreadyOwned) { %>
+            <button>    
+                <a href="/battle?id=<%= pokemon.id %>" class="pokestat__catch">Battle</a>
+            </button>
+        <% } %>
         <button type="button" id="reveal" class="submit" onclick="changeLink(event, '<%= pokemon.id%>')">
             <a href="/compare" class="pokestat__compare" id="pokestat__compare__link">Compare</a>
         </button>
