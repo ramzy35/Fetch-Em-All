@@ -13,12 +13,8 @@ pokedexRoute.post("/choose-starter", secureMiddleware, async (req, res) => {
     const starterIdNum : number = starterId;
 
     await deleteMyPokemon(userId);
-    await catchPokemon(starterIdNum, userId, 0);
+    await catchPokemon(starterIdNum, userId, 1);
     await changeCurrentPokemon(starterIdNum, userId);
-    await levelPokemon(userId);
-    await levelPokemon(userId);
-    await levelPokemon(userId);
-
 
     console.log("Starter chosen:", starterId);
 
