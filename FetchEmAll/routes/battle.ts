@@ -1,8 +1,9 @@
 import express from "express";
-import { FullPokemon } from "../interfaces";
+import { FullPokemon, MyPokemon } from "../interfaces";
 import { multiplierToIndexMapper, indexToMultiplierMapper } from "../middleware/fetchPokemon"
-import { getCurrentPokemon, createFullPokemon, catchPokemon } from "../database";
+import { getCurrentPokemon, createFullPokemon, catchPokemon, updateCurrentHp } from "../database";
 import { secureMiddleware } from "../middleware/secureMiddleware";
+import { Collection, ObjectId } from "mongodb";
 
 let battleState: {
     user: FullPokemon | null;
@@ -87,7 +88,7 @@ function performAttack(attacker: FullPokemon, defender: FullPokemon, logs: strin
     return !defender.isFainted;
 }
 
-battleRoute.post("/attack", (req, res) => {
+battleRoute.post("/attack", secureMiddleware, async (req, res) => {
     const lastLogIndex = parseInt(req.body.lastLogIndex || "0");
     const { user, ai, turn } = battleState;
     if (!user || !ai) return res.redirect("/");
@@ -112,6 +113,8 @@ battleRoute.post("/attack", (req, res) => {
             battleState.turn = "user";
         }
     }
+
+    await updateCurrentHp(res.locals.user._id, user.id, user.currentHp)
 
     const newLog = battleState.log.slice(lastLogIndex);
 

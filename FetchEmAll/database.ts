@@ -329,3 +329,15 @@ export async function connect() {
         console.error(error);
     }
 }
+
+// Updates the current HP of a specific Pokemon owned by a user in the database.
+export async function updateCurrentHp(ownerId: ObjectId, pokeId: number, newHp: number) {
+    const result = await myPokemonCollection.updateOne(
+        { ownerId: ownerId, "pokemon.id": pokeId },  
+        { $set: { "pokemon.$.currentHp": newHp } }
+      );
+
+    if (result.matchedCount === 0) {
+        console.log(`No pokemon found for owner ${ownerId} with pokeId ${pokeId}`)
+    }
+}
