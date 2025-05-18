@@ -1,13 +1,14 @@
 import express from "express";
-import { FullPokemon } from "../interfaces";
+import { FullPokemon, MyPokemon } from "../interfaces";
 import { multiplierToIndexMapper, indexToMultiplierMapper } from "../middleware/fetchPokemon"
-import { getCurrentPokemon, createFullPokemon } from "../database";
+import { getCurrentPokemon, createFullPokemon, catchPokemon, updateCurrentHp } from "../database";
 import { secureMiddleware } from "../middleware/secureMiddleware";
+import { Collection, ObjectId } from "mongodb";
 
 let battleState: {
     user: FullPokemon | null;
     ai: FullPokemon | null;
-    turn: 'user' | 'ai';
+    turn: 'user' | 'ai' | 'over';
     log: string[];
 } = {
     user: null,
@@ -21,7 +22,7 @@ const battleRoute = express.Router();
 battleRoute.get("/", secureMiddleware, async (req, res) => {
     let playerPoke : FullPokemon = await getCurrentPokemon(res.locals.user._id)
     const aiPokeId : number = typeof req.query.id === "string" ? parseInt(req.query.id) : 1;
-    const aiPokeLevel : number = 1
+    const aiPokeLevel : number = playerPoke.level;
     const aiPoke : FullPokemon = await createFullPokemon(aiPokeId, aiPokeLevel)
 
     const firstTurn = playerPoke.speed >= aiPoke.speed ? 'user' : 'ai';
@@ -37,69 +38,175 @@ battleRoute.get("/", secureMiddleware, async (req, res) => {
         ]
     };
 
+    const logs: string[] = [];
+
+    if (firstTurn === 'ai') {
+        const logs: string[] = [];
+        performAttack(aiPoke, playerPoke, logs, true);
+        battleState.log.push(...logs);
+        battleState.turn = 'user';
+    }
+
+    const battleOver = (playerPoke.isFainted || aiPoke.isFainted);
     res.render("battle", {
         user: playerPoke,
         ai: aiPoke,
-        log: battleState.log.join("\n")
+        log: battleState.log.join("\n"),
+        logLength: battleState.log.length,
+        battleOver: battleOver
     });
 });
 
-battleRoute.post("/attack", (req, res) => {
-    const { user, ai, turn } = battleState;
-    if (!user || !ai) return res.redirect("/");
-
-    const attacker = turn === "user" ? user : ai;
-    const defender = turn === "user" ? ai : user;
-
+function performAttack(attacker: FullPokemon, defender: FullPokemon, logs: string[], isAI: boolean = false): boolean {
     const crit = Math.random() < 0.1 ? 1.4 : 1.0;
     const multiplier = getTypeDamage(attacker, defender);
     const stab = attacker.types.includes(attacker.types[0]) ? 1.2 : 1.0;
-  
+
     const baseDamage = Math.floor(
         ((2 * attacker.level / 5 + 2) * attacker.attack * 60 / defender.defense / 50) + 2
     );
     const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
     defender.currentHp -= totalDamage;
-    battleState.log.push(`${attacker.name} used a basic move!`);
-    battleState.log.push(`It dealt ${totalDamage} damage!`);
+
+    console.log(`${attacker.name} attacked ${defender.name} for ${totalDamage} damage.`);
+
+    if (attacker.abilities && attacker.abilities.length > 0 && Math.random() < 0.5) {
+        const ability = attacker.abilities[Math.floor(Math.random() * attacker.abilities.length)];
+        logs.push(`${attacker.name} used ${ability.name}!`);
+        console.log(`${attacker.name} triggered ability: ${ability.name}`);
+    } else {
+        logs.push(`${attacker.name} attacked!`);
+        console.log(`${attacker.name} used a regular attack.`);
+    }
+    logs.push(`It dealt ${totalDamage} damage!`);
+
     if (defender.currentHp <= 0) {
         defender.currentHp = 0;
         defender.isFainted = true;
-        battleState.log.push(`${defender.name} fainted!`);
+        logs.push(`${defender.name} fainted!`);
+        console.log(`${defender.name} has fainted.`);
     }
 
-    // Only switch turn if both are still alive
-    if (!defender.isFainted) {
-        battleState.turn = turn === "user" ? "ai" : "user";
+    return !defender.isFainted;
+}
+
+battleRoute.post("/attack", secureMiddleware, async (req, res) => {
+    const lastLogIndex = parseInt(req.body.lastLogIndex || "0");
+    const { user, ai, turn } = battleState;
+    if (!user || !ai) return res.redirect("/");
+
+    const logs: string[] = [];
+
+    if (turn === "user") {
+        const stillAlive = performAttack(user, ai, logs);
+        battleState.log.push(...logs);
+        if (!stillAlive) {
+            // AI fainted, battle over
+            battleState.turn = "over";
+        } else {
+            battleState.turn = "ai";
+        }
     }
+
+    if (battleState.turn === "ai" && !ai.isFainted) {
+        logs.length = 0;
+        const stillAlive = performAttack(ai, user, logs);
+        battleState.log.push(...logs);
+        if (!stillAlive) {
+            // User fainted, battle over
+            battleState.turn = "over";
+        } else {
+            battleState.turn = "user";
+        }
+    }
+
+    await updateCurrentHp(res.locals.user._id, user.id, user.currentHp);
+
+    const newLog = battleState.log.slice(lastLogIndex);
+
+    const battleOver = battleState.turn === "over";
+
     res.render("battle", {
         user: battleState.user,
         ai: battleState.ai,
-        log: battleState.log.join("\n")
+        log: newLog.join("\n"),
+        logLength: battleState.log.length,
+        battleOver,  // Pass this flag to template
     });
 });
 
-battleRoute.post("/catch", (req, res) => {
-    const { ai } = battleState;
-    if (!ai) return res.redirect("/");
+battleRoute.post("/catch", secureMiddleware, async (req, res) => {
+    const { user, ai, turn } = battleState;
+    const lastLogIndex = parseInt(req.body.lastLogIndex || "0");
+    if (!user || !ai) {
+        console.error("User or AI Pokémon missing in battle state.");
+        return res.redirect("/");
+    }
 
-    const hpFactor = ai.currentHp / ai.hp; // Lower HP = easier
+    const logs: string[] = [];
+    console.log(`User attempted to catch ${ai.name}`);
+
+    const hpFactor = ai.currentHp / ai.hp;
     const captureChance = (ai.capture_rate / 255) * (1 - hpFactor) * 1.5;
 
-    battleState.log.push(`You threw a Pokéball...`);
+    logs.push(`You threw a Pokeball...`);
+
     if (Math.random() < captureChance) {
         ai.isFainted = true;
-        battleState.log.push(`Gotcha! ${ai.name} was caught!`);
+        await catchPokemon(ai.id, res.locals.user._id, ai.level);
+        logs.push(`Gotcha! ${ai.name} was caught!`);
+        console.log(`✅ Catch succeeded: ${ai.name} was caught.`);
+        battleState.turn = "over";
     } else {
-        battleState.log.push(`${ai.name} broke free!`);
-        // Switch turn to AI if still alive
-        if (!ai.isFainted) {battleState.turn = "ai";}
+        logs.push(`${ai.name} broke free!`);
+        console.log(`❌ Catch failed: ${ai.name} broke free.`);
+        battleState.turn = "ai";
     }
+
+    // If AI’s turn now
+    if (battleState.turn === "ai" && !ai.isFainted) {
+        console.log(`AI turn after failed catch.`);
+        const attacker = ai;
+        const defender = user;
+
+        const crit = Math.random() < 0.1 ? 1.4 : 1.0;
+        const multiplier = getTypeDamage(attacker, defender);
+        const stab = attacker.types.includes(attacker.types[0]) ? 1.2 : 1.0;
+
+        const baseDamage = Math.floor(
+            ((2 * attacker.level / 5 + 2) * attacker.attack * 60 / defender.defense / 50) + 2
+        );
+        const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
+        defender.currentHp -= totalDamage;
+
+        logs.push(`${attacker.name} attacked!`);
+        logs.push(`It dealt ${totalDamage} damage!`);
+
+        console.log(`${attacker.name} attacked ${defender.name} for ${totalDamage} damage.`);
+
+        if (defender.currentHp <= 0) {
+            defender.currentHp = 0;
+            defender.isFainted = true;
+            logs.push(`${defender.name} fainted!`);
+            console.log(`${defender.name} has fainted.`);
+        }
+
+        if (!defender.isFainted) {
+            battleState.turn = "user";
+        }
+    }
+
+    battleState.log.push(...logs);
+    const newLog = battleState.log.slice(lastLogIndex);
+
+    console.log(`Turn ends. New turn: ${battleState.turn}`);
 
     res.render("battle", {
         user: battleState.user,
         ai: battleState.ai,
-        log: battleState.log.join("\n")
+        log: newLog.join("\n"),
+        logLength: battleState.log.length,
+        battleOver: battleState.turn === "over",
     });
 });
 

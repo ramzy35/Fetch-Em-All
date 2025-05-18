@@ -12,11 +12,11 @@
                 <h4 class="battle__pokemon__lvl--top">Lvl. <%= ai.level %></h4>
             </section>
             <section class="battle__box--top-right">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= ai.id %>.png" alt=""
+                <img id="ai-pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= ai.id %>.png" alt=""
                     class="battle__pokemon__img--top">
             </section>
             <section class="battle__box--bottom-left">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/<%= user.id %>.png" alt=""
+                <img id="user-pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/<%= user.id %>.png" alt=""
                     class="battle__pokemon__img--bottom">
             </section>
             <section class="battle__box--bottom-right">
@@ -29,31 +29,39 @@
             </section>
             <section class="battle__bottom-menu">
                 <section class="battle-text battle__text-box-left">
-                    <p><%=log%></p>
+                    <p id="battle-log"></p>
+                    <span id="blinker" class="blinker hidden">▶</span>
                 </section>
                 <section class="battle__text-box-right">
                     <section class="battle__options">
                         <form action="/battle/attack" method="POST">
-                            <button>
+                            <input type="hidden" name="lastLogIndex" value="<%= logLength %>">
+                            <button <%= battleOver ? "disabled" : "" %> >
                                 <h4 class="battle__options--top-left">Fight</h4>
                             </button>
                         </form>
                         <form action="/battle/catch" method="POST">
-                            <button>
+                            <input type="hidden" name="lastLogIndex" value="<%= logLength %>">
+                            <button <%= battleOver ? "disabled" : "" %> >
                                 <h4 class="battle__options--bottom-left">Catch</h4>
+                                <input type="hidden" name="pokeId" value="<%= ai.id %>">
                             </button>
                         </form>
-                        <!-- <h4 class="battle__options--top-right">Pokemon</h4> -->
+
                         <a href="/pokemon?id=<%= ai.id %>">
-                            <h4 class="battle__options--bottom-right">Run</h4>
-                            
+                            <% if (battleOver) { %>
+                                <h4 class="battle__options--bottom-right">Exit</h4>
+                            <% } else {%>
+                                <h4 class="battle__options--bottom-right">Run</h4>
+                            <% } %>
                         </a>
-                    </section>
+                    </section> 
 
                 </section>
             </section>
         </section>
     </section>
+    <%- include("partials/battleScript.ejs") %>
 </body>
 
 </html>

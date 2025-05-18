@@ -9,8 +9,6 @@ const myPokemonRoute = express.Router();
 myPokemonRoute.get("/", myPokemonLocal, secureMiddleware, async (req, res) => {
     res.locals.currentPokemon =  await getCurrentPokemon(res.locals.user._id);
     res.locals.currentPage = "myPokemon";
-    // to test curr bullshit
-    // await catchPokemon(9, res.locals.user._id, 20); 
     res.render("myPokemon");
 });
 
