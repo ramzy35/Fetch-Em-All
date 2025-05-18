@@ -72,23 +72,21 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number):Pro
     return fullPoke
 }
 
-// Upgrade given pokemon by 1 level
-export async function levelPokemon(pokeId : number, userId : ObjectId) {
-    const basePoke = await getPokemonById(pokeId)
-    let allMyPoke = await getMyPokemon(userId)
+// Upgrade current pokemon by 1 level
+export async function levelPokemon(userId : ObjectId) {
+    const currentPoke:FullPokemon = await getCurrentPokemon(userId)
+    const basePoke:Pokemon = await getPokemonById(currentPoke.id)
 
-    const updatedPoke = allMyPoke.map((poke) => {
-        if(poke.id === pokeId) {
-            poke.hp        = Math.floor(poke.hp + basePoke.hp / 50);
-            poke.attack    = Math.floor(poke.attack + basePoke.attack / 50);
-            poke.speed     = Math.floor(poke.speed + basePoke.speed / 50);
-            poke.defense   = Math.floor(poke.defense + basePoke.defense / 50);
-            poke.level     += 1;
-        }
-        return poke
-    })
-
-    await myPokemonCollection.updateOne({ownerId : userId},{$set : {pokemon : updatedPoke}})
+    await myPokemonCollection.updateOne(
+        { ownerId: userId, "pokemon.id": currentPoke.id },
+        { $inc : {
+            "pokemon.$.hp"      : (basePoke.hp / 50),
+            "pokemon.$.attack"  : (basePoke.attack / 50),
+            "pokemon.$.speed"   : (basePoke.speed / 50),
+            "pokemon.$.defense" : (basePoke.defense / 50),
+            "pokemon.$.level"   : 1
+        }}
+    )
 }
 
 ////////////////
@@ -133,6 +131,7 @@ export async function catchPokemon(pokeId : number, userId : ObjectId, level : n
     await myPokemonCollection.updateOne({ownerId : userId},{$set : {pokemon : allMyPoke}})
 }
 
+// Change the nickname of the given pokemon
 export async function renamePokemon(pokeId : number, userId : ObjectId, nickname : string) {
     let fullPoke : FullPokemon = await getMyPokemonById(pokeId, userId)
     const allMyPoke : FullPokemon[]= await getMyPokemon(userId)
@@ -142,6 +141,18 @@ export async function renamePokemon(pokeId : number, userId : ObjectId, nickname
         }
     })
     await myPokemonCollection.updateOne({ownerId : userId},{$set : {pokemon : allMyPoke}})
+}
+
+// Updates the current HP of a specific Pokemon owned by a user in the database.
+export async function updateCurrentHp(ownerId: ObjectId, pokeId: number, newHp: number) {
+    const result = await myPokemonCollection.updateOne(
+        { ownerId: ownerId, "pokemon.id": pokeId },  
+        { $set: { "pokemon.$.currentHp": newHp } }
+      );
+
+    if (result.matchedCount === 0) {
+        console.log(`No pokemon found for owner ${ownerId} with pokeId ${pokeId}`)
+    }
 }
 
 // Clear the pokemon array for a given user | USE CAREFULLY, WIPS ALL PROGRESS
@@ -327,17 +338,5 @@ export async function connect() {
         process.on("SIGINT", exit);
     } catch (error) {
         console.error(error);
-    }
-}
-
-// Updates the current HP of a specific Pokemon owned by a user in the database.
-export async function updateCurrentHp(ownerId: ObjectId, pokeId: number, newHp: number) {
-    const result = await myPokemonCollection.updateOne(
-        { ownerId: ownerId, "pokemon.id": pokeId },  
-        { $set: { "pokemon.$.currentHp": newHp } }
-      );
-
-    if (result.matchedCount === 0) {
-        console.log(`No pokemon found for owner ${ownerId} with pokeId ${pokeId}`)
     }
 }
