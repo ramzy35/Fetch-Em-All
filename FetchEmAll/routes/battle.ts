@@ -22,7 +22,7 @@ const battleRoute = express.Router();
 battleRoute.get("/", secureMiddleware, async (req, res) => {
     let playerPoke : FullPokemon = await getCurrentPokemon(res.locals.user._id)
     const aiPokeId : number = typeof req.query.id === "string" ? parseInt(req.query.id) : 1;
-    const aiPokeLevel : number = 1
+    const aiPokeLevel : number = playerPoke.level;
     const aiPoke : FullPokemon = await createFullPokemon(aiPokeId, aiPokeLevel)
 
     const firstTurn = playerPoke.speed >= aiPoke.speed ? 'user' : 'ai';
@@ -201,11 +201,14 @@ battleRoute.post("/catch", secureMiddleware, async (req, res) => {
 
     console.log(`Turn ends. New turn: ${battleState.turn}`);
 
+    const battleOver = battleState.turn === "over";
+
     res.render("battle", {
         user: battleState.user,
         ai: battleState.ai,
         log: newLog.join("\n"),
-        logLength: battleState.log.length
+        logLength: battleState.log.length,
+        battleOver: battleOver,
     });
 });
 

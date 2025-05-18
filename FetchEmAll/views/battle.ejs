@@ -49,7 +49,11 @@
                         </form>
 
                         <a href="/pokemon?id=<%= ai.id %>">
-                            <h4 class="battle__options--bottom-right">Run</h4>
+                            <% if (battleOver) { %>
+                                <h4 class="battle__options--bottom-right">Exit</h4>
+                            <% } else {%>
+                                <h4 class="battle__options--bottom-right">Run</h4>
+                            <% } %>
                         </a>
                     </section> 
 
