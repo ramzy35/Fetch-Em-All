@@ -24,7 +24,8 @@
         conic-gradient(from 0deg at bottom var(--b) left var(--b), var(--_g)) 0 100.5% / var(--_p),
         conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--_g)) 100.5% 100.5% / var(--_p);
     background-color: whitesmoke;
-    outline: 4px solid var(--red);
+    outline: 2px solid var(--red);
+    box-shadow: 0 0 4px var(--red), 0 0 8px var(--red);
 
     width: 350px;
     /* gap: 20px; */
