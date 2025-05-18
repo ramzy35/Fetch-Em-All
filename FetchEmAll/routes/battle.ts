@@ -8,7 +8,7 @@ import { Collection, ObjectId } from "mongodb";
 let battleState: {
     user: FullPokemon | null;
     ai: FullPokemon | null;
-    turn: 'user' | 'ai';
+    turn: 'user' | 'ai' | 'over';
     log: string[];
 } = {
     user: null,
@@ -47,11 +47,13 @@ battleRoute.get("/", secureMiddleware, async (req, res) => {
         battleState.turn = 'user';
     }
 
+    const battleOver = (playerPoke.isFainted || aiPoke.isFainted);
     res.render("battle", {
         user: playerPoke,
         ai: aiPoke,
         log: battleState.log.join("\n"),
         logLength: battleState.log.length,
+        battleOver: battleOver
     });
 });
 
@@ -93,38 +95,43 @@ battleRoute.post("/attack", secureMiddleware, async (req, res) => {
     const { user, ai, turn } = battleState;
     if (!user || !ai) return res.redirect("/");
 
-    console.log(`User clicked Attack. Current turn: ${turn}`);
-
     const logs: string[] = [];
 
     if (turn === "user") {
         const stillAlive = performAttack(user, ai, logs);
         battleState.log.push(...logs);
-        if (stillAlive) {
+        if (!stillAlive) {
+            // AI fainted, battle over
+            battleState.turn = "over";
+        } else {
             battleState.turn = "ai";
         }
     }
 
     if (battleState.turn === "ai" && !ai.isFainted) {
-        logs.length = 0; // clear logs for AI turn
+        logs.length = 0;
         const stillAlive = performAttack(ai, user, logs);
         battleState.log.push(...logs);
-        if (stillAlive) {
+        if (!stillAlive) {
+            // User fainted, battle over
+            battleState.turn = "over";
+        } else {
             battleState.turn = "user";
         }
     }
 
-    await updateCurrentHp(res.locals.user._id, user.id, user.currentHp)
+    await updateCurrentHp(res.locals.user._id, user.id, user.currentHp);
 
     const newLog = battleState.log.slice(lastLogIndex);
 
-    console.log(`Turn ends. New turn: ${battleState.turn}`);
+    const battleOver = battleState.turn === "over";
 
     res.render("battle", {
         user: battleState.user,
         ai: battleState.ai,
         log: newLog.join("\n"),
         logLength: battleState.log.length,
+        battleOver,  // Pass this flag to template
     });
 });
 

@@ -75,6 +75,11 @@ body {
     background: rgb(116, 194, 92);
 }
 
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .battle__hpbar__fill--bottom {
     width: 10%;
     background: #ff0000;

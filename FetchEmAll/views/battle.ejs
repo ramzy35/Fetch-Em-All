@@ -36,21 +36,20 @@
                     <section class="battle__options">
                         <form action="/battle/attack" method="POST">
                             <input type="hidden" name="lastLogIndex" value="<%= logLength %>">
-                            <button>
+                            <button <%= battleOver ? "disabled" : "" %> >
                                 <h4 class="battle__options--top-left">Fight</h4>
                             </button>
                         </form>
                         <form action="/battle/catch" method="POST">
                             <input type="hidden" name="lastLogIndex" value="<%= logLength %>">
-                            <button>
+                            <button <%= battleOver ? "disabled" : "" %> >
                                 <h4 class="battle__options--bottom-left">Catch</h4>
                                 <input type="hidden" name="pokeId" value="<%= ai.id %>">
                             </button>
                         </form>
-                        <!-- <h4 class="battle__options--top-right">Pokemon</h4> -->
+
                         <a href="/pokemon?id=<%= ai.id %>">
                             <h4 class="battle__options--bottom-right">Run</h4>
-                            
                         </a>
                     </section> 
 
@@ -61,14 +60,17 @@
     <script>
         const userName = "<%= user.name %>";
         const aiName = "<%= ai.name %>";
+        const isBattleOver = <%= battleOver ? 'true' : 'false' %>;
         const logMessages = <%- JSON.stringify(log.split("\n")) %>;
         let currentLogIndex = 0;
         const logElement = document.getElementById("battle-log");
         const blinker = document.getElementById("blinker");
-        const buttons = document.querySelectorAll(".battle__options button");
 
-        // Disable buttons while typing
-        buttons.forEach(btn => btn.disabled = true);
+        const fightBtn = document.querySelector("form[action='/battle/attack'] button");
+        const catchBtn = document.querySelector("form[action='/battle/catch'] button");
+        const buttonsToControl = [fightBtn, catchBtn];
+
+        buttonsToControl.forEach(btn => btn.disabled = true);
         blinker.classList.add("hidden");
 
         function typeWriter(text, i = 0, callback) {
@@ -97,9 +99,14 @@
             }
         }
 
+        function enableBattleButtons() {
+            buttonsToControl.forEach(btn => btn.disabled = false);
+        }
+
         function displayNextLog() {
             if (currentLogIndex >= logMessages.length) {
-                buttons.forEach(btn => btn.disabled = false);
+                if (!isBattleOver)
+                    enableBattleButtons();
                 blinker.classList.remove("hidden");
                 return;
             }
@@ -111,7 +118,6 @@
                 const currentLog = logMessages[currentLogIndex];
 
                 if (currentLog.includes("used") || currentLog.includes("attacked")) {
-
                     if (currentLog.includes(userName)) {
                         animateAttack("user");
                     } else if (currentLog.includes(aiName)) {
@@ -124,15 +130,25 @@
             });
         }
 
+
         window.addEventListener("DOMContentLoaded", () => {
-            displayNextLog();
+            if (isBattleOver) {
+                // Disable fight and catch buttons because battle ended
+                displayNextLog();
+                buttonsToControl.forEach(btn => btn.disabled = true);
+                blinker.classList.add("hidden");
+            } else {
+                displayNextLog();
+            }
         });
 
-        // Hide blinker on user action
         document.querySelectorAll("form").forEach(form => {
-            form.addEventListener("submit", () => {
-                blinker.classList.add("hidden");
-            });
+            if (form.action.endsWith("/attack") || form.action.endsWith("/catch")) {
+                form.addEventListener("submit", () => {
+                    buttonsToControl.forEach(btn => btn.disabled = true);
+                    blinker.classList.add("hidden");
+                });
+            }
         });
     </script>
 </body>
