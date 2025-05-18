@@ -156,15 +156,7 @@ battleRoute.post("/catch", secureMiddleware, async (req, res) => {
         await catchPokemon(ai.id, res.locals.user._id, ai.level);
         logs.push(`Gotcha! ${ai.name} was caught!`);
         console.log(`✅ Catch succeeded: ${ai.name} was caught.`);
-        battleState.turn = "over";
-
-        return res.render("battle", {
-            user: battleState.user,
-            ai: battleState.ai,
-            log: logs.join("\n"),
-            logLength: battleState.log.length,
-            battleOver: true,
-        });
+        res.redirect("/myPokemon");
     } else {
         logs.push(`${ai.name} broke free!`);
         console.log(`❌ Catch failed: ${ai.name} broke free.`);
