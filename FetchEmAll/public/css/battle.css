@@ -254,7 +254,7 @@ button:disabled {
 .blinker {
     animation: blink 1s infinite;
     font-size: 1.5rem;
-    color: white;
+    color: red;
     margin-left: 4px;
     display: inline; /* keep it inline */
 }
