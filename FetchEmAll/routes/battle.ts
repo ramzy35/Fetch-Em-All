@@ -1,7 +1,7 @@
 import express from "express";
 import { FullPokemon, MyPokemon } from "../interfaces";
 import { multiplierToIndexMapper, indexToMultiplierMapper } from "../middleware/fetchPokemon"
-import { getCurrentPokemon, createFullPokemon, catchPokemon, updateCurrentHp } from "../database";
+import { getCurrentPokemon, createFullPokemon, catchPokemon, updateCurrentHp, levelPokemon } from "../database";
 import { secureMiddleware } from "../middleware/secureMiddleware";
 import { Collection, ObjectId } from "mongodb";
 
@@ -102,6 +102,7 @@ battleRoute.post("/attack", secureMiddleware, async (req, res) => {
         battleState.log.push(...logs);
         if (!stillAlive) {
             // AI fainted, battle over
+            levelPokemon(res.locals.user._id)
             battleState.turn = "over";
         } else {
             battleState.turn = "ai";

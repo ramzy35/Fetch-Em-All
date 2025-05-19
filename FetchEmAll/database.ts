@@ -49,7 +49,7 @@ export async function getPokemonById(id:number):Promise<Pokemon> {
 //////////////////
 
 function scaleStat(base: number, level: number): number {
-    return Math.floor(base + (level - 1) * base / 50);
+    return Math.ceil(base + (level - 1) * base / 50);
 }
 
 // Add all needed stats and increase stats to add Pokemon to user
@@ -80,10 +80,10 @@ export async function levelPokemon(userId : ObjectId) {
     await myPokemonCollection.updateOne(
         { ownerId: userId, "pokemon.id": currentPoke.id },
         { $inc : {
-            "pokemon.$.hp"      : (basePoke.hp / 50),
-            "pokemon.$.attack"  : (basePoke.attack / 50),
-            "pokemon.$.speed"   : (basePoke.speed / 50),
-            "pokemon.$.defense" : (basePoke.defense / 50),
+            "pokemon.$.hp"      : Math.ceil(basePoke.hp / 50),
+            "pokemon.$.attack"  : Math.ceil(basePoke.attack / 50),
+            "pokemon.$.speed"   : Math.ceil(basePoke.speed / 50),
+            "pokemon.$.defense" : Math.ceil(basePoke.defense / 50),
             "pokemon.$.level"   : 1
         }}
     )
