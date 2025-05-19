@@ -170,12 +170,14 @@ export async function deleteMyPokemon(userId : ObjectId) {
 
 export async function healPokemon(userId : ObjectId) {
     const poke = await getMyPokemon(userId)
-    const dateNow = new Date()
-    const healingIterations = Math.floor((dateNow.getTime() - poke[0].lastHealed.getTime())/300000)
+    const test = await myPokemonCollection.findOne({ownerId: userId, $expr : { $lte : ["pokemon.$.currentHp", "pokemon.$.hp"]}})
+    if(test) {
+        console.log(test.pokemon[0].currentHp, test.pokemon[0].hp)
+    }
+    const healingIterations = Math.floor(((new Date()).getTime() - poke[0].lastHealed.getTime())/5000) // Increases by 1 every 5 minutes
     for (let i = 0; i < healingIterations; i++) {
-        console.log(i)
         await myPokemonCollection.updateOne(
-            { ownerId: userId },  
+            { ownerId: userId, $expr : { $lt : ["pokemon.$[].currentHp", "pokemon.$[].hp"] } },  
             { $inc: { 'pokemon.$[].currentHp': 2 }}
         );
         await myPokemonCollection.updateOne(
