@@ -9,7 +9,7 @@
 
         </section>
         <section class="modal__content">
-            <h2>Choose a starter pokemon!</h2>
+            <h2>Kies een start-pokemon!</h2>
             <section class="choices">
                 <form action="/pokedex/choose-starter" method="POST">
                     <button type="submit" name="starterId" value="1" class="modal__choice bulbasaur">
@@ -44,7 +44,7 @@
 
         </section>
         <section class="modal__content">
-            <h2>Would you like to give it a nickname?</h2>
+            <h2>Wil je het een bijnaam geven?</h2>
             <form action="/pokedex/nickname" class="form__nickname" method="post">
                 <input type="hidden" name="starterId" value="<%= query.starterId %>">
                 <input type="text" id="nickname" name="nickname">
