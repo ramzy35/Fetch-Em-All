@@ -62,8 +62,10 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number):Pro
         isFainted: false,
         level: pokeLevel,
         currentPokemon: false,
-        nickname: basePoke.name
+        nickname: basePoke.name,
+        lastHealed : new Date()
     }
+
     fullPoke.hp        = scaleStat(basePoke.hp, pokeLevel);
     fullPoke.attack    = scaleStat(basePoke.attack, pokeLevel);
     fullPoke.speed     = scaleStat(basePoke.speed, pokeLevel);
@@ -163,6 +165,23 @@ export async function deleteMyPokemon(userId : ObjectId) {
     } else {
         userData.pokemon = []
         await myPokemonCollection.updateOne({ownerId : userId}, {$set : {pokemon : userData.pokemon}})
+    }
+}
+
+export async function healPokemon(userId : ObjectId) {
+    const poke = await getMyPokemon(userId)
+    const dateNow = new Date()
+    const healingIterations = Math.floor((dateNow.getTime() - poke[0].lastHealed.getTime())/300000)
+    for (let i = 0; i < healingIterations; i++) {
+        console.log(i)
+        await myPokemonCollection.updateOne(
+            { ownerId: userId },  
+            { $inc: { 'pokemon.$[].currentHp': 2 }}
+        );
+        await myPokemonCollection.updateOne(
+            { ownerId: userId },  
+            { $set: { 'pokemon.$[].lastHealed' : new Date() }},
+        );
     }
 }
 
