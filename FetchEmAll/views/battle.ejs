@@ -1,54 +1,67 @@
 <%- include("partials/header.ejs") %>
+<link rel="stylesheet" href="/css/battle.css">
     <section class="app">
         <h1 class="title">Battle</h1>
 
         <section class="battle">
             <section class="battle__box--top-left">
-                <h2 class="battle__pokemon--top">Venusaur</h2>
+                <h2 class="battle__pokemon--top"><%= ai.name %></h2>
                 <section class="battle__hpbar--top">
-                    <section class="battle__hpbar__fill--top">
-
-                    </section>
+                    <section class="battle__hpbar__fill--top" style=<%- getPercentAndColor(ai.currentHp, ai.hp) %>></section>
                 </section>
-                <h4 class="battle__pokemon__lvl--top">Lvl. 4</h4>
+                <h4 class="battle__pokemon__lvl--top">Lvl. <%= ai.level %></h4>
             </section>
             <section class="battle__box--top-right">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png" alt=""
+                <img id="ai-pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= ai.id %>.png" alt=""
                     class="battle__pokemon__img--top">
             </section>
             <section class="battle__box--bottom-left">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/25.png" alt=""
+                <img id="user-pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/<%= user.id %>.png" alt=""
                     class="battle__pokemon__img--bottom">
             </section>
             <section class="battle__box--bottom-right">
-                <h2 class="battle__pokemon--bottom">Pikachu</h2>
+                <h2 class="battle__pokemon--bottom"><%= user.name %></h2>
                 <section class="battle__hpbar--bottom">
-                    <section class="battle__hpbar__fill--bottom">
-
-                    </section>
+                    <section class="battle__hpbar__fill--bottom" style=<%- getPercentAndColor(user.currentHp, user.hp) %>></section>
                 </section>
-                <h4 class="battle__pokemon__lvl--bottom">Lvl. 3</h4>
-                <h4 class="battle__pokemon__hp--bottom">3/30</h4>
+                <h4 class="battle__pokemon__lvl--bottom">Lvl. <%= user.level %></h4>
+                <h4 class="battle__pokemon__hp--bottom"><%= user.currentHp %>/<%= user.hp %></h4>
             </section>
             <section class="battle__bottom-menu">
                 <section class="battle-text battle__text-box-left">
-                    Battle text
+                    <p id="battle-log"></p>
+                    <span id="blinker" class="blinker hidden">▶</span>
                 </section>
                 <section class="battle__text-box-right">
                     <section class="battle__options">
-                        <h4 class="battle__options--top-left">Fight</h4>
-                        <!-- <h4 class="battle__options--top-right">Pokemon</h4> -->
-                        <h4 class="battle__options--bottom-left">Catch</h4>
-                        <a href="statpage.html">
-                            <h4 class="battle__options--bottom-right">Run</h4>
-                            
+                        <form action="/battle/attack" method="POST">
+                            <input type="hidden" name="lastLogIndex" value="<%= logLength %>">
+                            <button <%= battleOver ? "disabled" : "" %> >
+                                <h4 class="battle__options--top-left">Fight</h4>
+                            </button>
+                        </form>
+                        <form action="/battle/catch" method="POST">
+                            <input type="hidden" name="lastLogIndex" value="<%= logLength %>">
+                            <button <%= battleOver ? "disabled" : "" %> >
+                                <h4 class="battle__options--bottom-left">Catch</h4>
+                                <input type="hidden" name="pokeId" value="<%= ai.id %>">
+                            </button>
+                        </form>
+
+                        <a href="/pokemon?id=<%= ai.id %>">
+                            <% if (battleOver) { %>
+                                <h4 class="battle__options--bottom-right">Exit</h4>
+                            <% } else {%>
+                                <h4 class="battle__options--bottom-right">Run</h4>
+                            <% } %>
                         </a>
-                    </section>
+                    </section> 
 
                 </section>
             </section>
         </section>
     </section>
+    <%- include("partials/battleScript.ejs") %>
 </body>
 
 </html>

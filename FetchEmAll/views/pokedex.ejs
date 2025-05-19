@@ -1,69 +1,92 @@
 <%- include("partials/header.ejs") %>
-    <%- include("partials/nav.ejs") %>
-    <link rel="stylesheet" href="/css/pokedex.css">
-    <link rel="stylesheet" href="/FetchEmAll/public/css/pokedex.css">
-        <% if (!hasStarter) {%>
-            <section id="modal" class="modal">
-                <section class="modal__backdrop">
+<%- include("partials/nav.ejs") %>
+<link rel="stylesheet" href="/css/pokedex.css">
+<link rel="stylesheet" href="/FetchEmAll/public/css/pokedex.css">
 
-                </section>
-                <section class="modal__content">
-                    <h2>Choose a starter pokemon!</h2>
-                    <section class="choices">
-                        <form action="/pokedex/choose-starter" method="POST">
-                            <button type="submit" name="starterId" value="1" class="modal__choice bulbasaur">
-                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-                                    alt="bulbasaur">
-                                <p>Bulbasaur</p>
-                            </button>
-                        </form>
+<% if (!hasStarter) {%>
+    <section id="modal" class="modal">
+        <section class="modal__backdrop">
 
-                        <form action="/pokedex/choose-starter" method="POST">
-                            <button type="submit" name="starterId" value="4" class="modal__choice charmander">
-                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
-                                    alt="charmander">
-                                <p>Charmander</p>
-                            </button>
-                        </form>
+        </section>
+        <section class="modal__content">
+            <h2>Choose a starter pokemon!</h2>
+            <section class="choices">
+                <form action="/pokedex/choose-starter" method="POST">
+                    <button type="submit" name="starterId" value="1" class="modal__choice bulbasaur">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+                            alt="bulbasaur">
+                        <p>Bulbasaur</p>
+                    </button>
+                </form>
 
-                        <form action="/pokedex/choose-starter" method="POST">
-                            <button type="submit" name="starterId" value="7" class="modal__choice squirtle">
-                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"
-                                    alt="squirtle">
-                                <p>Squirtle</p>
-                            </button>
-                        </form>
+                <form action="/pokedex/choose-starter" method="POST">
+                    <button type="submit" name="starterId" value="4" class="modal__choice charmander">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
+                            alt="charmander">
+                        <p>Charmander</p>
+                    </button>
+                </form>
+
+                <form action="/pokedex/choose-starter" method="POST">
+                    <button type="submit" name="starterId" value="7" class="modal__choice squirtle">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"
+                            alt="squirtle">
+                        <p>Squirtle</p>
+                    </button>
+                </form>
+            </section>
+
+        </section>
+    </section>
+<% } else if (query.justChoseStarter && query.starterId) {%>
+    <section id="modal" class="modal">
+        <section class="modal__backdrop">
+
+        </section>
+        <section class="modal__content">
+            <h2>Would you like to give it a nickname?</h2>
+            <form action="/pokedex/nickname" class="form__nickname" method="post">
+                <input type="hidden" name="starterId" value="<%= query.starterId %>">
+                <input type="text" id="nickname" name="nickname">
+            </form>
+
+        </section>
+    </section>
+    <script>
+        <!-- JS to remove query params after modal load -->
+        if (window.location.search.includes("justChoseStarter")) {
+            history.replaceState(null, "", window.location.pathname);
+        }
+    </script>
+<% } %>
+    <section class="pokedex">
+        <% pokemonList.forEach(poke=> { %>
+            <a href="/pokemon?id=<%= poke.id %>" class="pokedex__card__link">
+                <section class="pokedex__card <% if (myPokeIds.includes(poke.id)) { %>
+                    green
+                <% } %>">
+                    <section class="pokedex__card__left">
+                        <h2 class="pokedex__card__left__name">
+                            <%= poke.name %>
+                        </h2>
+                        <p class="pokedex__card__left__id">
+                            <%= formatId(poke.id) %>
+                        </p>
+                        <% poke.types.forEach(type=> { %>
+                            <section class="pokedex__card__left__types"
+                                data-tooltip="<%= type.charAt(0).toUpperCase() + type.slice(1) %>">
+                                <img src="/assets/icons/<%= type %>.svg" width="40px"
+                                    alt="<%= type %> type icon" />
+                            </section>
+                            <% }); %>
+                                </p>
                     </section>
 
+                    <img src="<%= poke.front_image %>" class="pokedex__card__img--front"
+                        alt="<%= poke.name %>">
                 </section>
-            </section>
-            <% } %>
-                <section class="pokedex">
-                    <% pokemonList.forEach(poke=> { %>
-                        <a href="/pokemon?id=<%= poke.id %>" class="pokedex__card__link">
-                            <section class="pokedex__card">
-                                <section class="pokedex__card__left">
-                                    <h2 class="pokedex__card__left__name">
-                                        <%= poke.name %>
-                                    </h2>
-                                    <p class="pokedex__card__left__id">
-                                        <%= formatId(poke.id) %>
-                                    </p>
-                                    <% poke.types.forEach(type=> { %>
-                                        <section class="pokedex__card__left__types"
-                                            data-tooltip="<%= type.charAt(0).toUpperCase() + type.slice(1) %>">
-                                            <img src="/assets/icons/<%= type %>.svg" width="30px"
-                                                alt="<%= type %> type icon" />
-                                        </section>
-                                        <% }); %>
-                                            </p>
-                                </section>
+            </a>
+        <% }); %>
+    </section>
 
-                                <img src="<%= poke.front_image %>" class="pokedex__card__img--front"
-                                    alt="<%= poke.name %>">
-                            </section>
-                        </a>
-                        <% }); %>
-                </section>
-
-                <%- include("partials/footer.ejs") %>
+<%- include("partials/footer.ejs") %>

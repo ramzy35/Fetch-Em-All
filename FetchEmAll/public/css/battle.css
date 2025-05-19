@@ -75,6 +75,11 @@ body {
     background: rgb(116, 194, 92);
 }
 
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .battle__hpbar__fill--bottom {
     width: 10%;
     background: #ff0000;
@@ -185,10 +190,10 @@ body {
 }
 
 .battle-text {
-    margin-top: 3%;
-    margin-left: 5%;
+    /* margin-top: 3%;
+    margin-left: 5%; */
     opacity: 0.95;
-    font-size: 18px;
+    font-size: 1rem;
     color: white;
     text-align: left;
     font-family: "PT Sans Narrow";
@@ -241,6 +246,28 @@ body {
     font-family: "PT Sans Narrow";
     cursor: pointer;
 }
+
+#battle-log {
+    display: inline; /* or inline-block */
+}
+  
+.blinker {
+    animation: blink 1s infinite;
+    font-size: 1.5rem;
+    color: white;
+    margin-left: 4px;
+    display: inline; /* keep it inline */
+}
+  
+.hidden {
+    display: none;
+}
+  
+  @keyframes blink {
+    0%   { opacity: 1; }
+    50%  { opacity: 0; }
+    100% { opacity: 1; }
+  }
 
 @media all and (max-width: 600px) {
     .battle {
@@ -351,7 +378,24 @@ body {
         text-align: left;
         font-family: "PT Sans Narrow";
     }
+}
 
+@keyframes attackMove {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
+  100% { transform: translateX(0); }
+}
 
+@keyframes attackMoveReverse {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-20px); }
+  100% { transform: translateX(0); }
+}
 
+.attack-anim {
+  animation: attackMove 0.4s ease forwards;
+}
+
+.attack-anim-reverse {
+  animation: attackMoveReverse 0.4s ease forwards;
 }

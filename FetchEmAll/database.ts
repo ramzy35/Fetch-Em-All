@@ -1,8 +1,8 @@
-import { Collection, MongoClient } from "mongodb";
+import { AggregationCursor, Collection, Document, MongoClient, ObjectId } from "mongodb";
 import { getPokemonList } from "./middleware/fetchPokemon";
-import { MyPokemon, Pokemon, User } from "./interfaces";
+import { FullPokemon, MyPokemon, Pokemon, User } from "./interfaces";
 import dotenv from "dotenv"
-import bcrypt from "bcrypt";
+import bcrypt from "bcrypt"
 
 dotenv.config();
 export const link = process.env.MONGO_URI || ""
@@ -10,10 +10,15 @@ const client = new MongoClient(link);
 
 const saltRounds : number = 10;
 
-const pokedexCollection : Collection<Pokemon> = client.db("FetchEmAll").collection<Pokemon>("pokedex");
-const userCollection : Collection<User> = client.db("FetchEmAll").collection<User>("users");
-const myPokemonCollection : Collection<MyPokemon> = client.db("FetchEmAll").collection<MyPokemon>("myPokemon");
+const pokedexCollection     : Collection<Pokemon> = client.db("FetchEmAll").collection<Pokemon>("pokedex");
+const userCollection        : Collection<User> = client.db("FetchEmAll").collection<User>("users");
+const myPokemonCollection   : Collection<MyPokemon> = client.db("FetchEmAll").collection<MyPokemon>("mypokemon");
 
+/////////////
+// POKEMON //
+/////////////
+
+// Get all pokemon from pokedexCollection, sorted by id
 export async function getAllPokemon():Promise<Pokemon[]> {
     try {
         const allPokemon:Pokemon[] = (await pokedexCollection.find({}).sort({ id : 1 }).toArray());
@@ -24,105 +29,182 @@ export async function getAllPokemon():Promise<Pokemon[]> {
     return [];
 }
 
-export async function getAllOwnedPokemon():Promise<MyPokemon[]> {
+// Get 1 pokemon from database with given id
+export async function getPokemonById(id:number):Promise<Pokemon> {
     try {
-        const allPokemon:MyPokemon[] = await myPokemonCollection.find({}).toArray();
-        return allPokemon;
+        const pokemon:Pokemon | null = await pokedexCollection.findOne({ id : id });
+        if(pokemon){
+            return pokemon
+        } else {
+            throw new Error(`Failed to get Pokemon with id ${id} from database`);
+        }
     } catch (error) {
         console.error(error)
     }
-    return [];
+    throw new Error(`Failed to get Pokemon with id ${id} from database`);
 }
 
-export async function getPokemonById(id:number):Promise<Pokemon[]> {
-    try {
-        const pokemon:Pokemon[] = (await pokedexCollection.find({ id : id }).toArray());
-        return pokemon.slice(0, 1)
-    } catch (error) {
-        console.error(error)
-    }
-    return [];
+//////////////////
+// FULL POKEMON //
+//////////////////
+
+function scaleStat(base: number, level: number): number {
+    return Math.ceil(base + (level - 1) * base / 50);
 }
 
-export async function createFullPokemon(pokeId : number, pokeLevel : number, userId : number):Promise<MyPokemon> {
-    const basePoke:Pokemon[] = await getPokemonById(pokeId)
+// Add all needed stats and increase stats to add Pokemon to user
+export async function createFullPokemon(pokeId : number, pokeLevel : number):Promise<FullPokemon> {
+    const basePoke:Pokemon = await getPokemonById(pokeId)
     // Add all needed stats to convert from Type Pokemon to MyPokemon
-    const fullPoke : MyPokemon = {
-        ...basePoke[0],
-        currentHp: basePoke[0].hp + 1/50 * pokeLevel * basePoke[0].hp,
+    let fullPoke : FullPokemon = {
+        ...basePoke,
+        currentHp: Math.ceil(basePoke.hp + 1/50 * (pokeLevel - 1) * basePoke.hp),
         isFainted: false,
         level: pokeLevel,
         currentPokemon: false,
-        ownerId : userId
+        nickname: basePoke.name
     }
+    fullPoke.hp        = scaleStat(basePoke.hp, pokeLevel);
+    fullPoke.attack    = scaleStat(basePoke.attack, pokeLevel);
+    fullPoke.speed     = scaleStat(basePoke.speed, pokeLevel);
+    fullPoke.defense   = scaleStat(basePoke.defense, pokeLevel);
+
     return fullPoke
 }
 
-async function levelPokemon(pokeId : number, userId : number, level? : number | undefined) {
-    const lvl : number = typeof level != "number" ? 1 : level
-    const basePoke:Pokemon[] = await getPokemonById(pokeId)
-    const myPoke:MyPokemon[] = await getMyPokemonById(userId, pokeId)
+// Upgrade current pokemon by 1 level
+export async function levelPokemon(userId : ObjectId) {
+    const currentPoke:FullPokemon = await getCurrentPokemon(userId)
+    const basePoke:Pokemon = await getPokemonById(currentPoke.id)
 
-    await myPokemonCollection.updateOne({ _id : myPoke[0]._id }, {$set : {
-        hp        : basePoke[0].hp + (lvl - 1) * basePoke[0].hp / 50,
-        attack    : basePoke[0].attack + (lvl - 1) * basePoke[0].attack / 50,
-        speed     : basePoke[0].speed + (lvl - 1) * basePoke[0].speed / 50,
-        defense   : basePoke[0].defense + (lvl - 1) * basePoke[0].defense / 50,
-    }})
+    await myPokemonCollection.updateOne(
+        { ownerId: userId, "pokemon.id": currentPoke.id },
+        { $inc : {
+            "pokemon.$.hp"      : Math.ceil(basePoke.hp / 50),
+            "pokemon.$.attack"  : Math.ceil(basePoke.attack / 50),
+            "pokemon.$.speed"   : Math.ceil(basePoke.speed / 50),
+            "pokemon.$.defense" : Math.ceil(basePoke.defense / 50),
+            "pokemon.$.level"   : 1
+        }}
+    )
 }
 
-export async function getFullPokemon(pokeId : number, userId : number):Promise<MyPokemon[]> {
-    return await myPokemonCollection.find({$and : [{ownerId : userId}, {id : pokeId}]}).toArray()
+////////////////
+// MY POKEMON //
+////////////////
+
+// Get full list of all pokemon of given user
+export async function getMyPokemon(ownerId : ObjectId):Promise<FullPokemon[]> {
+    try {
+        const test = await myPokemonCollection.find({}).toArray()
+        const userData:MyPokemon | null = await myPokemonCollection.findOne({ ownerId : ownerId });
+        if (userData) {
+            return userData.pokemon;
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error(error)
+    }
+    return [];
 }
 
-export async function getCurrentPokemon(userId : number):Promise<MyPokemon[]> {
-    const currentPokemon : MyPokemon[] = await myPokemonCollection.find({$and : [{ownerId : userId}, {currentPokemon : true}]}).sort({ level : 1 }).toArray()
-    if(currentPokemon.length === 0 || currentPokemon === undefined || !currentPokemon) {
-        return [];
+// Get pokemon by Id out of pokemon array of given user
+export async function getMyPokemonById(pokeId : number, userId : ObjectId):Promise<FullPokemon> {
+    const myPoke : any = await myPokemonCollection.aggregate([
+        { $match : {ownerId : userId}},
+        { $unwind: "$pokemon" }, 
+        { $match: { "pokemon.id": pokeId } },
+        { $limit: 1 } 
+    ]).toArray()
+    return myPoke[0].pokemon
+}
+
+// Add full pokemon with given level to user
+export async function catchPokemon(pokeId : number, userId : ObjectId, level : number) {
+    let fullPoke : FullPokemon = await createFullPokemon(pokeId, level)
+    const allMyPoke : FullPokemon[]= await getMyPokemon(userId)
+    if(allMyPoke.length < 1) {
+        fullPoke.currentPokemon = true
+    }
+    allMyPoke.push(fullPoke)
+    await myPokemonCollection.updateOne({ownerId : userId},{$set : {pokemon : allMyPoke}})
+}
+
+// Change the nickname of the given pokemon
+export async function renamePokemon(pokeId : number, userId : ObjectId, nickname : string) {
+    let fullPoke : FullPokemon = await getMyPokemonById(pokeId, userId)
+    const allMyPoke : FullPokemon[]= await getMyPokemon(userId)
+    allMyPoke.map((poke) => {
+        if(poke._id?.toString() === fullPoke._id?.toString()) {
+            poke.nickname = `${nickname.charAt(0).toUpperCase()}${nickname.substring(1).toLowerCase()}`
+        }
+    })
+    await myPokemonCollection.updateOne({ownerId : userId},{$set : {pokemon : allMyPoke}})
+}
+
+// Updates the current HP of a specific Pokemon owned by a user in the database.
+export async function updateCurrentHp(ownerId: ObjectId, pokeId: number, newHp: number) {
+    const result = await myPokemonCollection.updateOne(
+        { ownerId: ownerId, "pokemon.id": pokeId },  
+        { $set: { "pokemon.$.currentHp": newHp } }
+      );
+
+    if (result.matchedCount === 0) {
+        console.log(`No pokemon found for owner ${ownerId} with pokeId ${pokeId}`)
+    }
+}
+
+// Clear the pokemon array for a given user | USE CAREFULLY, WIPS ALL PROGRESS
+export async function deleteMyPokemon(userId : ObjectId) {
+    let userData : MyPokemon | null = await myPokemonCollection.findOne({ownerId : userId})
+    if(!userData) {
+        throw new Error("Couldnt find user");
     } else {
-        // If more than 1 pokemon has currentpokemon = true, only return one (with highest level)
-        return currentPokemon.slice(0, 1);
+        userData.pokemon = []
+        await myPokemonCollection.updateOne({ownerId : userId}, {$set : {pokemon : userData.pokemon}})
     }
 }
 
-export async function getMyPokemon(userId:number):Promise<MyPokemon[]> {
-    try {
-        const myPokemon : MyPokemon[] = await myPokemonCollection.find({ownerId : userId}).sort({ level : 1 }).toArray()
-        return myPokemon
-    } catch (error) {
-        console.error(error)
+/////////////////////
+// CURRENT POKEMON //
+/////////////////////
+
+// Returns the current pokemon of given user
+export async function getCurrentPokemon(userId : ObjectId):Promise<FullPokemon> {
+    let allMyPoke = await getMyPokemon(userId)
+    const currentPokemon = allMyPoke.find((poke) => {
+        if (poke.currentPokemon === true) {
+            return poke
+        } 
+    })
+    if(typeof currentPokemon === "undefined" || !currentPokemon) {
+        throw new Error("No currentPokemon");
+    } else {
+        return currentPokemon;
     }
-    return [];
 }
 
-export async function deleteMyPokemon(userId : number) {
-    await myPokemonCollection.deleteMany({ownerId : userId})
+// Switch the currentPokemon attribute to true for a different pokemon
+export async function changeCurrentPokemon(pokeId : number, userId : ObjectId) {
+    let allMyPoke = await getMyPokemon(userId)
+    const updatedPoke = allMyPoke.map((poke) => {
+        if(poke.id === pokeId) {
+            poke.currentPokemon = true
+        } else {
+            poke.currentPokemon = false
+        }
+        return poke
+    })
+    await myPokemonCollection.updateOne({ownerId : userId},{$set : {pokemon : updatedPoke}})
 }
 
-export async function getMyPokemonById(userId:number, pokeId : number):Promise<MyPokemon[]> {
-    try {
-        const myPokemon : MyPokemon[] = await myPokemonCollection.find({ $and : [{ownerId : userId}, { id: pokeId}]}).toArray()
-        return myPokemon
-    } catch (error) {
-        console.error(error)
-    }
-    return [];
-}
 
-export async function changeCurrentPokemon(pokeId : number, userId : number) {
-    // Switch the currentPokemon attribute to true for a different pokemon
-    const newCurrentPoke : MyPokemon[] = await getFullPokemon(pokeId, userId)
-    await myPokemonCollection.updateMany({ _id : {$ne : newCurrentPoke[0]._id} }, {currentPokemon : false})
-    await myPokemonCollection.updateOne({ _id : newCurrentPoke[0]._id }, {currentPokemon : true})
-}
+///////////
+// USERS //
+///////////
 
-export async function catchPokemon(pokeId : number, userId : number, pokeLevel : number) {
-    // Add a full pokemon to user with given level, then apply leveled stats
-    const fullPoke : MyPokemon = await createFullPokemon(pokeId, pokeLevel, userId)
-    await myPokemonCollection.insertOne(fullPoke)
-    await levelPokemon(fullPoke.id, userId, pokeLevel)
-}
-
+// Get all users from database
 async function getAllUsers():Promise<User[]> {
     try {
         const allUsers:User[] = await userCollection.find({}).toArray();
@@ -133,27 +215,22 @@ async function getAllUsers():Promise<User[]> {
     return [];
 }
 
-export async function getUserById(id:number):Promise<User[]> {
+// Get 1 user from database with given _id
+export async function getUserById(id:ObjectId):Promise<User> {
     try {
-        const user:User[] = await userCollection.find({ userId : id }).toArray();
-        return user
+        const user:User | null = await userCollection.findOne({ _id : id });
+                if(user){
+            return user
+        } else {
+            throw new Error(`Failed to get user with id ${id} from database`);
+        }
     } catch (error) {
         console.error(error)
     }
-    return [];
+    throw new Error(`Failed to get user with id ${id} from database`);
 }
 
-// async function createUser(email:string, username:string) {
-//     const newestUser : User[] = await userCollection.find({}).sort({userId: -1}).limit(1).toArray();
-//     const newId = newestUser[0] ? newestUser[0].userId + 1 : 1
-//     const newUser:User = {
-//         userId : newId,
-//         username : username,
-//         email : email
-//     }
-//     userCollection.insertOne(newUser)
-// }
-
+// Creates the initial user, with credentials from .env file
 async function createInitialUser() {
     if (await userCollection.countDocuments() > 0) {
         return;
@@ -170,9 +247,17 @@ async function createInitialUser() {
         password: await bcrypt.hash(password, saltRounds),
         role: "ADMIN"
     });
+
+    const user = await userCollection.find({ email : email }).toArray()
+    await myPokemonCollection.insertOne({
+        ownerId : user[0]._id,
+        pokemon : []
+    })
+
     console.log("🌱👤 Created initial user");
 }
 
+// Create a new user with username, email and password
 export async function createUser(username: string, email: string, password: string) {
     const existingUser = await userCollection.findOne({ $or: [{ username }, { email }] });
     if (existingUser) {
@@ -186,9 +271,17 @@ export async function createUser(username: string, email: string, password: stri
         password: hashedPassword,
         role: "USER"
     });
+
+    const user = await userCollection.find({ email : email }).toArray()
+    await myPokemonCollection.insertOne({
+        ownerId : user[0]._id,
+        pokemon : []
+    })
+
     console.log(`🆕👤 New user created: ${username}`);
 }
 
+// Validate user login by checking username and hashed password
 export async function login(username: string, password: string) {
     if (username === "" || password === "") {
         throw new Error("Email and password required");
@@ -206,8 +299,12 @@ export async function login(username: string, password: string) {
     }
 }
 
+//////////////
+// Database //
+//////////////
+
+//  Add all pokemon to pokedex to seed database from pokeapi
 async function seed() {
-    // Add all pokemon to pokedex to seed database
     try {
         await pokedexCollection.deleteMany();
         const pokeList: Pokemon[] = await getPokemonList()
@@ -217,16 +314,18 @@ async function seed() {
     }
 }
 
+//  Close the database connection, then stop application
 async function exit() {
     try {
         await client.close();
-        console.log("❌ Disconnected from database");
+        console.log("\n❌ Disconnected from database");
     } catch (error) {
         console.error(error);
     }
     process.exit(0);
 }
 
+// Connect to database and check if seeding is needed
 export async function connect() {
     try {
         await client.connect();
@@ -236,11 +335,6 @@ export async function connect() {
             console.log("🌱 Seeded pokedex");
         }
         await createInitialUser();
-        // await userCollection.deleteMany()
-        // await myPokemonCollection.deleteMany()
-        // Temp code to add dummy user with pokemon
-        // await createUser("example@email.com", "John Doe")
-        // await catchPokemon(151, 1, 20)
         process.on("SIGINT", exit);
     } catch (error) {
         console.error(error);

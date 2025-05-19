@@ -3,38 +3,37 @@
 
 <link rel="stylesheet" href="/css/wtp.css">
 
-<h1 class="wtp__title">Who's That Pokemon</h1>
 <section class="wtp">
     <% if (answer.correct) { %>
            <img src="<%= poke.front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image" draggable="false" style="filter: brightness(100%);"> 
-           <p><%= answer.response %></p>
+           <p class="wtp__p"><%= answer.response %></p>
     <% } else if(answer.response != "Correct! You guessed the right pokemon.") { %>
         <img src="<%= poke.front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image" draggable="false">
-        <p><%= answer.response %></p>
+        <p class="answer_wrong"><%= answer.response %></p>
     <% } %>
-
-    <form autocomplete="off" action="" method="post" class="wtp__form">
-        <% if (answer.correct) { %>
-            <a href="/wtp"><button type="button">Next</button></a>
-        <% } else { %>
-            <div class="input__container" style="width:300px;">
-                <input id="input__field" type="text" name="guess" placeholder="Pokemon">
-                <!-- 
-                <div id="autocomplete__list" class="autocomplete__item">
-                    <div><strong>pid</strong>gey<input type="hidden" value="pidgey"></div>
-                    <div class="autocomplete__item--active"><strong>pid</strong>geotto<input type="hidden" value="pidgeotto"></div>
-                    <div><strong>pid</strong>geot<input type="hidden" value="pidgeot"></div>
+    <section class="wtp_buttons">
+        <form autocomplete="off" action="" method="post" class="wtp__form">
+            <% if (answer.correct) { %>
+                <div class="next_button">
+                    <button type="button" class="next"><a href="/wtp">Next</a></button>
+                    <!-- <a href="/wtp"><button type="button">Next</button></a> -->
                 </div>
-                    -->
-            </div>
-            <div class="submit_button">
-                <button type="submit" id="reveal" name="post" value="post" class="submit">Submit</button>
-            </div>
-            <div class="skip_button">
-                <a href="/wtp"><button type="button">Skip</button></a>
-            </div>
-        <% } %>
-    </form>
+            <% } else { %>
+                
+                <div class="submit_button">
+                    <button type="submit" id="reveal" name="post" value="post" class="submit">SUBMIT</button>
+                </div>
+                <div class="skip_button">
+                    <button type="button"><a href="/wtp">SKIP</a></button>
+                    <!-- <a href="/wtp"><button type="button">Skip</button></a> -->
+                </div>
+                <div class="input__container" style="width:300px;">
+                    <input id="input__field" type="text" name="guess" placeholder="Pokemon">
+                </div>
+            <% } %>
+        </form>
+    </section>
+
 </section>
 
 <%- include("partials/footer") %>

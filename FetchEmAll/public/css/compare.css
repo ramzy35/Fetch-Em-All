@@ -11,8 +11,10 @@ main, nav, footer {
 
 body {
     background-color: var(--blue);
-    background-image: url(../assets/backgrounddddd_1.png);
-    background-size: 50vw 100%;
+    background-image: url(../assets/background1fix.png); 
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
 }
 
 main {
@@ -26,7 +28,7 @@ main {
     flex-direction: column;
     width: 850px;
     border-radius: 15px;
-    background-color: var(--blue);
+    background-image: linear-gradient(to bottom, rgb(59, 197, 185) 0%, rgb(72, 197, 170) 50%, rgba(0, 0, 0, 0) 100%);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -44,6 +46,8 @@ main {
     flex-direction: column;
     justify-content: end;
     align-items: center;
+    gap: 5px;
+    padding-bottom: 20px;
     /* background-color: var(--white); */
 }
 
@@ -128,6 +132,8 @@ i {
 .bold {
     font-size: 1.6rem;
     font-weight: bold;
+    /* text-shadow: 1px 0 1px; */
+    color: rgb(73, 6, 6);
 }
 
 .compare__info {
@@ -135,7 +141,16 @@ i {
     border: 1px solid var(--black);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     padding: 10px 5px 10px 5px;
-    width: 180px;
+    width: 80%;
+    margin: 20px 0
+}
+
+.compare__text {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 3px;
+    padding-bottom: 10px;
+    text-transform: uppercase;
 }
 
 .base-stats {
@@ -179,7 +194,7 @@ i {
 
 .compare__stats__title {
     text-align: center;
-    justify-content: space-evenly;
+    justify-content: center;
     min-width: 100px;
 }
 
@@ -264,6 +279,18 @@ i {
     }
 }
 
+@media (max-width: 850px) {
+
+    main {
+        padding: 0px 0px
+    }
+
+    .wrapper {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+}
+
 @media (max-width: 540px) {
 
     .compare__hp__bar, .compare__atk__bar, .compare__def__bar,
@@ -303,5 +330,17 @@ i {
     .compare__info {
         width: 150px;
         margin: 1.6rem 0;
+    }
+}
+
+@media (max-width: 460px) {
+    .compare__icons--top, .compare__icons--second,
+    .compare__icons--third, .compare__icons--fourth,
+    .compare__icons--fifth {
+        display: none;
+    }
+
+    h2, h3, p, span, .bold {
+        font-size: 1.2rem;
     }
 }

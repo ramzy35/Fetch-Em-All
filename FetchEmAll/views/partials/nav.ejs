@@ -1,5 +1,5 @@
 <nav class="nav">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <section class="nav__left">
         <a href="#top" class="nav__left__logo"><img src="/assets/pokeball.png " alt="Fetch 'Em All Logo"></a>
         <a href="#top" class="nav__left__title">
@@ -7,7 +7,7 @@
         </a>
     </section>
 
-    <ul class="nav__items">
+    <ul class="nav__items" id="menu">
         <% if (currentPage === "pokedex") { %>
             <a href="#top">
                 <li class="active">Pokedex</li>
@@ -20,27 +20,35 @@
 
         <% if (currentPage === "myPokemon") { %>
             <a href="#top">
-                <li class="active">My Pokemon</li>
+                <li class="active">MyPokemon</li>
             </a>
         <% } else { %>
             <a href="/myPokemon">
-                <li>My Pokemon</li>
+                <li>MyPokemon</li>
             </a>
         <% } %>
 
         <% if (currentPage === "wtp") { %>
             <a href="#top">
-                <li class="active">Who's That Pokemon</li>
+                <li class="active">WhoThatPokemon</li>
             </a>
         <% } else { %>
             <a href="/wtp">
-                <li>Who's That Pokemon</li>
+                <li>WhoThatPokemon</li>
             </a>
         <% } %>
+
+        <a class="close" href="#">
+            <span class="material-icons">
+              close
+            </span>
+        </a>
     </ul>
 
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
+    <a class="hamburger" href="#menu">
+        <span class="material-icons">
+          menu
+        </span>
     </a>
 </nav>
 <main>
