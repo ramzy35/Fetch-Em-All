@@ -58,7 +58,7 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number):Pro
     // Add all needed stats to convert from Type Pokemon to MyPokemon
     let fullPoke : FullPokemon = {
         ...basePoke,
-        currentHp: Math.floor(basePoke.hp + 1/50 * pokeLevel * basePoke.hp),
+        currentHp: Math.ceil(basePoke.hp + 1/50 * (pokeLevel - 1) * basePoke.hp),
         isFainted: false,
         level: pokeLevel,
         currentPokemon: false,
