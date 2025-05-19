@@ -47,7 +47,7 @@
             </button>
         <% } %>
         <button type="button" id="reveal" class="submit" onclick="changeLink(event, '<%= pokemon.id%>')">
-            <a href="/compare" class="pokestat__compare" id="pokestat__compare__link">Compare</a>
+            <a href="/compare" class="pokestat__compare" id="pokestat__compare__link">Vergelijken</a>
         </button>
         <form autocomplete="off" action="" class="pokemon__form">
             <div class="input__container">
@@ -57,7 +57,7 @@
     </section>
     <% if (pokemon.evolution_chain !=null) {%>
         <section class="pokestat__chain">
-            <h3 class="chain__title">Evolution chain</h1>
+            <h3 class="chain__title">Evolutie keten</h3>
                 <section class="chain-wrapper">
                     <% pokemon.evolution_chain.forEach(poke=> { %>
                         <section class="chain--first">
@@ -143,25 +143,25 @@
         </section>
         <section class="stats--right">
             <section class="stats__block">
-                <p><span class="bold">Generation: </span>
+                <p><span class="bold">Generatie: </span>
                     <%= generation(pokemon.generation) %>
                 </p>
                 <p><span class="bold">Habitat: </span>
                     <%= pokemon.habitat %>
                 </p>
-                <p><span class="bold">Capture Rate: </span>
+                <p><span class="bold">Vangsnelheid: </span>
                     <%= pokemon.capture_rate %>
                 </p>
-                <p><span class="bold">Growth Rate: </span>
+                <p><span class="bold">Groeisnelheid: </span>
                     <%= pokemon.growth_rate %>
                 </p>
-                <p><span class="bold">EV Yield: </span>
+                <p><span class="bold">EV-opbrengst: </span>
                     <%= pokemon.ev_yield %>
                 </p>
-                <p><span class="bold">Base Exp: </span>
+                <p><span class="bold">Basis Exp: </span>
                     <%= pokemon.base_experience %>
                 </p>
-                <p><span class="bold">Base Happiness: </span>
+                <p><span class="bold">Basis geluk: </span>
                     <%= pokemon.base_happiness %>
                 </p>
             </section>
@@ -177,7 +177,7 @@
             </section>
             <% if (pokemon.type_damage[0].length>= 1) {%>
                 <section class="no times">
-                    <p class="bold">Takes no damage</p>
+                    <p class="bold">Loopt geen schade op</p>
                     <section class="types">
                         <% pokemon.type_damage[0].forEach(type=> { %>
                             <section class="type-<%= type %> type">
@@ -189,7 +189,7 @@
             <% } %>
             <% if (pokemon.type_damage[1].length>= 1) {%>
                 <section class="quarter times">
-                    <p class="bold">Takes 1/4x damage</p>
+                    <p class="bold">Neemt 1/4x schade</p>
                     <section class="types">
                         <% pokemon.type_damage[1].forEach(type=> { %>
                             <section class="type-<%= type %> type">
@@ -201,7 +201,7 @@
             <% } %>
             <% if (pokemon.type_damage[2].length>= 1) {%>
                 <section class="half times">
-                    <p class="bold">Takes 1/2x damage</p>
+                    <p class="bold">Neemt 1/2x schade</p>
                     <section class="types">
                         <% pokemon.type_damage[2].forEach(type=> { %>
                             <section class="type-<%= type %> type">
@@ -213,7 +213,7 @@
             <% } %>
             <% if (pokemon.type_damage[3].length>= 1) {%>
                 <section class="no times">
-                    <p class="bold">Takes 1x damage</p>
+                    <p class="bold">Krijgt 1x schade</p>
                     <section class="types">
                         <% pokemon.type_damage[3].forEach(type=> { %>
                             <section class="type-<%= type %> type">
@@ -225,7 +225,7 @@
             <% } %>
             <% if (pokemon.type_damage[4].length>= 1) {%>
                 <section class="two times">
-                    <p class="bold">Takes 2x damage</p>
+                    <p class="bold">Krijgt 2x schade</p>
                     <section class="types">
                         <% pokemon.type_damage[4].forEach(type=> { %>
                             <section class="type-<%= type %> type">
@@ -237,7 +237,7 @@
             <% } %>
             <% if (pokemon.type_damage[5].length>= 1) {%>
                 <section class="four times">
-                    <p class="bold">Takes 4x damage</p>
+                    <p class="bold">Krijgt 4x schade</p>
                     <section class="types">
                         <% pokemon.type_damage[5].forEach(type=> { %>
                             <section
