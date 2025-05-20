@@ -63,9 +63,10 @@ function performAttack(attacker: FullPokemon, defender: FullPokemon, logs: strin
     const stab = attacker.types.includes(attacker.types[0]) ? 1.2 : 1.0;
 
     const baseDamage = Math.floor(
-        ((2 * attacker.level / 5 + 2) * attacker.attack * 60 / defender.defense / 50) + 2
+        ((2 * attacker.level / 5 + 2) * attacker.attack * 60 /  (Math.max(defender.level / 10, 2)* defender.defense) / 50) + 2
     );
     const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
+
     defender.currentHp -= totalDamage;
 
     console.log(`${attacker.name} viel ${defender.name} aan voor ${totalDamage} damage.`);
@@ -216,7 +217,7 @@ function getTypeDamage(attacker : FullPokemon, defender : FullPokemon) : number 
     if(defender.type_damage[0].includes(attacker.types[0])) {
         mult *= 0
     } else if (defender.type_damage[2].includes(attacker.types[0])) {
-        mult /= 2
+        mult *= 1/2
     } else if (defender.type_damage[3].includes(attacker.types[0])) {
         mult *= 1
     } else if (defender.type_damage[4].includes(attacker.types[0])) {
@@ -228,7 +229,7 @@ function getTypeDamage(attacker : FullPokemon, defender : FullPokemon) : number 
     if(defender.type_damage[0].includes(attacker.types[1])) {
         mult *= 0
     } else if (defender.type_damage[2].includes(attacker.types[1])) {
-        mult /= 2
+        mult *= 1/2
     } else if (defender.type_damage[3].includes(attacker.types[1])) {
         mult *= 1
     } else if (defender.type_damage[4].includes(attacker.types[1])) {
