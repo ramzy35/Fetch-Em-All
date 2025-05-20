@@ -22,7 +22,7 @@ const battleRoute = express.Router();
 battleRoute.get("/", secureMiddleware, async (req, res) => {
     let playerPoke : FullPokemon = await getCurrentPokemon(res.locals.user._id)
     const aiPokeId : number = typeof req.query.id === "string" ? parseInt(req.query.id) : 1;
-    const aiPokeLevel : number = playerPoke.level;
+    const aiPokeLevel : number = playerPoke.level +- Math.round(Math.random() * 3);
     const aiPoke : FullPokemon = await createFullPokemon(aiPokeId, aiPokeLevel)
 
     const firstTurn = playerPoke.speed >= aiPoke.speed ? 'user' : 'ai';
@@ -32,9 +32,9 @@ battleRoute.get("/", secureMiddleware, async (req, res) => {
         ai: aiPoke,
         turn: firstTurn,
         log: [
-            `A wild ${aiPoke.name} appeared!`,
+            `Een wilde ${aiPoke.name} komt tevoorschijn!`,
             `Go! ${playerPoke.name}!`,
-            `${firstTurn === 'user' ? 'You go' : 'The opponent goes'} first!`,
+            `${firstTurn === 'user' ? 'Jij gaat' : 'De tegenstander gaat'} eerst!`,
         ]
     };
 
@@ -68,22 +68,22 @@ function performAttack(attacker: FullPokemon, defender: FullPokemon, logs: strin
     const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
     defender.currentHp -= totalDamage;
 
-    console.log(`${attacker.name} attacked ${defender.name} for ${totalDamage} damage.`);
+    console.log(`${attacker.name} viel ${defender.name} aan voor ${totalDamage} damage.`);
 
     if (attacker.abilities && attacker.abilities.length > 0 && Math.random() < 0.5) {
         const ability = attacker.abilities[Math.floor(Math.random() * attacker.abilities.length)];
-        logs.push(`${attacker.name} used ${ability.name}!`);
+        logs.push(`${attacker.name} gebruikt ${ability.name}!`);
         console.log(`${attacker.name} triggered ability: ${ability.name}`);
     } else {
-        logs.push(`${attacker.name} attacked!`);
+        logs.push(`${attacker.name} viel aan!`);
         console.log(`${attacker.name} used a regular attack.`);
     }
-    logs.push(`It dealt ${totalDamage} damage!`);
+    logs.push(`Het deed ${totalDamage} damage!`);
 
     if (defender.currentHp <= 0) {
         defender.currentHp = 0;
         defender.isFainted = true;
-        logs.push(`${defender.name} fainted!`);
+        logs.push(`${defender.name} valt flauw!`);
         console.log(`${defender.name} has fainted.`);
     }
 
@@ -150,16 +150,16 @@ battleRoute.post("/catch", secureMiddleware, async (req, res) => {
     const hpFactor = ai.currentHp / ai.hp;
     const captureChance = (ai.capture_rate / 255) * (1 - hpFactor) * 1.5;
 
-    logs.push(`You threw a Pokeball...`);
+    logs.push(`Je gooit een Pokeball...`);
 
     if (Math.random() < captureChance) {
         ai.isFainted = true;
         await catchPokemon(ai.id, res.locals.user._id, ai.level);
-        logs.push(`Gotcha! ${ai.name} was caught!`);
+        logs.push(`Gotcha! ${ai.name} is gevangen!`);
         console.log(`✅ Catch succeeded: ${ai.name} was caught.`);
         battleState.turn = "over";
     } else {
-        logs.push(`${ai.name} broke free!`);
+        logs.push(`${ai.name} verzet zich!`);
         console.log(`❌ Catch failed: ${ai.name} broke free.`);
         battleState.turn = "ai";
     }
@@ -180,15 +180,15 @@ battleRoute.post("/catch", secureMiddleware, async (req, res) => {
         const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
         defender.currentHp -= totalDamage;
 
-        logs.push(`${attacker.name} attacked!`);
-        logs.push(`It dealt ${totalDamage} damage!`);
+        logs.push(`${attacker.name} viel aan!`);
+        logs.push(`Het deed ${totalDamage} damage!`);
 
-        console.log(`${attacker.name} attacked ${defender.name} for ${totalDamage} damage.`);
+        console.log(`${attacker.name} viel ${defender.name} aan voor ${totalDamage} damage.`);
 
         if (defender.currentHp <= 0) {
             defender.currentHp = 0;
             defender.isFainted = true;
-            logs.push(`${defender.name} fainted!`);
+            logs.push(`${defender.name} valt flauw!`);
             console.log(`${defender.name} has fainted.`);
         }
 
@@ -237,45 +237,45 @@ function getTypeDamage(attacker : FullPokemon, defender : FullPokemon) : number 
     return mult
 }
 
-function getDamageMultiplier(attacker: FullPokemon, defender: FullPokemon): number {
-    const attackerTypes = attacker.types;
-    const TypeDamage = attacker.type_damage[4];
-    const defenderTypes = defender.types;
-    const defenderTypeDamage = defender.type_damage;
+// function getDamageMultiplier(attacker: FullPokemon, defender: FullPokemon): number {
+//     const attackerTypes = attacker.types;
+//     const TypeDamage = attacker.type_damage[4];
+//     const defenderTypes = defender.types;
+//     const defenderTypeDamage = defender.type_damage;
 
-    let damageMultiplier = 1;
+//     let damageMultiplier = 1;
 
-    if (attackerTypes.length === 1) {
-        const attackerType = attackerTypes[0];
-        const defenderIndex = getDefenderTypeIndex(defenderTypes, defenderTypeDamage);
-        if (defenderIndex >= 0)
-        {
-            damageMultiplier *= indexToMultiplierMapper(defenderIndex);
-        }
-    }
-    else if (attackerTypes.length === 2) {
-        const randomTypeIndex = Math.floor(Math.random() * 2);
-        const attackerType = attackerTypes[randomTypeIndex];
-        const defenderIndex = getDefenderTypeIndex(defenderTypes, defenderTypeDamage);
-        if (defenderIndex >= 0)
-        {
-            damageMultiplier *= indexToMultiplierMapper(defenderIndex);
-        }
-    }
-    return damageMultiplier;
-}
+//     if (attackerTypes.length === 1) {
+//         const attackerType = attackerTypes[0];
+//         const defenderIndex = getDefenderTypeIndex(defenderTypes, defenderTypeDamage);
+//         if (defenderIndex >= 0)
+//         {
+//             damageMultiplier *= indexToMultiplierMapper(defenderIndex);
+//         }
+//     }
+//     else if (attackerTypes.length === 2) {
+//         const randomTypeIndex = Math.floor(Math.random() * 2);
+//         const attackerType = attackerTypes[randomTypeIndex];
+//         const defenderIndex = getDefenderTypeIndex(defenderTypes, defenderTypeDamage);
+//         if (defenderIndex >= 0)
+//         {
+//             damageMultiplier *= indexToMultiplierMapper(defenderIndex);
+//         }
+//     }
+//     return damageMultiplier;
+// }
 
-function getDefenderTypeIndex(defenderTypes: string[], defenderTypeDamage: string[][]): number {
-    let damageIndex = -1;
-    for (const defenderType of defenderTypes) {
-        const typeIndex = defenderTypeDamage.findIndex((damageArr) => damageArr.includes(defenderType));
-        if (typeIndex !== -1) {
-            damageIndex = typeIndex;
-            break;
-        }
-    }
-    return damageIndex;
-}
+// function getDefenderTypeIndex(defenderTypes: string[], defenderTypeDamage: string[][]): number {
+//     let damageIndex = -1;
+//     for (const defenderType of defenderTypes) {
+//         const typeIndex = defenderTypeDamage.findIndex((damageArr) => damageArr.includes(defenderType));
+//         if (typeIndex !== -1) {
+//             damageIndex = typeIndex;
+//             break;
+//         }
+//     }
+//     return damageIndex;
+// }
 
 
 battleRoute.get("/:status", async (req, res) => {

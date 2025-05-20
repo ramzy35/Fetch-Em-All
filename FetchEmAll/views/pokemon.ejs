@@ -43,7 +43,7 @@
         <% const alreadyOwned = myPokemon.some(p => p.id === pokemon.id); %>
         <% if (!alreadyOwned) { %>
             <button>    
-                <a href="/battle?id=<%= pokemon.id %>" class="pokestat__catch">Battle</a>
+                <a href="/battle?id=<%= pokemon.id %>" class="pokestat__catch">Vechten</a>
             </button>
         <% } %>
         <button type="button" id="reveal" class="submit" onclick="changeLink(event, '<%= pokemon.id%>')">
@@ -51,7 +51,7 @@
         </button>
         <form autocomplete="off" action="" class="pokemon__form">
             <div class="input__container">
-                <input id="input__field" type="text" name="id2" placeholder="Compare with...">
+                <input id="input__field" type="text" name="id2" placeholder="Vergelijk met...">
             </div>
         </form>
     </section>
@@ -73,7 +73,7 @@
     <section class="pokestat__stats">
         <section class="stats--left">
             <section class="stats__block">
-                <h3>Base stats</h3>
+                <h3>Basis stats</h3>
                 <section class="stats">
                     <p class="stats__title">HP</p>
                     <section class="bar">
