@@ -40,6 +40,7 @@ export interface FullPokemon extends Pokemon {
     level: number;
     currentPokemon: boolean;
     nickname: string;
+    lastHealed : Date;
 }
 
 export interface MyPokemon {
