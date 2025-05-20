@@ -18,7 +18,7 @@
                         data-tooltip="<%= type.charAt(0).toUpperCase() + type.slice(1) %>">
                         <img src="/assets/icons/<%= type %>.svg" width="40px" alt="<%= type %> type icon" />
                     </section>
-                    <% }); %>
+                <% }); %>
             </section>
 
             <section class="small-stats">
@@ -66,7 +66,7 @@
                             </h2>
                             <img src="<%= poke.front_default %>">
                         </section>
-                        <% }); %>
+                    <% }); %>
                 </section>
         </section>
     <% } %>
@@ -77,8 +77,7 @@
                 <section class="stats">
                     <p class="stats__title">HP</p>
                     <section class="bar">
-                        <section class="hp-fill fill type-<%= pokemon.types[0] %>" style=<%-
-                            getPercent(pokemon.hp, 250) %>>
+                        <section class="hp-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.hp, 250) %>>
                             <%= pokemon.hp %>
                         </section>
                     </section>
@@ -86,8 +85,7 @@
                 <section class="stats">
                     <p class="stats__title">Atk</p>
                     <section class="bar">
-                        <section class="atk-fill fill type-<%= pokemon.types[0] %>" style=<%-
-                            getPercent(pokemon.attack, 134) %>>
+                        <section class="atk-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.attack, 134) %>>
                             <%= pokemon.attack %>
                         </section>
                     </section>
@@ -95,8 +93,7 @@
                 <section class="stats">
                     <p class="stats__title">Def</p>
                     <section class="bar">
-                        <section class="def-fill fill type-<%= pokemon.types[0] %>" style=<%-
-                            getPercent(pokemon.defense, 180) %>>
+                        <section class="def-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.defense, 180) %>>
                             <%= pokemon.defense %>
                         </section>
                     </section>
@@ -104,8 +101,7 @@
                 <section class="stats">
                     <p class="stats__title">SAtk</p>
                     <section class="bar">
-                        <section class="spatk-fill fill type-<%= pokemon.types[0] %>" style=<%-
-                            getPercent(pokemon.special_attack, 154) %>>
+                        <section class="spatk-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.special_attack, 154) %>>
                             <%= pokemon.special_attack %>
                         </section>
                     </section>
@@ -113,8 +109,7 @@
                 <section class="stats">
                     <p class="stats__title">SDef</p>
                     <section class="bar">
-                        <section class="spdef-fill fill type-<%= pokemon.types[0] %>" style=<%-
-                            getPercent(pokemon.special_defense, 125) %>>
+                        <section class="spdef-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.special_defense, 125) %>>
                             <%= pokemon.special_defense %>
                         </section>
                     </section>
@@ -122,8 +117,7 @@
                 <section class="stats">
                     <p class="stats__title">Spd</p>
                     <section class="bar">
-                        <section class="spd-fill fill type-<%= pokemon.types[0] %>" style=<%-
-                            getPercent(pokemon.speed, 140) %>>
+                        <section class="spd-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.speed, 140) %>>
                             <%= pokemon.speed %>
                         </section>
                     </section>
@@ -138,7 +132,7 @@
                     <p>
                         <%= ability.description %>
                     </p>
-                    <% }); %>
+                <% }); %>
             </section>
         </section>
         <section class="stats--right">
@@ -172,7 +166,7 @@
                         <section class="type-<%= type %> type">
                             <%= type %>
                         </section>
-                        <% }); %>
+                    <% }); %>
                 </section>
             </section>
             <% if (pokemon.type_damage[0].length>= 1) {%>
@@ -183,7 +177,7 @@
                             <section class="type-<%= type %> type">
                                 <%= type %>
                             </section>
-                            <% }); %>
+                        <% }); %>
                     </section>
                 </section>
             <% } %>
@@ -195,7 +189,7 @@
                             <section class="type-<%= type %> type">
                                 <%= type %>
                             </section>
-                            <% }); %>
+                        <% }); %>
                     </section>
                 </section>
             <% } %>
@@ -207,7 +201,7 @@
                             <section class="type-<%= type %> type">
                                 <%= type %>
                             </section>
-                            <% }); %>
+                        <% }); %>
                     </section>
                 </section>
             <% } %>
@@ -219,7 +213,7 @@
                             <section class="type-<%= type %> type">
                                 <%= type %>
                             </section>
-                            <% }); %>
+                        <% }); %>
                     </section>
                 </section>
             <% } %>
@@ -231,7 +225,7 @@
                             <section class="type-<%= type %> type">
                                 <%= type %>
                             </section>
-                            <% }); %>
+                        <% }); %>
                     </section>
                 </section>
             <% } %>
@@ -244,7 +238,7 @@
                                 class="type-<%= type %> type">
                                 <%= type %>
                             </section>
-                            <% }); %>
+                        <% }); %>
                     </section>
                 </section>
             <% } %>
