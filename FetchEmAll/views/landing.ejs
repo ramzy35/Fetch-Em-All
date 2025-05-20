@@ -17,9 +17,9 @@
             <form action="/logout" method="post">
                 <button type="submit" class="login-button">Log uit</button>
             </form>
-            <% } else { %>
-                <a href="/signin" class="login-button">Log In</a>
-                <% } %>
+        <% } else { %>
+            <a href="/signin" class="login-button">Log In</a>
+        <% } %>
     </header>
 
     <main>
@@ -29,9 +29,9 @@
             <h3>Pokemon</h3>
             <% if (user) { %>
                 <a href="/pokedex" class="visit">Bezoek website</a>
-                <% } else { %>
-                    <a href="/signin" class="visit">Bezoek website/a>
-                    <% } %>
+            <% } else { %>
+                <a href="/signin" class="visit">Bezoek website</a>
+            <% } %>
         </div>
 
         <div class="project-card">
