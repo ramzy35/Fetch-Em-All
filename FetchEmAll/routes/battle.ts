@@ -22,8 +22,8 @@ const battleRoute = express.Router();
 battleRoute.get("/", secureMiddleware, async (req, res) => {
     let playerPoke : FullPokemon = await getCurrentPokemon(res.locals.user._id)
     const aiPokeId : number = typeof req.query.id === "string" ? parseInt(req.query.id) : 1;
-    const aiPokeLevel : number = playerPoke.level +- Math.round(Math.random() * 3);
-    const aiPoke : FullPokemon = await createFullPokemon(aiPokeId, aiPokeLevel)
+    const aiPokeLevel : number = Math.max(playerPoke.level +- Math.round(Math.random() * 3), 1);
+    const aiPoke : FullPokemon = await createFullPokemon(aiPokeId, aiPokeLevel > 100 ? 100 : aiPokeLevel)
 
     const firstTurn = playerPoke.speed >= aiPoke.speed ? 'user' : 'ai';
 

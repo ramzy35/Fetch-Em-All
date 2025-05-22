@@ -78,7 +78,9 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number):Pro
 export async function levelPokemon(userId : ObjectId) {
     const currentPoke:FullPokemon = await getCurrentPokemon(userId)
     const basePoke:Pokemon = await getPokemonById(currentPoke.id)
-
+    if(currentPoke.level >= 100) {
+        return
+    }
     await myPokemonCollection.updateOne(
         { ownerId: userId, "pokemon.id": currentPoke.id },
         { $inc : {
