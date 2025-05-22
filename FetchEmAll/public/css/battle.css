@@ -185,8 +185,8 @@ button:disabled {
 }
 
 .battle-text {
-    /* margin-top: 3%;
-    margin-left: 5%; */
+    margin-top: 3%;
+    margin-left: 5%;
     opacity: 0.95;
     font-size: 1rem;
     color: white;
@@ -243,7 +243,9 @@ button:disabled {
 }
 
 #battle-log {
-    display: inline; /* or inline-block */
+    display: inline;
+    font-family: PT Sans Narrow;
+    font-size: 2rem;
 }
   
 .blinker {
@@ -252,6 +254,7 @@ button:disabled {
     color: red;
     margin-left: 4px;
     display: inline; /* keep it inline */
+    font-family: PT Sans Narrow;
 }
   
 .hidden {
