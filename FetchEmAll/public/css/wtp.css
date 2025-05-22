@@ -29,6 +29,7 @@ strong {
 .wtp {
   z-index: 1;
   max-width: 850px;
+  height: 70vh;
   background-image: linear-gradient(to bottom, rgb(118, 195, 31) 0%, rgb(72, 197, 170) 50%, rgb(222, 210, 210) 100%);
   display: flex;
   flex-direction: column;
@@ -58,7 +59,7 @@ strong {
   max-width: 500px;
   min-width: 250px;
   box-sizing: border-box;
-  /* position: absolute; */
+  position: inherit;
 }
 
 
@@ -77,8 +78,15 @@ strong {
   display: block;
 }
 
-.submit, .skip_button, .next {
+.submit, .skip, .next {
   max-height: 38px;
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 4px;
+  /* width: 50px; */
+  width: fit-content;
+  /* height: 38px; */
+  position: relative;
 }
   
 .wtp__image--revealPokemon {
@@ -112,51 +120,16 @@ strong {
 /* AUTOCOMPLETE */
 
 .wtp__form {
-  margin-top: 2rem;
+  margin-top: 1rem;
   position: relative;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: space-around;
-  padding: 20px;
-}
-  
-.wtp__form__input__container {
-  position: relative;
-  display: inline-block;
-}
-
-
-
-/* ------------------ */
-/* --- doet niks? --- */
-/* ------------------ */
-
-.wtp__form__submit, #wtp__form__input__field {
-  border: 1px solid transparent;
-  background-color: #f1f1f1;
-  padding: 10px;
-  font-size: 16px;
-}
-  
-#wtp__form__input__field {
-  width: 100%;
-  margin-bottom: 20px;
-}
-  
-/* .wtp__form__submit {
-  background-color: DodgerBlue;
-  color: #fff;
-  margin-bottom: 20px;
-} */
-
-/* ---------------------------------------------------------- */
-
-button {
-  padding: 10px 20px 10px;
-  color: white;
-  font-family: PressStart;
+  justify-content: center;
+  padding: 0 5% 0 5%;
+  /* padding: 20px; */
+  height: 40px;
 }
 
 .next {
@@ -170,52 +143,10 @@ button {
   max-height: 38px;
 }
 
-.pokestat__buttons {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-.pokestat__buttons a {
-  background-color: var(--black);
-  /*make it a variable*/
-  border-radius: 4px;
-  border-style: none;
-  box-sizing: border-box;
-  color: var(--white);
-  cursor: pointer;
-  display: inline-block;
-  font-size: 1.6rem;
-  padding: 10px 20px 10px;
-  position: relative;
-  text-align: center;
-  text-transform: none;
-  width: 120px;
-  /* height: 20px; */
-}
-
-/* .wtp_buttons {
-  display: flex;
-  flex-direction: row;
-  width: 500px;
-  justify-content: end;
-} */
-
 .wtp__form {
   display: flex;
   flex-direction: row;
-}
-
-
-.submit_button {
-  background-color: black;
-  border: 1px solid black;
-  border-radius: 4px;
-  width: 50px;
-  width: fit-content;
-  /* height: 38px; */
-  position: relative;
-  max-height: 38px;
+  flex-wrap: nowrap;
 }
 
 .submit_button:hover {
@@ -281,4 +212,30 @@ button {
   
 .autocomplete__item--active {
   background-color: DodgerBlue !important;
+}
+
+@media (max-width: 600px) {
+  .wtp {
+    width: 70vw;
+    height: 100vw;
+  }
+
+  .wtp_buttons {
+    width: 50%;
+  }
+  .submit, .skip, .next {
+    height: 10px;
+    width: 5vw;
+    min-width: 5vw;
+    font-size: 7px;
+    text-align: center;
+  }
+
+  .input__container {
+    padding: 5px;
+    width: 35vw;
+    min-width: 35vw;
+    height: 20px;
+    font-size: 5px;
+  }
 }

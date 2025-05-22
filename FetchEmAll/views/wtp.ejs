@@ -5,33 +5,25 @@
 
 <section class="wtp">
     <% if (answer.correct) { %>
-           <img src="<%= poke.front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image" draggable="false" style="filter: brightness(100%);"> 
-           <p class="wtp__p"><%= answer.response %></p>
+        <img src="<%= poke.front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image" draggable="false" style="filter: brightness(100%);"> 
+        <p class="wtp__p"><%= answer.response %></p>
     <% } else if(answer.response != "Correct! You guessed the right pokemon.") { %>
         <img src="<%= poke.front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image" draggable="false">
-        <p class="answer_wrong"><%= answer.response %></p>
+        <p class="wtp_p"><%= answer.response %></p>
     <% } %>
     <section class="wtp_buttons">
         <form autocomplete="off" action="" method="post" class="wtp__form">
             <% if (answer.correct) { %>
-                <div class="next_button">
-                    <button type="button" class="next"><a href="/wtp">Next</a></button>
-                    <!-- <a href="/wtp"><button type="button">Next</button></a> -->
-                </div>
-            <% } else { %>
-                
-                <div class="submit_button">
-                    <button type="submit" id="reveal" name="post" value="post" class="submit">SUBMIT</button>
-                </div>
-                <div class="skip_button">
-                    <button type="button"><a href="/wtp">SKIP</a></button>
-                    <!-- <a href="/wtp"><button type="button">Skip</button></a> -->
-                </div>
-                <div class="input__container" style="width:300px;">
+                    <a href="wtp"><button type="button" class="next">Next</button></a>
+            <% } else { %> 
+                <button type="submit" id="reveal" name="post" value="post" class="submit">SUBMIT</button>
+                <a href="/wtp"><button type="button" class="skip">SKIP</button></a>
+                <div class="input__container">
                     <input id="input__field" type="text" name="guess" placeholder="Pokemon">
                 </div>
             <% } %>
         </form>
+        
     </section>
 
 </section>
