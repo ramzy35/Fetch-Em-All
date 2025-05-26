@@ -252,47 +252,6 @@ function getTypeDamage(attacker : FullPokemon, defender : FullPokemon) : number 
     return mult
 }
 
-// function getDamageMultiplier(attacker: FullPokemon, defender: FullPokemon): number {
-//     const attackerTypes = attacker.types;
-//     const TypeDamage = attacker.type_damage[4];
-//     const defenderTypes = defender.types;
-//     const defenderTypeDamage = defender.type_damage;
-
-//     let damageMultiplier = 1;
-
-//     if (attackerTypes.length === 1) {
-//         const attackerType = attackerTypes[0];
-//         const defenderIndex = getDefenderTypeIndex(defenderTypes, defenderTypeDamage);
-//         if (defenderIndex >= 0)
-//         {
-//             damageMultiplier *= indexToMultiplierMapper(defenderIndex);
-//         }
-//     }
-//     else if (attackerTypes.length === 2) {
-//         const randomTypeIndex = Math.floor(Math.random() * 2);
-//         const attackerType = attackerTypes[randomTypeIndex];
-//         const defenderIndex = getDefenderTypeIndex(defenderTypes, defenderTypeDamage);
-//         if (defenderIndex >= 0)
-//         {
-//             damageMultiplier *= indexToMultiplierMapper(defenderIndex);
-//         }
-//     }
-//     return damageMultiplier;
-// }
-
-// function getDefenderTypeIndex(defenderTypes: string[], defenderTypeDamage: string[][]): number {
-//     let damageIndex = -1;
-//     for (const defenderType of defenderTypes) {
-//         const typeIndex = defenderTypeDamage.findIndex((damageArr) => damageArr.includes(defenderType));
-//         if (typeIndex !== -1) {
-//             damageIndex = typeIndex;
-//             break;
-//         }
-//     }
-//     return damageIndex;
-// }
-
-
 battleRoute.get("/:status", async (req, res) => {
     res.status(404);
     res.locals.currentPage = "404"
