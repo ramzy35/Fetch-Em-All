@@ -58,7 +58,7 @@
             typeWriter(logMessages[currentLogIndex], 0, () => {
                 const currentLog = logMessages[currentLogIndex];
 
-                if (currentLog.includes("used") || currentLog.includes("attacked")) {
+                if (currentLog.includes("gebruikt")) {
                     if (currentLog.includes(userName)) {
                         animateAttack("user");
                     } else if (currentLog.includes(aiName)) {

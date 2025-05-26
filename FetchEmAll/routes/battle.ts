@@ -1,7 +1,7 @@
 import express from "express";
 import { FullPokemon, MyPokemon } from "../interfaces";
 import { multiplierToIndexMapper, indexToMultiplierMapper } from "../middleware/fetchPokemon"
-import { getCurrentPokemon, createFullPokemon, catchPokemon, updateCurrentHp, levelPokemon } from "../database";
+import { getCurrentPokemon, createFullPokemon, catchPokemon, updateCurrentHp, levelPokemon, renamePokemon } from "../database";
 import { secureMiddleware } from "../middleware/secureMiddleware";
 import { Collection, ObjectId } from "mongodb";
 
@@ -53,7 +53,8 @@ battleRoute.get("/", secureMiddleware, async (req, res) => {
         ai: aiPoke,
         log: battleState.log.join("\n"),
         logLength: battleState.log.length,
-        battleOver: battleOver
+        battleOver: battleOver,
+        caught: false,
     });
 });
 
@@ -133,7 +134,8 @@ battleRoute.post("/attack", secureMiddleware, async (req, res) => {
         ai: battleState.ai,
         log: newLog.join("\n"),
         logLength: battleState.log.length,
-        battleOver,  // Pass this flag to template
+        battleOver,
+        caught: false,
     });
 });
 
@@ -209,7 +211,20 @@ battleRoute.post("/catch", secureMiddleware, async (req, res) => {
         log: newLog.join("\n"),
         logLength: battleState.log.length,
         battleOver: battleState.turn === "over",
+        caught: battleState.turn === "over",
     });
+});
+
+battleRoute.post("/caught", secureMiddleware, async (req, res) => {
+    const pokeId : number = parseInt(req.body.pokeId);
+    const userId : ObjectId = res.locals.user._id;
+    const nickname : string = req.body.nickname;
+
+    if (pokeId && nickname) {
+        await renamePokemon(pokeId, userId, nickname);
+        console.log(`Nickname set: ${nickname} for Pokemon ID ${pokeId}`);
+    }
+    res.redirect("/myPokemon")
 });
 
 function getTypeDamage(attacker : FullPokemon, defender : FullPokemon) : number {
