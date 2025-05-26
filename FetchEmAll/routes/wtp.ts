@@ -3,7 +3,6 @@ import { pokeNamesLocal } from "../middleware/locals";
 import { secureMiddleware } from "../middleware/secureMiddleware";
 import { getPokemonById, levelPokemon } from "../database";
 import { Pokemon } from "../interfaces";
-import { userInfo } from "os";
 import { ObjectId } from "mongodb";
 
 const wtpRoute = express.Router();

@@ -1,9 +1,8 @@
 import express from "express";
-import { FullPokemon, MyPokemon } from "../interfaces";
-import { multiplierToIndexMapper, indexToMultiplierMapper } from "../middleware/fetchPokemon"
+import { FullPokemon } from "../interfaces";
 import { getCurrentPokemon, createFullPokemon, catchPokemon, updateCurrentHp, levelPokemon, renamePokemon } from "../database";
 import { secureMiddleware } from "../middleware/secureMiddleware";
-import { Collection, ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 
 let battleState: {
     user: FullPokemon | null;

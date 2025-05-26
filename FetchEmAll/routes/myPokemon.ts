@@ -1,6 +1,6 @@
 import express from "express";
 import { ObjectId } from "mongodb";
-import { catchPokemon, changeCurrentPokemon, getCurrentPokemon, getUserById } from "../database";
+import { changeCurrentPokemon, getCurrentPokemon } from "../database";
 import { myPokemonLocal } from "../middleware/locals";
 import { secureMiddleware } from "../middleware/secureMiddleware";
 

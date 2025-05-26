@@ -1,8 +1,7 @@
-import express, { query } from "express";
+import express from "express";
 import { hasStarterLocal, pokeListLocal } from "../middleware/locals";
-import { catchPokemon, changeCurrentPokemon, deleteMyPokemon, getMyPokemon, getMyPokemonById, levelPokemon, renamePokemon } from "../database";
+import { catchPokemon, changeCurrentPokemon, deleteMyPokemon, renamePokemon } from "../database";
 import { secureMiddleware } from "../middleware/secureMiddleware";
-import { FullPokemon } from "../interfaces";
 import { ObjectId } from "mongodb";
 
 const pokedexRoute = express.Router();
