@@ -50,7 +50,7 @@ export async function getPokemonList():Promise<type.Pokemon[]> {
  *
  * The function combines this information into a single `Pokemon` object.
  *
- * @param {number} id - The ID of the Pokémon to fetch (1–1010+ depending on the PokeAPI range).
+ * @param {number} id - The ID of the Pokémon to fetch (1–151).
  * @returns {Promise<type.Pokemon>} A promise that resolves to a `Pokemon` object containing all enriched data.
  *
  * @throws Will throw an error if any of the fetch operations fail due to network or data issues.
