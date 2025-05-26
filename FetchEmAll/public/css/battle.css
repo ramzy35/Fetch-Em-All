@@ -188,7 +188,7 @@ body {
     height: 20%;
     width: 70%;
     left: 10%;
-    border-radius: 20px;
+    border-radius: 5px;
     background: grey;
     opacity: 0.5;
 }
@@ -199,7 +199,7 @@ body {
     height: 20%;
     width: 70%;
     left: 10%;
-    border-radius: 20px;
+    border-radius: 5px;
     background: grey;
     opacity: 0.5;
 }
@@ -207,7 +207,7 @@ body {
 .battle__hpbar__fill--top, .battle__hpbar__fill--bottom {
     position: absolute;
     height: 100%;
-    border-radius: 20px;
+    border-radius: 5px;
 }
 
 .battle__hpbar__fill--top {
@@ -437,7 +437,7 @@ button:disabled {
     .battle__pokemon--top, .battle__pokemon--bottom {
         text-align: left;
         margin-left: 11%;
-        margin-top: 5%;
+        margin-top: 25%;
         opacity: 0.7;
         font-size: 20px;
         font-family: "Roboto Condensed";
@@ -449,8 +449,12 @@ button:disabled {
         right: 5%;
         top: 8%;
         opacity: 0.7;
-        font-size: 14px;
+        font-size: 18px;
         font-family: "Roboto Condensed";
+    }
+
+    #battle-log {
+        font-size: 2.5rem;
     }
 
     .battle__pokemon__hp--bottom {
@@ -458,7 +462,7 @@ button:disabled {
         right: 8%;
         bottom: 0%;
         opacity: 0.7;
-        font-size: 14px;
+        font-size: 18px;
         font-family: "Roboto Condensed";
     }
 
@@ -474,21 +478,43 @@ button:disabled {
     .battle__options--top-left {
         opacity: 0.95;
         position: absolute;
-        font-size: 16px;
+        font-size: 20px;
         color: #333333;
-        top: 15%;
+        bottom: 10%;
         left: 10%;
         text-align: left;
         font-family: "PT Sans Narrow";
         cursor: pointer;
     }
 
+    .battle__hpbar--top {
+        position: absolute;
+        bottom: 16%;
+        height: 20%;
+        width: 80%;
+        left: 10%;
+        border-radius: 5px;
+        background: grey;
+        opacity: 0.5;
+    }
+
+    .battle__hpbar--bottom {
+        position: absolute;
+        bottom: 32%;
+        height: 20%;
+        width: 80%;
+        left: 10%;
+        border-radius: 5px;
+        background: grey;
+        opacity: 0.5;
+    }
+
     .battle__options--bottom-left {
         opacity: 0.95;
         position: absolute;
-        font-size: 16px;
+        font-size: 20px;
         color: #333333;
-        bottom: 11%;
+        bottom: 10%;
         left: 50%;
         text-align: left;
         font-family: "PT Sans Narrow";
@@ -500,17 +526,40 @@ button:disabled {
         position: absolute;
         font-size: 16px;
         color: #333333;
-        top: 0%;
+        bottom: 10%;
         right: 21%;
         text-align: left;
         font-family: "PT Sans Narrow";
         cursor: pointer;
     }
 
+    .battle__box--bottom-right {
+        position: absolute;
+        width: 38%;
+        height: 25%;
+        border-radius: 10px;
+        bottom: 20%;
+        right: 8%;
+        background: #F8F8D8;
+        border: 6px solid #506860;
+        z-index: 2;
+    }
+
+    .battle__box--top-left {
+        position: absolute;
+        width: 40%;
+        height: 25%;
+        border-radius: 10px;
+        top: 8%;
+        left: 8%;
+        background-color: #F8F8D8;
+        border: 6px solid #506860;
+    }
+
     .battle__options--bottom-right {
         opacity: 0.95;
         position: absolute;
-        font-size: 16px;
+        font-size: 20px;
         color: #333333;
         bottom: 10%;
         right: 10%;
@@ -541,6 +590,8 @@ button:disabled {
         width: 100%;
         height: 8vh;
     }
+
+    h4
 }
 
 @keyframes attackMove {
