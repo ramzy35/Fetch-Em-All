@@ -26,7 +26,7 @@ myPokemonRoute.post("/change", async (req, res) => {
     }
 
     await changeCurrentPokemon(pokeId, userId);
-    res.redirect("/myPokemon"); // Redirect back to the list
+    res.redirect("/myPokemon");
 });
 
 export default myPokemonRoute;

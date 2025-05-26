@@ -3,7 +3,6 @@
 
     const pokeNameArr = '<%= pokemonNameList %>'.split(",")
     // Function derived from https://www.w3schools.com/howto/howto_js_autocomplete.asp, adapted to typescript
-    // input: html element, pokeNameArr: string array with all pokemon names
     let currentFocus;
     
     input.addEventListener("input", function (e) {
@@ -11,11 +10,9 @@
         closeAllLists();
         if (!val) { return false; }
         currentFocus = -1;
-        // itemContainer that holds values of items
         const itemContainer = document.createElement("DIV");
         itemContainer.setAttribute("id",    "autocomplete__list");
         itemContainer.classList.add("autocomplete__item");
-        // Make sure parentnode exists before appending
         if (this.parentNode) {
             this.parentNode.appendChild(itemContainer); 
         } else {
@@ -24,16 +21,13 @@
  
         pokeNameArr.forEach(poke => {
             if (poke.substring(0, val.length).toLowerCase() == val.toLowerCase()) {
-                // div for every element that matches val
                 const matchingItems = document.createElement("DIV");
                 matchingItems.innerHTML = `<strong>${poke.substring(0, val.length)}</strong>`;
                 matchingItems.innerHTML += poke.substring(val.length);
-                
-                // input field to hold the current array item's 
+                 
                 matchingItems.innerHTML += `<input type='hidden' value='${poke}'>`;
                 
                 matchingItems.addEventListener("click", function (e) {
-                    // input clicked pokemon name
                     input.value = this.getElementsByTagName("input")[0].value;
                 
                     closeAllLists();
@@ -47,21 +41,16 @@
         let selectedName = document.getElementById("autocomplete__list");
         if (selectedName) selectedName = selectedName.getElementsByTagName("div");
         if (e.keyCode === 40) {
-            // => downArrow
             e.preventDefault()
             currentFocus++;
             addActive(selectedName);
         } else if (e.keyCode === 38) {
-            // => upArrow
             e.preventDefault()
             currentFocus--;
             addActive(selectedName);
         } else if (e.keyCode === 13) {
-            // => Enter
-            // Prevent from submitting form, other functionality added
             e.preventDefault();
             if (currentFocus > -1) {
-                // Enter selects hovered/selected name from list
                 if (selectedName) selectedName[currentFocus].click();
             }
         }
@@ -72,7 +61,6 @@
         removeActive(itemList);
         if (currentFocus >= itemList.length) currentFocus = 0;
         if (currentFocus < 0) currentFocus = (itemList.length - 1);
-        // Add active class for styling
         itemList[currentFocus].classList.add("autocomplete__item--active");
     }
 
@@ -90,21 +78,18 @@
                 el.parentNode?.removeChild(el);
             }
         }
-        // Can't use foreach because itemlist is HTMLCollectionOf<Element>
         for (var i = 0; i < itemList.length; i++) {
             if (elmnt != itemList[i] && elmnt != input) {
                 itemList[i].parentNode?.removeChild(itemList[i]);
             }
         }
     }
-    // close list if user clicks off
     document.addEventListener("click", function (e) {
         closeAllLists();
     })
 }
 
 function changeLink(event, id1) {
-    // prevent going to link of button
     event.preventDefault();
     let link = document.getElementById("pokestat__compare__link").href;
     if(document.getElementById("input__field").value) {
@@ -115,7 +100,6 @@ function changeLink(event, id1) {
         console.log(input || "WHAT");
         console.log(pokeNameArr.indexOf(`${input.toLowerCase()}`));
         console.log(id2);
-        // dont go to compare if input isnt valid pokemon
         if (id1.toString() === id2.toString()) {
             link = "#"
         } else if (pokeNameArr.includes(input.toString())) {
@@ -127,7 +111,6 @@ function changeLink(event, id1) {
     else {
         link = "#"
     }
-    // redirect to new link
     location.href = link
 }
 

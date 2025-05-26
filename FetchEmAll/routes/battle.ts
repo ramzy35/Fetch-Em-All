@@ -102,7 +102,6 @@ battleRoute.post("/attack", secureMiddleware, async (req, res) => {
         const stillAlive = performAttack(user, ai, logs);
         battleState.log.push(...logs);
         if (!stillAlive) {
-            // AI fainted, battle over
             levelPokemon(res.locals.user._id)
             battleState.turn = "over";
         } else {
@@ -115,7 +114,6 @@ battleRoute.post("/attack", secureMiddleware, async (req, res) => {
         const stillAlive = performAttack(ai, user, logs);
         battleState.log.push(...logs);
         if (!stillAlive) {
-            // User fainted, battle over
             battleState.turn = "over";
         } else {
             battleState.turn = "user";
@@ -166,7 +164,6 @@ battleRoute.post("/catch", secureMiddleware, async (req, res) => {
         battleState.turn = "ai";
     }
 
-    // If AI’s turn now
     if (battleState.turn === "ai" && !ai.isFainted) {
         console.log(`AI turn after failed catch.`);
         const attacker = ai;
