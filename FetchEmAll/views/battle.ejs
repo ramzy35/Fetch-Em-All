@@ -35,13 +35,13 @@
                     <section class="battle__options">
                         <form action="/battle/attack" method="POST">
                             <input type="hidden" name="lastLogIndex" value="<%= logLength %>">
-                            <button <%= battleOver ? "disabled" : "" %> >
+                            <button class=<%= battleOver ? "disabled" : "" %> >
                                 <h4 class="battle__options--top-left">Vecht</h4>
                             </button>
                         </form>
                         <form action="/battle/catch" method="POST">
                             <input type="hidden" name="lastLogIndex" value="<%= logLength %>">
-                            <button <%= battleOver ? "disabled" : "" %> >
+                            <button class=<%= battleOver ? "disabled" : "" %> >
                                 <h4 class="battle__options--bottom-left">Vang</h4>
                                 <input type="hidden" name="pokeId" value="<%= ai.id %>">
                             </button>

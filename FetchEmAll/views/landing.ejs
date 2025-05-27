@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="/css/landing.css">
 </head>
 
-<body>
+<body class="landing">
 
-    <header>
-        <h1>FetchEmAll</h1>
+    <header class="landing__header">
+        <h1 class="landing__title">FetchEmAll</h1>
 
         <% if (user) {%>
             <form action="/logout" method="post">
@@ -22,7 +22,7 @@
         <% } %>
     </header>
 
-    <main>
+    <main class="landing__main">
         <div class="project-card">
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
                 alt="Pokemon">

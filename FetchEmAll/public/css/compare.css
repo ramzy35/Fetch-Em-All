@@ -1,26 +1,5 @@
-main {
-    padding: 20px 0;
-    background-color: var(--blue);
-    background: transparent;
-}
-
-main, nav, footer {
-    position: relative;
-    z-index: 1;
-}
-
 body {
-    background-color: var(--blue);
     background-image: url(../assets/background1fix.png); 
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-
-}
-
-main {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
 }
 
 .wrapper {
@@ -124,10 +103,7 @@ main {
     padding-bottom: 1.6rem;
 }
 
-i {
-    font-size: 2.5rem;
-    color: black;
-}
+
 
 .bold {
     font-size: 1.6rem;
@@ -280,11 +256,6 @@ i {
 }
 
 @media (max-width: 850px) {
-
-    main {
-        padding: 0px 0px
-    }
-
     .wrapper {
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
@@ -340,7 +311,7 @@ i {
         display: none;
     }
 
-    h2, h3, p, span, .bold {
-        font-size: 1.2rem;
+    .compare__h2, .compare__p, .bold {
+        font-size: 1rem;
     }
 }

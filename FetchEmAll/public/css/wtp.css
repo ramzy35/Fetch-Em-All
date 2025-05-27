@@ -1,34 +1,17 @@
 
 body {
-  background-color: var(--blue);
   background-image: url(../assets/IndieBackgroundFix.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-  
-nav, footer {
-  min-height: 5vh;
-}
-  
-strong {
-  font-weight: bold;
 }
 
 .answer_wrong, .wtp__p {
+  font-size: 1rem;
   margin: 0px 10px 0px;
   text-align: center;
 }
   
 .wtp {
   z-index: 1;
-  max-width: 850px;
+  width: 700px;
   height: 70vh;
   background-image: linear-gradient(to bottom, rgb(118, 195, 31) 0%, rgb(72, 197, 170) 50%, rgb(222, 210, 210) 100%);
   display: flex;
@@ -72,7 +55,7 @@ strong {
 
   
 .wtp__image {
-  width: 100%;
+  width: 600px;
   height: auto;
   filter: brightness(0%);
   display: block;
@@ -91,9 +74,11 @@ strong {
   
 .wtp__image--revealPokemon {
   animation: revealPokemon 5s ease-in-out 0s 1;
+  display: block;
   z-index: inherit;
-  max-width: 850px;
-  min-width: 600px;
+  width: 100%;
+  height: auto;
+  display: block;
 }
   
 @keyframes revealPokemon {
@@ -214,6 +199,14 @@ strong {
   background-color: DodgerBlue !important;
 }
 
+@media (max-width: 100px) {
+  body {
+    background-size: cover;
+    background-size: 100% 100%;
+    background-attachment: scroll;
+  }
+}
+
 @media (max-width: 600px) {
   .wtp {
     width: 70vw;
@@ -229,6 +222,8 @@ strong {
     min-width: 5vw;
     font-size: 7px;
     text-align: center;
+    text-wrap: none;
+    text-justify: center;
   }
 
   .input__container {

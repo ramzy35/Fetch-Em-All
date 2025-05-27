@@ -1,18 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 @import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow');
 
-html, body {
+/* html, body {
     height: 100%;
-    /* background-color: var(--blue); */
+    background-color: var(--blue);
     background-image: url(../assets/battle_background.png);
     background-size: cover;
     background-repeat: no-repeat;
-}
+} */
 
 body {
+    background-image: url(../assets/battle_background.png);
+    /* General selector needed, cant give class to body for 1 page */
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
 }
 
 .battle {
@@ -68,11 +71,6 @@ body {
 .battle__hpbar__fill--top {
     width: 80%;
     background: rgb(116, 194, 92);
-}
-
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
 
 .battle__hpbar__fill--bottom {

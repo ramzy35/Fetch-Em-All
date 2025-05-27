@@ -37,6 +37,34 @@
   line-height: 1.8;
 }
 
+html {
+  height: 100%;
+}
+
+/* header {
+  position: sticky;
+} */
+
+body {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  height: auto;
+  position: sticky;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  padding: 20px 0px;
+  background: transparent;
+  
+}
+
 h1 {
   font-size: 4rem;
   text-align: center;
@@ -62,8 +90,28 @@ p {
   font-size: 1.6rem;
 }
 
+i {
+    font-size: 2.5rem;
+    color: black;
+}
+
+strong {
+  font-weight: bold;
+}
+
 button {
   padding: 10px 20px 10px;
   color: white;
   font-family: PressStart;
+}
+
+button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 850px) {
+    main {
+     padding: 0px;
+    }
 }

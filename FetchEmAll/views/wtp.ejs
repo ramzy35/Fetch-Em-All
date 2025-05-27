@@ -9,7 +9,7 @@
         <p class="wtp__p"><%= answer.response %></p>
     <% } else if(answer.response != "Correct! You guessed the right pokemon.") { %>
         <img src="<%= poke.front_image %>" alt="<%=  %>" class="wtp__image" id="wtp__image" draggable="false">
-        <p class="wtp_p"><%= answer.response %></p>
+        <p class="wtp__p"><%= answer.response %></p>
     <% } %>
     <section class="wtp_buttons">
         <form autocomplete="off" action="" method="post" class="wtp__form">
