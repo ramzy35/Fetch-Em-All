@@ -48,6 +48,7 @@ strong {
 
 #input__field {
   width: 280px;
+  font-size: 0.8rem;
 }
 
 .input__container {
@@ -87,6 +88,13 @@ strong {
   width: fit-content;
   /* height: 38px; */
   position: relative;
+  font-size: 0.7rem;
+  text-wrap: none;
+}
+
+.skip {
+  height: 100%;
+  width: 100px;
 }
   
 .wtp__image--revealPokemon {
@@ -227,6 +235,7 @@ strong {
 
   #input__field {
     width: 80%;
+    font-size: 7px;
   }
   
   .autocomplete__item {

@@ -52,15 +52,15 @@ function checkGuess(guess:string, correctPoke:string, pokeNameList:string[], use
 
     if (pokeNameList.includes(guess.toLowerCase())) {
         if (guess.toLowerCase() === correctPoke) {
-            answer.response = "Correct! You guessed the right pokemon.";
+            answer.response = "Correct! Je hebt juist geraden.";
             answer.correct = true;
             levelPokemon(userId);
         } else {
-            answer.response = "Incorrect, you guessed the wrong pokemon. Try again!";
+            answer.response = "Incorrect, je hebt fout geraden. Probeer opnieuw!";
             answer.correct = false;
         }
     } else {;
-        answer.response = "You didn't guess a valid Pokemon, try again!"
+        answer.response = "Je gaf geen echte pokemon in, Probeer opnieuw!"
         answer.correct = false;
     }
      
