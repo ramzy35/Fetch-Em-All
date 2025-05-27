@@ -127,6 +127,10 @@ html, body {
     margin-top: -10px;
 }
 
+#battle-log {
+    color: white;
+}
+
 .modal__choice p {
     position: absolute;
     z-index: 1;
