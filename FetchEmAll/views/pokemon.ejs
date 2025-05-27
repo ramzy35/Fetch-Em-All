@@ -42,11 +42,11 @@
     <section class="pokestat__buttons">
         <% const alreadyOwned = myPokemon.some(p => p.id === pokemon.id); %>
         <% if (!alreadyOwned) { %>
-            <button>    
+            <button class="pokestat__button">    
                 <a href="/battle?id=<%= pokemon.id %>" class="pokestat__catch">Vecht</a>
             </button>
         <% } %>
-        <button type="button" id="reveal" class="submit" onclick="changeLink(event, '<%= pokemon.id%>')">
+        <button type="button" id="reveal" class="submit pokestat__button" onclick="changeLink(event, '<%= pokemon.id%>')">
             <a href="/compare" class="pokestat__compare" id="pokestat__compare__link">Vergelijk</a>
         </button>
         <form autocomplete="off" action="" class="pokemon__form">

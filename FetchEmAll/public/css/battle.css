@@ -1,14 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 @import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow');
 
-/* html, body {
-    height: 100%;
-    background-color: var(--blue);
-    background-image: url(../assets/battle_background.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-} */
-
 body {
     background-image: url(../assets/battle_background.png);
     /* General selector needed, cant give class to body for 1 page */
