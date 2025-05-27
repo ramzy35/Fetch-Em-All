@@ -24,12 +24,12 @@ strong {
 .answer_wrong, .wtp__p {
   margin: 0px 10px 0px;
   text-align: center;
+  max-width: 600px;
 }
   
 .wtp {
   z-index: 1;
   max-width: 850px;
-  height: 70vh;
   background-image: linear-gradient(to bottom, rgb(118, 195, 31) 0%, rgb(72, 197, 170) 50%, rgb(222, 210, 210) 100%);
   display: flex;
   flex-direction: column;
@@ -128,7 +128,7 @@ strong {
   gap: 10px;
   justify-content: center;
   padding: 0 5% 0 5%;
-  /* padding: 20px; */
+  margin: 10px 0;
   height: 40px;
 }
 
@@ -215,27 +215,21 @@ strong {
 }
 
 @media (max-width: 600px) {
-  .wtp {
-    width: 70vw;
-    height: 100vw;
-  }
-
-  .wtp_buttons {
-    width: 50%;
-  }
-  .submit, .skip, .next {
-    height: 10px;
-    width: 5vw;
-    min-width: 5vw;
-    font-size: 7px;
-    text-align: center;
+  .wtp__image--revealPokemon {
+    min-width: auto;
+    width: 100%;
   }
 
   .input__container {
-    padding: 5px;
-    width: 35vw;
-    min-width: 35vw;
-    height: 20px;
-    font-size: 5px;
+    min-width: 0;
+    width: 90%;
+  }
+
+  #input__field {
+    width: 80%;
+  }
+  
+  .autocomplete__item {
+    width: 100px;
   }
 }
