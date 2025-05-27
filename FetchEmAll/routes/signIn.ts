@@ -19,7 +19,7 @@ signInRoute.post("/", async (req, res) => {
         req.session.user = user;
         res.redirect("/");
     } catch (error: any) {
-        console.log("Signin error:", error.message);
+        console.log(`Signin error for user ${username}:`, error.message);
         res.redirect("/signin?error=" + encodeURIComponent(error.message));
     }
 });

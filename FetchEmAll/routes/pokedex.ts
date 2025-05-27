@@ -15,8 +15,6 @@ pokedexRoute.post("/choose-starter", secureMiddleware, async (req, res) => {
     await catchPokemon(starterIdNum, userId, 1);
     await changeCurrentPokemon(starterIdNum, userId);
 
-    console.log("Starter chosen:", starterId);
-
     res.redirect(`/pokedex?justChoseStarter=1&starterId=${starterIdNum}`);
 });
 
@@ -35,7 +33,6 @@ pokedexRoute.post("/nickname",secureMiddleware, async (req, res) => {
 
     if (starterId && nickname) {
         await renamePokemon(starterId, userId, nickname);
-        console.log(`Nickname set: ${nickname} for Pokémon ID ${starterId}`);
     }
 
     res.redirect("/pokedex");

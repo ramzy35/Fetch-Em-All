@@ -69,15 +69,11 @@ function performAttack(attacker: FullPokemon, defender: FullPokemon, logs: strin
 
     defender.currentHp -= totalDamage;
 
-    console.log(`${attacker.name} viel ${defender.name} aan voor ${totalDamage} damage.`);
-
     if (attacker.abilities && attacker.abilities.length > 0 && Math.random() < 0.5) {
         const ability = attacker.abilities[Math.floor(Math.random() * attacker.abilities.length)];
         logs.push(`${attacker.name} gebruikt ${ability.name}!`);
-        console.log(`${attacker.name} triggered ability: ${ability.name}`);
     } else {
         logs.push(`${attacker.name} viel aan!`);
-        console.log(`${attacker.name} used a regular attack.`);
     }
     logs.push(`Het deed ${totalDamage} damage!`);
 
@@ -85,7 +81,6 @@ function performAttack(attacker: FullPokemon, defender: FullPokemon, logs: strin
         defender.currentHp = 0;
         defender.isFainted = true;
         logs.push(`${defender.name} valt flauw!`);
-        console.log(`${defender.name} has fainted.`);
     }
 
     return !defender.isFainted;
@@ -145,7 +140,6 @@ battleRoute.post("/catch", secureMiddleware, async (req, res) => {
     }
 
     const logs: string[] = [];
-    console.log(`User attempted to catch ${ai.name}`);
 
     const hpFactor = ai.currentHp / ai.hp;
     const captureChance = (ai.capture_rate / 255) * (1 - hpFactor) * 1.5;
@@ -156,16 +150,13 @@ battleRoute.post("/catch", secureMiddleware, async (req, res) => {
         ai.isFainted = true;
         await catchPokemon(ai.id, res.locals.user._id, ai.level);
         logs.push(`Gotcha! ${ai.name} is gevangen!`);
-        console.log(`✅ Catch succeeded: ${ai.name} was caught.`);
         battleState.turn = "over";
     } else {
         logs.push(`${ai.name} verzet zich!`);
-        console.log(`❌ Catch failed: ${ai.name} broke free.`);
         battleState.turn = "ai";
     }
 
     if (battleState.turn === "ai" && !ai.isFainted) {
-        console.log(`AI turn after failed catch.`);
         const attacker = ai;
         const defender = user;
 
@@ -182,13 +173,10 @@ battleRoute.post("/catch", secureMiddleware, async (req, res) => {
         logs.push(`${attacker.name} viel aan!`);
         logs.push(`Het deed ${totalDamage} damage!`);
 
-        console.log(`${attacker.name} viel ${defender.name} aan voor ${totalDamage} damage.`);
-
         if (defender.currentHp <= 0) {
             defender.currentHp = 0;
             defender.isFainted = true;
             logs.push(`${defender.name} valt flauw!`);
-            console.log(`${defender.name} has fainted.`);
         }
 
         if (!defender.isFainted) {
@@ -198,8 +186,6 @@ battleRoute.post("/catch", secureMiddleware, async (req, res) => {
 
     battleState.log.push(...logs);
     const newLog = battleState.log.slice(lastLogIndex);
-
-    console.log(`Turn ends. New turn: ${battleState.turn}`);
 
     res.render("battle", {
         user: battleState.user,
@@ -218,7 +204,6 @@ battleRoute.post("/caught", secureMiddleware, async (req, res) => {
 
     if (pokeId && nickname) {
         await renamePokemon(pokeId, userId, nickname);
-        console.log(`Nickname set: ${nickname} for Pokemon ID ${pokeId}`);
     }
     res.redirect("/myPokemon")
 });
