@@ -89,7 +89,7 @@ strong {
   /* height: 38px; */
   position: relative;
   font-size: 0.7rem;
-  text-wrap: none;
+  cursor: pointer;
 }
 
 .skip {
