@@ -18,7 +18,7 @@ myPokemonRoute.get("/:status", async (req, res) => {
     res.render("404");
 });
 
-myPokemonRoute.post("/change", async (req, res) => {
+myPokemonRoute.post("/change", secureMiddleware, async (req, res) => {
     const  pokeId : number = parseInt(req.body.pokeId);
     const userId : ObjectId | undefined = req.session.user?._id;
     if (!userId) {
