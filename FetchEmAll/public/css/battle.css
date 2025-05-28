@@ -280,7 +280,7 @@ button:disabled {
     margin-left: 10%;
     margin-top: 5%;
     opacity: 0.7;
-    font-size: 18px;
+    font-size: 1.8rem;
     font-family: "Roboto Condensed";
 }
 
@@ -289,7 +289,7 @@ button:disabled {
     right: 8%;
     top: 8%;
     opacity: 0.7;
-    font-size: 16px;
+    font-size: 1.6rem;
     font-family: "Roboto Condensed";
 }
 
@@ -298,7 +298,7 @@ button:disabled {
     right: 8%;
     bottom: 0%;
     opacity: 0.7;
-    font-size: 16px;
+    font-size: 1.6rem;
     font-family: "Roboto Condensed";
 }
 
@@ -342,7 +342,7 @@ button:disabled {
 .battle__options--top-left {
     opacity: 0.95;
     position: absolute;
-    font-size: 22px;
+    font-size: 2.2rem;
     color: #333333;
     top: 0%;
     left: 10%;
@@ -354,7 +354,7 @@ button:disabled {
 .battle__options--bottom-left {
     opacity: 0.95;
     position: absolute;
-    font-size: 22px;
+    font-size: 2.2rem;
     color: #333333;
     bottom: 0%;
     left: 10%;
@@ -366,7 +366,7 @@ button:disabled {
 .battle__options--top-right {
     opacity: 0.95;
     position: absolute;
-    font-size: 22px;
+    font-size: 2.2rem;
     color: #333333;
     top: 0%;
     right: 21%;
@@ -378,7 +378,7 @@ button:disabled {
 .battle__options--bottom-right {
     opacity: 0.95;
     position: absolute;
-    font-size: 22px;
+    font-size: 2.2rem;
     color: #333333;
     bottom: 0%;
     right: 20%;
@@ -439,7 +439,7 @@ button:disabled {
         margin-left: 11%;
         margin-top: 25%;
         opacity: 0.7;
-        font-size: 20px;
+        font-size: 2rem;
         font-family: "Roboto Condensed";
     }
 
@@ -449,7 +449,7 @@ button:disabled {
         right: 5%;
         top: 8%;
         opacity: 0.7;
-        font-size: 18px;
+        font-size: 1.8rem;
         font-family: "Roboto Condensed";
     }
 
@@ -462,7 +462,7 @@ button:disabled {
         right: 8%;
         bottom: 0%;
         opacity: 0.7;
-        font-size: 18px;
+        font-size: 1.8rem;
         font-family: "Roboto Condensed";
     }
 
@@ -478,7 +478,7 @@ button:disabled {
     .battle__options--top-left {
         opacity: 0.95;
         position: absolute;
-        font-size: 20px;
+        font-size: 2rem;
         color: #333333;
         bottom: 10%;
         left: 10%;
@@ -512,7 +512,7 @@ button:disabled {
     .battle__options--bottom-left {
         opacity: 0.95;
         position: absolute;
-        font-size: 20px;
+        font-size: 2rem;
         color: #333333;
         bottom: 10%;
         left: 50%;
@@ -524,7 +524,7 @@ button:disabled {
     .battle__options--top-right {
         opacity: 0.95;
         position: absolute;
-        font-size: 16px;
+        font-size: 1.6rem;
         color: #333333;
         bottom: 10%;
         right: 21%;
@@ -559,7 +559,7 @@ button:disabled {
     .battle__options--bottom-right {
         opacity: 0.95;
         position: absolute;
-        font-size: 20px;
+        font-size: 2rem;
         color: #333333;
         bottom: 10%;
         right: 10%;
@@ -572,7 +572,7 @@ button:disabled {
         margin-top: 1%;
         margin-left: 5%;
         opacity: 0.95;
-        font-size: 5px;
+        font-size: 0.5rem;
         color: white;
         text-align: left;
         font-family: "PT Sans Narrow";

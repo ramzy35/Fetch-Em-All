@@ -235,7 +235,7 @@ strong {
 
   #input__field {
     width: 80%;
-    font-size: 7px;
+    font-size: 0.7rem;
   }
   
   .autocomplete__item {

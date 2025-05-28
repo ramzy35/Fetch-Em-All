@@ -180,7 +180,6 @@ button {
 }
 
 .autocomplete__item div {
-  /* font-size: 1.4rem; */
   padding: 5px;
   cursor: pointer;
   background-color: #fff;
@@ -199,13 +198,6 @@ button {
     flex-direction: column;
     gap: 20px;
 }
-
-/* h3 {
-    font-size: 3rem;
-    font-weight: bold;
-    text-align: center;
-    font-family: Pokemon Hollow;
-} */
 
 .margin {
     margin-top: 10px;
@@ -336,7 +328,7 @@ button {
     height: 25px;
     padding: 1%;
     text-align: center;
-    font-size: 1.6em;
+    font-size: 1.6rem;
     border-radius: 5px;
     width: 80%;
 }
