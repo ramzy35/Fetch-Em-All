@@ -535,7 +535,7 @@ button:disabled {
     .battle__box--bottom-right {
         position: absolute;
         width: 38%;
-        height: 25%;
+        height: 20%;
         border-radius: 10px;
         bottom: 20%;
         right: 8%;
@@ -547,7 +547,7 @@ button:disabled {
     .battle__box--top-left {
         position: absolute;
         width: 40%;
-        height: 25%;
+        height: 20%;
         border-radius: 10px;
         top: 8%;
         left: 8%;
