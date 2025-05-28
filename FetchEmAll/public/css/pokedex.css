@@ -200,6 +200,7 @@ body {
     height: auto;
     padding: 20px;
     z-index: 1001;
+    width: 80vw;
 }
 
 .choices {
@@ -291,5 +292,6 @@ body {
     font-family: PressStart;
     font-size: 2rem;
     padding: 5px 10px;
+    width: 100%;
 }
 
