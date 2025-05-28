@@ -472,21 +472,22 @@ button:disabled {
 
     .battle__options {
         display: flex;
+        flex-direction: row;
         justify-content: space-around;
         align-items: center;
         flex-wrap: wrap;
         height: 100%;
         position: relative;
     }
+    button {
+        padding: 0 0;
+    }
 
     .battle__options--top-left {
         opacity: 0.95;
-        position: absolute;
+        position: relative;
         font-size: 2rem;
         color: #333333;
-        bottom: 10%;
-        left: 10%;
-        text-align: left;
         font-family: "PT Sans Narrow";
         cursor: pointer;
     }
@@ -515,11 +516,9 @@ button:disabled {
 
     .battle__options--bottom-left {
         opacity: 0.95;
-        position: absolute;
         font-size: 2rem;
+        position: relative;
         color: #333333;
-        bottom: 10%;
-        left: 50%;
         text-align: left;
         font-family: "PT Sans Narrow";
         cursor: pointer;
@@ -527,12 +526,8 @@ button:disabled {
 
     .battle__options--top-right {
         opacity: 0.95;
-        position: absolute;
         font-size: 1.6rem;
         color: #333333;
-        bottom: 10%;
-        right: 21%;
-        text-align: left;
         font-family: "PT Sans Narrow";
         cursor: pointer;
     }
@@ -562,12 +557,9 @@ button:disabled {
 
     .battle__options--bottom-right {
         opacity: 0.95;
-        position: absolute;
+        position: relative;
         font-size: 2rem;
         color: #333333;
-        bottom: 10%;
-        right: 10%;
-        text-align: left;
         font-family: "PT Sans Narrow";
         cursor: pointer;
     }
@@ -586,6 +578,10 @@ button:disabled {
     .battle__bottom-menu {
         flex-direction: column;
         height: auto;
+    }
+
+    .battle__pokemon__img--bottom, .battle__pokemon__img--top {
+        width: 120px;
     }
 
     .battle__text-box-left,
