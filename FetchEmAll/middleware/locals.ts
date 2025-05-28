@@ -3,18 +3,50 @@ import { getMyPokemon, getAllPokemon, getPokemonById, healPokemon } from "../dat
 import { FullPokemon, MyPokemon, Pokemon } from "../interfaces";
 import { ObjectId } from "mongodb";
 
-// Array of plain text pokemon names
+/**
+ * ============================================================================
+ *  ⚙️  Documentation Notice
+ * ============================================================================
+ *
+ * This file's inline documentation was initially generated with the help of AI.
+ * All comments and descriptions have been carefully reviewed and proofread by
+ * the developer to ensure accuracy and clarity.
+ *
+ * ============================================================================
+ */
+
+/**
+ * Middleware to attach a list of all Pokémon names to `res.locals`.
+ *
+ * Fetches the complete list of Pokémon using `getAllPokemon`, extracts each name,
+ * and stores them in `res.locals.pokemonNameList` for use in downstream middleware
+ * or route handlers.
+ *
+ * @param _req - The Express Request object (unused).
+ * @param res - The Express Response object, where the name list is attached to `res.locals`.
+ * @param next - The next middleware function in the Express stack.
+ */
 export async function pokeNamesLocal(_req:Request, res:Response, next:NextFunction){
     const pokeList : Pokemon[]  = await getAllPokemon()
     res.locals.pokemonNameList = [];
-    // site crashes when this line is not here, looking into this later
     pokeList.forEach(poke => {
         res.locals.pokemonNameList.push(poke?.name) 
     });
     next();
 }
 
-// Array of pokemon owned by user
+/**
+ * Middleware to attach the user's owned Pokémon to `res.locals`.
+ *
+ * Retrieves the currently logged-in user from the session and stores it in `res.locals.user`.
+ * Initiates healing for all Pokémon owned by the user, fetches the full list of their Pokémon,
+ * and sorts them so the current/active Pokémon (if any) appear first in the array.
+ * The sorted list is stored in `res.locals.myPokemon` for use in downstream middleware or routes.
+ *
+ * @param req - The Express Request object containing the user session.
+ * @param res - The Express Response object where user and Pokémon data are stored in `res.locals`.
+ * @param next - The next middleware function in the Express stack.
+ */
 export async function myPokemonLocal(req:Request, res:Response, next:NextFunction){
     res.locals.user = req.session.user;
     healPokemon(res.locals.user._id)
@@ -25,7 +57,17 @@ export async function myPokemonLocal(req:Request, res:Response, next:NextFunctio
     next();
 }
 
-// All owned pokemon ids and all pokemon
+/**
+ * Middleware to attach both the full list of Pokémon and the user's owned Pokémon IDs to `res.locals`.
+ *
+ * If a valid user session exists, this function fetches the user's owned Pokémon and extracts their IDs,
+ * storing them in `res.locals.myPokeIds`. Regardless of session state, it also fetches the full list of all Pokémon
+ * and attaches it to `res.locals.pokemonList` for use in views or subsequent middleware.
+ *
+ * @param req - The Express Request object, optionally containing session user data.
+ * @param res - The Express Response object where data is stored in `res.locals`.
+ * @param next - The next middleware function in the Express stack.
+ */
 export async function pokeListLocal(req: Request, res: Response, next: NextFunction) {
     if (req.session.user && typeof req.session.user != "undefined" && typeof req.session.user._id != "undefined") {
         const myPokemon : FullPokemon[] = await getMyPokemon(req.session.user._id)
@@ -40,7 +82,26 @@ export async function pokeListLocal(req: Request, res: Response, next: NextFunct
     next();
 }
 
-// Various formatting and styling functions
+/**
+ * Middleware that registers various formatting and styling helper functions to `res.locals`.
+ *
+ * These helpers are intended for use in templates or frontend logic and include formatting for
+ * Pokémon types, stat bars, generations, IDs, and conditional styling.
+ *
+ * Registered functions:
+ *
+ * - `getTypes(types: string[]): string`: Joins an array of types into a comma-separated string.
+ * - `convert(num: number): number`: Converts a decimetre value to metres (e.g., for height or weight).
+ * - `generation(gen: string): string`: Maps generation API strings (e.g., "generation-ii") to Roman numerals.
+ * - `formatId(id: number): string`: Formats a Pokémon ID as a 3-digit string with a `#` prefix (e.g., `#025`).
+ * - `getPercentAndColor(currentHp: number, maxHp: number): string`: Returns an inline style string representing HP bar width and color.
+ * - `getPercent(stat: number, statMax: number): string`: Returns a style string for width percentage of a stat bar.
+ * - `getCompareStyling(stat1: number, stat2: number, statMax: number): string`: Returns a style string for comparative stat bar with color coding.
+ *
+ * @param _req - The Express Request object (unused).
+ * @param res - The Express Response object to which helper functions are attached via `res.locals`.
+ * @param next - The next middleware function in the Express stack.
+ */
 export async function formattingLocals(_req: Request, res: Response, next: NextFunction) {
     res.locals.getTypes = (types: string[]) : string => {
         return types.join(", ");
@@ -103,7 +164,17 @@ export async function formattingLocals(_req: Request, res: Response, next: NextF
     next();
 }
 
-// Check if user has starter Pokemon
+/**
+ * Middleware to determine whether the current user owns at least one Pokémon (starter or otherwise).
+ *
+ * Checks the session for a logged-in user and uses their ID to fetch owned Pokémon via `getMyPokemon`.
+ * Sets `res.locals.hasStarter` to `true` if the user owns any Pokémon, or `false` otherwise.
+ * This flag can be used in views or routes to control access or display logic (e.g., onboarding).
+ *
+ * @param req - The Express Request object containing session data.
+ * @param res - The Express Response object where the result is stored in `res.locals.hasStarter`.
+ * @param next - The next middleware function in the Express stack.
+ */
 export async function hasStarterLocal(req: Request, res: Response, next: NextFunction) {
     const ownerId = req.session.user?._id;
     if (ownerId) {
