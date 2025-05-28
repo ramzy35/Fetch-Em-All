@@ -30,6 +30,10 @@
   --blue: #4070f4;
 }
 
+body {
+  background-color: var(--black);
+}
+
 * {
   font-family: PressStart;
   letter-spacing: 0px;
