@@ -1,0 +1,13 @@
+<section id="modal" class="modal">
+    <section class="modal__backdrop">
+
+    </section>
+    <section class="modal__content">
+        <h2>Wil je <%= ai.name %> een bijnaam geven?</h2>
+        <form action="/battle/caught" class="form__nickname" method="post">
+            <input type="hidden" name="pokeId" value="<%= ai.id %>">
+            <input type="text" id="nickname" name="nickname" value="<%= ai.name %>">
+        </form>
+
+    </section>
+</section>
