@@ -10,7 +10,7 @@ main, nav, footer {
 }
 
 body {
-    background-color: var(--blue);
+    /* background-color: var(--blue); */
     background-image: url(../assets/background1fix.png); 
     background-repeat: no-repeat;
     background-size: 100% 100%;

@@ -12,10 +12,6 @@ main, footer {
     z-index: 1;
 }
 
-body {
-    background-color: var(--blue);
-}
-
 main {
     display: flex;
     flex-direction: row;
