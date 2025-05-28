@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/signup.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/signup.css">
 </head>
 
-<body>
-    <header>
+<body class="login__body">
+    <header class="login__header">
         <h1>FetchEmAll</h1>
         <a href="/" class="goback">Landing Page</a>
     </header>
@@ -24,7 +25,7 @@
                     </p>
                 </section>
                 <% } %>
-                    <form action="/signup" method="post">
+                    <form action="/signup" method="post" class="login__form">
                         <section class="signup__input">
                             <input type="text" id="username" name="username" placeholder="Enter your username" required>
                         </section>
@@ -43,7 +44,7 @@
                             <h3>Ik accepteer alle algemene voorwaarden</h3>
                         </section>
                         <section class="signup__input button">
-                            <input type="submit" value="Registreer Nu">
+                            <input type="submit" class="signup__register" value="Registreer Nu">
                         </section>
                         <section class="signup__text">
                             <h3>Heb je al een account? <a href="/signin">Log in</a></h3>

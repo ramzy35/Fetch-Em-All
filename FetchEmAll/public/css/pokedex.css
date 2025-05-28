@@ -1,3 +1,7 @@
+body {
+    background-image: url(../assets/background1fix.png);
+}
+
 .pokedex__card {
     display: flex;
     flex-direction: row;
@@ -39,23 +43,8 @@
     transition: box-shadow 0.3s ease;
 }
 
-
 .pokedex__card:hover {
     transform: scale(1.15);
-}
-
-/* main {
-    padding: 20px 0px;
-    background: transparent;
-} */
-
-/* main, footer {
-    position: relative;
-    z-index: 1;
-} */
-
-body {
-    background-image: url(../assets/background1fix.png);
 }
 
 .pokedex__card__left__id {
@@ -132,10 +121,6 @@ body {
 
 .pokedex__card__left__types:hover::after {
     opacity: 1;
-}
-
-.hidden {
-    display: none;
 }
 
 .modal {

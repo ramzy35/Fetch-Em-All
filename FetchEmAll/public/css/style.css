@@ -45,10 +45,11 @@ html {
 
 body {
   background-color: var(--black);
-  height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   position: sticky;
+  background-size: 100% 100%;
+  background-attachment: fixed;
 }
 
 main {
@@ -106,6 +107,10 @@ button {
 button.disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.hidden {
+    display: none;
 }
 
 @media (max-width: 850px) {

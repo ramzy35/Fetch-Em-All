@@ -1,14 +1,10 @@
-body {
+body.login__body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #f4f4f4;
 }
 
-* {
-    font-size: 10px;
-}
-
-header {
+header.login__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -17,14 +13,14 @@ header {
     color: #fff;
 }
 
-header h1 {
+header.login__header h1 {
     margin: 0;
     font-family: Arial, sans-serif;
     color: white;
     letter-spacing: normal;
 }
 
-header a {
+header.login__header a {
     font-size: 16px;
 }
 
@@ -91,7 +87,7 @@ header a {
     font-weight: bold;
 }
 
-form .signup__input input, form .signin__input input {
+form.login__form .signup__input input, form .signin__input input {
     height: 100%;
     width: 100%;
     outline: none;
@@ -111,7 +107,7 @@ form .signup__input input, form .signin__input input {
     border-color: var(--blue);
 }
 
-form .signup__policy {
+form.login__form .signup__policy {
     display: flex;
     align-items: center;
 }
@@ -120,7 +116,7 @@ form .signup__policy {
     font-family: Arial, sans-serif;
 }
 
-form h3 {
+form.login__form h3 {
     color: var(--gray);
     font-size: 1.4rem;
     font-weight: 500;
@@ -139,21 +135,25 @@ form h3 {
     background: var(--black);
 }
 
-form .signup__text h3, form .signin__text h3 {
+.signup__input .signup__register {
+    color: var(--white) !important;
+}
+
+form.login__form .signup__text h3, form .signin__text h3 {
     color: var(--gray);
     width: 100%;
     text-align: center;
     font-family: Arial, sans-serif;
 }
 
-form .signup__text h3 a, form .signin__text h3 a {
+form.login__form .signup__text h3 a, form .signin__text h3 a {
     font-size: 1.4rem;
     color: var(--blue);
     text-decoration: none;
     font-family: Arial, sans-serif;
 }
 
-form .signup__text h3 a:hover, form .signin__text h3 a:hover {
+form.login__form .signup__text h3 a:hover, form .signin__text h3 a:hover {
     text-decoration: underline;
 }
 
@@ -169,19 +169,19 @@ form .signup__text h3 a:hover, form .signin__text h3 a:hover {
     font-family: sans-serif;
 }
 
-*, *::before, *::after {
+/* *, *::before, *::after {
     box-sizing: border-box;
-}
+} */
 
 @media (max-width: 600px) {
-    header {
+    header.login__header {
         flex-direction: column;
         gap: 10px;
         align-items: flex-start;
         padding: 15px;
     }
 
-    header h1 {
+    header.login__header h1 {
         font-size: 20px;
     }
 

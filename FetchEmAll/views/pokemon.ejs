@@ -76,7 +76,7 @@
                     <p class="stats__title">HP</p>
                     <section class="bar">
                         <section class="hp-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.hp, 250) %>>
-                            <%= pokemon.hp %>
+                            <p><%= pokemon.hp %></p>
                         </section>
                     </section>
                 </section>
@@ -84,7 +84,7 @@
                     <p class="stats__title">Atk</p>
                     <section class="bar">
                         <section class="atk-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.attack, 134) %>>
-                            <%= pokemon.attack %>
+                            <p><%= pokemon.attack %></p>
                         </section>
                     </section>
                 </section>
@@ -92,7 +92,7 @@
                     <p class="stats__title">Def</p>
                     <section class="bar">
                         <section class="def-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.defense, 180) %>>
-                            <%= pokemon.defense %>
+                            <p><%= pokemon.defense %></p>
                         </section>
                     </section>
                 </section>
@@ -100,7 +100,7 @@
                     <p class="stats__title">SAtk</p>
                     <section class="bar">
                         <section class="spatk-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.special_attack, 154) %>>
-                            <%= pokemon.special_attack %>
+                            <p><%= pokemon.special_attack %></p>
                         </section>
                     </section>
                 </section>
@@ -108,7 +108,7 @@
                     <p class="stats__title">SDef</p>
                     <section class="bar">
                         <section class="spdef-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.special_defense, 125) %>>
-                            <%= pokemon.special_defense %>
+                            <p><%= pokemon.special_defense %></p>
                         </section>
                     </section>
                 </section>
@@ -116,7 +116,7 @@
                     <p class="stats__title">Spd</p>
                     <section class="bar">
                         <section class="spd-fill fill type-<%= pokemon.types[0] %>" style=<%- getPercent(pokemon.speed, 140) %>>
-                            <%= pokemon.speed %>
+                            <p><%= pokemon.speed %></p>
                         </section>
                     </section>
                 </section>
@@ -124,7 +124,7 @@
             <section class="stats__block">
                 <h3>Abilities</h3>
                 <% pokemon.abilities.forEach(ability=> { %>
-                    <p class="bold">
+                    <p class="pokestat__bold">
                         <%= ability.name %>
                     </p>
                     <p>
@@ -135,25 +135,25 @@
         </section>
         <section class="stats--right">
             <section class="stats__block">
-                <p><span class="bold">Generatie: </span>
+                <p><span class="pokestat__bold">Generatie: </span>
                     <%= generation(pokemon.generation) %>
                 </p>
-                <p><span class="bold">Habitat: </span>
+                <p><span class="pokestat__bold">Habitat: </span>
                     <%= pokemon.habitat %>
                 </p>
-                <p><span class="bold">Vangsnelheid: </span>
+                <p><span class="pokestat__bold">Vangsnelheid: </span>
                     <%= pokemon.capture_rate %>
                 </p>
-                <p><span class="bold">Groeisnelheid: </span>
+                <p><span class="pokestat__bold">Groeisnelheid: </span>
                     <%= pokemon.growth_rate %>
                 </p>
-                <p><span class="bold">EV-opbrengst: </span>
+                <p><span class="pokestat__bold">EV-opbrengst: </span>
                     <%= pokemon.ev_yield %>
                 </p>
-                <p><span class="bold">Basis Exp: </span>
+                <p><span class="pokestat__bold">Basis Exp: </span>
                     <%= pokemon.base_experience %>
                 </p>
-                <p><span class="bold">Basis geluk: </span>
+                <p><span class="pokestat__bold">Basis geluk: </span>
                     <%= pokemon.base_happiness %>
                 </p>
             </section>
@@ -169,7 +169,7 @@
             </section>
             <% if (pokemon.type_damage[0].length>= 1) {%>
                 <section class="no times">
-                    <p class="bold">Neemt geen damage</p>
+                    <p class="pokestat__bold">Neemt geen damage</p>
                     <section class="types">
                         <% pokemon.type_damage[0].forEach(type=> { %>
                             <section class="type-<%= type %> type">
@@ -181,7 +181,7 @@
             <% } %>
             <% if (pokemon.type_damage[1].length>= 1) {%>
                 <section class="quarter times">
-                    <p class="bold">Neemt 1/4x damage</p>
+                    <p class="pokestat__bold">Neemt 1/4x damage</p>
                     <section class="types">
                         <% pokemon.type_damage[1].forEach(type=> { %>
                             <section class="type-<%= type %> type">
@@ -193,7 +193,7 @@
             <% } %>
             <% if (pokemon.type_damage[2].length>= 1) {%>
                 <section class="half times">
-                    <p class="bold">Neemt 1/2x damage</p>
+                    <p class="pokestat__bold">Neemt 1/2x damage</p>
                     <section class="types">
                         <% pokemon.type_damage[2].forEach(type=> { %>
                             <section class="type-<%= type %> type">
@@ -205,7 +205,7 @@
             <% } %>
             <% if (pokemon.type_damage[3].length>= 1) {%>
                 <section class="no times">
-                    <p class="bold">Krijgt 1x damage</p>
+                    <p class="pokestat__bold">Krijgt 1x damage</p>
                     <section class="types">
                         <% pokemon.type_damage[3].forEach(type=> { %>
                             <section class="type-<%= type %> type">
@@ -217,7 +217,7 @@
             <% } %>
             <% if (pokemon.type_damage[4].length>= 1) {%>
                 <section class="two times">
-                    <p class="bold">Krijgt 2x damage</p>
+                    <p class="pokestat__bold">Krijgt 2x damage</p>
                     <section class="types">
                         <% pokemon.type_damage[4].forEach(type=> { %>
                             <section class="type-<%= type %> type">
@@ -229,7 +229,7 @@
             <% } %>
             <% if (pokemon.type_damage[5].length>= 1) {%>
                 <section class="four times">
-                    <p class="bold">Krijgt 4x damage</p>
+                    <p class="pokestat__bold">Krijgt 4x damage</p>
                     <section class="types">
                         <% pokemon.type_damage[5].forEach(type=> { %>
                             <section
