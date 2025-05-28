@@ -14,6 +14,12 @@
         buttonsToControl.forEach(btn => btn.disabled = true);
         blinker.classList.add("hidden");
 
+        /**
+            * Displays text with a typewriter animation effect inside the battle log element.
+            * @param {string} text - Text to be displayed.
+            * @param {number} i - Current character index for recursive typing.
+            * @param {function} callback - Function to call after animation completes.
+        */
         function typeWriter(text, i = 0, callback) {
             if (i < text.length) {
                 logElement.textContent += text.charAt(i);
@@ -23,6 +29,10 @@
             }
         }
 
+        /**
+         * Animates the attacking Pokémon's image depending on who attacks.
+         * @param {string} attacker - Either "user" or "ai" to determine which Pokémon animates.
+        */
         function animateAttack(attacker) {
             const aiImg = document.getElementById("ai-pokemon-img");
             const userImg = document.getElementById("user-pokemon-img");
@@ -40,10 +50,17 @@
             }
         }
 
+        /**
+         * Enables the battle action buttons to allow user interaction.
+        */
         function enableBattleButtons() {
             buttonsToControl.forEach(btn => btn.disabled = false);
         }
 
+        /**
+         * Displays the next log message with animation and triggers attack animations if needed.
+         * Automatically proceeds through all messages until the battle is over or waiting for user input.
+        */
         function displayNextLog() {
             if (currentLogIndex >= logMessages.length) {
                 if (!isBattleOver)
@@ -70,7 +87,6 @@
                 setTimeout(displayNextLog, 1200);
             });
         }
-
 
         window.addEventListener("DOMContentLoaded", () => {
             if (isBattleOver) {
