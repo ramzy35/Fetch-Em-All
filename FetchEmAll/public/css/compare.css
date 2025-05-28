@@ -5,7 +5,7 @@ body {
 .wrapper {
     display: flex;
     flex-direction: column;
-    width: 850px;
+    max-width: 850px;
     border-radius: 15px;
     background-image: linear-gradient(to bottom, rgb(59, 197, 185) 0%, rgb(72, 197, 170) 50%, rgba(0, 0, 0, 0) 100%);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
