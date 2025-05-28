@@ -218,7 +218,7 @@ body {
     background: rgb(116, 194, 92);
 }
 
-button:disabled {
+button.battle__option:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -478,7 +478,7 @@ button:disabled {
         height: 100%;
         position: relative;
     }
-    button {
+    .battle__option {
         padding: 0 0;
     }
 

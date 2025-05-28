@@ -50,6 +50,11 @@ body {
   background-repeat: no-repeat;
 }
 
+main {
+    position: relative;
+    z-index: 1;
+}
+
 h1 {
   font-size: 4rem;
   text-align: center;
@@ -73,6 +78,11 @@ h3 {
 
 p {
   font-size: 1.6rem;
+}
+
+i {
+    font-size: 2.5rem;
+    color: black;
 }
 
 button {

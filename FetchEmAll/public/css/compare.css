@@ -1,20 +1,5 @@
-main {
-    padding: 20px 0;
-    background-color: var(--blue);
-    background: transparent;
-}
-
-main, nav, footer {
-    position: relative;
-    z-index: 1;
-}
-
 body {
-    /* background-color: var(--blue); */
     background-image: url(../assets/background1fix.png); 
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-
 }
 
 main {
@@ -74,6 +59,15 @@ main {
     border-bottom: solid 1px black;
 }
 
+.compare__stat__left {
+    text-align: right;
+    padding-right: 2px;
+}
+
+.compare__stat__right {
+    text-align: left;
+    padding-left: 2px;
+}
 
 .compare__left--top, .compare__right--top, .compare__left--second, .compare__right--second,
 .compare__left--fourth, .compare__right--fourth, .compare__left--fifth, .compare__right--fifth {
@@ -122,11 +116,6 @@ main {
 
 .compare__weigth, .weigth-icon {
     padding-bottom: 1.6rem;
-}
-
-i {
-    font-size: 2.5rem;
-    color: black;
 }
 
 .bold {
