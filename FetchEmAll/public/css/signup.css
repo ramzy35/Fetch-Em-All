@@ -1,10 +1,14 @@
-body.login__body {
+body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #f4f4f4;
 }
 
-header.login__header {
+* {
+    font-size: 10px;
+}
+
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,14 +17,14 @@ header.login__header {
     color: #fff;
 }
 
-header.login__header h1 {
+header h1 {
     margin: 0;
     font-family: Arial, sans-serif;
     color: white;
     letter-spacing: normal;
 }
 
-header.login__header a {
+header a {
     font-size: 16px;
 }
 
@@ -66,11 +70,11 @@ header.login__header a {
     width: 20px;
 }
 
-.signup form, .signin form {
+.signup .login__form, .signin form {
     margin-top: 15px;
 }
 
-.signup form .signup__input, .signin form .signin__input {
+.signup .login__form .signup__input, .signin form .signin__input {
     height: 52px;
     margin: 18px 0;
 }
@@ -87,7 +91,7 @@ header.login__header a {
     font-weight: bold;
 }
 
-form.login__form .signup__input input, form .signin__input input {
+.login__form .signup__input input, form .signin__input input {
     height: 100%;
     width: 100%;
     outline: none;
@@ -107,7 +111,7 @@ form.login__form .signup__input input, form .signin__input input {
     border-color: var(--blue);
 }
 
-form.login__form .signup__policy {
+.login__form .signup__policy {
     display: flex;
     align-items: center;
 }
@@ -116,7 +120,7 @@ form.login__form .signup__policy {
     font-family: Arial, sans-serif;
 }
 
-form.login__form h3 {
+.login__form h3 {
     color: var(--gray);
     font-size: 1.4rem;
     font-weight: 500;
@@ -135,25 +139,46 @@ form.login__form h3 {
     background: var(--black);
 }
 
-.signup__input .signup__register {
-    color: var(--white) !important;
+input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 0.15rem solid;
+  border-radius: 0.15rem;
+
+  display: grid;
+  place-content: center;
 }
 
-form.login__form .signup__text h3, form .signin__text h3 {
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65rem;
+  height: 0.65rem;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1rem 1rem var(--blue);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.login__form .signup__text h3, form .signin__text h3 {
     color: var(--gray);
     width: 100%;
     text-align: center;
     font-family: Arial, sans-serif;
 }
 
-form.login__form .signup__text h3 a, form .signin__text h3 a {
+.login__form .signup__text h3 a, form .signin__text h3 a {
     font-size: 1.4rem;
     color: var(--blue);
     text-decoration: none;
     font-family: Arial, sans-serif;
 }
 
-form.login__form .signup__text h3 a:hover, form .signin__text h3 a:hover {
+.login__form .signup__text h3 a:hover, form .signin__text h3 a:hover {
     text-decoration: underline;
 }
 
@@ -169,19 +194,15 @@ form.login__form .signup__text h3 a:hover, form .signin__text h3 a:hover {
     font-family: sans-serif;
 }
 
-/* *, *::before, *::after {
-    box-sizing: border-box;
-} */
-
 @media (max-width: 600px) {
-    header.login__header {
+    header {
         flex-direction: column;
         gap: 10px;
         align-items: flex-start;
         padding: 15px;
     }
 
-    header.login__header h1 {
+    header h1 {
         font-size: 20px;
     }
 
