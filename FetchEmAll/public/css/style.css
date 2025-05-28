@@ -48,11 +48,19 @@ body {
   height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
+  position: sticky;
 }
 
 main {
-    position: relative;
-    z-index: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  padding: 20px 0px;
+  background: transparent;
+  
 }
 
 h1 {
@@ -85,8 +93,23 @@ i {
     color: black;
 }
 
+strong {
+  font-weight: bold;
+}
+
 button {
   padding: 10px 20px 10px;
   color: white;
   font-family: PressStart;
+}
+
+button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 850px) {
+    main {
+     padding: 0px;
+    }
 }

@@ -44,28 +44,18 @@
     transform: scale(1.15);
 }
 
-main {
+/* main {
     padding: 20px 0px;
-    background-color: var(--blue);
     background: transparent;
-}
+} */
 
-main, footer {
+/* main, footer {
     position: relative;
     z-index: 1;
-}
-
-nav {
-    z-index: 2;
-}
+} */
 
 body {
-    /* background-color: var(--blue); */
     background-image: url(../assets/background1fix.png);
-    background-repeat: no-repeat;
-    /* background-size: 100vh; */
-    background-size: 100% 100%;
-    background-attachment: fixed;
 }
 
 .pokedex__card__left__id {

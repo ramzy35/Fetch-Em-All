@@ -2,12 +2,6 @@ body {
     background-image: url(../assets/background1fix.png); 
 }
 
-main {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -272,11 +266,6 @@ main {
 }
 
 @media (max-width: 850px) {
-
-    main {
-        padding: 0px 0px
-    }
-
     .wrapper {
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
@@ -340,7 +329,7 @@ main {
         display: none;
     }
 
-    h2, h3, p, span, .bold {
-        font-size: 1.2rem;
+    .compare__h2, .compare__p, .bold {
+        font-size: 1rem;
     }
 }
