@@ -170,7 +170,7 @@ i {
 .compare__spdef p, .compare__spatk p, .compare__speed p {
     /* give constant width to avoid alignment issues if value is 3 digits */
     width: 5rem;
-    padding: 0 1.6rem;
+    /* padding: 0 1.6rem; */
 }
 
 .compare__hp__bar, .compare__atk__bar, .compare__def__bar,
@@ -193,9 +193,12 @@ i {
 }
 
 .compare__stats__title {
-    text-align: center;
-    justify-content: center;
+    text-align: center;  
     min-width: 100px;
+}
+
+.compare__stats__title > p {
+    justify-self: center;
 }
 
 .hp__left {
@@ -289,6 +292,10 @@ i {
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
     }
+
+    .compare__info p, .compare__info .bold, .compare--fifth .type, .compare--fifth p.bold{
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 540px) {
@@ -304,6 +311,10 @@ i {
     .compare__hp__bar, .compare__atk__bar, .compare__def__bar,
     .compare__spdef__bar, .compare__spatk__bar, .compare__speed__bar {
         width: 100px;
+    }
+
+    .compare__info p, .compare__info .bold, .compare--fifth .type, .compare--fifth p.bold{
+        font-size: 10px;
     }
 }
 
