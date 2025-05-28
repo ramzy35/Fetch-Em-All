@@ -1,6 +1,6 @@
 .myPoke {
     justify-content: center;
-    min-height: 85vh;
+    height: auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -37,6 +37,10 @@
     transition: outline 0.2s ease-in-out;
 }
 
+.myPoke__form {
+    height: 340px;
+}
+
 .current {
     outline: 5px solid goldenrod;
     outline-style: ridge;
@@ -58,7 +62,7 @@
 }
 
 .smoll {
-    font-size: 11px;
+    font-size: 1.1rem;
     font-family: PressStart;
 }
 
@@ -73,7 +77,6 @@
 }
 
 .fill {
-    background-color: #ff0000;
     height: 20px;
     padding: 1%;
     text-align: center;

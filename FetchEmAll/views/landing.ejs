@@ -8,37 +8,37 @@
     <link rel="stylesheet" href="/css/landing.css">
 </head>
 
-<body>
+<body class="landing">
 
-    <header>
-        <h1>FetchEmAll</h1>
+    <header class="landing__header">
+        <h1 class="landing__title">FetchEmAll</h1>
 
         <% if (user) {%>
             <form action="/logout" method="post">
-                <button type="submit" class="login-button">Logout</button>
+                <button type="submit" class="login-button">Log uit</button>
             </form>
-            <% } else { %>
-                <a href="/signin" class="login-button">Log In</a>
-                <% } %>
+        <% } else { %>
+            <a href="/signin" class="login-button">Log In</a>
+        <% } %>
     </header>
 
-    <main>
+    <main class="landing__main">
         <div class="project-card">
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
                 alt="Pokemon">
             <h3>Pokemon</h3>
             <% if (user) { %>
-                <a href="/pokedex" class="visit">Visit Site</a>
-                <% } else { %>
-                    <a href="/signin" class="visit">Visit Site</a>
-                    <% } %>
+                <a href="/pokedex" class="visit">Bezoek website</a>
+            <% } else { %>
+                <a href="/signin" class="visit">Bezoek website</a>
+            <% } %>
         </div>
 
         <div class="project-card">
             <img src="../assets/fifa.png" alt="FIFA">
             <h3>FIFA</h3>
             <button class="locked" disabled>
-                🔒 Locked
+                🔒 Niet Beschikbaar
             </button>
         </div>
 
@@ -46,7 +46,7 @@
             <img src="../assets/fortnite.png" alt="Fortnite">
             <h3>Fortnite</h3>
             <button class="locked" disabled>
-                🔒 Locked
+                🔒 Niet Beschikbaar
             </button>
         </div>
 
@@ -54,7 +54,7 @@
             <img src="../assets/MTG.png" alt="MTG">
             <h3>MTG</h3>
             <button class="locked" disabled>
-                🔒 Locked
+                🔒 Niet Beschikbaar
             </button>
         </div>
 
@@ -62,7 +62,7 @@
             <img src="../assets/lego.png" alt="LegoMasters">
             <h3>LegoMasters</h3>
             <button class="locked" disabled>
-                🔒 Locked
+                🔒 Niet Beschikbaar
             </button>
         </div>
 
@@ -70,7 +70,7 @@
             <img src="../assets/lotr.png" alt="LOTR">
             <h3>LOTR</h3>
             <button class="locked" disabled>
-                🔒 Locked
+                🔒 Niet Beschikbaar
             </button>
         </div>
     </main>

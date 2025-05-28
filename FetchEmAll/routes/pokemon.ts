@@ -8,7 +8,6 @@ const pokemonRoute = express.Router();
 
 pokemonRoute.get("/", pokeNamesLocal, myPokemonLocal, secureMiddleware, async (req, res) => {
     const id:number = typeof req.query.id === "string" ? parseInt(req.query.id) : 1;
-    // give statpage of id 1 instead of infinite loading when no id is given
     const poke:Pokemon = await getPokemonById(id)
     res.locals.currentPage = "pokemon"
     

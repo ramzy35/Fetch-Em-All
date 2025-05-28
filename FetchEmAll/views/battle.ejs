@@ -1,7 +1,10 @@
 <%- include("partials/header.ejs") %>
+<main class="battle__main">
 <link rel="stylesheet" href="/css/battle.css">
+    <% if (caught) {%>
+        <%- include("partials/renameModal.ejs", {pokeId : ai.id}) %>
+    <% } %>
     <section class="app">
-        <h1 class="title">Battle</h1>
 
         <section class="battle">
             <section class="battle__box--top-left">
@@ -36,23 +39,23 @@
                     <section class="battle__options">
                         <form action="/battle/attack" method="POST">
                             <input type="hidden" name="lastLogIndex" value="<%= logLength %>">
-                            <button <%= battleOver ? "disabled" : "" %> >
-                                <h4 class="battle__options--top-left">Fight</h4>
+                            <button class="battle__option" <%= battleOver ? "disabled" : "" %> >
+                                <h4 class="battle__options--top-left">Vecht</h4>
                             </button>
                         </form>
                         <form action="/battle/catch" method="POST">
                             <input type="hidden" name="lastLogIndex" value="<%= logLength %>">
-                            <button <%= battleOver ? "disabled" : "" %> >
-                                <h4 class="battle__options--bottom-left">Catch</h4>
+                            <button class="battle__option" <%= battleOver ? "disabled" : "" %> >
+                                <h4 class="battle__options--bottom-left">Vang</h4>
                                 <input type="hidden" name="pokeId" value="<%= ai.id %>">
                             </button>
                         </form>
 
                         <a href="/pokemon?id=<%= ai.id %>">
                             <% if (battleOver) { %>
-                                <h4 class="battle__options--bottom-right">Exit</h4>
+                                <h4 class="battle__options--bottom-right">Sluit</h4>
                             <% } else {%>
-                                <h4 class="battle__options--bottom-right">Run</h4>
+                                <h4 class="battle__options--bottom-right">Ren</h4>
                             <% } %>
                         </a>
                     </section> 

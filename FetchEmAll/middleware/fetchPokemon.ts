@@ -1,5 +1,29 @@
 import * as type from "../interfaces";
 
+/**
+ * ============================================================================
+ *  ⚙️  Documentation Notice
+ * ============================================================================
+ *
+ * This file's inline documentation was initially generated with the help of AI.
+ * All comments and descriptions have been carefully reviewed and proofread by
+ * the developer to ensure accuracy and clarity.
+ *
+ * ============================================================================
+ */
+
+/**
+ * Retrieves a list of the first 151 Pokémon.
+ *
+ * This function asynchronously fetches Pokémon data for all Pokémon with IDs from 1 to 151.
+ * It uses the `getPokemon` function to retrieve individual Pokémon and returns a promise
+ * that resolves to an array of `Pokemon` objects.
+ *
+ * Any errors encountered during individual fetches are logged to the console, but do not
+ * halt the overall execution of the function.
+ *
+ * @returns {Promise<type.Pokemon[]>} A promise that resolves to an array of Pokémon objects.
+ */
 export async function getPokemonList():Promise<type.Pokemon[]> { 
     const promises = [];
     for (let id = 1; id <= 151; id++) {
@@ -13,6 +37,24 @@ export async function getPokemonList():Promise<type.Pokemon[]> {
     return results
 }
 
+/**
+ * Fetches detailed data for a single Pokémon by ID.
+ *
+ * This function retrieves comprehensive information for a specific Pokémon from the PokeAPI.
+ * It performs multiple API calls to fetch:
+ * - Basic Pokémon data (e.g., stats, types, sprites)
+ * - Species-specific information (e.g., habitat, evolution chain URL, generation)
+ * - Evolution chain details to construct the full evolution path
+ * - Type-based damage relations
+ * - Descriptions of abilities
+ *
+ * The function combines this information into a single `Pokemon` object.
+ *
+ * @param {number} id - The ID of the Pokémon to fetch (1–151).
+ * @returns {Promise<type.Pokemon>} A promise that resolves to a `Pokemon` object containing all enriched data.
+ *
+ * @throws Will throw an error if any of the fetch operations fail due to network or data issues.
+ */
 export async function getPokemon(id:number):Promise<type.Pokemon> {
     const pokemonResponse : Response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const pokemonJson = await pokemonResponse.json();
@@ -74,6 +116,16 @@ export async function getPokemon(id:number):Promise<type.Pokemon> {
     return poke;
 }
 
+/**
+ * Constructs the full evolution path of a Pokémon based on a provided evolution chain.
+ *
+ * Traverses the evolution tree recursively to find the evolution path that includes the target Pokémon.
+ * Once found, it also collects all subsequent evolutions from that point onward.
+ *
+ * @param {type.EvolutionChain} evolutionData - The full evolution chain object from the PokeAPI.
+ * @param {string} target - The name of the Pokémon for which to find the evolution path.
+ * @returns {string[]} An ordered array of Pokémon names representing the full evolution path.
+ */
 function getFullEvolutionPath(evolutionData: type.EvolutionChain, target: string): string[] {
     let result: string[] = [];
   
@@ -104,8 +156,17 @@ function getFullEvolutionPath(evolutionData: type.EvolutionChain, target: string
     return result;
 }
 
-
-  
+/**
+ * Fetches basic information for a list of Pokémon names.
+ *
+ * Sends parallel API requests to the PokeAPI for each Pokémon in the provided list and extracts
+ * minimal information: ID, name, and front image URL. If any fetch fails, an error is thrown.
+ *
+ * @param {string[]} names - An array of Pokémon names to retrieve information for.
+ * @returns {Promise<type.PokemonInfo[]>} A promise that resolves to an array of `PokemonInfo` objects.
+ *
+ * @throws Will throw an error if any individual fetch request fails.
+ */
 async function getEvolutions(names: string[]): Promise<type.PokemonInfo[]> {
     const pokemonData = await Promise.all(
         names.map(async (name) => {
@@ -125,16 +186,31 @@ async function getEvolutions(names: string[]): Promise<type.PokemonInfo[]> {
     return pokemonData;
 }
 
-
-  
+/**
+ * Extracts and formats the effort values (EVs) from a Pokémon's stats.
+ *
+ * Filters out stats with zero effort values, then maps and formats the remaining ones
+ * into a human-readable string (e.g., "2 attack, 1 speed").
+ *
+ * @param {type.Stat[]} stats - An array of stat objects, each containing an `effort` value and `stat.name`.
+ * @returns {string} A comma-separated string listing non-zero effort stats with their values.
+ */
 function getEffortStats(stats: type.Stat[]): string {
     return stats.filter(s => s.effort > 0)
         .map(s => `${s.effort} ${s.stat.name}`)
         .join(', ');
 }
 
-
-  
+/**
+ * Fetches the English short effect descriptions for a list of Pokémon abilities.
+ *
+ * For each ability provided, this function makes a request to the corresponding API URL,
+ * extracts the English language entry from the effect entries, and compiles a list
+ * of ability names and their descriptions.
+ *
+ * @param abilities - An array of `AbilityInfo` objects, each containing the name and API URL of a Pokémon ability.
+ * @returns A Promise that resolves to an array of `AbilityDescription` objects containing the ability name and its description.
+ */
 async function getAbilityDescriptions(abilities: type.AbilityInfo[]): Promise<type.AbilityDescription[]> {
     const results: type.AbilityDescription[] = [];
 
@@ -162,6 +238,22 @@ async function getAbilityDescriptions(abilities: type.AbilityInfo[]): Promise<ty
     return results;
 }
 
+/**
+ * Extracts and categorizes damage multipliers for a given Pokémon type based on type effectiveness.
+ *
+ * This function parses the `damage_relations` object of a type fetched from the Pokémon API.
+ * It organizes the types into categories based on how much damage they deal to the given type.
+ * Only single-type calculations are supported (i.e., 1/4x and 4x are not applicable).
+ *
+ * @param data - An object containing a `damage_relations` field with effectiveness data. Expected to match the structure returned by the Pokémon type API.
+ * @returns A 2D array of strings where each inner array contains type names that match the corresponding damage multiplier:
+ * - Index 0: Types that deal 0× damage.
+ * - Index 1: Empty (1/4× not applicable).
+ * - Index 2: Types that deal 1/2× damage.
+ * - Index 3: Types that deal 1× damage (i.e., not explicitly listed in the API).
+ * - Index 4: Types that deal 2× damage.
+ * - Index 5: Empty (4× not applicable).
+ */
 function extractDamageFromTypes(data: any): string[][] {
     const allTypes = [
         "normal", "fighting", "flying", "poison", "ground", "rock",
@@ -192,6 +284,22 @@ function extractDamageFromTypes(data: any): string[][] {
     ];
 }
 
+/**
+ * Maps an index representing a damage category to its corresponding damage multiplier.
+ *
+ * This function is typically used to interpret the index returned by damage categorization functions,
+ * such as `extractDamageFromTypes`, and convert it into an actual numerical damage multiplier.
+ *
+ * @param index - A numeric index from 0 to 5 representing damage categories:
+ * - 0 → 0×
+ * - 1 → 0.25×
+ * - 2 → 0.5×
+ * - 3 → 1×
+ * - 4 → 2×
+ * - 5 → 4×
+ *
+ * @returns The corresponding damage multiplier as a number. Defaults to 1 if the index is unrecognized.
+ */
 export const indexToMultiplierMapper = (index: number): number => {
     const mapping: Record<number, number> = {
         0: 0,
@@ -204,6 +312,22 @@ export const indexToMultiplierMapper = (index: number): number => {
     return mapping[index] ?? 1;
 };
 
+/**
+ * Maps a damage multiplier to its corresponding index category.
+ *
+ * This function is the inverse of `indexToMultiplierMapper` and converts a numerical
+ * damage multiplier into a standardized index used for categorizing damage.
+ *
+ * @param multiplier - A damage multiplier value (e.g., 0, 0.25, 0.5, 1, 2, or 4).
+ * @returns The index corresponding to the multiplier:
+ * - 0 → 0
+ * - 0.25 → 1
+ * - 0.5 → 2
+ * - 1 → 3
+ * - 2 → 4
+ * - 4 → 5
+ * Returns 3 (normal damage) if the multiplier is not in the mapping.
+ */
 export const multiplierToIndexMapper = (multiplier: number): number => {
     const mapping: Record<number, number> = {
         0: 0,
@@ -216,6 +340,21 @@ export const multiplierToIndexMapper = (multiplier: number): number => {
     return mapping[multiplier] ?? 3;
 };
 
+/**
+ * Combines the damage multipliers from two Pokémon types into a single aggregated damage profile.
+ *
+ * Given two arrays representing damage categories for two types (each a 2D string array
+ * where each inner array contains types dealing specific damage multipliers),
+ * this function calculates the combined damage multipliers by multiplying
+ * the individual multipliers from each type.
+ *
+ * The resulting combined damage categories are returned in the same 2D array format,
+ * indexed by damage multiplier categories (0×, 0.25×, 0.5×, 1×, 2×, 4×).
+ *
+ * @param type1 - A 2D array of strings representing the damage categories for the first type.
+ * @param type2 - A 2D array of strings representing the damage categories for the second type.
+ * @returns A 2D array of strings categorizing types by their combined damage multiplier against the dual type.
+ */
 function combineDamageFromTypes(type1: string[][], type2: string[][]): string[][] {
     const allTypes = [
         "normal", "fighting", "flying", "poison", "ground", "rock",

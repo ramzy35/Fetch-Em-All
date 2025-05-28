@@ -8,7 +8,8 @@ nav {
     border-bottom: 2px var(--black) solid;
     background-image: linear-gradient(to right, red, yellow);
     padding: 0px 20px;
-    z-index: 101;
+    z-index: 2;
+    min-height: 5vh;
 }
 
 .nav__left {
@@ -80,7 +81,7 @@ nav {
         position: fixed;
         top: 0;
         right: -105%;
-        height: 100vw;
+        height: 100%;
         width: 100vw;
         flex-direction: column;
         gap: 20px;

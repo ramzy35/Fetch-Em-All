@@ -48,5 +48,5 @@ app.get("/:status", async (req, res) => {
 
 app.listen(app.get("port"), async() => {
     await connect()
-    console.log("🚀 Server started on http://localhost:" + app.get("port"));
+    console.log("🚀 Server started on port: " + app.get("port"));
 });
