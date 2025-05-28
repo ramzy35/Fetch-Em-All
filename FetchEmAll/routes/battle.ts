@@ -4,6 +4,18 @@ import { getCurrentPokemon, createFullPokemon, catchPokemon, updateCurrentHp, le
 import { secureMiddleware } from "../middleware/secureMiddleware";
 import { ObjectId } from "mongodb";
 
+/**
+ * ============================================================================
+ *  ⚙️  Documentation Notice
+ * ============================================================================
+ *
+ * This file's inline documentation was initially generated with the help of AI.
+ * All comments and descriptions have been carefully reviewed and proofread by
+ * the developer to ensure accuracy and clarity.
+ *
+ * ============================================================================
+ */
+
 let battleState: {
     user: FullPokemon | null;
     ai: FullPokemon | null;
@@ -57,6 +69,25 @@ battleRoute.get("/", secureMiddleware, async (req, res) => {
     });
 });
 
+/**
+ * Executes an attack from one Pokémon to another, calculates damage, and updates state.
+ *
+ * The function:
+ * - Calculates critical hit chance (10% chance, 1.4x damage).
+ * - Computes type effectiveness multiplier using `getTypeDamage`.
+ * - Applies STAB (Same-Type Attack Bonus) if applicable (1.2x damage).
+ * - Calculates total damage based on attacker and defender stats.
+ * - Decreases defender's current HP by damage dealt.
+ * - Randomly triggers an ability usage message or a generic attack message.
+ * - Logs all relevant actions to the provided logs array.
+ * - Updates defender's fainted status if HP falls to 0 or below.
+ *
+ * @param attacker - The attacking Pokémon, including stats and abilities.
+ * @param defender - The defending Pokémon, including stats and current HP.
+ * @param logs - Array of strings to which battle messages are appended.
+ * @param isAI - Optional flag indicating if the attacker is AI-controlled (currently unused).
+ * @returns A boolean indicating whether the defender has survived the attack (`true` if still standing).
+ */
 function performAttack(attacker: FullPokemon, defender: FullPokemon, logs: string[], isAI: boolean = false): boolean {
     const crit = Math.random() < 0.1 ? 1.4 : 1.0;
     const multiplier = getTypeDamage(attacker, defender);
@@ -208,6 +239,22 @@ battleRoute.post("/caught", secureMiddleware, async (req, res) => {
     res.redirect("/myPokemon")
 });
 
+/**
+ * Calculates the type effectiveness multiplier for an attack from one Pokémon to another.
+ *
+ * Uses the attacker's types and the defender's `type_damage` chart to determine how effective
+ * the attack will be. Multiplier logic:
+ * - `0` for no damage
+ * - `0.5` for half damage
+ * - `1` for normal damage
+ * - `2` for double damage
+ *
+ * If the attacker has two types, both are considered multiplicatively.
+ *
+ * @param attacker - The attacking Pokémon, including its types and type damage mappings.
+ * @param defender - The defending Pokémon, with a `type_damage` array organized by multipliers.
+ * @returns A numeric multiplier representing total type effectiveness (e.g. 0, 0.5, 1, 2, or 4).
+ */
 function getTypeDamage(attacker : FullPokemon, defender : FullPokemon) : number {
     let mult : number = 1
     if(defender.type_damage[0].includes(attacker.types[0])) {
