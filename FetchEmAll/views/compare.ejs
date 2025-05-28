@@ -11,90 +11,90 @@
         <section class="compare__left--top">
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= poke1.id %>.png"
                 class="compare__img">
-            <p class="compare__id">#<%= poke1.id %>
+            <p class="compare__id compare__p">#<%= poke1.id %>
             </p>
-            <h2 class="compare__name">
+            <h2 class="compare__name compare__h2">
                 <%= poke1.name%>
             </h2>
-            <p class="compare__types">
+            <p class="compare__types compare__p">
                 <%= poke1.types %>
             </p>
-            <p class="compare__length">
+            <p class="compare__length compare__p">
                 <%= convert(poke1.height) %>m
             </p>
-            <p class="compare__weigth">
+            <p class="compare__weigth compare__p">
                 <%= convert(poke1.weight) %>kg
             </p>
         </section>
         <section class="compare__right--top">
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= poke2.id %>.png"
                 class="compare__img">
-            <p class="compare__id">#<%= poke2.id %>
+            <p class="compare__id compare__p">#<%= poke2.id %>
             </p>
-            <h2 class="compare__name">
+            <h2 class="compare__name compare__h2">
                 <%= poke2.name%>
             </h2>
-            <p class="compare__types">
+            <p class="compare__types compare__p">
                 <%= poke2.types %>
             </p>
-            <p class="compare__length">
+            <p class="compare__length compare__p">
                 <%= convert(poke2.height) %>m
             </p>
-            <p class="compare__weigth">
+            <p class="compare__weigth compare__p">
                 <%= convert(poke2.weight) %>kg
             </p>
         </section>
     </section>
     <section class="compare--second">
         <section class="compare__icons--second">
-            <p class="compare__text">Informatie</p>
+            <p class="compare__text compare__p">Informatie</p>
         </section>
         <section class="compare__left--second">
             <section class="compare__info">
-                <p><span class="bold">Generatie: </span>
+                <p class="compare__p"><span class="bold">Generatie: </span>
                     <%= generation(poke1.generation) %>
                 </p>
-                <p><span class="bold">Habitat: </span>
+                <p class="compare__p"><span class="bold">Habitat: </span>
                     <%= poke1.habitat %>
                 </p>
-                <p><span class="bold">Vangsnelheid: </span>
+                <p class="compare__p"><span class="bold">Vangsnelheid: </span>
                     <%= poke1.capture_rate %>
                 </p>
-                <p><span class="bold">Groeisnelheid: </span>
+                <p class="compare__p"><span class="bold">Groeisnelheid: </span>
                     <%= poke1.growth_rate %>
                 </p>
-                <p><span class="bold">EV-opbrengst: </span>
+                <p class="compare__p"><span class="bold">EV-opbrengst: </span>
                     <%= poke1.ev_yield %>
                 </p>
-                <p><span class="bold">Basis Exp: </span>
+                <p class="compare__p"><span class="bold">Basis Exp: </span>
                     <%= poke1.base_experience %>
                 </p>
-                <p><span class="bold">Basis geluk: </span>
+                <p class="compare__p"><span class="bold">Basis geluk: </span>
                     <%= poke1.base_experience %>
                 </p>
             </section>
         </section>
         <section class="compare__right--second">
             <section class="compare__info">
-                <p><span class="bold">Generatie: </span>
+                <p class="compare__p"><span class="bold">Generatie: </span>
                     <%= generation(poke2.generation) %>
                 </p>
-                <p><span class="bold">Habitat: </span>
+                <p class="compare__p"><span class="bold">Habitat: </span>
                     <%= poke2.habitat %>
                 </p>
-                <p><span class="bold">Vangsnelheid: </span>
+                <p class="compare__p"><span class="bold">Vangsnelheid: </span>
                     <%= poke2.capture_rate %>
                 </p>
-                <p><span class="bold">Groeisnelheid: </span>
+                <p class="compare__p"><span class="bold">Groeisnelheid: </span>
                     <%= poke2.growth_rate %>
                 </p>
-                <p><span class="bold">EV-opbrengst: </span>
+                <p class="compare__p"><span class="bold">EV-opbrengst: </span>
                     <%= poke2.ev_yield %>
                 </p>
-                <p><span class="bold">Basis Exp: </span>
+                <p class="compare__p"><span class="bold">Basis Exp: </span>
                     <%= poke2.base_experience %>
                 </p>
-                <p><span class="bold">Basis geluk: </span>
+                <p class="compare__p"><span class="bold">Basis geluk: </span>
                     <%= poke2.base_experience %>
                 </p>
             </section>
@@ -102,108 +102,108 @@
     </section>
     <section class="compare--third">
         <section class="compare__icons--third">
-            <p class="compare__text">Basis Stats</p>
+            <p class="compare__text compare__p">Basis Stats</p>
         </section>
         <section class="compare__right--third">
             <section class="compare__hp">
-                <p>
+                <p class="compare__stat__left compare__p">
                     <%= poke1.hp %>
                 </p>
                 <section class="compare__hp__bar">
                     <section class="compare__hp__bar__fill hp__left" style=<%- getCompareStyling(poke1.hp, poke2.hp, 250) %>></section>
                 </section>
                 <section class="compare__stats__title">
-                    <p>HP</p>
+                    <p class="compare__p">HP</p>
                 </section>
                 <section class="compare__hp__bar">
                     <section class="compare__hp__bar__fill hp__right" style=<%- getCompareStyling(poke2.hp,poke1.hp, 250) %>></section>
                 </section>
-                <p>
+                <p class="compare__stat__right compare__p">
                     <%= poke2.hp %>
                 </p>
             </section>
             <section class="compare__atk">
-                <p>
+                <p class="compare__stat__left compare__p">
                     <%= poke1.attack %>
                 </p>
                 <section class="compare__atk__bar">
                     <section class="compare__atk__bar__fill atk__left" style=<%- getCompareStyling(poke1.attack, poke2.attack, 134) %>></section>
                 </section>
                 <section class="compare__stats__title">
-                    <p>Atk</p>
+                    <p class="compare__p">Atk</p>
                 </section>
                 <section class="compare__atk__bar">
                     <section class="compare__atk__bar__fill atk__right" style=<%- getCompareStyling(poke2.attack, poke1.attack, 134) %>></section>
                 </section>
-                <p>
+                <p class="compare__stat__right compare__p">
                     <%= poke2.attack %>
                 </p>
             </section>
             <section class="compare__def">
-                <p>
+                <p class="compare__stat__left compare__p">
                     <%= poke1.defense %>
                 </p>
                 <section class="compare__def__bar">
                     <section class="compare__def__bar__fill def__left" style=<%- getCompareStyling(poke1.defense, poke2.defense, 180) %>></section>
                 </section>
                 <section class="compare__stats__title">
-                    <p>Def</p>
+                    <p class="compare__p">Def</p>
                 </section>
                 <section class="compare__def__bar">
                     <section class="compare__def__bar__fill def__right" style=<%- getCompareStyling(poke2.defense, poke1.defense, 180) %>></section>
                 </section>
-                <p>
+                <p class="compare__stat__right compare__p">
                     <%= poke2.defense %>
                 </p>
             </section>
             <section class="compare__spatk">
-                <p>
+                <p class="compare__stat__left compare__p">
                     <%= poke1.special_attack %>
                 </p>
                 <section class="compare__spatk__bar">
                     <section class="compare__spatk__bar__fill spatk__left" style=<%- getCompareStyling(poke1.special_attack, poke2.special_attack, 154) %>></section>
                 </section>
                 <section class="compare__stats__title">
-                    <p>SAtk</p>
+                    <p class="compare__p">SAtk</p>
                 </section>
                 <section class="compare__spatk__bar">
                     <section class="compare__spatk__bar__fill spatk__right" style=<%- getCompareStyling(poke2.special_attack, poke1.special_attack, 154) %>></section>
                 </section>
-                <p>
+                <p class="compare__stat__right compare__p">
                     <%= poke2.special_attack %>
                 </p>
             </section>
             <section class="compare__spdef">
-                <p>
+                <p class="compare__stat__left compare__p">
                     <%= poke1.special_defense %>
                 </p>
                 <section class="compare__spdef__bar">
                     <section class="compare__spdef__bar__fill spdef__left" style=<%- getCompareStyling(poke1.special_defense, poke2.special_defense, 125) %>></section>
                 </section>
                 <section class="compare__stats__title">
-                    <p>SDef</p>
+                    <p class="compare__p">SDef</p>
                 </section>
                 <section class="compare__spdef__bar">
                     <section class="compare__spdef__bar__fill spdef__right" style=<%- getCompareStyling(poke2.special_defense, poke1.special_defense, 125) %>></section>
                 </section>
-                <p>
+                <p class="compare__stat__right compare__p">
                     <%= poke2.special_defense %>
                 </p>
             </section>
             <section class="compare__speed">
-                <p>
+                <p class="compare__stat__left compare__p">
                     <%= poke1.speed %>
                 </p>
                 <section class="compare__speed__bar">
                     <section class="compare__speed__bar__fill speed__left" style=<%- getCompareStyling(poke1.speed, poke2.speed, 140) %>></section>
                 </section>
                 <section class="compare__stats__title">
-                    <p>Spd</p>
+                    <p class="compare__p">Spd</p>
                 </section>
                 <section class="compare__speed__bar">
                     <section class="compare__speed__bar__fill speed__right" style=<%- getCompareStyling(poke2.speed, poke1.speed, 140) %>></section>
                 </section>
-                <p>
+                <p class="compare__stat__right compare__p">
                     <%= poke2.speed %>
                 </p>
             </section>
@@ -211,7 +211,7 @@
     </section>
     <section class="compare--fourth">
         <section class="compare__icons--fourth">
-            <p class="compare__text">Abilities</p>
+            <p class="compare__text compare__p">Abilities</p>
         </section>
         <section class="compare__left--fourth">
             <% poke1.abilities.forEach(ability=> { %>
@@ -219,7 +219,7 @@
                     <p class="bold">
                         <%= ability.name %>
                     </p>
-                    <p>
+                    <p class="compare__p">
                         <%= ability.description %>
                     </p>
                 </section>
@@ -231,7 +231,7 @@
                     <p class="bold">
                         <%= ability.name %>
                     </p>
-                    <p>
+                    <p class="compare__p">
                         <%= ability.description %>
                     </p>
                 </section>
@@ -240,7 +240,7 @@
     </section>
     <section class="compare--fifth">
         <section class="compare__icons--fifth">
-            <p class="compare__text">Zwaktes en Sterktes</p>
+            <p class="compare__text compare__p">Zwaktes en Sterktes</p>
         </section>
         <section class="compare__left--fifth">
             <% if (poke1.type_damage[0].length>= 1) {%>

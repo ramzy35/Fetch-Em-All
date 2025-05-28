@@ -70,11 +70,11 @@ header a {
     width: 20px;
 }
 
-.signup form, .signin form {
+.signup .login__form, .signin form {
     margin-top: 15px;
 }
 
-.signup form .signup__input, .signin form .signin__input {
+.signup .login__form .signup__input, .signin form .signin__input {
     height: 52px;
     margin: 18px 0;
 }
@@ -91,7 +91,7 @@ header a {
     font-weight: bold;
 }
 
-form .signup__input input, form .signin__input input {
+.login__form .signup__input input, form .signin__input input {
     height: 100%;
     width: 100%;
     outline: none;
@@ -111,7 +111,7 @@ form .signup__input input, form .signin__input input {
     border-color: var(--blue);
 }
 
-form .signup__policy {
+.login__form .signup__policy {
     display: flex;
     align-items: center;
 }
@@ -120,7 +120,7 @@ form .signup__policy {
     font-family: Arial, sans-serif;
 }
 
-form h3 {
+.login__form h3 {
     color: var(--gray);
     font-size: 1.4rem;
     font-weight: 500;
@@ -139,21 +139,46 @@ form h3 {
     background: var(--black);
 }
 
-form .signup__text h3, form .signin__text h3 {
+input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 0.15rem solid;
+  border-radius: 0.15rem;
+
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65rem;
+  height: 0.65rem;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1rem 1rem var(--blue);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.login__form .signup__text h3, form .signin__text h3 {
     color: var(--gray);
     width: 100%;
     text-align: center;
     font-family: Arial, sans-serif;
 }
 
-form .signup__text h3 a, form .signin__text h3 a {
+.login__form .signup__text h3 a, form .signin__text h3 a {
     font-size: 1.4rem;
     color: var(--blue);
     text-decoration: none;
     font-family: Arial, sans-serif;
 }
 
-form .signup__text h3 a:hover, form .signin__text h3 a:hover {
+.login__form .signup__text h3 a:hover, form .signin__text h3 a:hover {
     text-decoration: underline;
 }
 
@@ -167,10 +192,6 @@ form .signup__text h3 a:hover, form .signin__text h3 a:hover {
     font-weight: bold;
     text-decoration: none;
     font-family: sans-serif;
-}
-
-*, *::before, *::after {
-    box-sizing: border-box;
 }
 
 @media (max-width: 600px) {

@@ -1,12 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 @import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow');
 
-html, body {
-    height: 100%;
-    /* background-color: var(--blue); */
+body {
     background-image: url(../assets/battle_background.png);
-    background-size: cover;
-    background-repeat: no-repeat;
+}
+
+.battle__main {
+    height: 100vh;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal {
@@ -61,95 +66,16 @@ html, body {
     height: auto;
     padding: 20px;
     z-index: 1001;
-    width: 80vw;
 }
 
 .choices {
     display: flex;
-    flex-direction: row;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-}
-
-.modal__choice {
-    position: relative;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
-    background: none;
-    width: 250px;
-    height: 250px;
-    border-radius: 12px;
-    padding: 0;
-    transition: transform 0.2s ease;
-}
-
-.modal__choice::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    opacity: 0.3;
-    z-index: 0;
-    transition: opacity 0.2s ease;
-}
-
-.modal__choice.bulbasaur::before {
-    background-image: url('/assets/icons/grass.svg');
-}
-
-.modal__choice.charmander::before {
-    background-image: url('/assets/icons/fire.svg');
-}
-
-.modal__choice.squirtle::before {
-    background-image: url('/assets/icons/water.svg');
-}
-
-.modal__content h2 {
-    font-family: PressStart;
-    font-size: 3rem;
-    text-align: center;
-}
-
-.modal__choice img {
-    position: relative;
-    z-index: 1;
-    width: 200px;
-    height: 200px;
-    transition: transform 0.2s ease;
-    margin-top: -10px;
 }
 
 #battle-log {
     color: white;
-}
-
-.modal__choice p {
-    position: absolute;
-    z-index: 1;
-    font-size: 2rem;
-    font-family: 'PressStart';
-    text-align: center;
-    margin: 0;
-    color: black;
-    margin-top: 130px;
-    margin-left: 10px;
-}
-
-.modal__choice:hover::before {
-    opacity: 0.9;
-}
-
-.modal__choice:hover img {
-    transform: scale(1.3);
 }
 
 .form__nickname input {
@@ -158,12 +84,6 @@ html, body {
     font-size: 2rem;
     padding: 5px 10px;
     width: 100%;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .battle {
@@ -221,7 +141,7 @@ body {
     background: rgb(116, 194, 92);
 }
 
-button:disabled {
+button.battle__option:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -481,7 +401,7 @@ button:disabled {
         height: 100%;
         position: relative;
     }
-    button {
+    .battle__option {
         padding: 0 0;
     }
 

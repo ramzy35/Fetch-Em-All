@@ -1,10 +1,10 @@
-body {
+body.landing {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #f4f4f4;
 }
 
-header {
+header.landing__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,7 +13,7 @@ header {
     color: #fff;
 }
 
-header h1 {
+h1.landing__title {
     margin: 0;
 }
 
@@ -28,7 +28,7 @@ header h1 {
     text-decoration: none;
 }
 
-main {
+main.landing__main {
     padding: 40px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

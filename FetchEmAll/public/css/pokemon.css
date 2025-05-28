@@ -1,9 +1,5 @@
-main {
-    padding: 20px 0;
-    background-color: var(--blue);
-    background-color: var(--black);
-    background: transparent;
-    align-items: center;
+body {
+    background-image: url(../assets/background1fix.png);
 }
 
 .chain__title {
@@ -35,9 +31,6 @@ main {
     cursor: help;
 }
 
-
-
-
 .pokestat__types::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -58,27 +51,6 @@ main {
 
 .pokestat__types:hover::after {
     opacity: 1;
-}
-
-main, footer {
-    position: relative;
-    z-index: 1;
-}
-
-body {
-    /* background-color: var(--blue); */
-    background-image: url(../assets/background1fix.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    /* min-height: 100vh; */
-}
-
-
-
-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .pokestat {
@@ -162,7 +134,7 @@ main {
 }
 
 
-button {
+button.pokestat__button {
     padding: 10px 0px 10px;
 }
 
@@ -248,7 +220,7 @@ button {
     padding: 20px 10px 20px 10px;
 }
 
-.bold {
+.pokestat__bold {
     font-size: 1.6rem;
     font-weight: bold;
     /* text-shadow: 1px 0 1px; */
@@ -315,20 +287,16 @@ button {
     margin-top: 10px;
 }
 
-/* .stats p {
-    width: 30px;
-} */
-
 .stats__title {
     width: 90px;
 }
 
 .fill {
-    color: white;
-    height: 25px;
+    display: flex;
+    height: 2.5rem;
     padding: 1%;
-    text-align: center;
-    font-size: 1.6rem;
+    align-items: center;
+    justify-content: center;
     border-radius: 5px;
     width: 80%;
 }
@@ -338,6 +306,14 @@ button {
     width: 100%;
     height: 25px;
     border-radius: 5px;
+}
+
+.bar .fill p {
+    height: 2.5rem;
+    color: white;
+    font-size: 1.6rem;
+    text-align: center;
+    padding-left: 5px;
 }
 
 @media (max-width: 850px) {
