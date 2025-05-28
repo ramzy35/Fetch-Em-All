@@ -130,6 +130,7 @@ header a {
 .signup__input.button input, .signin__input.button input {
     color: var(--white);
     letter-spacing: 1px;
+    text-align: center;
     border: none;
     background: var(--gray);
     cursor: pointer;
