@@ -1,4 +1,4 @@
-import { AggregationCursor, Collection, Document, MongoClient, ObjectId } from "mongodb";
+import { Collection, MongoClient, ObjectId } from "mongodb";
 import { getPokemonList } from "./middleware/fetchPokemon";
 import { FullPokemon, MyPokemon, Pokemon, User } from "./interfaces";
 import dotenv from "dotenv"
