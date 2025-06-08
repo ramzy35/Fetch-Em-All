@@ -58,6 +58,8 @@ battleRoute.get("/", secureMiddleware, async (req, res) => {
         battleState.turn = 'user';
     }
 
+    res.locals.currentPage = "battle" 
+
     const battleOver = (playerPoke.isFainted || aiPoke.isFainted);
     res.render("battle", {
         user: playerPoke,
@@ -152,6 +154,8 @@ battleRoute.post("/attack", secureMiddleware, async (req, res) => {
 
     const battleOver = battleState.turn === "over";
 
+    res.locals.currentPage = "battle" 
+
     res.render("battle", {
         user: battleState.user,
         ai: battleState.ai,
@@ -217,6 +221,8 @@ battleRoute.post("/catch", secureMiddleware, async (req, res) => {
 
     battleState.log.push(...logs);
     const newLog = battleState.log.slice(lastLogIndex);
+
+    res.locals.currentPage = "battle" 
 
     res.render("battle", {
         user: battleState.user,
