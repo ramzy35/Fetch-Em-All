@@ -38,7 +38,18 @@
         </section>
     </section>
 <% } else if (query.justChoseStarter && query.starterId) {%>
-    <%- include("partials/renameModal.ejs", {pokeId : query.starterId}) %>
+    <section id="modal" class="modal">
+        <section class="modal__backdrop">
+        </section>
+        <section class="modal__content">
+            <h2>Wil je het een bijnaam geven?</h2>
+            <form action="/pokedex/nickname" class="form__nickname" method="post">
+                <input type="hidden" name="starterId" value="<%= query.starterId %>">
+                <input type="text" id="nickname" name="nickname">
+            </form>
+
+        </section>
+    </section>
     <script>
         // JS to remove query params after modal load
         if (window.location.search.includes("justChoseStarter")) {

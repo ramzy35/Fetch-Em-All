@@ -23,7 +23,7 @@
         function typeWriter(text, i = 0, callback) {
             if (i < text.length) {
                 logElement.textContent += text.charAt(i);
-                setTimeout(() => typeWriter(text, i + 1, callback), 50);
+                setTimeout(() => typeWriter(text, i + 1, callback), 25);
             } else {
                 callback();
             }
