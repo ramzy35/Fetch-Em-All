@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction} from "express";
 import { getMyPokemon, getAllPokemon, getPokemonById, healPokemon } from "../database";
-import { FullPokemon, MyPokemon, Pokemon } from "../interfaces";
-import { ObjectId } from "mongodb";
+import { FullPokemon, Pokemon } from "../interfaces";
+import { secureMiddleware } from "./secureMiddleware";
 
 /**
  * ============================================================================
@@ -48,8 +48,12 @@ export async function pokeNamesLocal(_req:Request, res:Response, next:NextFuncti
  * @param next - The next middleware function in the Express stack.
  */
 export async function myPokemonLocal(req:Request, res:Response, next:NextFunction){
-    res.locals.user = req.session.user;
-    healPokemon(res.locals.user._id)
+    // secureMiddleware(req, res, next)
+    // console.log(res.locals.user._id)
+    // if(!res.locals.user) {
+    //     secureMiddleware(req, res, next)
+    // }
+    await healPokemon(res.locals.user._id)
     const myPokemon : FullPokemon[] = await getMyPokemon(res.locals.user._id);
     myPokemon.sort((a,b) => (b.currentPokemon ? 1 : 0) - (a.currentPokemon ? 1 : 0));
     res.locals.myPokemon = myPokemon;

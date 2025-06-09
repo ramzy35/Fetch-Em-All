@@ -6,7 +6,7 @@ import { secureMiddleware } from "../middleware/secureMiddleware";
 
 const myPokemonRoute = express.Router();
 
-myPokemonRoute.get("/", myPokemonLocal, secureMiddleware, async (req, res) => {
+myPokemonRoute.get("/", secureMiddleware, myPokemonLocal, async (req, res) => {
     res.locals.currentPokemon =  await getCurrentPokemon(res.locals.user._id);
     res.locals.currentPage = "myPokemon";
     res.render("myPokemon");

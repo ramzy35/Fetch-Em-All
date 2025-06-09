@@ -1,5 +1,5 @@
 import { link } from "./database";
-import session, { MemoryStore } from "express-session";
+import session from "express-session";
 import { User } from "./interfaces";
 import mongoDbSession from "connect-mongodb-session";
 
