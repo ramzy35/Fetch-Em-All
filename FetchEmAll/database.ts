@@ -16,12 +16,21 @@ import bcrypt from "bcrypt"
  * ============================================================================
  */
 
+/**
+ * Most used parameters:
+ * 
+ * @param userId:ObjectId   is the auto-generated objectId for a user in the userCollection, stored in the session token
+ * @param pokeId:number     is the ID for a Pokémon in the pokedexCollection
+ */
+
 dotenv.config();
 export const link = process.env.MONGO_URI || ""
 const client = new MongoClient(link);
 
+// saltRounds for password encryption
 const saltRounds : number = 10;
 
+// Database collections to store pokedex, users, and users' pokemon
 const pokedexCollection     : Collection<Pokemon> = client.db("FetchEmAll").collection<Pokemon>("pokedex");
 const userCollection        : Collection<User> = client.db("FetchEmAll").collection<User>("users");
 const myPokemonCollection   : Collection<MyPokemon> = client.db("FetchEmAll").collection<MyPokemon>("mypokemon");
@@ -50,22 +59,21 @@ export async function getAllPokemon():Promise<Pokemon[]> {
 /**
  * Retrieves a single Pokémon from the database by its ID.
  * 
- * @param id - The ID of the Pokémon to retrieve.
  * @returns A promise that resolves to the Pokémon object.
  * @throws An error if no Pokémon with the given ID is found or if the retrieval fails.
  */
-export async function getPokemonById(id:number):Promise<Pokemon> {
+export async function getPokemonById(pokeId:number):Promise<Pokemon> {
     try {
-        const pokemon:Pokemon | null = await pokedexCollection.findOne({ id : id });
+        const pokemon:Pokemon | null = await pokedexCollection.findOne({ id : pokeId });
         if(pokemon){
             return pokemon
         } else {
-            throw new Error(`Failed to get Pokemon with id ${id} from database`);
+            throw new Error(`Failed to get Pokemon with id ${pokeId} from database`);
         }
     } catch (error) {
         console.error(error)
     }
-    throw new Error(`Failed to get Pokemon with id ${id} from database`);
+    throw new Error(`Failed to get Pokemon with id ${pokeId} from database`);
 }
 
 //////////////////
@@ -73,15 +81,15 @@ export async function getPokemonById(id:number):Promise<Pokemon> {
 //////////////////
 
 /**
- * Calculates a scaled stat value based on the Pokémon's base stat and level.
+ * Calculates the scaled stat values based on the Pokémon's base stats and level.
  * 
- * @param base - The base stat value of the Pokémon.
- * @param level - The current level of the Pokémon.
- * @returns The scaled stat value, rounded up to the nearest integer.
+ * @param stats - The array of base stats of the Pokémon
+ * @param pokeLevel - The level to scale the Pokémon's stats to.
+ * @returns The scaled stat values, rounded up to the nearest integer.
  */
-function scaleStat(stats : number[], level: number): number[] {
+function scaleStat(stats : number[], pokeLevel: number): number[] {
     stats.forEach(stat => {
-        stat = Math.ceil(stat + (level - 1) * stat / 50);
+        stat = Math.ceil(stat + (pokeLevel - 1) * stat / 50);
     });
     return stats
 }
@@ -90,7 +98,6 @@ function scaleStat(stats : number[], level: number): number[] {
  * Creates a FullPokemon object by retrieving base Pokémon data and scaling stats
  * according to the given level. Initializes additional fields required for a user's Pokémon.
  * 
- * @param pokeId - The ID of the base Pokémon to retrieve.
  * @param pokeLevel - The level to scale the Pokémon's stats to.
  * @returns A promise that resolves to a FullPokemon object with scaled stats and initialized properties.
  */
@@ -117,10 +124,9 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number):Pro
 
 /**
  * Levels up the current Pokémon of the specified user by 1 level.
- * Increases the Pokémon's stats proportionally based on its base stats.
+ * Scales the Pokémon's stats compared to their base values.
  * Does nothing if the Pokémon is already at level 100.
  * 
- * @param userId - The ObjectId of the user whose current Pokémon will be leveled up.
  * @returns A promise that resolves when the Pokémon's stats and level are updated in the database.
  */
 export async function levelPokemon(userId : ObjectId) {
@@ -145,9 +151,8 @@ export async function levelPokemon(userId : ObjectId) {
 ////////////////
 
 /**
- * Retrieves the full list of Pokémon owned by the specified user.
+ * Retrieves the full list of Pokémon owned by the user.
  * 
- * @param userId - The ObjectId of the user whose Pokémon list is requested.
  * @returns A promise that resolves to an array of FullPokemon objects belonging to the user.
  *          Returns an empty array if the user has no Pokémon or if an error occurs.
  */
@@ -167,10 +172,8 @@ export async function getMyPokemon(userId : ObjectId):Promise<FullPokemon[]> {
 }
 
 /**
- * Retrieves a specific Pokémon by its ID from the given user's Pokémon collection.
+ * Retrieves a specific Pokémon by its ID from the user's Pokémon collection.
  * 
- * @param pokeId - The ID of the Pokémon to retrieve.
- * @param userId - The ObjectId of the user who owns the Pokémon.
  * @returns A promise that resolves to the FullPokemon object matching the given pokeId.
  *          If no matching Pokémon is found, the promise may resolve to undefined or cause an error.
  */
@@ -188,8 +191,6 @@ export async function getMyPokemonById(pokeId : number, userId : ObjectId):Promi
  * Adds a full Pokémon with the specified level to the user's Pokémon collection.
  * If the user has no Pokémon yet, the newly caught Pokémon is set as the current active Pokémon.
  * 
- * @param pokeId - The ID of the Pokémon to catch.
- * @param userId - The ObjectId of the user who is catching the Pokémon.
  * @param level - The level to assign to the newly caught Pokémon.
  */
 export async function catchPokemon(pokeId : number, userId : ObjectId, level : number) {
@@ -206,8 +207,6 @@ export async function catchPokemon(pokeId : number, userId : ObjectId, level : n
  * Changes the nickname of a specific Pokémon owned by the user.
  * The new nickname will be formatted to start with an uppercase letter followed by lowercase letters.
  * 
- * @param pokeId - The ID of the Pokémon to rename.
- * @param userId - The ObjectId of the user who owns the Pokémon.
  * @param nickname - The new nickname to assign to the Pokémon.
  */
 export async function renamePokemon(pokeId : number, userId : ObjectId, nickname : string) {
@@ -224,8 +223,6 @@ export async function renamePokemon(pokeId : number, userId : ObjectId, nickname
 /**
  * Updates the current HP of a specific Pokémon owned by a user in the database.
  * 
- * @param userId - The ObjectId of the user who owns the Pokémon.
- * @param pokeId - The ID of the Pokémon whose current HP should be updated.
  * @param newHp - The new HP value to set for the Pokémon.
  */
 export async function updateCurrentHp(userId: ObjectId, pokeId: number, newHp: number) {
@@ -241,10 +238,8 @@ export async function updateCurrentHp(userId: ObjectId, pokeId: number, newHp: n
 
 /**
  * Clears the Pokémon array for a given user, effectively wiping all their Pokémon progress.
+ * Use with caution!
  * 
- * ⚠️ Use with caution: This action will delete all Pokémon owned by the user.
- * 
- * @param userId - The ObjectId of the user whose Pokémon array will be cleared.
  * @throws Will throw an error if the user cannot be found in the database.
  */
 export async function deleteMyPokemon(userId : ObjectId) {
@@ -264,8 +259,6 @@ export async function deleteMyPokemon(userId : ObjectId) {
  * up to their maximum HP.
  * 
  * After healing, the lastHealed timestamp of each Pokémon is updated to the current time.
- * 
- * @param userId - The ObjectId of the user whose Pokémon should be healed.
  */
 export async function healPokemon(userId : ObjectId) {
     const pokemon = await getMyPokemon(userId)
@@ -292,12 +285,11 @@ export async function healPokemon(userId : ObjectId) {
 /////////////////////
 
 /**
- * Returns the current active Pokémon of the given user.
+ * Retrueves the current active Pokémon from the user.
  * 
  * Searches the user's Pokémon list for the one marked as `currentPokemon`.
  * Throws an error if no current Pokémon is found.
  * 
- * @param userId - The ObjectId of the user whose current Pokémon is requested.
  * @returns A Promise resolving to the user's current FullPokemon.
  * @throws Error if no current Pokémon is set for the user.
  */
@@ -320,9 +312,6 @@ export async function getCurrentPokemon(userId : ObjectId):Promise<FullPokemon> 
  * 
  * Updates all Pokémon of the user so that only the Pokémon with the given `pokeId`
  * has `currentPokemon` set to true, and all others set to false.
- * 
- * @param pokeId - The ID of the Pokémon to set as current.
- * @param userId - The ObjectId of the user whose Pokémon is being updated.
  */
 export async function changeCurrentPokemon(pokeId : number, userId : ObjectId) {
     let allMyPoke = await getMyPokemon(userId)
@@ -343,7 +332,7 @@ export async function changeCurrentPokemon(pokeId : number, userId : ObjectId) {
 ///////////
 
 /**
- * Retrieves all users from the database.
+ * Retrieves all users from the database. Not used in the current application.
  * 
  * @returns A promise that resolves to an array of User objects.
  *          Returns an empty array if there is an error during retrieval.
@@ -361,25 +350,33 @@ async function getAllUsers():Promise<User[]> {
 /**
  * Retrieves a single user from the database by their ObjectId.
  * 
- * @param id - The ObjectId of the user to retrieve.
  * @returns A promise that resolves to the User object.
  * @throws Throws an error if the user is not found or if there is a database error.
  */
-export async function getUserById(id:ObjectId):Promise<User> {
+export async function getUserById(userId:ObjectId):Promise<User> {
     try {
-        const user:User | null = await userCollection.findOne({ _id : id });
+        const user:User | null = await userCollection.findOne({ _id : userId });
                 if(user){
             return user
         } else {
-            throw new Error(`Failed to get user with id ${id} from database`);
+            throw new Error(`Failed to get user with id ${userId} from database`);
         }
     } catch (error) {
         console.error(error)
     }
-    throw new Error(`Failed to get user with id ${id} from database`);
+    throw new Error(`Failed to get user with id ${userId} from database`);
 }
 
-// Creates the initial user, with credentials from .env file
+/**
+ * Creates the initial admin user in the database using credentials
+ * specified in environment variables (empty variables seen in .env.template)
+ * 
+ * This function only runs if there are no existing users in the user collection.
+ * It hashes the password before storing, assigns the "ADMIN" role,
+ * and also initializes an empty Pokémon collection for the new user.
+ * 
+ * @throws Throws an error if any of the required environment variables are missing.
+ */
 async function createInitialUser() {
     if (await userCollection.countDocuments() > 0) {
         return;
@@ -388,7 +385,7 @@ async function createInitialUser() {
     let username : string | undefined = process.env.ADMIN_USERNAME;
     let password : string | undefined = process.env.ADMIN_PASSWORD;
     if (email === undefined || username === undefined || password === undefined) {
-        throw new Error("ADMIN_EMAIL, ADMIN_USERNAME and ADMIN_PASSWORD must be set in .env");
+        throw new Error("Admin credentials must be set in .env");
     }
     await userCollection.insertOne({
         email: email,
@@ -407,14 +404,16 @@ async function createInitialUser() {
 }
 
 /**
- * Creates the initial admin user in the database using credentials
- * specified in environment variables (ADMIN_EMAIL, ADMIN_USERNAME, ADMIN_PASSWORD).
+ * Creates a new user with given credentials and initialises their Pokémon collection
  * 
  * This function only runs if there are no existing users in the user collection.
  * It hashes the password before storing, assigns the "ADMIN" role,
  * and also initializes an empty Pokémon collection for the new user.
  * 
- * @throws Throws an error if any of the required environment variables are missing.
+ * @param username contains the chosen username of the account
+ * @param email contains the email of the account
+ * @param password contains the password of the account which is hashed before being stored in the database
+ * @throws Throws an error if the email or username are already used for another account.
  */
 export async function createUser(username: string, email: string, password: string) {
     const existingUser = await userCollection.findOne({ $or: [{ username }, { email }] });
@@ -442,14 +441,8 @@ export async function createUser(username: string, email: string, password: stri
 /**
  * Validates user login by checking the provided username and password.
  * 
- * - Throws an error if either username or password is empty.
- * - Searches the database for a user matching the username.
- * - Compares the provided password with the stored hashed password using bcrypt.
- * - Returns the user object if authentication is successful.
- * - Throws an error if user is not found or password is incorrect.
- * 
- * @param username - The username string provided by the user attempting to login.
- * @param password - The plaintext password string provided by the user.
+ * @param username - The username provided by the user attempting to login.
+ * @param password - The plaintext password provided by the user.
  * @returns The authenticated User object on successful login.
  * @throws Error if username or password is empty, user not found, or password is incorrect.
  */
@@ -476,11 +469,7 @@ export async function login(username: string, password: string) {
 
 /**
  * Seeds the pokedexCollection in the database with all Pokémon data fetched from an external API.
- * 
- * - First clears the existing data in the pokedexCollection by deleting all documents.
- * - Fetches a full list of Pokémon from the external source (e.g., PokeAPI).
- * - Inserts the fetched Pokémon list into the pokedexCollection.
- * - Logs any errors encountered during the process.
+ * An error during seeding will not result in a crash, it'll likely just cause some pokemon to not correctly be added.
  */
 async function seed() {
     try {
@@ -493,12 +482,7 @@ async function seed() {
 }
 
 /**
- * Gracefully closes the database connection and then terminates the application.
- * 
- * - Attempts to close the MongoDB client connection.
- * - Logs a confirmation message upon successful disconnection.
- * - Catches and logs any errors that occur during the disconnection process.
- * - Exits the Node.js process with code 0 to indicate a clean shutdown.
+ * Closes the database connection and then terminates the application.
  */
 async function exit() {
     try {
@@ -512,14 +496,6 @@ async function exit() {
 
 /**
  * Connects to the database and performs initial setup if necessary.
- * 
- * - Establishes a connection to the MongoDB client.
- * - Logs a success message once connected.
- * - Checks if the pokedex collection contains exactly 151 documents; if not, it calls `seed()` to populate it.
- * - Logs a message after seeding the pokedex.
- * - Creates the initial admin user if none exists.
- * - Sets up a listener for the SIGINT signal (Ctrl+C) to gracefully close the database connection on app shutdown.
- * - Catches and logs any errors during the connection or initialization process.
  */
 export async function connect() {
     try {
