@@ -5,6 +5,18 @@ import { getPokemonById, levelPokemon } from "../database";
 import { Pokemon } from "../interfaces";
 import { ObjectId } from "mongodb";
 
+/**
+ * ============================================================================
+ *  ⚙️  Documentation Notice
+ * ============================================================================
+ *
+ * This file's inline documentation was initially generated with the help of AI.
+ * All comments and descriptions have been carefully reviewed and edited by
+ * the developer to ensure accuracy and clarity.
+ *
+ * ============================================================================
+ */
+
 const wtpRoute = express.Router();
 
 /**
@@ -91,15 +103,3 @@ function checkGuess(guess:string, correctPoke:string, pokeNameList:string[], use
 }
 
 export default wtpRoute;
-
-/**
- * ============================================================================
- *  ⚙️  Documentation Notice
- * ============================================================================
- *
- * This file's inline documentation was initially generated with the help of AI.
- * All comments and descriptions have been carefully reviewed and proofread by
- * the developer to ensure accuracy and clarity.
- *
- * ============================================================================
- */

@@ -10,7 +10,7 @@ import { ObjectId } from "mongodb";
  * ============================================================================
  *
  * This file's inline documentation was initially generated with the help of AI.
- * All comments and descriptions have been carefully reviewed and proofread by
+ * All comments and descriptions have been carefully reviewed and edited by
  * the developer to ensure accuracy and clarity.
  *
  * ============================================================================
