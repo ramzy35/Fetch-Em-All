@@ -79,8 +79,11 @@ export async function getPokemonById(id:number):Promise<Pokemon> {
  * @param level - The current level of the Pokémon.
  * @returns The scaled stat value, rounded up to the nearest integer.
  */
-function scaleStat(base: number, level: number): number {
-    return Math.ceil(base + (level - 1) * base / 50);
+function scaleStat(stats : number[], level: number): number[] {
+    stats.forEach(stat => {
+        stat = Math.ceil(stat + (level - 1) * stat / 50);
+    });
+    return stats
 }
 
 /**
@@ -103,10 +106,11 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number):Pro
         lastHealed : new Date()
     }
 
-    fullPoke.hp        = scaleStat(basePoke.hp, pokeLevel);
-    fullPoke.attack    = scaleStat(basePoke.attack, pokeLevel);
-    fullPoke.speed     = scaleStat(basePoke.speed, pokeLevel);
-    fullPoke.defense   = scaleStat(basePoke.defense, pokeLevel);
+    const scaledStats : number[] = scaleStat([basePoke.hp, basePoke.attack, basePoke.speed, basePoke.defense], pokeLevel)
+    fullPoke.hp        = scaledStats[0]
+    fullPoke.attack    = scaledStats[1]
+    fullPoke.speed     = scaledStats[2]
+    fullPoke.defense   = scaledStats[3]
 
     return fullPoke
 }
@@ -122,9 +126,8 @@ export async function createFullPokemon(pokeId : number, pokeLevel : number):Pro
 export async function levelPokemon(userId : ObjectId) {
     const currentPoke:FullPokemon = await getCurrentPokemon(userId)
     const basePoke:Pokemon = await getPokemonById(currentPoke.id)
-    if(currentPoke.level >= 100) {
-        return
-    }
+    if(currentPoke.level >= 100) return;
+    
     await myPokemonCollection.updateOne(
         { ownerId: userId, "pokemon.id": currentPoke.id },
         { $inc : {
@@ -266,18 +269,18 @@ export async function deleteMyPokemon(userId : ObjectId) {
  */
 export async function healPokemon(userId : ObjectId) {
     const pokemon = await getMyPokemon(userId)
-    const healingIterations = Math.floor(((new Date()).getTime() - pokemon[0].lastHealed.getTime())/60000) // Increases by 1 every minute
-    for (let i = 0; i < healingIterations; i++) {
-        pokemon.forEach(poke => {
-            if(poke.currentHp < poke.hp) {
-                poke.currentHp += 2
-            }
-            if (poke.currentHp > poke.hp) {
-                poke.currentHp = poke.hp
-            }
-            poke.lastHealed = new Date()
-        });
-    }
+    if(pokemon.length < 1) return;
+
+    pokemon.forEach(poke => {
+        const now = new Date();
+        const healingIterations = Math.floor((now.getTime() - poke.lastHealed.getTime()) / 60000) // Increases by 1 every minute
+        if(poke.currentHp < poke.hp) {
+            poke.currentHp += 2*healingIterations
+        }
+        poke.currentHp = Math.min(poke.currentHp, poke.hp)
+        poke.lastHealed = now
+    })
+
     await myPokemonCollection.updateOne(
         { ownerId: userId},  
         { $set: {pokemon : pokemon}}
