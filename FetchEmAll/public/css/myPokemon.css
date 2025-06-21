@@ -69,6 +69,9 @@
 .myPoke__name {
     margin-top: 8px;
     font-family: PressStart;
+    width: 210px;
+    text-align: center;
+    word-wrap: break-word;
 }
 
 .myPoke__hp {

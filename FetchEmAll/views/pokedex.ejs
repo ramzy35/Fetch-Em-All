@@ -47,7 +47,7 @@
             <h2>Wil je het een bijnaam geven?</h2>
             <form action="/pokedex/nickname" class="form__nickname" method="post">
                 <input type="hidden" name="starterId" value="<%= query.starterId %>">
-                <input type="text" id="nickname" name="nickname">
+                <input type="text" id="nickname" name="nickname" maxlength=32>
             </form>
 
         </section>
