@@ -1,18 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
 /**
- * ============================================================================
- *  ⚙️  Documentation Notice
- * ============================================================================
- *
- * This file's inline documentation was initially generated with the help of AI.
- * All comments and descriptions have been carefully reviewed and proofread by
- * the developer to ensure accuracy and clarity.
- *
- * ============================================================================
- */
-
-/**
  * Middleware to enforce authentication by checking for a valid user session.
  *
  * If a valid session with a user ID exists, the user object is attached to `res.locals.user`

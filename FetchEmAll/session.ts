@@ -3,7 +3,6 @@ import session from "express-session";
 import { User } from "./interfaces";
 import mongoDbSession from "connect-mongodb-session";
 
-
 const MongoDBStore = mongoDbSession(session);
 
 const mongoStore = new MongoDBStore({
@@ -41,15 +40,3 @@ export default session({
         maxAge: 1000 * 60 * 60 * 24 * 7,
     }
 });
-
-/**
- * ============================================================================
- *  ⚙️  Documentation Notice
- * ============================================================================
- *
- * This file's inline documentation was initially generated with the help of AI.
- * All comments and descriptions have been carefully reviewed and proofread by
- * the developer to ensure accuracy and clarity.
- *
- * ============================================================================
- */

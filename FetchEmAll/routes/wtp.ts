@@ -23,7 +23,7 @@ async function rndmPoke():Promise<Pokemon> {
 
 let poke : Pokemon;
 
-wtpRoute.get("/", pokeNamesLocal, secureMiddleware, async (req, res) => {
+wtpRoute.get("/", pokeNamesLocal, secureMiddleware, async (_req, res) => {
     res.locals.currentPage = "wtp"
     poke = await rndmPoke()
     res.render("wtp", {
@@ -91,15 +91,3 @@ function checkGuess(guess:string, correctPoke:string, pokeNameList:string[], use
 }
 
 export default wtpRoute;
-
-/**
- * ============================================================================
- *  ⚙️  Documentation Notice
- * ============================================================================
- *
- * This file's inline documentation was initially generated with the help of AI.
- * All comments and descriptions have been carefully reviewed and proofread by
- * the developer to ensure accuracy and clarity.
- *
- * ============================================================================
- */

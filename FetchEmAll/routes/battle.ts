@@ -4,18 +4,6 @@ import { getCurrentPokemon, createFullPokemon, catchPokemon, updateCurrentHp, le
 import { secureMiddleware } from "../middleware/secureMiddleware";
 import { ObjectId } from "mongodb";
 
-/**
- * ============================================================================
- *  ⚙️  Documentation Notice
- * ============================================================================
- *
- * This file's inline documentation was initially generated with the help of AI.
- * All comments and descriptions have been carefully reviewed and proofread by
- * the developer to ensure accuracy and clarity.
- *
- * ============================================================================
- */
-
 let battleState: {
     user: FullPokemon | null;
     ai: FullPokemon | null;
@@ -70,54 +58,6 @@ battleRoute.get("/", secureMiddleware, async (req, res) => {
         caught: false,
     });
 });
-
-/**
- * Executes an attack from one Pokémon to another, calculates damage, and updates state.
- *
- * The function:
- * - Calculates critical hit chance (10% chance, 1.4x damage).
- * - Computes type effectiveness multiplier using `getTypeDamage`.
- * - Applies STAB (Same-Type Attack Bonus) if applicable (1.2x damage).
- * - Calculates total damage based on attacker and defender stats.
- * - Decreases defender's current HP by damage dealt.
- * - Randomly triggers an ability usage message or a generic attack message.
- * - Logs all relevant actions to the provided logs array.
- * - Updates defender's fainted status if HP falls to 0 or below.
- *
- * @param attacker - The attacking Pokémon, including stats and abilities.
- * @param defender - The defending Pokémon, including stats and current HP.
- * @param logs - Array of strings to which battle messages are appended.
- * @param isAI - Optional flag indicating if the attacker is AI-controlled (currently unused).
- * @returns A boolean indicating whether the defender has survived the attack (`true` if still standing).
- */
-function performAttack(attacker: FullPokemon, defender: FullPokemon, logs: string[], isAI: boolean = false): boolean {
-    const crit = Math.random() < 0.1 ? 1.4 : 1.0;
-    const multiplier = getTypeDamage(attacker, defender);
-    const stab = attacker.types.includes(attacker.types[0]) ? 1.2 : 1.0;
-
-    const baseDamage = Math.floor(
-        ((2 * attacker.level / 5 + 2) * attacker.attack * 60 /  (Math.max(defender.level / 10, 2)* defender.defense) / 50) + 2
-    );
-    const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
-
-    defender.currentHp -= totalDamage;
-
-    if (attacker.abilities && attacker.abilities.length > 0 && Math.random() < 0.5) {
-        const ability = attacker.abilities[Math.floor(Math.random() * attacker.abilities.length)];
-        logs.push(`${attacker.name} gebruikt ${ability.name}!`);
-    } else {
-        logs.push(`${attacker.name} viel aan!`);
-    }
-    logs.push(`Het deed ${totalDamage} damage!`);
-
-    if (defender.currentHp <= 0) {
-        defender.currentHp = 0;
-        defender.isFainted = true;
-        logs.push(`${defender.name} valt flauw!`);
-    }
-
-    return !defender.isFainted;
-}
 
 battleRoute.post("/attack", secureMiddleware, async (req, res) => {
     const lastLogIndex = parseInt(req.body.lastLogIndex || "0");
@@ -246,6 +186,54 @@ battleRoute.post("/caught", secureMiddleware, async (req, res) => {
 });
 
 /**
+ * Executes an attack from one Pokémon to another, calculates damage, and updates state.
+ *
+ * The function:
+ * - Calculates critical hit chance (10% chance, 1.4x damage).
+ * - Computes type effectiveness multiplier using `getTypeDamage`.
+ * - Applies STAB (Same-Type Attack Bonus) if applicable (1.2x damage).
+ * - Calculates total damage based on attacker and defender stats.
+ * - Decreases defender's current HP by damage dealt.
+ * - Randomly triggers an ability usage message or a generic attack message.
+ * - Logs all relevant actions to the provided logs array.
+ * - Updates defender's fainted status if HP falls to 0 or below.
+ *
+ * @param attacker - The attacking Pokémon, including stats and abilities.
+ * @param defender - The defending Pokémon, including stats and current HP.
+ * @param logs - Array of strings to which battle messages are appended.
+ * @param isAI - Optional flag indicating if the attacker is AI-controlled (currently unused).
+ * @returns A boolean indicating whether the defender has survived the attack (`true` if still standing).
+ */
+function performAttack(attacker: FullPokemon, defender: FullPokemon, logs: string[], isAI: boolean = false): boolean {
+    const crit = Math.random() < 0.1 ? 1.4 : 1.0;
+    const multiplier = getTypeDamage(attacker, defender);
+    const stab = attacker.types.includes(attacker.types[0]) ? 1.2 : 1.0;
+
+    const baseDamage = Math.floor(
+        ((2 * attacker.level / 5 + 2) * attacker.attack * 60 /  (Math.max(defender.level / 10, 2)* defender.defense) / 50) + 2
+    );
+    const totalDamage = Math.floor(baseDamage * multiplier * stab * crit);
+
+    defender.currentHp -= totalDamage;
+
+    if (attacker.abilities && attacker.abilities.length > 0 && Math.random() < 0.5) {
+        const ability = attacker.abilities[Math.floor(Math.random() * attacker.abilities.length)];
+        logs.push(`${attacker.name} gebruikt ${ability.name}!`);
+    } else {
+        logs.push(`${attacker.name} viel aan!`);
+    }
+    logs.push(`Het deed ${totalDamage} damage!`);
+
+    if (defender.currentHp <= 0) {
+        defender.currentHp = 0;
+        defender.isFainted = true;
+        logs.push(`${defender.name} valt flauw!`);
+    }
+
+    return !defender.isFainted;
+}
+
+/**
  * Calculates the type effectiveness multiplier for an attack from one Pokémon to another.
  *
  * Uses the attacker's types and the defender's `type_damage` chart to determine how effective
@@ -287,7 +275,7 @@ function getTypeDamage(attacker : FullPokemon, defender : FullPokemon) : number 
     return mult
 }
 
-battleRoute.get("/:status", async (req, res) => {
+battleRoute.get("/:status", async (_req, res) => {
     res.status(404);
     res.locals.currentPage = "404"
     res.render("404");

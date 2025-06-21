@@ -24,7 +24,7 @@ signInRoute.post("/", async (req, res) => {
     }
 });
 
-signInRoute.get("/:status", async (req, res) => {
+signInRoute.get("/:status", async (_req, res) => {
     res.status(404);
     res.locals.currentPage = "404"
     res.render("404");
