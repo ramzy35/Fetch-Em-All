@@ -39,7 +39,7 @@ const myPokemonCollection   : Collection<MyPokemon> = client.db("FetchEmAll").co
  */
 export async function getAllPokemon():Promise<Pokemon[]> {
     try {
-        const allPokemon:Pokemon[] = (await pokedexCollection.find({}).sort({ id : 1 }).toArray());
+        const allPokemon:Pokemon[] = (await pokedexCollection.find().sort({ id : 1 }).toArray());
         return allPokemon;
     } catch (error) {
         console.error(error)
@@ -127,7 +127,7 @@ export async function levelPokemon(userId : ObjectId) {
     const currentPoke:FullPokemon = await getCurrentPokemon(userId)
     const basePoke:Pokemon = await getPokemonById(currentPoke.id)
     if(currentPoke.level >= 100) return;
-    
+
     await myPokemonCollection.updateOne(
         { ownerId: userId, "pokemon.id": currentPoke.id },
         { $inc : {
@@ -147,14 +147,14 @@ export async function levelPokemon(userId : ObjectId) {
 /**
  * Retrieves the full list of Pokémon owned by the specified user.
  * 
- * @param ownerId - The ObjectId of the user whose Pokémon list is requested.
+ * @param userId - The ObjectId of the user whose Pokémon list is requested.
  * @returns A promise that resolves to an array of FullPokemon objects belonging to the user.
  *          Returns an empty array if the user has no Pokémon or if an error occurs.
  */
-export async function getMyPokemon(ownerId : ObjectId):Promise<FullPokemon[]> {
+export async function getMyPokemon(userId : ObjectId):Promise<FullPokemon[]> {
     try {
         const test = await myPokemonCollection.find({}).toArray()
-        const userData:MyPokemon | null = await myPokemonCollection.findOne({ ownerId : ownerId });
+        const userData:MyPokemon | null = await myPokemonCollection.findOne({ ownerId : userId });
         if (userData) {
             return userData.pokemon;
         } else {
@@ -224,18 +224,18 @@ export async function renamePokemon(pokeId : number, userId : ObjectId, nickname
 /**
  * Updates the current HP of a specific Pokémon owned by a user in the database.
  * 
- * @param ownerId - The ObjectId of the user who owns the Pokémon.
+ * @param userId - The ObjectId of the user who owns the Pokémon.
  * @param pokeId - The ID of the Pokémon whose current HP should be updated.
  * @param newHp - The new HP value to set for the Pokémon.
  */
-export async function updateCurrentHp(ownerId: ObjectId, pokeId: number, newHp: number) {
+export async function updateCurrentHp(userId: ObjectId, pokeId: number, newHp: number) {
     const result = await myPokemonCollection.updateOne(
-        { ownerId: ownerId, "pokemon.id": pokeId },  
+        { ownerId: userId, "pokemon.id": pokeId },  
         { $set: { "pokemon.$.currentHp": newHp } }
       );
 
     if (result.matchedCount === 0) {
-        console.log(`No pokemon found for owner ${ownerId} with pokeId ${pokeId}`)
+        console.log(`No pokemon found for owner ${userId} with pokeId ${pokeId}`)
     }
 }
 
