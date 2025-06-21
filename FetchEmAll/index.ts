@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import session from "./session";
 
 import pokedexRoute from "./routes/pokedex";
 import wtpRoute from "./routes/wtp";
@@ -13,7 +14,6 @@ import signUpRoute from "./routes/signUp";
 
 import { connect } from "./database";
 import { formattingLocals } from "./middleware/locals";
-import session from "./session";
 
 dotenv.config();
 
@@ -29,18 +29,17 @@ app.set("port", process.env.PORT);
 app.use(formattingLocals);
 app.use(session);
 
-
-app.use("/pokedex", pokedexRoute);
-app.use("/wtp", wtpRoute);
-app.use("/compare", compareRoute);
-app.use("/pokemon", pokemonRoute);
-app.use("/myPokemon", myPokemonRoute);
 app.use("/", landingRoute);
 app.use("/signin", signInRoute);
 app.use("/signup", signUpRoute);
+app.use("/pokedex", pokedexRoute);
+app.use("/pokemon", pokemonRoute);
+app.use("/compare", compareRoute);
+app.use("/myPokemon", myPokemonRoute);
+app.use("/wtp", wtpRoute);
 app.use("/battle", battleRoute);    
 
-app.get("/:status", async (req, res) => {
+app.get("/:status", async (_req, res) => {
     res.status(404);
     res.locals.currentPage = "404"
     res.render("404");

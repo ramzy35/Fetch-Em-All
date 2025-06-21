@@ -4,25 +4,6 @@ import { FullPokemon, MyPokemon, Pokemon, User } from "./interfaces";
 import dotenv from "dotenv"
 import bcrypt from "bcrypt"
 
-/**
- * ============================================================================
- *  ⚙️  Documentation Notice
- * ============================================================================
- *
- * This file's inline documentation was initially generated with the help of AI.
- * All comments and descriptions have been carefully reviewed and proofread by
- * the developer to ensure accuracy and clarity.
- *
- * ============================================================================
- */
-
-/**
- * Most used parameters:
- * 
- * @param userId:ObjectId   is the auto-generated objectId for a user in the userCollection, stored in the session token
- * @param pokeId:number     is the ID for a Pokémon in the pokedexCollection
- */
-
 dotenv.config();
 export const link = process.env.MONGO_URI || ""
 const client = new MongoClient(link);

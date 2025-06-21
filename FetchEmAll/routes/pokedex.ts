@@ -38,7 +38,7 @@ pokedexRoute.post("/nickname",secureMiddleware, async (req, res) => {
     res.redirect("/pokedex");
 });
 
-pokedexRoute.get("/:status", async (req, res) => {
+pokedexRoute.get("/:status", async (_req, res) => {
     res.status(404);
     res.locals.currentPage = "404"
     res.render("404");

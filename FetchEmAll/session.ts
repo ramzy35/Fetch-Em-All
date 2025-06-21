@@ -3,18 +3,6 @@ import session from "express-session";
 import { User } from "./interfaces";
 import mongoDbSession from "connect-mongodb-session";
 
-/**
- * ============================================================================
- *  ⚙️  Documentation Notice
- * ============================================================================
- *
- * This file's inline documentation was initially generated with the help of AI.
- * All comments and descriptions have been carefully reviewed and edited by
- * the developer to ensure accuracy and clarity.
- *
- * ============================================================================
- */
-
 const MongoDBStore = mongoDbSession(session);
 
 const mongoStore = new MongoDBStore({

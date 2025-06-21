@@ -30,7 +30,7 @@ signUpRoute.post("/", async (req, res) => {
     }
 });
 
-signUpRoute.get("/:status", async (req, res) => {
+signUpRoute.get("/:status", async (_req, res) => {
     res.status(404);
     res.locals.currentPage = "404"
     res.render("404");

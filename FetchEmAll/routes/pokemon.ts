@@ -14,7 +14,7 @@ pokemonRoute.get("/", secureMiddleware, pokeNamesLocal, myPokemonLocal, async (r
     res.render("pokemon", {pokemon: poke});
 });
 
-pokemonRoute.get("/:status", async (req, res) => {
+pokemonRoute.get("/:status", async (_req, res) => {
     res.status(404);
     res.locals.currentPage = "404"
     res.render("404");

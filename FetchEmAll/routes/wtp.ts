@@ -5,18 +5,6 @@ import { getPokemonById, levelPokemon } from "../database";
 import { Pokemon } from "../interfaces";
 import { ObjectId } from "mongodb";
 
-/**
- * ============================================================================
- *  ⚙️  Documentation Notice
- * ============================================================================
- *
- * This file's inline documentation was initially generated with the help of AI.
- * All comments and descriptions have been carefully reviewed and edited by
- * the developer to ensure accuracy and clarity.
- *
- * ============================================================================
- */
-
 const wtpRoute = express.Router();
 
 /**
@@ -35,7 +23,7 @@ async function rndmPoke():Promise<Pokemon> {
 
 let poke : Pokemon;
 
-wtpRoute.get("/", pokeNamesLocal, secureMiddleware, async (req, res) => {
+wtpRoute.get("/", pokeNamesLocal, secureMiddleware, async (_req, res) => {
     res.locals.currentPage = "wtp"
     poke = await rndmPoke()
     res.render("wtp", {
