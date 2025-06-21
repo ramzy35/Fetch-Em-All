@@ -22,6 +22,8 @@ signUpRoute.post("/", async (req, res) => {
         if (password !== confirmPassword) {
             return res.redirect("/signup?error=passwords+do+not+match");
         }
+        validateEmail(email);
+        validateUsername(username);
         await createUser(username, email, password);
         res.redirect("/signin");
     } catch (error: any){
@@ -29,6 +31,24 @@ signUpRoute.post("/", async (req, res) => {
         res.redirect("/signup?error=" + encodeURIComponent(error.message));
     }
 });
+
+function validateUsername(username : string) {
+    if(username.length <= 32) {
+        return true
+    } else {
+        throw new Error("Username cannot be longer than 32 characters")
+    }
+}
+
+function validateEmail(email : string) {
+    const emailPattern : RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(emailPattern.test(email)) {
+        return true;
+    } else {
+        throw new Error("Not a valid email!")
+    }
+
+}
 
 signUpRoute.get("/:status", async (_req, res) => {
     res.status(404);
